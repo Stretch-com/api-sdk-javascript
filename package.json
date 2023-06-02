@@ -1,0 +1,26 @@
+{
+  "name": "stretch-api",
+  "version": "1.0.0",
+  "description": "Client SDK for stretch API (stretch.com)",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Stretch-com/api-sdk-javascript.git"
+  },
+  "keywords": [
+    "stretch",
+    "api",
+    "stretch.com",
+    "stretching"
+  ],
+  "author": "Iurii Bell",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Stretch-com/api-sdk-javascript/issues"
+  },
+  "homepage": "https://github.com/Stretch-com/api-sdk-javascript#readme"
+}
