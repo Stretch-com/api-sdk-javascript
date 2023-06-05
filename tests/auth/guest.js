@@ -13,16 +13,23 @@ async function main() {
     console.log(stretch)
 
 
-    let guest = await stretch.login()
-    console.log(guest)
 
-    console.log(await stretch.auth.getUser())
+    //console.log(guest)
+
+    //console.log(await stretch.auth.getUser())
+
+    for (let i=0; i< 100; i++) {
+        let guest = await stretch.login('bell', '123456')
+        //let coaches = await stretch.search.search()
+        //let coaches_count = await stretch.search.count()
+        //console.log(coaches_count)
+    }
+
+    /*
 
     let coaches = await stretch.search.search()
-
     let coaches_count = await stretch.search.count()
 
-    console.log(coaches_count)
 
     for( const idx in coaches){
         console.log(`Coach: ${coaches[idx].coachId} ${coaches[idx].firstName}`)
@@ -30,7 +37,7 @@ async function main() {
         console.log(coach_info)
 
     }
-
+    */
     //console.log(coaches)
 
     //console.log(await stretch.auth.putUser({description: "I change it from API call"}))
