@@ -1,8 +1,9 @@
 {
-  "name": "stretch-api",
+  "name": "@stretch-com/stretch",
   "version": "1.0.0",
   "description": "Client SDK for stretch API (stretch.com)",
-  "main": "index.js",
+  "main": "index",
+  "types": "index",
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

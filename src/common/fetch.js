@@ -38,17 +38,18 @@ export async function apiFetch(uri, options, verifySSL = false) {
                //const text = await res.text()
                // console.log(text)
                 console.error(`Invalid JSON: ${err.message}`);
-                const error = new StretchError(res.status, `Invalid JSON: ${err.message}`, res);
+                const error = new StretchError(res.status, 'json-error', `Invalid JSON: ${err.message}`, res);
                 error.caught = err;
                 throw error;
             }
         } else {
-            console.error(`Error: ${res.status} ${res.statusText}`);
-            throw new StretchError(res.status, res.statusText, res );
+            const err = await res.json()
+            console.error(`Error: ${res.status} ${err.message}`);
+            throw new StretchError(res.status, err.error, err.message, res );
         }
     }catch (err){
         if (err instanceof StretchError ) throw err;
-        let error =  new StretchError(0, `Request error: ${err.message}` );
+        let error =  new StretchError(0, 'request-error', `Request error: ${err.message}` );
         console.log(err);
         if (err instanceof Response ){
             error.status = err.status;

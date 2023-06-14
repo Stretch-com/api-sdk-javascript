@@ -3,7 +3,7 @@ import {Auth} from "./auth/index.js";
 import {Coach} from "./coach/coach.js"
 import {Search} from "./search/search.js"
 
-export class Stretch extends StretchAuth{
+class Stretch extends StretchAuth{
 
     constructor(clientId, apiUrl = "https://stage.stretch.com", apiBase = '/api/v1') {
         super(clientId, apiUrl, apiBase);

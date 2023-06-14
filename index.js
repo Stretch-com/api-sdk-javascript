@@ -1,1 +1,4 @@
-module.exports = require('./src/stretch.js');
+
+import Stretch from './src/stretch.js';
+
+export default Stretch
