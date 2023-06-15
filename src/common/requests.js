@@ -44,7 +44,7 @@ export class StretchBase{
             this.#userId = null
         }
         if (payload)  payload = Object.keys(payload)
-            .filter((k) => payload[k] != null)
+            .filter((k) => payload[k] !== null)
             .reduce((a, k) => ({ ...a, [k]: payload[k] }), {});
 
 
@@ -72,8 +72,9 @@ export class StretchBase{
         }
 
         if (payload)  payload = Object.keys(payload)
-            .filter((k) => payload[k] != null)
+            .filter((k) => payload[k] !== null)
             .reduce((a, k) => ({ ...a, [k]: payload[k] }), {});
+
         return await apiFetch(
             this.url(uri),
             {
@@ -99,8 +100,9 @@ export class StretchBase{
         }
 
         if (query)  query = Object.keys(query)
-            .filter((k) => query[k] != null)
+            .filter((k) => query[k] !== null)
             .reduce((a, k) => ({ ...a, [k]: query[k] }), {});
+
 
         return await apiFetch(
             this.url(uri, query),
