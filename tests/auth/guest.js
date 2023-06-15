@@ -21,6 +21,11 @@ async function main() {
     let guest = await stretch.login('bell', '123456')
     console.log('GUEST:', guest)
 
+
+    const coaches_total = await stretch.admin.getCoachesCount()
+
+    console.log(coaches_total)
+
     const coaches = await stretch.admin.getCoaches({ limit: 2, page: 3})
 
     console.log(coaches)

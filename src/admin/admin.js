@@ -10,6 +10,12 @@ export class Admin{
         }
     }
 
+    async getCoachesCount(query={}){
+        if (await this._client.checkAuth()){
+            return await this._client.get(`/admin/coaches/count`, query)
+        }
+    }
+
 
 
 }
