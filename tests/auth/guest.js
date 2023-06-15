@@ -8,7 +8,8 @@ async function main() {
 //const Stretch = require('stretch-api') //= require('../../src/stretch')
 
     //'2f9445b3-5266-45cd-8a85-d5c3fff69781'
-    var stretch = new Stretch()
+    let clientId;
+    var stretch = new Stretch('2f9445b3-5266-45cd-8a85-d5c3fff69781')
 
     console.log(stretch)
 
@@ -17,9 +18,16 @@ async function main() {
     //console.log(guest)
 
     //console.log(await stretch.auth.getUser())
+    let guest = await stretch.login('bell', '123456')
+    console.log('GUEST:', guest)
 
-    for (let i=0; i< 100; i++) {
-        let guest = await stretch.login('bell', '123456')
+    const coaches = await stretch.admin.getCoaches()
+
+    console.log(coaches)
+
+
+    for (let i=0; i< 1; i++) {
+        //let guest = await stretch.login('bell', '123456')
         //let coaches = await stretch.search.search()
         //let coaches_count = await stretch.search.count()
         //console.log(coaches_count)

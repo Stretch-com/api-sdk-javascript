@@ -20,9 +20,10 @@ export async function apiFetch(uri, options, verifySSL = false) {
             //options['Access-Control-Allow-Origin'] = '*'
         }
         const startTime = performance.now()
+        console.log(uri)
         const res = await fetch(uri,options);
         console.log("Perfomance", performance.now()-startTime, 'ms')
-        // console.log(`status: ${res.status}`)
+        //console.log(`status: ${await res.json()}`)
         // console.log(res.headers.get("Content-Type"),)
 
         if (res.status >= 200 && res.status < 300) {
@@ -35,8 +36,8 @@ export async function apiFetch(uri, options, verifySSL = false) {
                     return await res.text();
                 }
             } catch (err) {
-               //const text = await res.text()
-               // console.log(text)
+                //const text = await res.text()
+                //console.log(text)
                 console.error(`Invalid JSON: ${err.message}`);
                 const error = new StretchError(res.status, 'json-error', `Invalid JSON: ${err.message}`, res);
                 error.caught = err;

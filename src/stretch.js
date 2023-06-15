@@ -2,11 +2,13 @@ import {StretchAuth} from "./common/auth.js";
 import {Auth} from "./auth/index.js";
 import {Coach} from "./coach/coach.js"
 import {Search} from "./search/search.js"
+import Admin from "./admin/admin.js";
 
 class Stretch extends StretchAuth{
 
     constructor(clientId, apiUrl = "https://stage.stretch.com", apiBase = '/api/v1') {
         super(clientId, apiUrl, apiBase);
+        this.admin = new Admin(this)
         this.auth = new Auth(this)
         this.coach = new Coach(this)
         this.search = new Search(this)
