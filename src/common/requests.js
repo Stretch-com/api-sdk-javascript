@@ -8,6 +8,7 @@ export class StretchBase{
     _apiBase = "/api/v1"
 
     #accessToken = null
+    #userId = null
     #refreshToken = null
     #tokenType = 'Bearer'
     #accessExpireDate= new Date()
@@ -20,6 +21,11 @@ export class StretchBase{
         //this._apiBase = `${apiUrl}${apiBase}`
     }
 
+    user(userId = null){
+        this.#userId = userId
+        return this
+    }
+
     url(uri, query = null){
         let lurl = new URL(`${this._apiBase}${uri}`, this._apiUrl)
         if (query != null) lurl.search = new URLSearchParams(query).toString();
@@ -29,16 +35,26 @@ export class StretchBase{
     async post(uri, payload = {}){
         //console.log(`ac: ${this.#tokenType} ${this.#accessToken}`)
         //console.log(payload)
+        let headers = {
+            Authorization: `${this.#tokenType} ${this.#accessToken}`,
+            'Content-Type': 'application/json',
+        }
+        if (this.#userId){
+            headers["Authorization-User"] = this.#userId
+            this.#userId = null
+        }
+        if (payload)  payload = Object.keys(payload)
+            .filter((k) => payload[k] != null)
+            .reduce((a, k) => ({ ...a, [k]: payload[k] }), {});
+
+
         return await apiFetch(
             this.url(uri),
             {
                 method: "POST",
                 credentials: 'include',
-                body: JSON.stringify(payload),
-                headers: {
-                    Authorization: `${this.#tokenType} ${this.#accessToken}`,
-                    'Content-Type': 'application/json',
-                }
+                body: JSON.stringify((payload)? payload: {}),
+                headers: headers
             }
         )
     }
@@ -46,16 +62,25 @@ export class StretchBase{
     async put(uri, payload = {}){
         //console.log(`ac: ${this.#tokenType} ${this.#accessToken}`)
         //console.log(payload)
+        let headers = {
+            Authorization: `${this.#tokenType} ${this.#accessToken}`,
+            'Content-Type': 'application/json',
+        }
+        if (this.#userId){
+            headers["Authorization-User"] = this.#userId
+            this.#userId = null
+        }
+
+        if (payload)  payload = Object.keys(payload)
+            .filter((k) => payload[k] != null)
+            .reduce((a, k) => ({ ...a, [k]: payload[k] }), {});
         return await apiFetch(
             this.url(uri),
             {
                 method: "PUT",
                 credentials: 'include',
-                body: JSON.stringify(payload),
-                headers: {
-                    Authorization: `${this.#tokenType} ${this.#accessToken}`,
-                    'Content-Type': 'application/json',
-                }
+                body: JSON.stringify((payload)? payload: {}),
+                headers: headers
             }
         )
     }
@@ -64,14 +89,25 @@ export class StretchBase{
 
     async get(uri, query = null){
         // console.log(`ac: ${this.#tokenType} ${this.#accessToken}`)
+        let headers = {
+            Authorization: `${this.#tokenType} ${this.#accessToken}`,
+            'Content-Type': 'application/json',
+        }
+        if (this.#userId){
+            headers["Authorization-User"] = this.#userId
+            this.#userId = null
+        }
+
+        if (query)  query = Object.keys(query)
+            .filter((k) => query[k] != null)
+            .reduce((a, k) => ({ ...a, [k]: query[k] }), {});
+
         return await apiFetch(
             this.url(uri, query),
             {
                 method: "GET",
                 credentials: 'include',
-                headers: {
-                    Authorization: `${this.#tokenType} ${this.#accessToken}`,
-                }
+                headers: headers
             }
         )
     }
@@ -171,6 +207,7 @@ export class StretchBase{
     async logout(){
         this.#accessToken = null;
         this.#refreshToken = null;
+        this.#userId = null;
         this.#accessExpireDate = new Date()
         this.#refreshExpireDate = new Date()
         try{

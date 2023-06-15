@@ -9,7 +9,7 @@ async function main() {
 
     //'2f9445b3-5266-45cd-8a85-d5c3fff69781'
     let clientId;
-    var stretch = new Stretch('2f9445b3-5266-45cd-8a85-d5c3fff69781', "http://localhost:8000")
+    var stretch = new Stretch('2f9445b3-5266-45cd-8a85-d5c3fff69781') //, "http://localhost:8000"
 
     console.log(stretch)
 
@@ -21,12 +21,19 @@ async function main() {
     let guest = await stretch.login('bell', '123456')
     console.log('GUEST:', guest)
 
+    //const info = await stretch.auth.getUser()
+    //console.log(info)
 
-    const coaches_total = await stretch.admin.getCoachesCount()
+    //const info2 = await stretch.user('afdab3e9-ebdd-4fba-958f-cef2995f8349').auth.getUser()
+    //console.log(info2)
+
+
+
+    const coaches_total = await stretch.admin.getCoachesCount(null)
 
     console.log(coaches_total)
 
-    const coaches = await stretch.admin.getCoaches({ limit: 2, page: 3})
+    const coaches = await stretch.admin.getCoaches({ availability: null })
 
     console.log(coaches)
 
