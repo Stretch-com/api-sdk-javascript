@@ -20,7 +20,7 @@ export async function apiFetch(uri, options, verifySSL = false) {
             //options['Access-Control-Allow-Origin'] = '*'
         }
         const startTime = performance.now()
-        console.log(uri)
+        //console.log(uri)
         const res = await fetch(uri,options);
         console.log("Perfomance", performance.now()-startTime, 'ms')
         //console.log(`status: ${await res.json()}`)

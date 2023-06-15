@@ -9,7 +9,7 @@ async function main() {
 
     //'2f9445b3-5266-45cd-8a85-d5c3fff69781'
     let clientId;
-    var stretch = new Stretch('2f9445b3-5266-45cd-8a85-d5c3fff69781')
+    var stretch = new Stretch('2f9445b3-5266-45cd-8a85-d5c3fff69781', "http://localhost:8000")
 
     console.log(stretch)
 
@@ -21,7 +21,7 @@ async function main() {
     let guest = await stretch.login('bell', '123456')
     console.log('GUEST:', guest)
 
-    const coaches = await stretch.admin.getCoaches()
+    const coaches = await stretch.admin.getCoaches({ limit: 2, page: 3})
 
     console.log(coaches)
 
