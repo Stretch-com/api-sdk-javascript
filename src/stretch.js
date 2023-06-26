@@ -12,7 +12,6 @@ class Stretch extends StretchAuth{
         this.admin = new Admin(this)
         this.auth = new Auth(this)
         this.coach = new Coach(this)
-        this.admin = new Admin(this)
         this.search = new Search(this)
     }
 
