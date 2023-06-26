@@ -18,6 +18,11 @@ export class Admin{
 
 
 
+    async postSupportFeedback(form){
+        if (await this._client.checkAuth()){
+            return await this._client.postForm(`/admin/support/feedback`, form)
+        }
+    }
 }
 
 export default Admin;

@@ -32,6 +32,23 @@ export class StretchBase{
         return lurl
     }
 
+    async postForm(uri, body, contentType='multipart/form-data'){
+        //console.log(`ac: ${this.#tokenType} ${this.#accessToken}`)
+        //console.log(payload)
+        return await apiFetch(
+            this.url(uri),
+            {
+                method: "POST",
+                credentials: 'include',
+                body: body,
+                headers: {
+                    Authorization: `${this.#tokenType} ${this.#accessToken}`,
+                    'Content-Type': contentType,
+                }
+            }
+        )
+    }
+
     async post(uri, payload = {}){
         //console.log(`ac: ${this.#tokenType} ${this.#accessToken}`)
         //console.log(payload)

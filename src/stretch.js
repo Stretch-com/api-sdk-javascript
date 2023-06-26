@@ -1,4 +1,5 @@
 import {StretchAuth} from "./common/auth.js";
+import {Admin} from "./admin/admin.js";
 import {Auth} from "./auth/index.js";
 import {Coach} from "./coach/coach.js"
 import {Search} from "./search/search.js"
@@ -11,6 +12,7 @@ class Stretch extends StretchAuth{
         this.admin = new Admin(this)
         this.auth = new Auth(this)
         this.coach = new Coach(this)
+        this.admin = new Admin(this)
         this.search = new Search(this)
     }
 
