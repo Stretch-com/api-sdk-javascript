@@ -21,6 +21,12 @@ async function main() {
     let guest = await stretch.login('bell', '123456')
     console.log('GUEST:', guest)
 
+    let form = new FormData()
+
+    form.append('reason', "test method")
+    form.append('message', "test method")
+
+    await stretch.admin.postSupportFeedback(form)
     //const info = await stretch.auth.getUser()
     //console.log(info)
 
@@ -29,13 +35,13 @@ async function main() {
 
 
 
-    const coaches_total = await stretch.admin.getCoachesCount(null)
+    //const coaches_total = await stretch.admin.getCoachesCount(null)
 
-    console.log(coaches_total)
+    //console.log(coaches_total)
 
-    const coaches = await stretch.admin.getCoaches({ availability: null })
+    //const coaches = await stretch.admin.getCoaches({ availability: null })
 
-    console.log(coaches)
+    //console.log(coaches)
 
 
     for (let i=0; i< 1; i++) {

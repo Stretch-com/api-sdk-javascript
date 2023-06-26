@@ -43,7 +43,6 @@ export class StretchBase{
                 body: body,
                 headers: {
                     Authorization: `${this.#tokenType} ${this.#accessToken}`,
-                    'Content-Type': contentType,
                 }
             }
         )

@@ -45,7 +45,7 @@ export async function apiFetch(uri, options, verifySSL = false) {
             }
         } else {
             const err = await res.json()
-            console.error(`Error: ${res.status} ${err.message}`);
+            console.error(`Error: ${res.status} ${JSON.stringify(err)}`);
             throw new StretchError(res.status, err.error, err.message, res );
         }
     }catch (err){
