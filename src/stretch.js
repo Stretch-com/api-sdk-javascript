@@ -1,9 +1,8 @@
-import {StretchAuth} from "./common/auth.js";
-import {Admin} from "./admin/admin.js";
-import {Auth} from "./auth/index.js";
-import {Coach} from "./coach/coach.js"
-import {Search} from "./search/search.js"
-import Admin from "./admin/admin.js";
+import { Admin } from "./admin/admin.js";
+import { Auth } from "./auth/index.js";
+import { Coach } from "./coach/coach.js";
+import { StretchAuth } from "./common/auth.js";
+import { Search } from "./search/search.js";
 
 class Stretch extends StretchAuth{
 
