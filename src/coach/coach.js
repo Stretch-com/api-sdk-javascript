@@ -3,7 +3,7 @@ export class Coach {
     this._client = client;
   }
 
-  async getCoachProfile(coachId) {
+  async getProfile(coachId) {
     if (await this._client.checkAuth()) {
       return await this._client.get(`/coach/${coachId}/profile`);
     }
