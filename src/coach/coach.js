@@ -10,19 +10,19 @@ export class Coach {
   }
 
   // Coach availability CRUD
-  async getCoachAvailability() {
+  async getAvailability() {
     if (await this._client.checkAuth()) {
       return await this._client.get(`/coach/availability`);
     }
   }
 
-  async createTimeAvailability(payload) {
+  async postAvailability(payload) {
     if (await this._client.checkAuth()) {
       return await this._client.post("/coach/availability", payload);
     }
   }
 
-  async updateTimeAvailability(availabilityId, payload) {
+  async putAvailability(availabilityId, payload) {
     if (await this._client.checkAuth()) {
       return await this._client.put(
         `/coach/availability/${availabilityId}`,
@@ -31,9 +31,9 @@ export class Coach {
     }
   }
 
-  async removeSlotAvailability(availabilityId) {
+  async deleteAvailability(availabilityId) {
     if (await this._client.checkAuth()) {
-      return await this._client.post(`/coach/availability/${availabilityId}`);
+      return await this._client.delete(`/coach/availability/${availabilityId}`);
     }
   }
 
@@ -44,27 +44,27 @@ export class Coach {
     }
   }
 
-  async getCoachServices(query = {}) {
+  async getServices(query = {}) {
     if (await this._client.checkAuth()) {
       return await this._client.get("/coach/services", query);
     }
   }
 
-  async createCoachService(payload) {
+  async postService(payload) {
     if (await this._client.checkAuth()) {
       return await this._client.post("/coach/service", payload);
     }
   }
 
-  async updateCoachService(serviceId, payload) {
+  async putService(serviceId, payload) {
     if (await this._client.checkAuth()) {
       return await this._client.put(`/coach/${serviceId}`, payload);
     }
   }
 
-  async deleteCoachService(serviceId) {
+  async deleteService(serviceId) {
     if (await this._client.checkAuth()) {
-      return await this._client.post(`/coach/${serviceId}`);
+      return await this._client.delete(`/coach/${serviceId}`);
     }
   }
 }

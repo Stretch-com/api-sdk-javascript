@@ -4,7 +4,7 @@ class Storage {
   }
 
   // User avatar
-  async uploadUserAvatar(form) {
+  async postAvatar(form) {
     if (await this._client.checkAuth()) {
       return await this._client.postForm("/storage/profile/avatar", form);
     }
@@ -12,12 +12,12 @@ class Storage {
 
   async deleteAvatar() {
     if (await this._client.checkAuth()) {
-      return await this._client.post("/storage/profile/avatar");
+      return await this._client.delete("/storage/profile/avatar");
     }
   }
 
   // Upload gallery
-  async uploadImage(form) {
+  async postImage(form) {
     if (await this._client.checkAuth()) {
       return await this._client.postForm("/storage/image", form);
     }
@@ -30,13 +30,13 @@ class Storage {
     }
   }
 
-  async listImages() {
+  async getImages() {
     if (await this._client.checkAuth()) {
       return await this._client.get("/storage/images");
     }
   }
 
-  async updateImage(imageId, form) {
+  async putImage(imageId, form) {
     if (await this._client.checkAuth()) {
       return await this._client.putForm(`/storage/image/${imageId}`, form);
     }
@@ -44,24 +44,24 @@ class Storage {
 
   async deleteImage(imageId) {
     if (await this._client.checkAuth()) {
-      return await this._client.post(`/storage/image/${imageId}`);
+      return await this._client.delete(`/storage/image/${imageId}`);
     }
   }
 
   // Upload certificates
-  async uploadCertificate(form) {
+  async postCertificate(form) {
     if (await this._client.checkAuth()) {
       return await this._client.postForm("/storage/certificate", form);
     }
   }
 
-  async listCertificates() {
+  async getCertificates() {
     if (await this._client.checkAuth()) {
       return await this._client.get("/storage/certificates");
     }
   }
 
-  async updateCertificate(certificateId, form) {
+  async putCertificate(certificateId, form) {
     if (await this._client.checkAuth()) {
       return await this._client.putForm(
         `/storage/certificates/${certificateId}`,
@@ -72,7 +72,7 @@ class Storage {
 
   async deleteCertificate(certificateId) {
     if (await this._client.checkAuth()) {
-      return await this._client.post(`/storage/certificates/${certificateId}`);
+      return await this._client.delete(`/storage/certificates/${certificateId}`);
     }
   }
 }
