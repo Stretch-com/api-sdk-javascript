@@ -43,6 +43,7 @@ export class StretchBase{
                 body: body,
                 headers: {
                     Authorization: `${this.#tokenType} ${this.#accessToken}`,
+                    'Content-Type': contentType,
                 }
             }
         )
@@ -71,6 +72,21 @@ export class StretchBase{
                 credentials: 'include',
                 body: JSON.stringify((payload)? payload: {}),
                 headers: headers
+            }
+        )
+    }
+
+    async putForm(uri, body, contentType='multipart/form-data'){
+        return await apiFetch(
+            this.url(uri),
+            {
+                method: "PUT",
+                credentials: 'include',
+                body: body,
+                headers: {
+                    Authorization: `${this.#tokenType} ${this.#accessToken}`,
+                    'Content-Type': contentType,
+                }
             }
         )
     }
