@@ -16,6 +16,12 @@ export class Admin{
         }
     }
 
+    async postCoach(payload={}){
+        if (await this._client.checkAuth()){
+            return await this._client.post(`/admin/coach`, payload)
+        }
+    }
+
 
 
     async postSupportFeedback(form){
