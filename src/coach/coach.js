@@ -16,6 +16,12 @@ export class Coach {
     }
   }
 
+  async getAvailabilityCalendar(payload = {}) {
+    if (await this._client.checkAuth()) {
+      return await this._client.get(`/coach/availability/calendar`, payload);
+    }
+  }
+
   async postAvailability(payload) {
     if (await this._client.checkAuth()) {
       return await this._client.post("/coach/availability", payload);
