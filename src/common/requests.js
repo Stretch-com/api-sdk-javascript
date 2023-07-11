@@ -1,22 +1,22 @@
-import { StretchError } from "./error.js";
-import { apiFetch } from "./fetch.js";
+import { StretchError } from './error.js';
+import { apiFetch } from './fetch.js';
 
 export class StretchBase {
   _clientId = null;
   _apiUrl = null;
-  _apiBase = "/api/v1";
+  _apiBase = '/api/v1';
 
   #accessToken = null;
   #userId = null;
   #refreshToken = null;
-  #tokenType = "Bearer";
+  #tokenType = 'Bearer';
   #accessExpireDate = new Date();
   #refreshExpireDate = new Date();
 
   constructor(
     clientId,
-    apiUrl = "https://stage.stretch.com",
-    apiBase = "/api/v1"
+    apiUrl = 'https://stage.stretch.com',
+    apiBase = '/api/v1'
   ) {
     this._clientId = clientId;
     this._apiUrl = apiUrl;
@@ -36,23 +36,28 @@ export class StretchBase {
   }
 
   async postForm(uri, body) {
+    let headers = {
+      Authorization: `${this.#tokenType} ${this.#accessToken}`,
+    };
+    if (this.#userId) {
+      headers['Authorization-User'] = this.#userId;
+      this.#userId = null;
+    }
     return await apiFetch(this.url(uri), {
-      method: "POST",
-      credentials: "include",
+      method: 'POST',
+      credentials: 'include',
       body: body,
-      headers: {
-        Authorization: `${this.#tokenType} ${this.#accessToken}`,
-      },
+      headers: headers,
     });
   }
 
   async post(uri, payload = {}) {
     let headers = {
       Authorization: `${this.#tokenType} ${this.#accessToken}`,
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
     };
     if (this.#userId) {
-      headers["Authorization-User"] = this.#userId;
+      headers['Authorization-User'] = this.#userId;
       this.#userId = null;
     }
     if (payload)
@@ -61,32 +66,37 @@ export class StretchBase {
         .reduce((a, k) => ({ ...a, [k]: payload[k] }), {});
 
     return await apiFetch(this.url(uri), {
-      method: "POST",
-      credentials: "include",
+      method: 'POST',
+      credentials: 'include',
       body: JSON.stringify(payload ? payload : {}),
       headers: headers,
     });
   }
 
-  async putForm(uri, body, contentType = "multipart/form-data") {
+  async putForm(uri, body, contentType = 'multipart/form-data') {
+    let headers = {
+      Authorization: `${this.#tokenType} ${this.#accessToken}`,
+      'Content-Type': contentType,
+    };
+    if (this.#userId) {
+      headers['Authorization-User'] = this.#userId;
+      this.#userId = null;
+    }
     return await apiFetch(this.url(uri), {
-      method: "PUT",
-      credentials: "include",
+      method: 'PUT',
+      credentials: 'include',
       body: body,
-      headers: {
-        Authorization: `${this.#tokenType} ${this.#accessToken}`,
-        "Content-Type": contentType,
-      },
+      headers: headers,
     });
   }
 
   async put(uri, payload = {}) {
     let headers = {
       Authorization: `${this.#tokenType} ${this.#accessToken}`,
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
     };
     if (this.#userId) {
-      headers["Authorization-User"] = this.#userId;
+      headers['Authorization-User'] = this.#userId;
       this.#userId = null;
     }
 
@@ -96,8 +106,8 @@ export class StretchBase {
         .reduce((a, k) => ({ ...a, [k]: payload[k] }), {});
 
     return await apiFetch(this.url(uri), {
-      method: "PUT",
-      credentials: "include",
+      method: 'PUT',
+      credentials: 'include',
       body: JSON.stringify(payload ? payload : {}),
       headers: headers,
     });
@@ -106,10 +116,10 @@ export class StretchBase {
   async get(uri, query = null) {
     let headers = {
       Authorization: `${this.#tokenType} ${this.#accessToken}`,
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
     };
     if (this.#userId) {
-      headers["Authorization-User"] = this.#userId;
+      headers['Authorization-User'] = this.#userId;
       this.#userId = null;
     }
 
@@ -119,19 +129,19 @@ export class StretchBase {
         .reduce((a, k) => ({ ...a, [k]: query[k] }), {});
 
     return await apiFetch(this.url(uri, query), {
-      method: "GET",
-      credentials: "include",
+      method: 'GET',
+      credentials: 'include',
       headers: headers,
     });
   }
 
   async delete(uri, query = null) {
     return await apiFetch(this.url(uri), {
-      method: "DELETE",
-      credentials: "include",
+      method: 'DELETE',
+      credentials: 'include',
       headers: {
         Authorization: `${this.#tokenType} ${this.#accessToken}`,
-        "Content-Type": contentType,
+        'Content-Type': contentType,
       },
     });
   }
@@ -140,50 +150,50 @@ export class StretchBase {
     let storageExists;
 
     try {
-      localStorage.getItem("access_token");
+      localStorage.getItem('access_token');
       storageExists = true;
     } catch (e) {
-      console.error("LocalStorage in current context not exists");
+      console.error('LocalStorage in current context not exists');
       storageExists = false;
     }
 
-    if (res.hasOwnProperty("access_token")) {
-      this.#accessToken = res["access_token"];
+    if (res.hasOwnProperty('access_token')) {
+      this.#accessToken = res['access_token'];
       if (storageExists)
-        localStorage.setItem("access_token", res["access_token"]);
+        localStorage.setItem('access_token', res['access_token']);
     }
 
-    if (res.hasOwnProperty("refresh_token")) {
-      this.#refreshToken = res["refresh_token"];
+    if (res.hasOwnProperty('refresh_token')) {
+      this.#refreshToken = res['refresh_token'];
       if (storageExists)
-        localStorage.setItem("refresh_token", res["refresh_token"]);
+        localStorage.setItem('refresh_token', res['refresh_token']);
     }
 
-    if (res.hasOwnProperty("token_type")) {
-      this.#tokenType = res["token_type"];
-      if (storageExists) localStorage.setItem("token_type", res["token_type"]);
+    if (res.hasOwnProperty('token_type')) {
+      this.#tokenType = res['token_type'];
+      if (storageExists) localStorage.setItem('token_type', res['token_type']);
     }
 
-    if (res.hasOwnProperty("access_expire")) {
+    if (res.hasOwnProperty('access_expire')) {
       let currentTime = new Date();
       currentTime.setSeconds(
-        currentTime.getSeconds() + res["access_expire"] - 10
+        currentTime.getSeconds() + res['access_expire'] - 10
       );
       this.#accessExpireDate = currentTime;
 
       if (storageExists)
-        localStorage.setItem("access_expire_date", currentTime);
+        localStorage.setItem('access_expire_date', currentTime);
     }
 
-    if (res.hasOwnProperty("refresh_expire")) {
+    if (res.hasOwnProperty('refresh_expire')) {
       let currentTime = new Date();
       currentTime.setSeconds(
-        currentTime.getSeconds() + res["refresh_expire"] - 60
+        currentTime.getSeconds() + res['refresh_expire'] - 60
       );
 
       this.#refreshExpireDate = currentTime;
       if (storageExists)
-        localStorage.setItem("refresh_expire_date", currentTime);
+        localStorage.setItem('refresh_expire_date', currentTime);
     }
 
     return res;
@@ -194,23 +204,23 @@ export class StretchBase {
     let refreshToken = null;
 
     try {
-      localStorage.getItem("access_token");
+      localStorage.getItem('access_token');
       storageExists = true;
     } catch (e) {
-      console.error("LocalStorage in current context not exists");
+      console.error('LocalStorage in current context not exists');
       storageExists = false;
     }
 
-    if (storageExists) refreshToken = localStorage.getItem("");
+    if (storageExists) refreshToken = localStorage.getItem('');
     if (refreshToken == null) refreshToken = this.#refreshToken;
     if (refreshToken == null) {
-      console.error("Refresh token not set");
-      throw new StretchError(401, "Refresh token error");
+      console.error('Refresh token not set');
+      throw new StretchError(401, 'Refresh token error');
     }
 
-    const res = await apiFetch(this.url("/auth/refresh"), {
-      method: "POST",
-      credentials: "include",
+    const res = await apiFetch(this.url('/auth/refresh'), {
+      method: 'POST',
+      credentials: 'include',
       headers: {
         Authorization: `${this.#tokenType} ${refreshToken}`,
       },
@@ -221,17 +231,17 @@ export class StretchBase {
   async loginAsGuest() {
     const basic = btoa(`${this._clientId}:`);
     const payload = {
-      grant_type: "create",
-      timezone: "Asia/Dubai",
+      grant_type: 'create',
+      timezone: 'Asia/Dubai',
     };
 
-    const res = await apiFetch(this.url("/auth/guest"), {
-      method: "POST",
+    const res = await apiFetch(this.url('/auth/guest'), {
+      method: 'POST',
       body: JSON.stringify(payload),
-      credentials: "include",
+      credentials: 'include',
       headers: {
         Authorization: `Basic ${basic}`,
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
         //'Access-Control-Allow-Credentials': true,
       },
     });
@@ -252,10 +262,10 @@ export class StretchBase {
     this.#refreshExpireDate = new Date();
 
     try {
-      localStorage.removeItem("access_token");
-      localStorage.removeItem("access_expire_date");
-      localStorage.removeItem("refresh_token");
-      localStorage.removeItem("refresh_expire_date");
+      localStorage.removeItem('access_token');
+      localStorage.removeItem('access_expire_date');
+      localStorage.removeItem('refresh_token');
+      localStorage.removeItem('refresh_expire_date');
     } catch (e) {
       console.error(`LocalStorage in current context not exists ${e}`);
     }
@@ -264,16 +274,16 @@ export class StretchBase {
   isLogin() {
     try {
       if (this.#accessToken == null) {
-        this.#accessToken = localStorage.getItem("access_token");
+        this.#accessToken = localStorage.getItem('access_token');
         this.#accessExpireDate = new Date(
-          Date.parse(localStorage.getItem("access_expire_date"))
+          Date.parse(localStorage.getItem('access_expire_date'))
         );
       }
 
       if (this.#refreshToken == null) {
-        this.#refreshToken = localStorage.getItem("refresh_token");
+        this.#refreshToken = localStorage.getItem('refresh_token');
         this.#refreshExpireDate = new Date(
-          Date.parse(localStorage.getItem("refresh_expire_date"))
+          Date.parse(localStorage.getItem('refresh_expire_date'))
         );
       }
     } catch (e) {
@@ -303,6 +313,6 @@ export class StretchBase {
         return true;
       }
     }
-    throw new StretchError(401, "Unauthorized");
+    throw new StretchError(401, 'Unauthorized');
   }
 }
