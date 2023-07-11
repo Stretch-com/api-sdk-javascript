@@ -2,7 +2,7 @@ import { Admin } from "./admin/admin.js";
 import { Auth } from "./auth/index.js";
 import { Coach } from "./coach/coach.js";
 import { StretchAuth } from "./common/auth.js";
-import Nav from "./nav/nav.js";
+import { Nav } from "./nav/nav.js";
 import { Search } from "./search/search.js";
 import Storage from "./storage/storage.js";
 

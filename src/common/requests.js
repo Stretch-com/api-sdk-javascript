@@ -35,14 +35,13 @@ export class StretchBase {
     return lurl;
   }
 
-  async postForm(uri, body, contentType = "multipart/form-data") {
+  async postForm(uri, body) {
     return await apiFetch(this.url(uri), {
       method: "POST",
       credentials: "include",
       body: body,
       headers: {
         Authorization: `${this.#tokenType} ${this.#accessToken}`,
-        "Content-Type": contentType,
       },
     });
   }
