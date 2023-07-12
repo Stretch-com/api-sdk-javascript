@@ -3,6 +3,12 @@ export class Nav {
     this._client = client;
   }
 
+  async getLocation() {
+    if (await this._client.checkAuth()) {
+      return await this._client.get(`/nav/location`);
+    }
+  }
+
   async getLocations() {
     if (await this._client.checkAuth()) {
       return await this._client.get(`/nav/locations`);
