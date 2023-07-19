@@ -22,6 +22,18 @@ export class Admin{
         }
     }
 
+    async getClients(query={}){
+        if (await this._client.checkAuth()){
+            return await this._client.get(`/admin/clients`, query)
+        }
+    }
+
+    async getClientsCount(query={}){
+        if (await this._client.checkAuth()){
+            return await this._client.get(`/admin/clients/count`, query)
+        }
+    }
+
 
 
     async postSupportFeedback(form){
