@@ -136,13 +136,17 @@ export class StretchBase {
   }
 
   async delete(uri, query = null) {
+    let headers = {
+      Authorization: `${this.#tokenType} ${this.#accessToken}`,
+    };
+    if (this.#userId) {
+      headers["Authorization-User"] = this.#userId;
+      this.#userId = null;
+    }
     return await apiFetch(this.url(uri), {
       method: "DELETE",
       credentials: "include",
-      headers: {
-        Authorization: `${this.#tokenType} ${this.#accessToken}`,
-        "Content-Type": contentType,
-      },
+      headers: headers,
     });
   }
 
