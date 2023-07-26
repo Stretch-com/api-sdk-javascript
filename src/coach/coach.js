@@ -68,6 +68,12 @@ export class Coach {
     if (await this._client.checkAuth())
       return await this._client.put("/coach/available", query);
   }
+
+  // Session
+  async getSession(sessionId) {
+    if (await this._client.checkAuth())
+      return await this._client.get(`/session/${sessionId}`);
+  }
 }
 
 export default Coach;

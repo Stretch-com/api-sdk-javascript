@@ -51,13 +51,7 @@ export class Admin {
 
   async getSessionCount(query = {}) {
     if (await this._client.checkAuth()) {
-      return await this._client.get("/admin/session/count", query);
-    }
-  }
-
-  async getSessionStates() {
-    if (await this._client.checkAuth()) {
-      return await this._client.get("/admin/sessionstates");
+      return await this._client.get("/admin/sessions/count", query);
     }
   }
 }
