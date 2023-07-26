@@ -15,8 +15,8 @@ export class StretchBase {
 
   constructor(
     clientId,
-    apiUrl = "http://localhost:8000",
-    // apiUrl = "https://stage.stretch.com",
+    // apiUrl = "http://localhost:8000",
+    apiUrl = "https://stage.stretch.com",
     apiBase = "/api/v1"
   ) {
     this._clientId = clientId;
