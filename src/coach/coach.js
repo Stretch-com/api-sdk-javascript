@@ -93,6 +93,14 @@ export class Coach {
         message,
       });
   }
+
+  async getAvailabilityService(serviceId, query = {}) {
+    if (await this._client.checkAuth())
+      return await this._client.post(
+        `/service/${serviceId}/availability`,
+        query
+      );
+  }
 }
 
 export default Coach;
