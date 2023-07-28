@@ -4,6 +4,7 @@ import { Coach } from "./coach/coach.js";
 import { StretchAuth } from "./common/auth.js";
 import { Nav } from "./nav/nav.js";
 import { Search } from "./search/search.js";
+import Session from "./session/session.js";
 import Storage from "./storage/storage.js";
 
 class Stretch extends StretchAuth {
@@ -20,6 +21,7 @@ class Stretch extends StretchAuth {
     this.nav = new Nav(this);
     this.search = new Search(this);
     this.storage = new Storage(this);
+    this.session = new Session(this);
   }
 }
 
