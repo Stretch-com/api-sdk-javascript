@@ -1,4 +1,4 @@
-export class Admin {
+class Admin {
   constructor(client) {
     this._client = client;
   }

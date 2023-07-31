@@ -1,4 +1,4 @@
-export class Coach {
+class Coach {
   constructor(client) {
     this._client = client;
   }
@@ -38,11 +38,6 @@ export class Coach {
   }
 
   // Coach service CRUD
-  async getServiceTypes() {
-    if (await this._client.checkAuth())
-      return await this._client.get("/servicetypes");
-  }
-
   async getServices(query = {}) {
     if (await this._client.checkAuth())
       return await this._client.get("/coach/services", query);
@@ -67,39 +62,6 @@ export class Coach {
   async putAvailable(query = {}) {
     if (await this._client.checkAuth())
       return await this._client.put("/coach/available", query);
-  }
-
-  // Session
-  async getSession(sessionId) {
-    if (await this._client.checkAuth())
-      return await this._client.get(`/session/${sessionId}`);
-  }
-
-  async putSession(sessionId, query = {}) {
-    if (await this._client.checkAuth())
-      return await this._client.put(`/session/${sessionId}`, query);
-  }
-
-  async cancelSession(sessionId, message) {
-    if (await this._client.checkAuth())
-      return await this._client.put(`/session/${sessionId}/cancel`, {
-        message,
-      });
-  }
-
-  async refundSession(sessionId, message) {
-    if (await this._client.checkAuth())
-      return await this._client.get(`/session/${sessionId}/refund`, {
-        message,
-      });
-  }
-
-  async getAvailabilityService(serviceId, query = {}) {
-    if (await this._client.checkAuth())
-      return await this._client.post(
-        `/service/${serviceId}/availability`,
-        query
-      );
   }
 }
 
