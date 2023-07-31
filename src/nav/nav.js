@@ -1,4 +1,4 @@
-export class Nav {
+class Nav {
   constructor(client) {
     this._client = client;
   }
