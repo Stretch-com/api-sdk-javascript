@@ -8,6 +8,11 @@ class Service {
       return await this._client.get("/servicetypes");
   }
 
+  async getService(serviceId) {
+    if (await this._client.checkAuth())
+      return await this._client.get(`/service/${serviceId}`);
+  }
+
   async getAvailabilityService(serviceId, query = {}) {
     if (await this._client.checkAuth())
       return await this._client.post(
