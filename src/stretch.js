@@ -2,7 +2,7 @@ import { Auth } from "./auth/index.js";
 import { StretchAuth } from "./common/auth.js";
 
 import Admin from "./admin/admin.js";
-import Client from "./client/Client.js";
+import Client from "./client/client.js";
 import Coach from "./coach/coach.js";
 import Nav from "./nav/nav.js";
 import Search from "./search/search.js";
