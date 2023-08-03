@@ -2,6 +2,7 @@ import { Auth } from "./auth/index.js";
 import { StretchAuth } from "./common/auth.js";
 
 import Admin from "./admin/admin.js";
+import Client from "./client/Client.js";
 import Coach from "./coach/coach.js";
 import Nav from "./nav/nav.js";
 import Search from "./search/search.js";
@@ -26,6 +27,7 @@ class Stretch extends StretchAuth {
     this.storage = new Storage(this);
     this.session = new Session(this);
     this.service = new Service(this);
+    this.client = new Client(this);
   }
 }
 

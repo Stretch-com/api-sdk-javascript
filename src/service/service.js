@@ -25,6 +25,11 @@ class Service {
     if (await this._client.checkAuth())
       return await this._client.get(`/service/${coachId}/reviews`);
   }
+
+  async getCoachReviewsInfo(coachId) {
+    if (await this._client.checkAuth())
+      return await this._client.get(`/service/${coachId}/reviews/info`);
+  }
 }
 
 export default Service;
