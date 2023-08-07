@@ -3,7 +3,7 @@ class Admin {
     this._client = client;
   }
 
-  // Coaches endpoints
+  // Coach endpoints
   async getCoaches(query = {}) {
     if (await this._client.checkAuth())
       return await this._client.get(`/admin/coaches`, query);
@@ -19,7 +19,7 @@ class Admin {
       return await this._client.post(`/admin/coach`, payload);
   }
 
-  // Clients endpoints
+  // Client endpoints
   async getClients(query = {}) {
     if (await this._client.checkAuth())
       return await this._client.get(`/admin/clients`, query);
@@ -47,20 +47,31 @@ class Admin {
       return await this._client.get("/admin/sessions/count", query);
   }
 
-  // Reviews endpoints
+  // Review endpoints
   async getReviews(query = {}) {
     if (await this._client.checkAuth())
       return await this._client.get("/admin/reviews", query);
   }
 
-  async hideReview(reviewId) {
+  async putReview(reviewId, query = {}) {
     if (await this._client.checkAuth())
-      return await this._client.put(`/admin/review/${reviewId}/hide`);
+      return await this._client.put(`/admin/review/${reviewId}`, query);
   }
 
-  async unhideReview(reviewId) {
+  // Transaction endpoints
+  async getTransactions(query = {}) {
     if (await this._client.checkAuth())
-      return await this._client.put(`/admin/review/${reviewId}/unhide`);
+      return await this._client.get(`/admin/transactions/`, query);
+  }
+
+  async getTransactionsCount(query = {}) {
+    if (await this._client.checkAuth())
+      return await this._client.get(`/admin/transactions/count`, query);
+  }
+
+  async getTransactionsInfo() {
+    if (await this._client.checkAuth())
+      return await this._client.get(`/admin/transactions/info`);
   }
 }
 
