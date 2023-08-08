@@ -73,6 +73,11 @@ class Admin {
     if (await this._client.checkAuth())
       return await this._client.get(`/admin/transactions/info`);
   }
+
+  async getTransactionDetail(transactionId) {
+    if (await this._client.checkAuth())
+      return await this._client.get(`/admin/transaction/${transactionId}`);
+  }
 }
 
 export default Admin;
