@@ -19,6 +19,11 @@ class Admin {
       return await this._client.post(`/admin/coach`, payload);
   }
 
+  async putCoach(coachId, payload = {}) {
+    if (await this._client.checkAuth())
+      return await this._client.put(`/admin/coach/${coachId}`, payload);
+  }
+
   // Client endpoints
   async getClients(query = {}) {
     if (await this._client.checkAuth())
