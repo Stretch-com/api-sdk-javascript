@@ -14,14 +14,19 @@ class Admin {
       return await this._client.get(`/admin/coaches/count`, query);
   }
 
-  async postCoach(payload = {}) {
+  async postCoach(query = {}) {
     if (await this._client.checkAuth())
-      return await this._client.post(`/admin/coach`, payload);
+      return await this._client.post(`/admin/coach`, query);
   }
 
-  async putCoach(coachId, payload = {}) {
+  async getCoachDetails(coachId) {
     if (await this._client.checkAuth())
-      return await this._client.put(`/admin/coach/${coachId}`, payload);
+      return await this._client.get(`/admin/coach/${coachId}`);
+  }
+
+  async putCoach(coachId, query = {}) {
+    if (await this._client.checkAuth())
+      return await this._client.put(`/admin/coach/${coachId}`, query);
   }
 
   // Client endpoints
@@ -90,6 +95,22 @@ class Admin {
         `/admin/transaction/${transactionId}/refund`,
         query
       );
+  }
+
+  // Verification endpoint
+  async getVerifications(query) {
+    if (await this._client.checkAuth())
+      return await this._client.get(`/admin/verifications`, query);
+  }
+
+  async getVerificationsCount(query) {
+    if (await this._client.checkAuth())
+      return await this._client.get(`/admin/verifications/count`, query);
+  }
+
+  async putVerifyCoach(coachId, query) {
+    if (await this._client.checkAuth())
+      return await this._client.put(`/admin/verification/${coachId}`, query);
   }
 }
 
