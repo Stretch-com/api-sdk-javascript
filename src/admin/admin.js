@@ -112,6 +112,17 @@ class Admin {
     if (await this._client.checkAuth())
       return await this._client.put(`/admin/verification/${coachId}`, query);
   }
+
+  // Report endpoint
+  async getReports(query) {
+    if (await this._client.checkAuth())
+      return await this._client.get(`/admin/reports`, query);
+  }
+
+  async getReportsCount(query) {
+    if (await this._client.checkAuth())
+      return await this._client.get(`/admin/reports/count`, query);
+  }
 }
 
 export default Admin;
