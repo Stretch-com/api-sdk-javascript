@@ -13,18 +13,14 @@ class Session {
       return await this._client.put(`/session/${sessionId}`, query);
   }
 
-  async cancelSession(sessionId, message) {
+  async cancelSession(sessionId, query = {}) {
     if (await this._client.checkAuth())
-      return await this._client.put(`/session/${sessionId}/cancel`, {
-        message,
-      });
+      return await this._client.put(`/session/${sessionId}/cancel`, query);
   }
 
-  async refundSession(sessionId, message) {
+  async refundSession(sessionId, query = {}) {
     if (await this._client.checkAuth())
-      return await this._client.get(`/session/${sessionId}/refund`, {
-        message,
-      });
+      return await this._client.get(`/session/${sessionId}/refund`, query);
   }
 
   async getSessionReviews(sessionId) {
