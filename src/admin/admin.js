@@ -84,7 +84,7 @@ class Admin {
       return await this._client.get(`/admin/transactions/info`);
   }
 
-  async getTransactionDetail(transactionId) {
+  async getTransactionDetails(transactionId) {
     if (await this._client.checkAuth())
       return await this._client.get(`/admin/transaction/${transactionId}`);
   }
@@ -122,6 +122,11 @@ class Admin {
   async getReportsCount(query) {
     if (await this._client.checkAuth())
       return await this._client.get(`/admin/reports/count`, query);
+  }
+
+  async getReportDetails(reportId) {
+    if (await this._client.checkAuth())
+      return await this._client.get(`/admin/report/${reportId}`);
   }
 }
 
