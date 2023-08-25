@@ -108,11 +108,6 @@ class Admin {
       return await this._client.get(`/admin/verifications/count`, query);
   }
 
-  async putVerifyCoach(coachId, query) {
-    if (await this._client.checkAuth())
-      return await this._client.put(`/admin/verification/${coachId}`, query);
-  }
-
   // Report endpoint
   async getReports(query) {
     if (await this._client.checkAuth())
@@ -127,6 +122,11 @@ class Admin {
   async getReportDetails(reportId) {
     if (await this._client.checkAuth())
       return await this._client.get(`/admin/report/${reportId}`);
+  }
+
+  async putReport(reportId, query) {
+    if (await this._client.checkAuth())
+      return await this._client.put(`/admin/report/${reportId}`, query);
   }
 }
 
