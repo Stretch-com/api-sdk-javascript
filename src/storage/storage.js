@@ -4,29 +4,25 @@ class Storage {
   }
 
   // User avatar
-  async postAvatar(form) {
-    if (await this._client.checkAuth()) {
-      return await this._client.postForm("/storage/profile/avatar", form);
-    }
+  async postAvatar(formData) {
+    if (await this._client.checkAuth())
+      return await this._client.postForm("/storage/profile/avatar", formData);
   }
 
   async deleteAvatar() {
-    if (await this._client.checkAuth()) {
+    if (await this._client.checkAuth())
       return await this._client.delete("/storage/profile/avatar");
-    }
   }
 
   // Upload gallery
-  async postImage(form) {
-    if (await this._client.checkAuth()) {
-      return await this._client.postForm("/storage/image", form);
-    }
+  async postImage(formData) {
+    if (await this._client.checkAuth())
+      return await this._client.postForm("/storage/image", formData);
   }
 
-  // TODO: Change request for content type x-www-form-urlencoded
-  async uploadImages(form) {
+  async uploadImages(formData) {
     if (await this._client.checkAuth()) {
-      return await this._client.postForm("/storage/images", form);
+      return await this._client.postForm("/storage/images", formData);
     }
   }
 
@@ -36,9 +32,9 @@ class Storage {
     }
   }
 
-  async putImage(imageId, form) {
+  async putImage(imageId, formData) {
     if (await this._client.checkAuth()) {
-      return await this._client.putForm(`/storage/image/${imageId}`, form);
+      return await this._client.putForm(`/storage/image/${imageId}`, formData);
     }
   }
 
@@ -49,31 +45,44 @@ class Storage {
   }
 
   // Upload certificates
-  async postCertificate(form) {
-    if (await this._client.checkAuth()) {
-      return await this._client.postForm("/storage/certificate", form);
-    }
+  async postCertificate(formData) {
+    if (await this._client.checkAuth())
+      return await this._client.postForm("/storage/certificate", formData);
   }
 
   async getCertificates() {
-    if (await this._client.checkAuth()) {
+    if (await this._client.checkAuth())
       return await this._client.get("/storage/certificates");
-    }
   }
 
-  async putCertificate(certificateId, form) {
-    if (await this._client.checkAuth()) {
+  async putCertificate(certificateId, formData) {
+    if (await this._client.checkAuth())
       return await this._client.putForm(
         `/storage/certificates/${certificateId}`,
-        form
+        formData
       );
-    }
   }
 
   async deleteCertificate(certificateId) {
     if (await this._client.checkAuth()) {
-      return await this._client.delete(`/storage/certificates/${certificateId}`);
+      return await this._client.delete(
+        `/storage/certificates/${certificateId}`
+      );
     }
+  }
+
+  // Report attachments
+  async getReportAttachments() {
+    if (await this._client.checkAuth())
+      return await this._client.get(`/storage/reports/`);
+  }
+
+  async postReportAttachment(reportId, formData) {
+    if (await this._client.checkAuth())
+      return await this._client.postForm(
+        `/storage/report/${reportId}`,
+        formData
+      );
   }
 }
 
