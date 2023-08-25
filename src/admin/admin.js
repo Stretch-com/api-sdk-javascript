@@ -128,6 +128,22 @@ class Admin {
     if (await this._client.checkAuth())
       return await this._client.put(`/admin/report/${reportId}`, query);
   }
+
+  // Withdrawal endpoint
+  async getWithdrawals(query) {
+    if (await this._client.checkAuth())
+      return await this._client.get(`/admin/withdrawals`, query);
+  }
+
+  async getWithdrawalsCount(query) {
+    if (await this._client.checkAuth())
+      return await this._client.get(`/admin/withdrawals/count`, query);
+  }
+
+  async getWithdrawalDetails(withdrawalId) {
+    if (await this._client.checkAuth())
+      return await this._client.get(`/admin/withdrawal/${withdrawalId}`);
+  }
 }
 
 export default Admin;
