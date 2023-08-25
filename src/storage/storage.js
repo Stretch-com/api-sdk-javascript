@@ -6,10 +6,7 @@ class Storage {
   // User avatar
   async postAvatar(formData) {
     if (await this._client.checkAuth())
-      return await this._client.postformData(
-        "/storage/profile/avatar",
-        formData
-      );
+      return await this._client.postForm("/storage/profile/avatar", formData);
   }
 
   async deleteAvatar() {
@@ -20,12 +17,12 @@ class Storage {
   // Upload gallery
   async postImage(formData) {
     if (await this._client.checkAuth())
-      return await this._client.postformData("/storage/image", formData);
+      return await this._client.postForm("/storage/image", formData);
   }
 
   async uploadImages(formData) {
     if (await this._client.checkAuth()) {
-      return await this._client.postformData("/storage/images", formData);
+      return await this._client.postForm("/storage/images", formData);
     }
   }
 
@@ -37,10 +34,7 @@ class Storage {
 
   async putImage(imageId, formData) {
     if (await this._client.checkAuth()) {
-      return await this._client.putformData(
-        `/storage/image/${imageId}`,
-        formData
-      );
+      return await this._client.putForm(`/storage/image/${imageId}`, formData);
     }
   }
 
@@ -53,7 +47,7 @@ class Storage {
   // Upload certificates
   async postCertificate(formData) {
     if (await this._client.checkAuth())
-      return await this._client.postformData("/storage/certificate", formData);
+      return await this._client.postForm("/storage/certificate", formData);
   }
 
   async getCertificates() {
@@ -63,7 +57,7 @@ class Storage {
 
   async putCertificate(certificateId, formData) {
     if (await this._client.checkAuth())
-      return await this._client.putformData(
+      return await this._client.putForm(
         `/storage/certificates/${certificateId}`,
         formData
       );
