@@ -21,14 +21,14 @@ class Service {
       );
   }
 
-  async getCoachReviews(coachId) {
+  async getServiceReviews(serviceId) {
     if (await this._client.checkAuth())
-      return await this._client.get(`/service/${coachId}/reviews`);
+      return await this._client.get(`/service/${serviceId}/reviews`);
   }
 
-  async getCoachReviewsInfo(coachId) {
+  async getServiceReviewsInfo(serviceId) {
     if (await this._client.checkAuth())
-      return await this._client.get(`/service/${coachId}/reviews/info`);
+      return await this._client.get(`/service/${serviceId}/reviews/info`);
   }
 }
 
