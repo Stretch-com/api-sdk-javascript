@@ -63,6 +63,17 @@ class Coach {
     if (await this._client.checkAuth())
       return await this._client.put("/coach/available", query);
   }
+
+  // Coach reviews
+  async getCoachReviews(coachId) {
+    if (await this._client.checkAuth())
+      return await this._client.get(`/coach/${coachId}/reviews`);
+  }
+
+  async getCoachReviewsInfo(coachId) {
+    if (await this._client.checkAuth())
+      return await this._client.get(`/coach/${coachId}/reviews/info`);
+  }
 }
 
 export default Coach;
