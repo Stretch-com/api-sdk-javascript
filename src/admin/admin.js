@@ -79,9 +79,9 @@ class Admin {
       return await this._client.get(`/admin/transactions/count`, query);
   }
 
-  async getTransactionsInfo() {
+  async getTransactionsInfo(query = {}) {
     if (await this._client.checkAuth())
-      return await this._client.get(`/admin/transactions/info`);
+      return await this._client.get(`/admin/transactions/info`, query);
   }
 
   async getTransactionDetails(transactionId) {
@@ -106,6 +106,14 @@ class Admin {
   async getVerificationsCount(query) {
     if (await this._client.checkAuth())
       return await this._client.get(`/admin/verifications/count`, query);
+  }
+
+  async postCoachReport(coachId, query) {
+    if (await this._client.checkAuth())
+      return await this._client.post(
+        `/admin/verification/${coachId}/report`,
+        query
+      );
   }
 
   // Report endpoint
