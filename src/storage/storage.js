@@ -14,16 +14,10 @@ class Storage {
       return await this._client.delete("/storage/profile/avatar");
   }
 
-  // Upload gallery
+  // Upload images
   async postImage(formData) {
     if (await this._client.checkAuth())
       return await this._client.postForm("/storage/image", formData);
-  }
-
-  async uploadImages(formData) {
-    if (await this._client.checkAuth()) {
-      return await this._client.postForm("/storage/images", formData);
-    }
   }
 
   async getImages() {
@@ -41,6 +35,18 @@ class Storage {
   async deleteImage(imageId) {
     if (await this._client.checkAuth()) {
       return await this._client.delete(`/storage/image/${imageId}`);
+    }
+  }
+
+  // Upload videos
+  async postVideo(formData) {
+    if (await this._client.checkAuth())
+      return await this._client.postForm("/storage/video", formData);
+  }
+
+  async deleteVideo(videoId) {
+    if (await this._client.checkAuth()) {
+      return await this._client.delete(`/storage/video/${videoId}`);
     }
   }
 
