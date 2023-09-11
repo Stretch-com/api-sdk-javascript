@@ -152,6 +152,12 @@ class Admin {
     if (await this._client.checkAuth())
       return await this._client.get(`/admin/withdrawal/${withdrawalId}`);
   }
+
+  // Properties endpoint
+  async getProperties(query) {
+    if (await this._client.checkAuth())
+      return await this._client.get(`/admin/config/fields`, query);
+  }
 }
 
 export default Admin;
