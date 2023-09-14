@@ -5,12 +5,12 @@ class Client {
 
   async getClientReviews(clientId) {
     if (await this._client.checkAuth())
-      return await this._client.get(`/client/${clientId}/reviews`);
+      return await this._client.get(`/coach/client/${clientId}/reviews`);
   }
 
   async getClientReviewsInfo(clientId) {
     if (await this._client.checkAuth())
-      return await this._client.get(`/client/${clientId}/reviews/info`);
+      return await this._client.get(`/coach/client/${clientId}/reviews/info`);
   }
 }
 
