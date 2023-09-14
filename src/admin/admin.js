@@ -40,6 +40,21 @@ class Admin {
       return await this._client.get(`/admin/clients/count`, query);
   }
 
+  async getClientDetails(clientId) {
+    if (await this._client.checkAuth())
+      return await this._client.get(`/admin/client/${clientId}`);
+  }
+
+  async getClientSummaryInfo(clientId) {
+    if (await this._client.checkAuth())
+      return await this._client.get(`/admin/client/${clientId}/info`);
+  }
+
+  async putClient(clientId, query) {
+    if (await this._client.checkAuth())
+      return await this._client.put(`/admin/client/${clientId}`, query);
+  }
+
   // Feedback endpoints
   async postSupportFeedback(form) {
     if (await this._client.checkAuth())
