@@ -24,6 +24,11 @@ class Admin {
       return await this._client.get(`/admin/coach/${coachId}`);
   }
 
+  async getCoachSummaryInfo(coachId) {
+    if (await this._client.checkAuth())
+      return await this._client.get(`/admin/coach/${coachId}/info`);
+  }
+
   async putCoach(coachId, query = {}) {
     if (await this._client.checkAuth())
       return await this._client.put(`/admin/coach/${coachId}`, query);
@@ -45,9 +50,9 @@ class Admin {
       return await this._client.get(`/admin/client/${clientId}`);
   }
 
-  async getClientSummaryInfo(clientId) {
+  async getClientSummaryInfo(clientId, query) {
     if (await this._client.checkAuth())
-      return await this._client.get(`/admin/client/${clientId}/info`);
+      return await this._client.get(`/admin/client/${clientId}/info`, query);
   }
 
   async putClient(clientId, query) {
