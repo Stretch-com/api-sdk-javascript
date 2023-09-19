@@ -124,18 +124,24 @@ export class StretchAuth extends StretchBase {
     }
   }
 
-  async passwordReset(phone) {
-    const basic = btoa(`${this._clientId}:`);
-    const payload = {
-      grant_type: "reset",
-      phone: phone,
-    };
+  async passwordReset(
+    phone = null,
+    email = null,
+    client_id = "2f9445b3-5266-45cd-8a85-d5c3fff69781",
+    client_secret = null
+  ) {
+    // const basic = btoa(`${this._clientId}:`);
+    const payload = { grant_type: "reset", client_id };
+    if (phone) payload["phone"] = phone;
+    else if (email) payload["email"] = email;
+    else if (client_secret) payload["client_secret"] = client_secret;
+
     const res = await apiFetch(this.url("/auth/password-reset"), {
       method: "POST",
       body: JSON.stringify(payload),
       credentials: "include",
       headers: {
-        Authorization: `Basic ${basic}`,
+        // Authorization: `Basic ${basic}`,
         "Content-Type": "application/json",
         //'Access-Control-Allow-Credentials': true,
       },
