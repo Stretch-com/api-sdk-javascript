@@ -3,6 +3,12 @@ class Admin {
     this._client = client;
   }
 
+  // User endpoints
+  async getUserBlacklist(userId, query = {}) {
+    if (await this._client.checkAuth())
+      return await this._client.get(`/admin/user/${userId}/blacklist`, query);
+  }
+
   // Coach endpoints
   async getCoaches(query = {}) {
     if (await this._client.checkAuth())
