@@ -142,25 +142,25 @@ class Admin {
       );
   }
 
-  // Report endpoint
-  async getReports(query) {
+  // Refunds endpoint
+  async getRefunds(query) {
     if (await this._client.checkAuth())
-      return await this._client.get(`/admin/reports`, query);
+      return await this._client.get(`/admin/refunds`, query);
   }
 
-  async getReportsCount(query) {
+  async getRefundsCount(query) {
     if (await this._client.checkAuth())
-      return await this._client.get(`/admin/reports/count`, query);
+      return await this._client.get(`/admin/refunds/count`, query);
   }
 
-  async getReportDetails(reportId) {
+  async getRefundDetails(reportId) {
     if (await this._client.checkAuth())
-      return await this._client.get(`/admin/report/${reportId}`);
+      return await this._client.get(`/admin/refund/${reportId}`);
   }
 
-  async putReport(reportId, query) {
+  async putRefund(reportId, query) {
     if (await this._client.checkAuth())
-      return await this._client.put(`/admin/report/${reportId}`, query);
+      return await this._client.put(`/admin/refund/${reportId}`, query);
   }
 
   // Withdrawal endpoint
