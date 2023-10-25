@@ -153,6 +153,11 @@ class Admin {
       return await this._client.get(`/admin/refunds/count`, query);
   }
 
+  async getRefundDetails(reportId) {
+    if (await this._client.checkAuth())
+      return await this._client.get(`/admin/refund/${reportId}`);
+  }
+
   async putRefund(reportId, query) {
     if (await this._client.checkAuth())
       return await this._client.put(`/admin/refund/${reportId}`, query);
