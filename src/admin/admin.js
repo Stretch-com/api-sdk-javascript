@@ -200,6 +200,16 @@ class Admin {
     if (await this._client.checkAuth())
       return await this._client.get(`/admin/config/fields`, query);
   }
+
+  async getConsumerLanguages(query) {
+    if (await this._client.checkAuth())
+      return await this._client.get(`/admin/config/languages`, query);
+  }
+
+  async postLanguages(query) {
+    if (await this._client.checkAuth())
+      return await this._client.post(`/admin/config/languages`, query);
+  }
 }
 
 export default Admin;
