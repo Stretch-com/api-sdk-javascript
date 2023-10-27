@@ -65,14 +65,14 @@ class Coach {
   }
 
   // Coach reviews
-  async getCoachReviews(coachId) {
+  async getUserReviews(userId) {
     if (await this._client.checkAuth())
-      return await this._client.get(`/coach/${coachId}/reviews`);
+      return await this._client.get(`/user/${userId}/reviews`);
   }
 
-  async getCoachReviewsInfo(coachId) {
+  async getUserReviewsInfo(userId) {
     if (await this._client.checkAuth())
-      return await this._client.get(`/coach/${coachId}/reviews/info`);
+      return await this._client.get(`/user/${userId}/reviews/info`);
   }
 }
 

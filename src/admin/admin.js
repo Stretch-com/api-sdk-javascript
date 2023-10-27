@@ -9,6 +9,14 @@ class Admin {
       return await this._client.get(`/admin/user/${userId}/blacklist`, query);
   }
 
+  async getUserBlacklistCount(userId, query = {}) {
+    if (await this._client.checkAuth())
+      return await this._client.get(
+        `/admin/user/${userId}/blacklist/count`,
+        query
+      );
+  }
+
   // Coach endpoints
   async getCoaches(query = {}) {
     if (await this._client.checkAuth())
@@ -28,11 +36,6 @@ class Admin {
   async getCoachDetails(coachId) {
     if (await this._client.checkAuth())
       return await this._client.get(`/admin/coach/${coachId}`);
-  }
-
-  async getCoachSummaryInfo(coachId) {
-    if (await this._client.checkAuth())
-      return await this._client.get(`/admin/coach/${coachId}/info`);
   }
 
   async putCoach(coachId, query = {}) {
