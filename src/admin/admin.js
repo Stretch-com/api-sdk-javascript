@@ -43,6 +43,11 @@ class Admin {
       return await this._client.put(`/admin/coach/${coachId}`, query);
   }
 
+  async deleteCoach(coachId, query) {
+    if (await this._client.checkAuth())
+      return await this._client.delete(`/admin/coach/${coachId}`, query);
+  }
+
   // Client endpoints
   async getClients(query = {}) {
     if (await this._client.checkAuth())
@@ -67,6 +72,11 @@ class Admin {
   async putClient(clientId, query) {
     if (await this._client.checkAuth())
       return await this._client.put(`/admin/client/${clientId}`, query);
+  }
+
+  async deleteClient(clientId, query) {
+    if (await this._client.checkAuth())
+      return await this._client.delete(`/admin/client/${clientId}`, query);
   }
 
   // Feedback endpoints

@@ -140,11 +140,18 @@ export class StretchBase {
     let headers = {
       Authorization: `${this.#tokenType} ${this.#accessToken}`,
     };
+
     if (this.#userId) {
       headers["Authorization-User"] = this.#userId;
       this.#userId = null;
     }
-    return await apiFetch(this.url(uri), {
+
+    if (query)
+      query = Object.keys(query)
+        .filter((k) => query[k] !== null)
+        .reduce((a, k) => ({ ...a, [k]: query[k] }), {});
+
+    return await apiFetch(this.url(uri, query), {
       method: "DELETE",
       credentials: "include",
       headers: headers,
