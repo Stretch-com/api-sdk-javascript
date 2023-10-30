@@ -13,9 +13,9 @@ export class Auth {
       return await this._client.put(`/auth/user`, payload);
   }
 
-  async dropUser() {
+  async dropUser(query = {}) {
     if (await this._client.checkAuth())
-      return await this._client.delete(`/auth/user`);
+      return await this._client.delete(`/auth/user`, query);
   }
 
   async putPasswordReset(payload = {}) {
