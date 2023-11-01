@@ -223,6 +223,32 @@ class Admin {
     if (await this._client.checkAuth())
       return await this._client.post(`/admin/config/languages`, query);
   }
+
+  // Analytics endpoint
+  async revenueAnalytics(query) {
+    if (await this._client.checkAuth())
+      return await this._client.get("/admin/analytics/revenue", query);
+  }
+
+  async revenueChartAnalytics(query) {
+    if (await this._client.checkAuth())
+      return await this._client.get("/admin/analytics/revenue-chart", query);
+  }
+
+  async sessionInfoAnalytics(query) {
+    if (await this._client.checkAuth())
+      return await this._client.get("/admin/analytics/session-info", query);
+  }
+
+  async totalUserAnalytics(query) {
+    if (await this._client.checkAuth())
+      return await this._client.get("/admin/analytics/users", query);
+  }
+
+  async bestCoachAnalytics(query) {
+    if (await this._client.checkAuth())
+      return await this._client.get("/admin/analytics/best-coaches", query);
+  }
 }
 
 export default Admin;
