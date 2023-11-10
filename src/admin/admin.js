@@ -247,7 +247,7 @@ class Admin {
 
   async bestCoachAnalytics(query) {
     if (await this._client.checkAuth())
-      return await this._client.get("/admin/analytics/best-coaches", query);
+      return await this._client.get("/admin/analytics/best-users", query);
   }
 }
 

@@ -36,19 +36,32 @@ export class StretchBase {
     return lurl;
   }
 
-  async postForm(uri, body) {
+  cleanPayload(payload) {
+    if (payload && !Array.isArray(payload)) {
+      payload = Object.keys(payload)
+        .filter((k) => payload[k] !== null)
+        .reduce((a, k) => ({ ...a, [k]: payload[k] }), {});
+    }
+
+    return payload;
+  }
+
+  async get(uri, query = null) {
     let headers = {
       Authorization: `${this.#tokenType} ${this.#accessToken}`,
+      "Content-Type": "application/json",
     };
+
     if (this.#userId) {
       headers["Authorization-User"] = this.#userId;
       this.#userId = null;
     }
-    return await apiFetch(this.url(uri), {
-      method: "POST",
+
+    query = this.cleanPayload(query);
+    return await apiFetch(this.url(uri, query), {
+      method: "GET",
       credentials: "include",
-      body: body,
-      headers: headers,
+      headers,
     });
   }
 
@@ -61,33 +74,31 @@ export class StretchBase {
       headers["Authorization-User"] = this.#userId;
       this.#userId = null;
     }
-    if (payload)
-      payload = Object.keys(payload)
-        .filter((k) => payload[k] !== null)
-        .reduce((a, k) => ({ ...a, [k]: payload[k] }), {});
 
+    payload = this.cleanPayload(payload);
     return await apiFetch(this.url(uri), {
       method: "POST",
       credentials: "include",
-      body: JSON.stringify(payload ? payload : {}),
-      headers: headers,
+      body: JSON.stringify(payload),
+      headers,
     });
   }
 
-  async putForm(uri, body, contentType = "multipart/form-data") {
+  async postForm(uri, body) {
     let headers = {
       Authorization: `${this.#tokenType} ${this.#accessToken}`,
-      "Content-Type": contentType,
     };
+
     if (this.#userId) {
       headers["Authorization-User"] = this.#userId;
       this.#userId = null;
     }
+
     return await apiFetch(this.url(uri), {
-      method: "PUT",
+      method: "POST",
       credentials: "include",
-      body: body,
-      headers: headers,
+      body,
+      headers,
     });
   }
 
@@ -96,43 +107,36 @@ export class StretchBase {
       Authorization: `${this.#tokenType} ${this.#accessToken}`,
       "Content-Type": "application/json",
     };
+
     if (this.#userId) {
       headers["Authorization-User"] = this.#userId;
       this.#userId = null;
     }
 
-    if (payload)
-      payload = Object.keys(payload)
-        .filter((k) => payload[k] !== null)
-        .reduce((a, k) => ({ ...a, [k]: payload[k] }), {});
+    payload = this.cleanPayload(payload);
+    return await apiFetch(this.url(uri), {
+      method: "PUT",
+      credentials: "include",
+      body: JSON.stringify(payload),
+      headers,
+    });
+  }
+
+  async putForm(uri, body) {
+    let headers = {
+      Authorization: `${this.#tokenType} ${this.#accessToken}`,
+    };
+
+    if (this.#userId) {
+      headers["Authorization-User"] = this.#userId;
+      this.#userId = null;
+    }
 
     return await apiFetch(this.url(uri), {
       method: "PUT",
       credentials: "include",
-      body: JSON.stringify(payload ? payload : {}),
-      headers: headers,
-    });
-  }
-
-  async get(uri, query = null) {
-    let headers = {
-      Authorization: `${this.#tokenType} ${this.#accessToken}`,
-      "Content-Type": "application/json",
-    };
-    if (this.#userId) {
-      headers["Authorization-User"] = this.#userId;
-      this.#userId = null;
-    }
-
-    if (query)
-      query = Object.keys(query)
-        .filter((k) => query[k] !== null)
-        .reduce((a, k) => ({ ...a, [k]: query[k] }), {});
-
-    return await apiFetch(this.url(uri, query), {
-      method: "GET",
-      credentials: "include",
-      headers: headers,
+      body,
+      headers,
     });
   }
 
@@ -146,15 +150,11 @@ export class StretchBase {
       this.#userId = null;
     }
 
-    if (query)
-      query = Object.keys(query)
-        .filter((k) => query[k] !== null)
-        .reduce((a, k) => ({ ...a, [k]: query[k] }), {});
-
+    query = this.cleanPayload(query);
     return await apiFetch(this.url(uri, query), {
       method: "DELETE",
       credentials: "include",
-      headers: headers,
+      headers,
     });
   }
 

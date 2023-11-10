@@ -14,6 +14,11 @@ class Coach {
       return await this._client.get(`/coach/availability`);
   }
 
+  async getAvailabilityCalendar(query) {
+    if (await this._client.checkAuth())
+      return await this._client.get(`/coach/availability/calendar`, query);
+  }
+
   async getAvailabilityCalendar(payload = {}) {
     if (await this._client.checkAuth())
       return await this._client.get(`/coach/availability/calendar`, payload);
@@ -22,6 +27,11 @@ class Coach {
   async postAvailability(payload) {
     if (await this._client.checkAuth())
       return await this._client.post("/coach/availability", payload);
+  }
+
+  async postAvailabilities(payload) {
+    if (await this._client.checkAuth())
+      return await this._client.post("/coach/availabilities", payload);
   }
 
   async putAvailability(availabilityId, payload) {
