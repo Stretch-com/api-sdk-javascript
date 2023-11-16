@@ -219,9 +219,19 @@ class Admin {
       return await this._client.get(`/admin/config/languages`, query);
   }
 
-  async postLanguages(query) {
+  async getConsumerCurrencies(query) {
     if (await this._client.checkAuth())
-      return await this._client.post(`/admin/config/languages`, query);
+      return await this._client.get(`/admin/config/currencies`, query);
+  }
+
+  async getSettings() {
+    if (await this._client.checkAuth())
+      return await this._client.get(`/admin/config/settings`);
+  }
+
+  async postSettings(query) {
+    if (await this._client.checkAuth())
+      return await this._client.post(`/admin/config/settings`, query);
   }
 
   // Analytics endpoint
