@@ -47,6 +47,16 @@ class Coach {
       return await this._client.delete(`/coach/availability/${availabilityId}`);
   }
 
+  async deleteAvailabilityByDate(date) {
+    if (await this._client.checkAuth())
+      return await this._client.delete(`/availabilities/available/${date}`);
+  }
+
+  async deleteAvailabilityByDate(date) {
+    if (await this._client.checkAuth())
+      return await this._client.delete(`/availabilities/available/${date}`);
+  }
+
   // Coach service CRUD
   async getServices(query = {}) {
     if (await this._client.checkAuth())
