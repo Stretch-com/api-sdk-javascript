@@ -49,12 +49,16 @@ class Coach {
 
   async deleteAvailabilityByDate(date) {
     if (await this._client.checkAuth())
-      return await this._client.delete(`/availabilities/available/${date}`);
+      return await this._client.delete(
+        `/coach/availabilities/available/${date}`
+      );
   }
 
   async deleteUnavailabilityByDate(date) {
     if (await this._client.checkAuth())
-      return await this._client.delete(`/availabilities/unavailable/${date}`);
+      return await this._client.delete(
+        `/coach/availabilities/unavailable/${date}`
+      );
   }
 
   // Coach service CRUD
