@@ -14,6 +14,11 @@ class Storage {
       return await this._client.delete("/storage/profile/avatar");
   }
 
+  async postMedia(formData) {
+    if (await this._client.checkAuth())
+      return await this._client.postForm("/storage/profile/media", formData);
+  }
+
   // Upload images
   async postImage(formData) {
     if (await this._client.checkAuth())
