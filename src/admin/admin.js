@@ -234,11 +234,6 @@ class Admin {
       return await this._client.post(`/admin/config/settings`, query);
   }
 
-  async getAvailableBalance() {
-    if (await this._client.checkAuth())
-      return await this._client.get(`/admin/config/balance`);
-  }
-
   // Analytics endpoint
   async revenueAnalytics(query) {
     if (await this._client.checkAuth())
