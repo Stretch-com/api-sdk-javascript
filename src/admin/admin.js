@@ -102,6 +102,11 @@ class Admin {
       return await this._client.get("/admin/reviews", query);
   }
 
+  async getReviewsInfo(userId, query = {}) {
+    if (await this._client.checkAuth())
+      return await this._client.get(`/admin/review/${userId}/info`, query);
+  }
+
   async putReview(reviewId, query = {}) {
     if (await this._client.checkAuth())
       return await this._client.put(`/admin/review/${reviewId}`, query);
