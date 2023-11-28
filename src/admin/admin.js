@@ -102,6 +102,11 @@ class Admin {
       return await this._client.get("/admin/reviews", query);
   }
 
+  async getReviewsInfo(userId, query = {}) {
+    if (await this._client.checkAuth())
+      return await this._client.get(`/admin/review/${userId}/info`, query);
+  }
+
   async putReview(reviewId, query = {}) {
     if (await this._client.checkAuth())
       return await this._client.put(`/admin/review/${reviewId}`, query);
@@ -232,11 +237,6 @@ class Admin {
   async postSettings(query) {
     if (await this._client.checkAuth())
       return await this._client.post(`/admin/config/settings`, query);
-  }
-
-  async getAvailableBalance() {
-    if (await this._client.checkAuth())
-      return await this._client.get(`/admin/config/balance`);
   }
 
   // Analytics endpoint
