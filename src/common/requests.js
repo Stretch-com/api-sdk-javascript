@@ -54,7 +54,7 @@ export class StretchBase {
 
     if (this.#userId) {
       headers["Authorization-User"] = this.#userId;
-      this.#userId = null;
+      // this.#userId = null;
     }
 
     query = this.cleanPayload(query);
@@ -70,9 +70,10 @@ export class StretchBase {
       Authorization: `${this.#tokenType} ${this.#accessToken}`,
       "Content-Type": "application/json",
     };
+
     if (this.#userId) {
       headers["Authorization-User"] = this.#userId;
-      this.#userId = null;
+      // this.#userId = null;
     }
 
     payload = this.cleanPayload(payload);
@@ -91,7 +92,7 @@ export class StretchBase {
 
     if (this.#userId) {
       headers["Authorization-User"] = this.#userId;
-      this.#userId = null;
+      // this.#userId = null;
     }
 
     return await apiFetch(this.url(uri), {
@@ -110,7 +111,7 @@ export class StretchBase {
 
     if (this.#userId) {
       headers["Authorization-User"] = this.#userId;
-      this.#userId = null;
+      // this.#userId = null;
     }
 
     payload = this.cleanPayload(payload);
@@ -129,7 +130,7 @@ export class StretchBase {
 
     if (this.#userId) {
       headers["Authorization-User"] = this.#userId;
-      this.#userId = null;
+      // this.#userId = null;
     }
 
     return await apiFetch(this.url(uri), {
@@ -147,7 +148,7 @@ export class StretchBase {
 
     if (this.#userId) {
       headers["Authorization-User"] = this.#userId;
-      this.#userId = null;
+      // this.#userId = null;
     }
 
     query = this.cleanPayload(query);

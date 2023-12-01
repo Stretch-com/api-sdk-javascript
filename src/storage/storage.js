@@ -69,16 +69,14 @@ class Storage {
   async putCertificate(certificateId, formData) {
     if (await this._client.checkAuth())
       return await this._client.putForm(
-        `/storage/certificates/${certificateId}`,
+        `/storage/certificate/${certificateId}`,
         formData
       );
   }
 
   async deleteCertificate(certificateId) {
     if (await this._client.checkAuth()) {
-      return await this._client.delete(
-        `/storage/certificates/${certificateId}`
-      );
+      return await this._client.delete(`/storage/certificate/${certificateId}`);
     }
   }
 

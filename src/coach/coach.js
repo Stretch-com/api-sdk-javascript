@@ -74,12 +74,12 @@ class Coach {
 
   async putService(serviceId, payload) {
     if (await this._client.checkAuth())
-      return await this._client.put(`/coach/${serviceId}`, payload);
+      return await this._client.put(`/coach/service/${serviceId}`, payload);
   }
 
   async deleteService(serviceId) {
     if (await this._client.checkAuth())
-      return await this._client.delete(`/coach/${serviceId}`);
+      return await this._client.delete(`/coach/service/${serviceId}`);
   }
 
   // Coach activation
