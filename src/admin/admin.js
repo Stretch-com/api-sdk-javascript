@@ -264,6 +264,11 @@ class Admin {
     if (await this._client.checkAuth())
       return await this._client.get("/admin/analytics/best-users", query);
   }
+
+  async getAdminAnalyticsSummary(query) {
+    if (await this._client.checkAuth())
+      return await this._client.get("/admin/analytics/summary", query);
+  }
 }
 
 export default Admin;
