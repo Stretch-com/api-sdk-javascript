@@ -17,6 +17,11 @@ class Admin {
       );
   }
 
+  async adminPutUser(userId, payload) {
+    if (await this._client.checkAuth())
+      return await this._client.put(`/admin/user/${userId}/edit`, payload);
+  }
+
   // Coach endpoints
   async getCoaches(query = {}) {
     if (await this._client.checkAuth())
@@ -46,6 +51,11 @@ class Admin {
   async deleteCoach(coachId, query) {
     if (await this._client.checkAuth())
       return await this._client.delete(`/admin/coach/${coachId}`, query);
+  }
+
+  async postBoostProfile(coachId) {
+    if (await this._client.checkAuth())
+      return await this._client.post(`/admin/coach/${coachId}/boost-profile`);
   }
 
   // Client endpoints
