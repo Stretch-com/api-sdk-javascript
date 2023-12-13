@@ -13,7 +13,6 @@ import Storage from "./storage/storage.js";
 class Stretch extends StretchAuth {
   constructor(
     clientId,
-    // apiUrl = "http://localhost:8000",
     apiUrl = "https://stage.stretch.com",
     apiBase = "/api/v1"
   ) {
