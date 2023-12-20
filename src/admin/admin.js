@@ -106,6 +106,11 @@ class Admin {
       return await this._client.get("/admin/sessions/count", query);
   }
 
+  async getSession(sessionId) {
+    if (await this._client.checkAuth())
+      return await this._client.get(`/admin/session/${sessionId}`);
+  }
+
   // Review endpoints
   async getReviews(query = {}) {
     if (await this._client.checkAuth())
@@ -278,6 +283,22 @@ class Admin {
   async getAdminAnalyticsSummary(query) {
     if (await this._client.checkAuth())
       return await this._client.get("/admin/analytics/summary", query);
+  }
+
+  async getCoachAnalyticsSummary(coachId, query) {
+    if (await this._client.checkAuth())
+      return await this._client.get(
+        `/admin/analytics/coach/${coachId}/summary`,
+        query
+      );
+  }
+
+  async getClientAnalyticsSummary(clientId, query) {
+    if (await this._client.checkAuth())
+      return await this._client.get(
+        `/admin/analytics/client/${clientId}/summary`,
+        query
+      );
   }
 }
 
