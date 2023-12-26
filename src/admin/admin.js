@@ -254,6 +254,11 @@ class Admin {
       return await this._client.post(`/admin/config/settings`, query);
   }
 
+  async getAdminUserConfig() {
+    if (await this._client.checkAuth())
+      return await this._client.get(`/admin/user/config`);
+  }
+
   // Analytics endpoint
   async revenueAnalytics(query) {
     if (await this._client.checkAuth())
