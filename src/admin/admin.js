@@ -58,6 +58,19 @@ class Admin {
       return await this._client.post(`/admin/coach/${coachId}/boost-profile`);
   }
 
+  async getCoachClientsList(coachId, query) {
+    if (await this._client.checkAuth())
+      return await this._client.get(`/admin/coach/${coachId}/clients`, query);
+  }
+
+  async getCoachClientsListCount(coachId, query) {
+    if (await this._client.checkAuth())
+      return await this._client.get(
+        `/admin/coach/${coachId}/clients/count`,
+        query
+      );
+  }
+
   // Client endpoints
   async getClients(query = {}) {
     if (await this._client.checkAuth())
@@ -87,6 +100,19 @@ class Admin {
   async deleteClient(clientId, query) {
     if (await this._client.checkAuth())
       return await this._client.delete(`/admin/client/${clientId}`, query);
+  }
+
+  async getClientCoachesList(clientId, query) {
+    if (await this._client.checkAuth())
+      return await this._client.get(`/admin/client/${clientId}/coaches`, query);
+  }
+
+  async getClientCoachesListCount(clientId, query) {
+    if (await this._client.checkAuth())
+      return await this._client.get(
+        `/admin/client/${clientId}/coaches/count`,
+        query
+      );
   }
 
   // Feedback endpoints
