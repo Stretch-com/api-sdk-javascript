@@ -43,6 +43,16 @@ class Nav {
     if (await this._client.checkAuth())
       return await this._client.get(`/nav/coverage`, query);
   }
+
+  async getGeocodeAutocomplete(query) {
+    if (await this._client.checkAuth())
+      return await this._client.get(`/nav/geocode/autocomplete`, query);
+  }
+
+  async getGeocodePlace(query) {
+    if (await this._client.checkAuth())
+      return await this._client.get(`/nav/geocode/place`, query);
+  }
 }
 
 export default Nav;
