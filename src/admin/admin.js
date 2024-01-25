@@ -334,13 +334,13 @@ class Admin {
 
   async getThreads(reviewId) {
     if (await this._client.checkAuth())
-      return await this._client.get(`/review/${reviewId}/threads`);
+      return await this._client.get(`/admin/review/${reviewId}/threads`);
   }
 
   async putThread(reviewId, threadId, payload) {
     if (await this._client.checkAuth())
       return await this._client.put(
-        `/review/${reviewId}/thread/${threadId}`,
+        `/admin/review/${reviewId}/thread/${threadId}`,
         payload
       );
   }
