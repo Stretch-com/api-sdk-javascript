@@ -331,6 +331,19 @@ class Admin {
         query
       );
   }
+
+  async getThreads(reviewId) {
+    if (await this._client.checkAuth())
+      return await this._client.get(`/review/${reviewId}/threads`);
+  }
+
+  async putThread(reviewId, threadId, payload) {
+    if (await this._client.checkAuth())
+      return await this._client.put(
+        `/review/${reviewId}/thread/${threadId}`,
+        payload
+      );
+  }
 }
 
 export default Admin;
