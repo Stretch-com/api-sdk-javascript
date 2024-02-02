@@ -275,11 +275,6 @@ class Admin {
       return await this._client.get(`/admin/config/consumers`);
   }
 
-  async getConsumer() {
-    if (await this._client.checkAuth())
-      return await this._client.get(`/admin/config/consumer`);
-  }
-
   async postConsumer(payload) {
     if (await this._client.checkAuth())
       return await this._client.post(`/admin/config/consumer`, payload);
