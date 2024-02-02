@@ -140,7 +140,7 @@ export class StretchBase {
     });
   }
 
-  async delete(uri, query = null) {
+  async delete(uri, query = null, body = null) {
     let headers = {
       Authorization: `${this.#tokenType} ${this.#accessToken}`,
     };
@@ -154,6 +154,7 @@ export class StretchBase {
     return await apiFetch(this.url(uri, query), {
       method: "DELETE",
       credentials: "include",
+      body,
       headers,
     });
   }

@@ -270,14 +270,31 @@ class Admin {
       return await this._client.get(`/admin/config/currencies`, query);
   }
 
-  async getSettings() {
+  async getConsumers() {
     if (await this._client.checkAuth())
-      return await this._client.get(`/admin/config/settings`);
+      return await this._client.get(`/admin/config/consumers`);
   }
 
-  async postSettings(query) {
+  async postConsumer(payload) {
     if (await this._client.checkAuth())
-      return await this._client.post(`/admin/config/settings`, query);
+      return await this._client.post(`/admin/config/consumer`, payload);
+  }
+
+  async putConsumer(clientId, payload) {
+    if (await this._client.checkAuth())
+      return await this._client.put(
+        `/admin/config/consumer/${clientId}`,
+        payload
+      );
+  }
+
+  async deleteConsumer(clientId, payload) {
+    if (await this._client.checkAuth())
+      return await this._client.delete(
+        `/admin/config/consumer/${clientId}`,
+        undefined,
+        payload
+      );
   }
 
   async getAdminUserConfig() {
