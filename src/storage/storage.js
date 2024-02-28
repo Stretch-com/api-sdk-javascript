@@ -80,6 +80,37 @@ class Storage {
     }
   }
 
+  // Award
+  async getAwards() {
+    if (await this._client.checkAuth()) {
+      return await this._client.get(`/storage/awards`);
+    }
+  }
+
+  async postAward(formData) {
+    if (await this._client.checkAuth()) {
+      return await this._client.postForm(`/storage/award`, formData);
+    }
+  }
+
+  async putAward(awardId, formData) {
+    if (await this._client.checkAuth()) {
+      return await this._client.putForm(`/storage/award/${awardId}`, formData);
+    }
+  }
+
+  async deleteAward(awardId) {
+    if (await this._client.checkAuth()) {
+      return await this._client.delete(`/storage/award/${awardId}`);
+    }
+  }
+
+  async deleteAwardFile(fileId) {
+    if (await this._client.checkAuth()) {
+      return await this._client.delete(`/storage/award/file/${fileId}`);
+    }
+  }
+
   // Report attachments
   async getReportAttachments() {
     if (await this._client.checkAuth())
