@@ -3,7 +3,7 @@ import { StretchBase } from "./requests.js";
 
 export class StretchAuth extends StretchBase {
   async login(username, password) {
-    // const scope = "coach,admin,support";
+    const scope = "coach";
     const res = await apiToken(
       this.url("/auth/token"),
       username,

@@ -22,6 +22,44 @@ class Admin {
       return await this._client.put(`/admin/user/${userId}/edit`, payload);
   }
 
+  // Business endpoints
+  async getBusinesses(payload = {}) {
+    if (await this._client.checkAuth())
+      return await this._client.post(`/admin/businesses`, payload);
+  }
+
+  async getBusinessesCount(payload = {}) {
+    if (await this._client.checkAuth())
+      return await this._client.post(`/admin/businesses/count`, payload);
+  }
+
+  async getBusinessDetails(businessId) {
+    if (await this._client.checkAuth())
+      return await this._client.get(`/admin/business/${businessId}`);
+  }
+
+  async postBusiness(query = {}) {
+    if (await this._client.checkAuth())
+      return await this._client.post(`/admin/business`, query);
+  }
+
+  async putBusiness(businessId, payload = {}) {
+    if (await this._client.checkAuth())
+      return await this._client.put(`/admin/business/${businessId}`, payload);
+  }
+
+  async deleteBusiness(businessId, query) {
+    if (await this._client.checkAuth())
+      return await this._client.delete(`/admin/business/${businessId}`, query);
+  }
+
+  async postBoostBusiness(businessId) {
+    if (await this._client.checkAuth())
+      return await this._client.post(
+        `/admin/business/${businessId}/boost-profile`
+      );
+  }
+
   // Coach endpoints
   async getCoaches(query = {}) {
     if (await this._client.checkAuth())
