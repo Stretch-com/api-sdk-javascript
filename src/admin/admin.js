@@ -23,6 +23,11 @@ class Admin {
   }
 
   // Business endpoints
+  async getBusinessFilters() {
+    if (await this._client.checkAuth())
+      return await this._client.get(`/admin/business/filters`);
+  }
+
   async getBusinesses(payload = {}) {
     if (await this._client.checkAuth())
       return await this._client.post(`/admin/businesses`, payload);
