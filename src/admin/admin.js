@@ -404,6 +404,17 @@ class Admin {
         payload
       );
   }
+
+  // Equipments endpoint
+  async getEquipments(query = {}) {
+    if (await this._client.checkAuth())
+      return await this._client.get(`/admin/equipments`, query);
+  }
+
+  async getEquipmentsCount(query = {}) {
+    if (await this._client.checkAuth())
+      return await this._client.get(`/admin/equipments/count`, query);
+  }
 }
 
 export default Admin;

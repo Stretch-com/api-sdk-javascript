@@ -3,6 +3,17 @@ class Storage {
     this._client = client;
   }
 
+  // Attachments
+  async postAttachment(formData) {
+    if (await this._client.checkAuth())
+      return await this._client.post("/storage/attachment", formData, null);
+  }
+
+  async deleteAttachment(attachmentId) {
+    if (await this._client.checkAuth())
+      return await this._client.delete(`/storage/attachment/${attachmentId}`);
+  }
+
   // User avatar
   async postAvatar(formData) {
     if (await this._client.checkAuth())
