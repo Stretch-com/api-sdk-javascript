@@ -64,28 +64,30 @@ export class StretchBase {
     });
   }
 
-  async post(uri, payload = {}) {
-    let headers = {
+  async post(uri, payload = {}, contentType = "application/json") {
+    const headers = {
       Authorization: `${this.#tokenType} ${this.#accessToken}`,
-      "Content-Type": "application/json",
     };
+    if (contentType) {
+      headers["Content-Type"] = contentType;
+      payload = this.cleanPayload(payload);
+    }
 
     if (this.#userId) {
       headers["Authorization-User"] = this.#userId;
       // this.#userId = null;
     }
 
-    payload = this.cleanPayload(payload);
     return await apiFetch(this.url(uri), {
       method: "POST",
       credentials: "include",
-      body: JSON.stringify(payload),
+      body: contentType ? JSON.stringify(payload) : payload,
       headers,
     });
   }
 
   async postForm(uri, body) {
-    let headers = {
+    const headers = {
       Authorization: `${this.#tokenType} ${this.#accessToken}`,
     };
 
@@ -102,22 +104,24 @@ export class StretchBase {
     });
   }
 
-  async put(uri, payload = {}) {
-    let headers = {
+  async put(uri, payload = {}, contentType = "application/json") {
+    const headers = {
       Authorization: `${this.#tokenType} ${this.#accessToken}`,
-      "Content-Type": "application/json",
     };
+    if (contentType) {
+      headers["Content-Type"] = contentType;
+      payload = this.cleanPayload(payload);
+    }
 
     if (this.#userId) {
       headers["Authorization-User"] = this.#userId;
       // this.#userId = null;
     }
 
-    payload = this.cleanPayload(payload);
     return await apiFetch(this.url(uri), {
       method: "PUT",
       credentials: "include",
-      body: JSON.stringify(payload),
+      body: contentType ? JSON.stringify(payload) : payload,
       headers,
     });
   }

@@ -98,6 +98,22 @@ class Coach {
     if (await this._client.checkAuth())
       return await this._client.get(`/user/${userId}/reviews/info`);
   }
+
+  // Equipments
+  async postEquipment(payload) {
+    if (await this._client.checkAuth())
+      return await this._client.post(`/coach/equipment`, payload);
+  }
+
+  async putEquipment(equipmentId, payload) {
+    if (await this._client.checkAuth())
+      return await this._client.put(`/coach/equipment/${equipmentId}`, payload);
+  }
+
+  async deleteEquipment(equipmentId) {
+    if (await this._client.checkAuth())
+      return await this._client.delete(`/coach/equipment/${equipmentId}`);
+  }
 }
 
 export default Coach;

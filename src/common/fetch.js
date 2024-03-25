@@ -81,7 +81,8 @@ export async function apiToken(
   data.append("grant_type", "password");
   data.append("username", username);
   data.append("password", password);
-  data.append("scope", scope);
+
+  if (scope) data.append("scope", scope);
   return await apiFetch(uri, {
     method: "POST",
     body: data,
