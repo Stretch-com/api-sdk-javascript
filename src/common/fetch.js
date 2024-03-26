@@ -49,7 +49,13 @@ export async function apiFetch(uri, options, verifySSL = false) {
     } else {
       const err = await res.json();
       console.error(`Error: ${res.status} ${JSON.stringify(err)}`);
-      throw new StretchError(res.status, err.error, err.message, res);
+      throw new StretchError(
+        res.status,
+        err.error,
+        err.message,
+        res,
+        err.fields ?? []
+      );
     }
   } catch (err) {
     if (err instanceof StretchError) throw err;
