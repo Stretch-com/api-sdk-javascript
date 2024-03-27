@@ -100,10 +100,10 @@ class Coach {
   }
 
   // Equipments
-  async postEquipment(payload, public = true) {
+  async postEquipment(payload, isPublic = true) {
     if (await this._client.checkAuth())
       return await this._client.post(
-        `/coach/equipment?public=${public}`,
+        `/coach/equipment?public=${isPublic}`,
         payload
       );
   }
