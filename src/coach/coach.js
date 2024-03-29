@@ -117,6 +117,17 @@ class Coach {
     if (await this._client.checkAuth())
       return await this._client.delete(`/coach/equipment/${equipmentId}`);
   }
+
+  // Business
+  async getBusiness() {
+    if (await this._client.checkAuth())
+      return await this._client.get(`/business/profile`);
+  }
+
+  async putBusiness(payload = {}) {
+    if (await this._client.checkAuth())
+      return await this._client.put(`/business/profile`, payload);
+  }
 }
 
 export default Coach;
