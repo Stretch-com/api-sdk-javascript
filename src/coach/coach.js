@@ -128,6 +128,27 @@ class Coach {
     if (await this._client.checkAuth())
       return await this._client.put(`/business/profile`, payload);
   }
+
+  // FAQs
+  async getFAQs(query = {}) {
+    if (await this._client.checkAuth())
+      return await this._client.get(`/coach/faqs`, query);
+  }
+
+  async postFAQ(payload = {}) {
+    if (await this._client.checkAuth())
+      return await this._client.post(`/coach/faq`, payload);
+  }
+
+  async putFAQ(faqId, payload = {}) {
+    if (await this._client.checkAuth())
+      return await this._client.put(`/coach/faq/${faqId}`, payload);
+  }
+
+  async deleteFAQ(faqId) {
+    if (await this._client.checkAuth())
+      return await this._client.delete(`/coach/faq/${faqId}`);
+  }
 }
 
 export default Coach;
