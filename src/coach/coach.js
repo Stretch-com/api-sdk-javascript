@@ -149,6 +149,31 @@ class Coach {
     if (await this._client.checkAuth())
       return await this._client.delete(`/coach/faq/${faqId}`);
   }
+
+  // Award
+  async getAwards() {
+    if (await this._client.checkAuth()) {
+      return await this._client.get(`/coach/awards`);
+    }
+  }
+
+  async postAward(payload) {
+    if (await this._client.checkAuth()) {
+      return await this._client.post(`/coach/award`, payload);
+    }
+  }
+
+  async putAward(awardId, payload) {
+    if (await this._client.checkAuth()) {
+      return await this._client.put(`/coach/award/${awardId}`, payload);
+    }
+  }
+
+  async deleteAward(awardId) {
+    if (await this._client.checkAuth()) {
+      return await this._client.delete(`/coach/award/${awardId}`);
+    }
+  }
 }
 
 export default Coach;
