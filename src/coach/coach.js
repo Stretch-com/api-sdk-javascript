@@ -159,13 +159,13 @@ class Coach {
 
   async postAward(payload) {
     if (await this._client.checkAuth()) {
-      return await this._client.postForm(`/coach/award`, payload);
+      return await this._client.post(`/coach/award`, payload);
     }
   }
 
   async putAward(awardId, payload) {
     if (await this._client.checkAuth()) {
-      return await this._client.putForm(`/coach/award/${awardId}`, payload);
+      return await this._client.put(`/coach/award/${awardId}`, payload);
     }
   }
 
