@@ -392,6 +392,12 @@ class Admin {
       );
   }
 
+  async getDashboardAnalytics() {
+    if (await this._client.checkAuth())
+      return await this._client.get(`/admin/analytics/dashboard`);
+  }
+
+  // Review threads
   async getThreads(reviewId) {
     if (await this._client.checkAuth())
       return await this._client.get(`/admin/review/${reviewId}/threads`);
