@@ -10,10 +10,10 @@ export async function apiFetch(uri, options, verifySSL = false) {
   try {
     if (!verifySSL) {
       // TODO: REMOVE in production
-      process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
-      const agent = new https.Agent({
-         rejectUnauthorized: verifySSL,
-      });
+      // process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
+      // const agent = new https.Agent({
+      //    rejectUnauthorized: verifySSL,
+      // });
       options['mode'] = 'no-cors'
       options['Access-Control-Allow-Origin'] = '*'
     }
