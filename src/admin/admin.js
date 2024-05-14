@@ -28,6 +28,11 @@ class Admin {
       return await this._client.get(`/admin/business/filters`);
   }
 
+  async getBusinessAutocomplete(query) {
+    if (await this._client.checkAuth())
+      return await this._client.get(`/admin/business/autocomplete`, query);
+  }
+
   async getBusinesses(payload = {}) {
     if (await this._client.checkAuth())
       return await this._client.post(`/admin/businesses`, payload);
