@@ -31,3 +31,5 @@ class Stretch extends StretchAuth {
 }
 
 export default Stretch;
+
+export type { Stretch };

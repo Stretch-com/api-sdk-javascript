@@ -3,7 +3,7 @@ import { apiFetch } from "./fetch.js";
 
 export class StretchBase {
   _clientId = null;
-  _apiUrl = null;
+  _apiUrl?: string | URL = undefined;
   _apiBase = "/api/v1";
 
   #accessToken = null;
@@ -29,7 +29,7 @@ export class StretchBase {
     return this;
   }
 
-  url(uri, query = null) {
+  url<T>(uri, query: T | null = null) {
     let lurl = new URL(`${this._apiBase}${uri}`, this._apiUrl);
     if (query != null) lurl.search = new URLSearchParams(query).toString();
     return lurl;
@@ -45,10 +45,14 @@ export class StretchBase {
     return payload;
   }
 
-  async get(uri, query = null) {
+  async get<T>(
+    uri,
+    query: T | null = null,
+    contentType: string | null = "application/json"
+  ) {
     let headers = {
       Authorization: `${this.#tokenType} ${this.#accessToken}`,
-      "Content-Type": "application/json",
+      "Content-Type": contentType,
     };
 
     if (this.#userId) {
@@ -144,7 +148,7 @@ export class StretchBase {
     });
   }
 
-  async delete(uri, query = null, body = null) {
+  async delete<T>(uri, query: T | null = null, body = null) {
     let headers = {
       Authorization: `${this.#tokenType} ${this.#accessToken}`,
     };
