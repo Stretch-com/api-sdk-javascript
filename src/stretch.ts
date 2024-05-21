@@ -10,26 +10,34 @@ import Service from "./service/service.js";
 import Session from "./session/session.js";
 import Storage from "./storage/storage.js";
 
-class Stretch extends StretchAuth {
+class Stretch {
+  admin: Admin;
+  auth: Auth;
+  coach: Coach;
+  nav: Nav;
+  search: Search;
+  storage: Storage;
+  session: Session;
+  service: Service;
+  payment: Payment;
+
   constructor(
     clientId,
     apiUrl = "https://stage.stretch.com",
     apiBase = "/api/v1"
   ) {
-    super(clientId, apiUrl, apiBase);
+    const stretchAuthObj = new StretchAuth(clientId, apiUrl, apiBase);
 
-    this.admin = new Admin(this);
-    this.auth = new Auth(this);
-    this.coach = new Coach(this);
-    this.nav = new Nav(this);
-    this.search = new Search(this);
-    this.storage = new Storage(this);
-    this.session = new Session(this);
-    this.service = new Service(this);
-    this.payment = new Payment(this);
+    this.admin = new Admin(stretchAuthObj);
+    this.auth = new Auth(stretchAuthObj);
+    this.coach = new Coach(stretchAuthObj);
+    this.nav = new Nav(stretchAuthObj);
+    this.search = new Search(stretchAuthObj);
+    this.storage = new Storage(stretchAuthObj);
+    this.session = new Session(stretchAuthObj);
+    this.service = new Service(stretchAuthObj);
+    this.payment = new Payment(stretchAuthObj);
   }
 }
 
 export default Stretch;
-
-export type { Stretch };

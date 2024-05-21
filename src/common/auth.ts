@@ -2,7 +2,7 @@ import { apiFetch, apiToken } from "./fetch.js";
 import { StretchBase } from "./requests.js";
 
 export class StretchAuth extends StretchBase {
-  async login(username, password) {
+  async login(username: string, password: string) {
     const scope = "coach";
     const res = await apiToken(
       this.url("/auth/token"),
@@ -11,6 +11,7 @@ export class StretchAuth extends StretchBase {
       scope,
       this._clientId
     );
+
     try {
       this._updateToken(res);
     } catch (e) {
@@ -19,13 +20,14 @@ export class StretchAuth extends StretchBase {
     return res;
   }
 
-  async guest(type = "client", timezone = null) {
+  async guest(type: string = "client", timezone: string | null = null) {
     const basic = btoa(`${this._clientId}:`);
     const payload = {
       grant_type: "create",
       timezone: timezone,
       type: type,
     };
+
     const res = await apiFetch(this.url("/auth/guest"), {
       method: "POST",
       body: JSON.stringify(payload),
@@ -35,6 +37,7 @@ export class StretchAuth extends StretchBase {
         "Content-Type": "application/json",
       },
     });
+
     try {
       this._updateToken(res);
     } catch (e) {
@@ -43,7 +46,11 @@ export class StretchAuth extends StretchBase {
     return res;
   }
 
-  async signup(phone, type = "client", timezone = null) {
+  async signup(
+    phone: string,
+    type: string = "client",
+    timezone: string | null = null
+  ) {
     const basic = btoa(`${this._clientId}:`);
     if (timezone == null) timezone = "Asia/Dubai";
     const payload = {
@@ -52,6 +59,7 @@ export class StretchAuth extends StretchBase {
       type: type,
       phone: phone,
     };
+
     const res = await apiFetch(this.url("/auth/signup"), {
       method: "POST",
       body: JSON.stringify(payload),
@@ -61,6 +69,7 @@ export class StretchAuth extends StretchBase {
         "Content-Type": "application/json",
       },
     });
+
     try {
       this._updateToken(res);
     } catch (e) {
@@ -69,9 +78,9 @@ export class StretchAuth extends StretchBase {
     return res;
   }
 
-  async phoneVerify(session, channel = "sms") {
+  async phoneVerify(session: string, channel = "sms") {
     if (await this.checkAuth()) {
-      const payload = {
+      const payload: Object = {
         session: session,
         channel: channel,
       };
@@ -79,12 +88,13 @@ export class StretchAuth extends StretchBase {
     }
   }
 
-  async phoneCheck(sid, code) {
+  async phoneCheck(sid: string, code: string) {
     if (await this.checkAuth()) {
       const payload = {
         sid: sid,
         code: code,
       };
+
       return await this.put("/auth/verify/phone", payload);
     }
   }
@@ -101,12 +111,12 @@ export class StretchAuth extends StretchBase {
   }
 
   async signupComplete(
-    password,
-    firstName = null,
-    lastName = null,
-    gender = null,
-    email = null,
-    username = null
+    password: string,
+    firstName: string | null = null,
+    lastName: string | null = null,
+    gender: string | null = null,
+    email: string | null = null,
+    username: string | null = null
   ) {
     if (await this.checkAuth()) {
       const payload = { password };
@@ -127,10 +137,10 @@ export class StretchAuth extends StretchBase {
   }
 
   async passwordReset(
-    phone = null,
-    email = null,
-    client_id = "2f9445b3-5266-45cd-8a85-d5c3fff69781",
-    client_secret = null
+    phone: string | null = null,
+    email: string | null = null,
+    client_id: string = "2f9445b3-5266-45cd-8a85-d5c3fff69781",
+    client_secret: string | null = null
   ) {
     // const basic = btoa(`${this._clientId}:`);
     const payload = { grant_type: "reset", client_id };
@@ -156,7 +166,7 @@ export class StretchAuth extends StretchBase {
     return res;
   }
 
-  async passwordChange(password) {
+  async passwordChange(password: string) {
     if (await this.checkAuth()) {
       const payload = {
         password: password,

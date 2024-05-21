@@ -2,19 +2,19 @@ import { StretchError } from "./error.js";
 import { apiFetch } from "./fetch.js";
 
 export class StretchBase {
-  _clientId = null;
+  _clientId?: string = undefined;
   _apiUrl?: string | URL = undefined;
   _apiBase = "/api/v1";
 
-  #accessToken = null;
-  #userId = null;
-  #refreshToken = null;
+  #accessToken: string | null = null;
+  #userId: string | null = null;
+  #refreshToken: string | null = null;
   #tokenType = "Bearer";
   #accessExpireDate = new Date();
   #refreshExpireDate = new Date();
 
   constructor(
-    clientId,
+    clientId: string,
     apiUrl = "https://stage.stretch.com",
     apiBase = "/api/v1"
   ) {
@@ -50,10 +50,8 @@ export class StretchBase {
     query: T | null = null,
     contentType: string | null = "application/json"
   ) {
-    let headers = {
-      Authorization: `${this.#tokenType} ${this.#accessToken}`,
-      "Content-Type": contentType,
-    };
+    let headers = { Authorization: `${this.#tokenType} ${this.#accessToken}` };
+    if (contentType) headers["Content-Type"] = contentType;
 
     if (this.#userId) {
       headers["Authorization-User"] = this.#userId;
@@ -68,7 +66,7 @@ export class StretchBase {
     });
   }
 
-  async post(uri, payload = {}, contentType = "application/json") {
+  async post(uri, payload?: Object, contentType = "application/json") {
     const headers = {
       Authorization: `${this.#tokenType} ${this.#accessToken}`,
     };
@@ -85,7 +83,7 @@ export class StretchBase {
     return await apiFetch(this.url(uri), {
       method: "POST",
       credentials: "include",
-      body: contentType ? JSON.stringify(payload) : payload,
+      body: contentType ? JSON.stringify(payload) : (payload as BodyInit),
       headers,
     });
   }
@@ -108,7 +106,7 @@ export class StretchBase {
     });
   }
 
-  async put(uri, payload = {}, contentType = "application/json") {
+  async put(uri, payload?: Object, contentType = "application/json") {
     const headers = {
       Authorization: `${this.#tokenType} ${this.#accessToken}`,
     };
@@ -125,12 +123,12 @@ export class StretchBase {
     return await apiFetch(this.url(uri), {
       method: "PUT",
       credentials: "include",
-      body: contentType ? JSON.stringify(payload) : payload,
+      body: contentType ? JSON.stringify(payload) : (payload as BodyInit),
       headers,
     });
   }
 
-  async putForm(uri, body) {
+  async putForm(uri, body?: BodyInit) {
     let headers = {
       Authorization: `${this.#tokenType} ${this.#accessToken}`,
     };
@@ -148,7 +146,7 @@ export class StretchBase {
     });
   }
 
-  async delete<T>(uri, query: T | null = null, body = null) {
+  async delete<T>(uri, query: T | null = null, body: BodyInit | null = null) {
     let headers = {
       Authorization: `${this.#tokenType} ${this.#accessToken}`,
     };
@@ -203,7 +201,7 @@ export class StretchBase {
       this.#accessExpireDate = currentTime;
 
       if (storageExists)
-        localStorage.setItem("access_expire_date", currentTime);
+        localStorage.setItem("access_expire_date", currentTime.toTimeString());
     }
 
     if (res.hasOwnProperty("refresh_expire")) {
@@ -214,7 +212,7 @@ export class StretchBase {
 
       this.#refreshExpireDate = currentTime;
       if (storageExists)
-        localStorage.setItem("refresh_expire_date", currentTime);
+        localStorage.setItem("refresh_expire_date", currentTime.toTimeString());
     }
 
     return res;
@@ -222,7 +220,7 @@ export class StretchBase {
 
   async refresh() {
     let storageExists;
-    let refreshToken = null;
+    let refreshToken: string | null = null;
 
     try {
       localStorage.getItem("access_token");
@@ -296,16 +294,16 @@ export class StretchBase {
     try {
       if (this.#accessToken == null) {
         this.#accessToken = localStorage.getItem("access_token");
-        this.#accessExpireDate = new Date(
-          Date.parse(localStorage.getItem("access_expire_date"))
-        );
+        const accessExpireDate = localStorage.getItem("access_expire_date");
+        if (accessExpireDate)
+          this.#accessExpireDate = new Date(parseInt(accessExpireDate));
       }
 
       if (this.#refreshToken == null) {
         this.#refreshToken = localStorage.getItem("refresh_token");
-        this.#refreshExpireDate = new Date(
-          Date.parse(localStorage.getItem("refresh_expire_date"))
-        );
+        const refreshExpireDate = localStorage.getItem("refresh_expire_date");
+        if (refreshExpireDate)
+          this.#refreshExpireDate = new Date(parseInt(refreshExpireDate));
       }
     } catch (e) {
       console.error(`LocalStorage in current context not exists ${e}`);

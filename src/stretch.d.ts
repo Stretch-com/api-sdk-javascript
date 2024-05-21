@@ -1,1 +1,1 @@
-declare module '@stretch-com/stretch';
+// declare module '@stretch-com/stretch';

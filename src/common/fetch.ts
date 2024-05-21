@@ -2,7 +2,11 @@ import { StretchError } from "./error.js";
 
 // authorise a user using the Authorization headers on any URI and return the JSON value of
 // its response
-export async function apiFetch(uri, options, verifySSL = false) {
+export async function apiFetch(
+  uri: URL,
+  options?: RequestInit,
+  verifySSL: boolean = false
+) {
   //console.log(verifySSL)
   //console.log(uri)
   //console.log(options)
@@ -69,15 +73,16 @@ export async function apiFetch(uri, options, verifySSL = false) {
       error.status = err.status;
     }
     console.error(`Request error: ${err.message}`);
-    error.caught = err;
+
+    if (typeof err === "string") error.caught = err;
     throw error;
   }
 }
 
 export async function apiToken(
-  uri,
-  username,
-  password,
+  uri: URL,
+  username: string,
+  password: string,
   scope = "coach",
   clientId = "2f9445b3-5266-45cd-8a85-d5c3fff69781",
   clientSecret = ""
