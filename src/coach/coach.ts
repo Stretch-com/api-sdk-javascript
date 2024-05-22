@@ -1,4 +1,8 @@
+import { StretchAuth } from "../common/auth";
+
 class Coach {
+  _client: StretchAuth;
+
   constructor(client) {
     this._client = client;
   }
@@ -17,11 +21,6 @@ class Coach {
   async getAvailabilityCalendar(query) {
     if (await this._client.checkAuth())
       return await this._client.get(`/coach/availability/calendar`, query);
-  }
-
-  async getAvailabilityCalendar(payload = {}) {
-    if (await this._client.checkAuth())
-      return await this._client.get(`/coach/availability/calendar`, payload);
   }
 
   async postAvailability(payload) {

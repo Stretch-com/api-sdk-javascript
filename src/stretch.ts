@@ -1,4 +1,3 @@
-import { Auth } from "./auth/index.js";
 import { StretchAuth } from "./common/auth.js";
 
 import Admin from "./admin/admin.js";
@@ -12,7 +11,6 @@ import Storage from "./storage/storage.js";
 
 class Stretch {
   admin: Admin;
-  auth: Auth;
   coach: Coach;
   nav: Nav;
   search: Search;
@@ -29,7 +27,6 @@ class Stretch {
     const stretchAuthObj = new StretchAuth(clientId, apiUrl, apiBase);
 
     this.admin = new Admin(stretchAuthObj);
-    this.auth = new Auth(stretchAuthObj);
     this.coach = new Coach(stretchAuthObj);
     this.nav = new Nav(stretchAuthObj);
     this.search = new Search(stretchAuthObj);

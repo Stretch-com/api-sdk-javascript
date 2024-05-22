@@ -1,8 +1,22 @@
+import { components, operations } from "../../types/auth.js";
 import { apiFetch, apiToken } from "./fetch.js";
 import { StretchBase } from "./requests.js";
 
 export class StretchAuth extends StretchBase {
-  async login(username: string, password: string) {
+  async getConfig(
+    clientId: string
+  ): Promise<components["schemas"]["AppConfigOut"] | undefined> {
+    return await apiFetch(this.url(`/config/${clientId}`), {
+      method: "GET",
+      credentials: "include",
+      headers: { "Content-Type": "application/json" },
+    });
+  }
+
+  async login(
+    username: string,
+    password: string
+  ): Promise<components["schemas"]["Token"]> {
     const scope = "coach";
     const res = await apiToken(
       this.url("/auth/token"),
@@ -14,19 +28,57 @@ export class StretchAuth extends StretchBase {
 
     try {
       this._updateToken(res);
+    } catch (e: any) {
+      console.error(`Fail update storage: ${e.message}`);
+    }
+    return res;
+  }
+
+  async postRefresh(): Promise<components["schemas"]["Token"] | undefined> {
+    if (await this.checkAuth()) return await this.post(`/auth/refresh`);
+  }
+
+  async logout() {
+    if (await this.checkAuth()) return await this.post(`/auth/logout`);
+  }
+
+  async passwordReset(
+    payload: operations["password_reset_api_v1_auth_password_reset_post"]["requestBody"]["content"]["application/json"]
+  ): Promise<components["schemas"]["UserSignupOut"] | undefined> {
+    // const basic = btoa(`${this._clientId}:`);
+    const res = await apiFetch(this.url("/auth/password-reset"), {
+      method: "POST",
+      body: JSON.stringify(payload),
+      credentials: "include",
+      headers: {
+        // Authorization: `Basic ${basic}`,
+        "Content-Type": "application/json",
+        //'Access-Control-Allow-Credentials': true,
+      },
+    });
+
+    try {
+      this._updateToken(res);
     } catch (e) {
       console.error(`Fail update storage: ${e.message}`);
     }
     return res;
   }
 
-  async guest(type: string = "client", timezone: string | null = null) {
+  async passwordChange(
+    payload: operations["complete_password_reset_api_v1_auth_password_reset_put"]["requestBody"]["content"]["application/json"]
+  ): Promise<components["schemas"]["Token"] | undefined> {
+    if (await this.checkAuth())
+      return await this.put(`/auth/password-reset`, payload);
+  }
+
+  async guest(
+    scope: string = "client",
+    timezone: string | null = null
+  ): Promise<components["schemas"]["UserSignupOut"] | undefined> {
     const basic = btoa(`${this._clientId}:`);
-    const payload = {
-      grant_type: "create",
-      timezone: timezone,
-      type: type,
-    };
+    const payload: operations["signup_guest_post_api_v1_auth_guest_post"]["requestBody"]["content"]["application/json"] =
+      { grant_type: "create", timezone, scope };
 
     const res = await apiFetch(this.url("/auth/guest"), {
       method: "POST",
@@ -48,17 +100,13 @@ export class StretchAuth extends StretchBase {
 
   async signup(
     phone: string,
-    type: string = "client",
+    type: components["schemas"]["UserType"] | null = "client",
     timezone: string | null = null
-  ) {
+  ): Promise<components["schemas"]["UserSignupOut"] | undefined> {
     const basic = btoa(`${this._clientId}:`);
     if (timezone == null) timezone = "Asia/Dubai";
-    const payload = {
-      grant_type: "create",
-      timezone: timezone,
-      type: type,
-      phone: phone,
-    };
+    const payload: operations["signup_api_v1_auth_signup_post"]["requestBody"]["content"]["application/json"] =
+      { grant_type: "create", timezone, type, phone };
 
     const res = await apiFetch(this.url("/auth/signup"), {
       method: "POST",
@@ -78,30 +126,26 @@ export class StretchAuth extends StretchBase {
     return res;
   }
 
-  async phoneVerify(session: string, channel = "sms") {
+  async phoneVerify(
+    payload: operations["verify_phone_api_v1_auth_verify_phone_post"]["requestBody"]["content"]["application/json"]
+  ): Promise<components["schemas"]["MobileOut"] | undefined> {
     if (await this.checkAuth()) {
-      const payload: Object = {
-        session: session,
-        channel: channel,
-      };
+      if (!payload.channel) payload.channel = "sms";
       return await this.post("/auth/verify/phone", payload);
     }
   }
 
-  async phoneCheck(sid: string, code: string) {
-    if (await this.checkAuth()) {
-      const payload = {
-        sid: sid,
-        code: code,
-      };
-
+  async phoneCheck(
+    payload: operations["verify_phone_code_api_v1_auth_verify_phone_put"]["requestBody"]["content"]["application/json"]
+  ): Promise<components["schemas"]["MobileCodeOut"] | undefined> {
+    if (await this.checkAuth())
       return await this.put("/auth/verify/phone", payload);
-    }
   }
 
-  async emailVerify(code) {
-    const payload = { code };
-    const res = await this.get("/auth/verify/email", payload);
+  async emailVerify(
+    query: operations["check_verify_email_api_v1_auth_verify_email_get"]["parameters"]["query"]
+  ) {
+    const res = await this.get("/auth/verify/email", query);
     try {
       if (res) this._updateToken(res);
     } catch (e) {
@@ -110,22 +154,35 @@ export class StretchAuth extends StretchBase {
     return res;
   }
 
-  async signupComplete(
-    password: string,
-    firstName: string | null = null,
-    lastName: string | null = null,
-    gender: string | null = null,
-    email: string | null = null,
-    username: string | null = null
-  ) {
-    if (await this.checkAuth()) {
-      const payload = { password };
-      if (firstName) payload["firstName"] = firstName;
-      if (lastName) payload["lastName"] = lastName;
-      if (gender) payload["gender"] = gender;
-      if (email) payload["email"] = email;
-      if (username) payload["username"] = username;
+  async postEmailVerify(
+    payload: operations["verify_email_api_v1_auth_verify_email_post"]["requestBody"]["content"]["application/json"]
+  ): Promise<components["schemas"]["EmailOut"] | undefined> {
+    if (await this.checkAuth())
+      return await this.post("/auth/verify/email", payload);
+  }
 
+  async emailCheck(
+    payload: operations["verify_email_code_api_v1_auth_verify_email_put"]["requestBody"]["content"]["application/json"]
+  ) {
+    if (await this.checkAuth())
+      return await this.put("/auth/verify/email", payload);
+  }
+
+  async verifyRegistration(
+    payload: operations["validate_user_registration_api_v1_auth_validate_post"]["requestBody"]["content"]["application/json"]
+  ): Promise<components["schemas"]["StretchResponse"] | undefined> {
+    if (await this.checkAuth())
+      return await this.post("/auth/validate", payload);
+  }
+
+  async signupComplete(
+    payload: operations["complete_user_registration_api_v1_auth_complete_put"]["requestBody"]["content"]["application/json"]
+  ): Promise<
+    | components["schemas"]["Token"]
+    | components["schemas"]["StretchResponse"]
+    | undefined
+  > {
+    if (await this.checkAuth()) {
       const res = await this.put("/auth/complete", payload);
       try {
         this._updateToken(res);
@@ -136,48 +193,21 @@ export class StretchAuth extends StretchBase {
     }
   }
 
-  async passwordReset(
-    phone: string | null = null,
-    email: string | null = null,
-    client_id: string = "2f9445b3-5266-45cd-8a85-d5c3fff69781",
-    client_secret: string | null = null
-  ) {
-    // const basic = btoa(`${this._clientId}:`);
-    const payload = { grant_type: "reset", client_id };
-    if (phone) payload["phone"] = phone;
-    else if (email) payload["email"] = email;
-    else if (client_secret) payload["client_secret"] = client_secret;
-
-    const res = await apiFetch(this.url("/auth/password-reset"), {
-      method: "POST",
-      body: JSON.stringify(payload),
-      credentials: "include",
-      headers: {
-        // Authorization: `Basic ${basic}`,
-        "Content-Type": "application/json",
-        //'Access-Control-Allow-Credentials': true,
-      },
-    });
-    try {
-      this._updateToken(res);
-    } catch (e) {
-      console.error(`Fail update storage: ${e.message}`);
-    }
-    return res;
+  async getUser(): Promise<
+    components["schemas"]["UserProfileOut"] | undefined
+  > {
+    if (await this.checkAuth()) return await this.get("/auth/user");
   }
 
-  async passwordChange(password: string) {
-    if (await this.checkAuth()) {
-      const payload = {
-        password: password,
-      };
-      const res = await this.put("/auth/password-reset", payload);
-      try {
-        this._updateToken(res);
-      } catch (e) {
-        console.error(`Fail update storage: ${e.message}`);
-      }
-      return res;
-    }
+  async putUser(
+    payload: operations["put_user_info_api_v1_auth_user_put"]["requestBody"]["content"]["application/json"]
+  ): Promise<components["schemas"]["UserProfileOut"] | undefined> {
+    if (await this.checkAuth()) return await this.put("/auth/user", payload);
+  }
+
+  async deleteUser(
+    query: operations["drop_user_api_v1_auth_user_delete"]["parameters"]["query"]
+  ) {
+    if (await this.checkAuth()) return await this.delete("/auth/user", query);
   }
 }
