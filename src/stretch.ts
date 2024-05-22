@@ -1,23 +1,27 @@
 import { StretchAuth } from "./common/auth.js";
 
-import Admin from "./admin/admin.js";
-import Coach from "./coach/coach.js";
-import Nav from "./nav/nav.js";
-import Payment from "./payment/payment.js";
-import Search from "./search/search.js";
-import Service from "./service/service.js";
-import Session from "./session/session.js";
-import Storage from "./storage/storage.js";
+import Admin from "./admin/admin";
+import Client from "./client/client";
+import Coach from "./coach/coach";
+import Nav from "./nav/nav";
+import Payment from "./payment/payment";
+import Search from "./search/search";
+import Service from "./service/service";
+import Session from "./session/session";
+import Storage from "./storage/storage";
+import User from "./user/user";
 
 class Stretch {
   admin: Admin;
+  client: Client;
   coach: Coach;
   nav: Nav;
-  search: Search;
-  storage: Storage;
-  session: Session;
-  service: Service;
   payment: Payment;
+  search: Search;
+  service: Service;
+  session: Session;
+  storage: Storage;
+  user: User;
 
   constructor(
     clientId,
@@ -27,13 +31,15 @@ class Stretch {
     const stretchAuthObj = new StretchAuth(clientId, apiUrl, apiBase);
 
     this.admin = new Admin(stretchAuthObj);
+    this.client = new Client(stretchAuthObj);
     this.coach = new Coach(stretchAuthObj);
     this.nav = new Nav(stretchAuthObj);
-    this.search = new Search(stretchAuthObj);
-    this.storage = new Storage(stretchAuthObj);
-    this.session = new Session(stretchAuthObj);
-    this.service = new Service(stretchAuthObj);
     this.payment = new Payment(stretchAuthObj);
+    this.search = new Search(stretchAuthObj);
+    this.service = new Service(stretchAuthObj);
+    this.session = new Session(stretchAuthObj);
+    this.storage = new Storage(stretchAuthObj);
+    this.user = new User(stretchAuthObj);
   }
 }
 

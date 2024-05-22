@@ -4,7 +4,7 @@ import { StretchAuth } from "../common/auth";
 class Service {
   _client: StretchAuth;
 
-  constructor(client) {
+  constructor(client: StretchAuth) {
     this._client = client;
   }
 

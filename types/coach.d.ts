@@ -1160,14 +1160,14 @@ export interface components {
       /**
        * Fromdate
        * @description Get the available time starting from this value
-       * @default 2024-05-20T07:53:50.514290Z
-       * @example 2024-05-21T07:53:50.514299Z
+       * @default 2024-05-20T07:53:50.439150Z
+       * @example 2024-05-21T07:53:50.439160Z
        */
       fromDate?: string;
       /**
        * Todate
-       * @default 2024-06-20T07:53:50.514387Z
-       * @example 2024-06-20T07:53:50.514395Z
+       * @default 2024-06-20T07:53:50.439247Z
+       * @example 2024-06-20T07:53:50.439253Z
        */
       toDate?: string;
       /** @default auto */
@@ -4308,7 +4308,7 @@ export interface components {
        * @description Availability date for create
        * @example [
        *   {
-       *     "date": "2024-05-20T07:53:35.126467",
+       *     "date": "2024-05-20T07:53:35.045222",
        *     "orderDescription": "Order description"
        *   }
        * ]
@@ -5116,7 +5116,7 @@ export interface components {
       /**
        * Slots
        * @description Availability date for create
-       * @example 2024-05-20T07:53:35.750576
+       * @example 2024-05-20T07:53:35.650010
        */
       slots: string | components["schemas"]["SessionBookingIn"][];
       location?: components["schemas"]["AddressSessionOut"] | null;
