@@ -1,4 +1,4 @@
-import { StretchError } from "./error.js";
+import { StretchError } from "./error";
 
 // authorise a user using the Authorization headers on any URI and return the JSON value of
 // its response

@@ -1,4 +1,4 @@
-import { StretchAuth } from "./common/auth.js";
+import { StretchAuth } from "./common/auth";
 
 import Admin from "./admin/admin";
 import Client from "./client/client";

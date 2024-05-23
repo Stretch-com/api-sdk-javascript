@@ -1,11 +1,14 @@
-import { components, operations } from "../../types/auth.js";
-import { apiFetch, apiToken } from "./fetch.js";
-import { StretchBase } from "./requests.js";
+import { components, paths } from "../../types/auth";
+import { apiFetch, apiToken } from "./fetch";
+import { StretchBase } from "./requests";
 
 export class StretchAuth extends StretchBase {
   async getConfig(
     clientId: string
-  ): Promise<components["schemas"]["AppConfigOut"] | undefined> {
+  ): Promise<
+    | paths["/api/v1/auth/config/{client_id}"]["get"]["responses"]["200"]["content"]["application/json"]
+    | undefined
+  > {
     return await apiFetch(this.url(`/config/${clientId}`), {
       method: "GET",
       credentials: "include",
@@ -16,7 +19,10 @@ export class StretchAuth extends StretchBase {
   async login(
     username: string,
     password: string
-  ): Promise<components["schemas"]["Token"]> {
+  ): Promise<
+    | paths["/api/v1/auth/token"]["post"]["responses"]["200"]["content"]["application/json"]
+    | undefined
+  > {
     const scope = "coach";
     const res = await apiToken(
       this.url("/auth/token"),
@@ -35,17 +41,26 @@ export class StretchAuth extends StretchBase {
     return res;
   }
 
-  async postRefresh(): Promise<components["schemas"]["Token"] | undefined> {
+  async postRefresh(): Promise<
+    | paths["/api/v1/auth/refresh"]["post"]["responses"]["200"]["content"]["application/json"]
+    | undefined
+  > {
     if (await this.checkAuth()) return await this.post(`/auth/refresh`);
   }
 
-  async logout() {
+  async postLogout(): Promise<
+    | paths["/api/v1/auth/logout"]["post"]["responses"]["200"]["content"]["application/json"]
+    | undefined
+  > {
     if (await this.checkAuth()) return await this.post(`/auth/logout`);
   }
 
   async passwordReset(
-    payload: operations["password_reset_api_v1_auth_password_reset_post"]["requestBody"]["content"]["application/json"]
-  ): Promise<components["schemas"]["UserSignupOut"] | undefined> {
+    payload: paths["/api/v1/auth/password-reset"]["post"]["requestBody"]["content"]["application/json"]
+  ): Promise<
+    | paths["/api/v1/auth/password-reset"]["post"]["responses"]["200"]["content"]["application/json"]
+    | undefined
+  > {
     // const basic = btoa(`${this._clientId}:`);
     const res = await apiFetch(this.url("/auth/password-reset"), {
       method: "POST",
@@ -67,8 +82,11 @@ export class StretchAuth extends StretchBase {
   }
 
   async passwordChange(
-    payload: operations["complete_password_reset_api_v1_auth_password_reset_put"]["requestBody"]["content"]["application/json"]
-  ): Promise<components["schemas"]["Token"] | undefined> {
+    payload: paths["/api/v1/auth/password-reset"]["put"]["requestBody"]["content"]["application/json"]
+  ): Promise<
+    | paths["/api/v1/auth/password-reset"]["post"]["responses"]["200"]["content"]["application/json"]
+    | undefined
+  > {
     if (await this.checkAuth())
       return await this.put(`/auth/password-reset`, payload);
   }
@@ -76,9 +94,12 @@ export class StretchAuth extends StretchBase {
   async guest(
     scope: string = "client",
     timezone: string | null = null
-  ): Promise<components["schemas"]["UserSignupOut"] | undefined> {
+  ): Promise<
+    | paths["/api/v1/auth/guest"]["post"]["responses"]["200"]["content"]["application/json"]
+    | undefined
+  > {
     const basic = btoa(`${this._clientId}:`);
-    const payload: operations["signup_guest_post_api_v1_auth_guest_post"]["requestBody"]["content"]["application/json"] =
+    const payload: paths["/api/v1/auth/guest"]["post"]["requestBody"]["content"]["application/json"] =
       { grant_type: "create", timezone, scope };
 
     const res = await apiFetch(this.url("/auth/guest"), {
@@ -103,10 +124,13 @@ export class StretchAuth extends StretchBase {
     phone: string,
     type: components["schemas"]["UserType"] | null = "client",
     timezone: string | null = null
-  ): Promise<components["schemas"]["UserSignupOut"] | undefined> {
+  ): Promise<
+    | paths["/api/v1/auth/signup"]["post"]["responses"]["200"]["content"]["application/json"]
+    | undefined
+  > {
     const basic = btoa(`${this._clientId}:`);
     if (timezone == null) timezone = "Asia/Dubai";
-    const payload: operations["signup_api_v1_auth_signup_post"]["requestBody"]["content"]["application/json"] =
+    const payload: paths["/api/v1/auth/signup"]["post"]["requestBody"]["content"]["application/json"] =
       { grant_type: "create", timezone, type, phone };
 
     const res = await apiFetch(this.url("/auth/signup"), {
@@ -128,8 +152,11 @@ export class StretchAuth extends StretchBase {
   }
 
   async phoneVerify(
-    payload: operations["verify_phone_api_v1_auth_verify_phone_post"]["requestBody"]["content"]["application/json"]
-  ): Promise<components["schemas"]["MobileOut"] | undefined> {
+    payload: paths["/api/v1/auth/verify/phone"]["post"]["requestBody"]["content"]["application/json"]
+  ): Promise<
+    | paths["/api/v1/auth/verify/phone"]["post"]["responses"]["200"]["content"]["application/json"]
+    | undefined
+  > {
     if (await this.checkAuth()) {
       if (!payload.channel) payload.channel = "sms";
       return await this.post("/auth/verify/phone", payload);
@@ -137,15 +164,21 @@ export class StretchAuth extends StretchBase {
   }
 
   async phoneCheck(
-    payload: operations["verify_phone_code_api_v1_auth_verify_phone_put"]["requestBody"]["content"]["application/json"]
-  ): Promise<components["schemas"]["MobileCodeOut"] | undefined> {
+    payload: paths["/api/v1/auth/verify/phone"]["put"]["requestBody"]["content"]["application/json"]
+  ): Promise<
+    | paths["/api/v1/auth/verify/phone"]["put"]["responses"]["200"]["content"]["application/json"]
+    | undefined
+  > {
     if (await this.checkAuth())
       return await this.put("/auth/verify/phone", payload);
   }
 
   async emailVerify(
-    query: operations["check_verify_email_api_v1_auth_verify_email_get"]["parameters"]["query"]
-  ) {
+    query: paths["/api/v1/auth/verify/email"]["get"]["parameters"]["query"]
+  ): Promise<
+    | paths["/api/v1/auth/verify/email"]["get"]["responses"]["200"]["content"]["application/json"]
+    | undefined
+  > {
     const res = await this.get("/auth/verify/email", query);
     try {
       if (res) this._updateToken(res);
@@ -156,31 +189,39 @@ export class StretchAuth extends StretchBase {
   }
 
   async postEmailVerify(
-    payload: operations["verify_email_api_v1_auth_verify_email_post"]["requestBody"]["content"]["application/json"]
-  ): Promise<components["schemas"]["EmailOut"] | undefined> {
+    payload: paths["/api/v1/auth/verify/email"]["post"]["requestBody"]["content"]["application/json"]
+  ): Promise<
+    | paths["/api/v1/auth/verify/email"]["post"]["responses"]["200"]["content"]["application/json"]
+    | undefined
+  > {
     if (await this.checkAuth())
       return await this.post("/auth/verify/email", payload);
   }
 
   async emailCheck(
-    payload: operations["verify_email_code_api_v1_auth_verify_email_put"]["requestBody"]["content"]["application/json"]
-  ) {
+    payload: paths["/api/v1/auth/verify/email"]["put"]["requestBody"]["content"]["application/json"]
+  ): Promise<
+    | paths["/api/v1/auth/verify/email"]["put"]["responses"]["200"]["content"]["application/json"]
+    | undefined
+  > {
     if (await this.checkAuth())
       return await this.put("/auth/verify/email", payload);
   }
 
   async verifyRegistration(
-    payload: operations["validate_user_registration_api_v1_auth_validate_post"]["requestBody"]["content"]["application/json"]
-  ): Promise<components["schemas"]["StretchResponse"] | undefined> {
+    payload: paths["/api/v1/auth/validate"]["post"]["requestBody"]["content"]["application/json"]
+  ): Promise<
+    | paths["/api/v1/auth/validate"]["post"]["responses"]["200"]["content"]["application/json"]
+    | undefined
+  > {
     if (await this.checkAuth())
       return await this.post("/auth/validate", payload);
   }
 
   async signupComplete(
-    payload: operations["complete_user_registration_api_v1_auth_complete_put"]["requestBody"]["content"]["application/json"]
+    payload: paths["/api/v1/auth/complete"]["put"]["requestBody"]["content"]["application/json"]
   ): Promise<
-    | components["schemas"]["Token"]
-    | components["schemas"]["StretchResponse"]
+    | paths["/api/v1/auth/complete"]["put"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
     if (await this.checkAuth()) {
@@ -195,20 +236,27 @@ export class StretchAuth extends StretchBase {
   }
 
   async getUser(): Promise<
-    components["schemas"]["UserProfileOut"] | undefined
+    | paths["/api/v1/auth/user"]["get"]["responses"]["200"]["content"]["application/json"]
+    | undefined
   > {
     if (await this.checkAuth()) return await this.get("/auth/user");
   }
 
   async putUser(
-    payload: operations["put_user_info_api_v1_auth_user_put"]["requestBody"]["content"]["application/json"]
-  ): Promise<components["schemas"]["UserProfileOut"] | undefined> {
+    payload: paths["/api/v1/auth/user"]["put"]["requestBody"]["content"]["application/json"]
+  ): Promise<
+    | paths["/api/v1/auth/user"]["put"]["responses"]["200"]["content"]["application/json"]
+    | undefined
+  > {
     if (await this.checkAuth()) return await this.put("/auth/user", payload);
   }
 
   async deleteUser(
-    query: operations["drop_user_api_v1_auth_user_delete"]["parameters"]["query"]
-  ) {
+    query: paths["/api/v1/auth/user"]["delete"]["parameters"]["query"]
+  ): Promise<
+    | paths["/api/v1/auth/user"]["delete"]["responses"]["200"]["content"]["application/json"]
+    | undefined
+  > {
     if (await this.checkAuth()) return await this.delete("/auth/user", query);
   }
 }

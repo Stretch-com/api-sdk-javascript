@@ -1,5 +1,5 @@
 "use strict";
-import Stretch from "../../src/stretch.js";
+import Stretch from "../../src/stretch";
 
 async function main() {
   console.log("Test JS GUEST");

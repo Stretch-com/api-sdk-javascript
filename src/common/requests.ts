@@ -1,5 +1,5 @@
-import { StretchError } from "./error.js";
-import { apiFetch } from "./fetch.js";
+import { StretchError } from "./error";
+import { apiFetch } from "./fetch";
 
 export class StretchBase {
   _clientId?: string = undefined;
