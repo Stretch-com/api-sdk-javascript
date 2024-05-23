@@ -1,21 +1,14 @@
 import { paths } from "../../types/payment";
 import { StretchAuth } from "../common/auth";
 
-class Payment {
-  _client: StretchAuth;
-
-  constructor(client: StretchAuth) {
-    this._client = client;
-  }
-
+class Payment extends StretchAuth {
   async getPayments(
     query: paths["/api/v1/payments"]["get"]["parameters"]["query"]
   ): Promise<
     | paths["/api/v1/payments"]["get"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this._client.checkAuth())
-      return await this._client.get(`/payments`, query);
+    if (await this.checkAuth()) return await this.get(`/payments`, query);
   }
 
   async getMethods(
@@ -24,8 +17,7 @@ class Payment {
     | paths["/api/v1/payment/methods"]["get"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this._client.checkAuth())
-      return await this._client.get(`/payment/method`, query);
+    if (await this.checkAuth()) return await this.get(`/payment/method`, query);
   }
 
   async getPaymentCheckout(
@@ -34,8 +26,8 @@ class Payment {
     | paths["/api/v1/payment/checkout/{payment_id}"]["get"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this._client.checkAuth())
-      return await this._client.get(`/payment/checkout/${paymentId}`);
+    if (await this.checkAuth())
+      return await this.get(`/payment/checkout/${paymentId}`);
   }
 
   async postPaymentCheckout(
@@ -45,16 +37,15 @@ class Payment {
     | paths["/api/v1/payment/checkout/{payment_id}"]["post"]["responses"]["201"]["content"]["application/json"]
     | undefined
   > {
-    if (await this._client.checkAuth())
-      return await this._client.post(`/payment/checkout/${paymentId}`, payload);
+    if (await this.checkAuth())
+      return await this.post(`/payment/checkout/${paymentId}`, payload);
   }
 
   async getWallets(): Promise<
     | paths["/api/v1/payment/wallets"]["get"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this._client.checkAuth())
-      return await this._client.get(`/payment/wallets`);
+    if (await this.checkAuth()) return await this.get(`/payment/wallets`);
   }
 
   async getWalletInfo(
@@ -63,8 +54,8 @@ class Payment {
     | paths["/api/v1/payment/wallet/info"]["get"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this._client.checkAuth())
-      return await this._client.get(`/payment/wallet/info`, query);
+    if (await this.checkAuth())
+      return await this.get(`/payment/wallet/info`, query);
   }
 
   async postWallet(
@@ -73,8 +64,8 @@ class Payment {
     | paths["/api/v1/payment/wallet"]["post"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this._client.checkAuth())
-      return await this._client.post(`/payment/wallet`, payload);
+    if (await this.checkAuth())
+      return await this.post(`/payment/wallet`, payload);
   }
 
   async putWallet(
@@ -84,8 +75,8 @@ class Payment {
     | paths["/api/v1/payment/wallet/{wallet_id}"]["put"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this._client.checkAuth())
-      return await this._client.put(`/payment/wallet/${walletId}`, query);
+    if (await this.checkAuth())
+      return await this.put(`/payment/wallet/${walletId}`, query);
   }
 
   async deleteWallet(
@@ -94,32 +85,32 @@ class Payment {
     | paths["/api/v1/payment/wallet/{wallet_id}"]["delete"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this._client.checkAuth())
-      return await this._client.delete(`/payment/wallet/${walletId}`);
+    if (await this.checkAuth())
+      return await this.delete(`/payment/wallet/${walletId}`);
   }
 
   async getKyc(): Promise<
     | paths["/api/v1/payment/kyc/stripe/account"]["get"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this._client.checkAuth())
-      return await this._client.get(`/payment/kyc/stripe/account`);
+    if (await this.checkAuth())
+      return await this.get(`/payment/kyc/stripe/account`);
   }
 
   async postKyc(): Promise<
     | paths["/api/v1/payment/kyc/stripe/account"]["post"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this._client.checkAuth())
-      return await this._client.post(`/payment/kyc/stripe/account`);
+    if (await this.checkAuth())
+      return await this.post(`/payment/kyc/stripe/account`);
   }
 
   async deleteKyc(): Promise<
     | paths["/api/v1/payment/kyc/stripe/account"]["delete"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this._client.checkAuth())
-      return await this._client.delete(`/payment/kyc/stripe/account`);
+    if (await this.checkAuth())
+      return await this.delete(`/payment/kyc/stripe/account`);
   }
 
   async getTransactions(
@@ -128,8 +119,8 @@ class Payment {
     | paths["/api/v1/payment/transactions"]["get"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this._client.checkAuth())
-      return await this._client.get(`/payment/transactions`, query);
+    if (await this.checkAuth())
+      return await this.get(`/payment/transactions`, query);
   }
 
   async getTransaction(
@@ -138,24 +129,23 @@ class Payment {
     | paths["/api/v1/payment/transaction/{transaction_id}"]["get"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this._client.checkAuth())
-      return await this._client.get(`/payment/transaction/${transactionId}`);
+    if (await this.checkAuth())
+      return await this.get(`/payment/transaction/${transactionId}`);
   }
 
   async postWithdraw(): Promise<
     | paths["/api/v1/payment/withdraw"]["post"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this._client.checkAuth())
-      return await this._client.post(`/payment/withdraw`);
+    if (await this.checkAuth()) return await this.post(`/payment/withdraw`);
   }
 
   async getConfigBalance(): Promise<
     | paths["/api/v1/payment/config/balance"]["get"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this._client.checkAuth())
-      return await this._client.get(`/payment/config/balance`);
+    if (await this.checkAuth())
+      return await this.get(`/payment/config/balance`);
   }
 
   async getPaymentGateway(
@@ -164,8 +154,8 @@ class Payment {
     | paths["/api/v1/payment/gateway/checkout/{payment_id}"]["get"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this._client.checkAuth())
-      return await this._client.get(`/payment/gateway/checkout/${paymentId}`);
+    if (await this.checkAuth())
+      return await this.get(`/payment/gateway/checkout/${paymentId}`);
   }
 
   async getPaymentGatewayStatus(
@@ -174,10 +164,8 @@ class Payment {
     | paths["/api/v1/payment/gateway/checkout/{payment_id}/status"]["get"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this._client.checkAuth())
-      return await this._client.get(
-        `/payment/gateway/checkout/${paymentId}/status`
-      );
+    if (await this.checkAuth())
+      return await this.get(`/payment/gateway/checkout/${paymentId}/status`);
   }
 
   async checkPaymentGatewayStatus(
@@ -186,8 +174,8 @@ class Payment {
     | paths["/api/v1/payment/gateway/checkout/{payment_id}/check/status"]["get"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this._client.checkAuth())
-      return await this._client.get(
+    if (await this.checkAuth())
+      return await this.get(
         `/payment/gateway/checkout/${paymentId}/check/status`
       );
   }

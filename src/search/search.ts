@@ -1,13 +1,7 @@
 import { paths } from "../../types/coach";
 import { StretchAuth } from "../common/auth";
 
-export class Search {
-  _client: StretchAuth;
-
-  constructor(client: StretchAuth) {
-    this._client = client;
-  }
-
+export class Search extends StretchAuth {
   async search(
     payload: paths["/api/v1/search"]["post"]["requestBody"]["content"]["application/json"]
   ) {
@@ -32,8 +26,7 @@ export class Search {
     | paths["/api/v1/search"]["post"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this._client.checkAuth())
-      return await this._client.post(`/search`, payload);
+    if (await this.checkAuth()) return await this.post(`/search`, payload);
   }
 
   async postCount(
@@ -42,8 +35,8 @@ export class Search {
     | paths["/api/v1/search/count"]["post"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this._client.checkAuth())
-      return await this._client.post(`/search/count`, payload);
+    if (await this.checkAuth())
+      return await this.post(`/search/count`, payload);
   }
 
   async getFilter(
@@ -52,8 +45,7 @@ export class Search {
     | paths["/api/v1/search/filter"]["get"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this._client.checkAuth())
-      return await this._client.get(`/search/filter`, query);
+    if (await this.checkAuth()) return await this.get(`/search/filter`, query);
   }
 }
 

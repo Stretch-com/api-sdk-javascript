@@ -24,13 +24,13 @@ export class StretchBase {
     //this._apiBase = `${apiUrl}${apiBase}`
   }
 
-  user(userId = null) {
+  userBase(userId = null) {
     this.#userId = userId;
     return this;
   }
 
   url<T>(uri, query: T | null = null) {
-    let lurl = new URL(`${this._apiBase}${uri}`, this._apiUrl);
+    const lurl = new URL(`${this._apiBase}${uri}`, this._apiUrl);
     if (query != null) lurl.search = new URLSearchParams(query).toString();
     return lurl;
   }
@@ -50,7 +50,9 @@ export class StretchBase {
     query: T | null = null,
     contentType: string | null = "application/json"
   ) {
-    let headers = { Authorization: `${this.#tokenType} ${this.#accessToken}` };
+    const headers = {
+      Authorization: `${this.#tokenType} ${this.#accessToken}`,
+    };
     if (contentType) headers["Content-Type"] = contentType;
 
     if (this.#userId) {
@@ -66,7 +68,7 @@ export class StretchBase {
     });
   }
 
-  async post(uri, payload?: Object, contentType = "application/json") {
+  async post(uri, payload?: object, contentType = "application/json") {
     const headers = {
       Authorization: `${this.#tokenType} ${this.#accessToken}`,
     };
@@ -88,25 +90,7 @@ export class StretchBase {
     });
   }
 
-  async postForm(uri, body) {
-    const headers = {
-      Authorization: `${this.#tokenType} ${this.#accessToken}`,
-    };
-
-    if (this.#userId) {
-      headers["Authorization-User"] = this.#userId;
-      // this.#userId = null;
-    }
-
-    return await apiFetch(this.url(uri), {
-      method: "POST",
-      credentials: "include",
-      body,
-      headers,
-    });
-  }
-
-  async put(uri, payload?: Object, contentType = "application/json") {
+  async put(uri, payload?: object, contentType = "application/json") {
     const headers = {
       Authorization: `${this.#tokenType} ${this.#accessToken}`,
     };
@@ -128,26 +112,8 @@ export class StretchBase {
     });
   }
 
-  async putForm(uri, body?: BodyInit) {
-    let headers = {
-      Authorization: `${this.#tokenType} ${this.#accessToken}`,
-    };
-
-    if (this.#userId) {
-      headers["Authorization-User"] = this.#userId;
-      // this.#userId = null;
-    }
-
-    return await apiFetch(this.url(uri), {
-      method: "PUT",
-      credentials: "include",
-      body,
-      headers,
-    });
-  }
-
-  async delete<T>(uri, query: T | null = null, body: BodyInit | null = null) {
-    let headers = {
+  async delete<T>(uri, query: T | null = null, body: object | null = null) {
+    const headers = {
       Authorization: `${this.#tokenType} ${this.#accessToken}`,
     };
 
@@ -160,7 +126,7 @@ export class StretchBase {
     return await apiFetch(this.url(uri, query), {
       method: "DELETE",
       credentials: "include",
-      body,
+      body: body as BodyInit,
       headers,
     });
   }
@@ -176,25 +142,25 @@ export class StretchBase {
       storageExists = false;
     }
 
-    if (res.hasOwnProperty("access_token")) {
+    if (Object.prototype.hasOwnProperty.call(res, "access_token")) {
       this.#accessToken = res["access_token"];
       if (storageExists)
         localStorage.setItem("access_token", res["access_token"]);
     }
 
-    if (res.hasOwnProperty("refresh_token")) {
+    if (Object.prototype.hasOwnProperty.call(res, "refresh_token")) {
       this.#refreshToken = res["refresh_token"];
       if (storageExists)
         localStorage.setItem("refresh_token", res["refresh_token"]);
     }
 
-    if (res.hasOwnProperty("token_type")) {
+    if (Object.prototype.hasOwnProperty.call(res, "token_type")) {
       this.#tokenType = res["token_type"];
       if (storageExists) localStorage.setItem("token_type", res["token_type"]);
     }
 
-    if (res.hasOwnProperty("access_expire")) {
-      let currentTime = new Date();
+    if (Object.prototype.hasOwnProperty.call(res, "access_expire")) {
+      const currentTime = new Date();
       currentTime.setSeconds(
         currentTime.getSeconds() + res["access_expire"] - 10
       );
@@ -204,8 +170,8 @@ export class StretchBase {
         localStorage.setItem("access_expire_date", currentTime.toTimeString());
     }
 
-    if (res.hasOwnProperty("refresh_expire")) {
-      let currentTime = new Date();
+    if (Object.prototype.hasOwnProperty.call(res, "refresh_expire")) {
+      const currentTime = new Date();
       currentTime.setSeconds(
         currentTime.getSeconds() + res["refresh_expire"] - 60
       );

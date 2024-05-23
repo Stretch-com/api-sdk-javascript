@@ -1,43 +1,33 @@
 import { paths } from "../../types/coach";
 import { StretchAuth } from "../common/auth";
 
-class Session {
-  _client: StretchAuth;
-
-  constructor(client: StretchAuth) {
-    this._client = client;
-  }
-
+class Session extends StretchAuth {
   async getSessionsInfo(): Promise<
     | paths["/api/v1/sessions/info"]["get"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this._client.checkAuth())
-      return await this._client.get(`/sessions/info`);
+    if (await this.checkAuth()) return await this.get(`/sessions/info`);
   }
 
   async getSessionsUnrated(): Promise<
     | paths["/api/v1/sessions/unrated"]["get"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this._client.checkAuth())
-      return await this._client.get(`/sessions/unrated`);
+    if (await this.checkAuth()) return await this.get(`/sessions/unrated`);
   }
 
   async getSessionsCoaches(): Promise<
     | paths["/api/v1/sessions/coaches"]["get"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this._client.checkAuth())
-      return await this._client.get(`/sessions/coaches`);
+    if (await this.checkAuth()) return await this.get(`/sessions/coaches`);
   }
 
   async getSessions(): Promise<
     | paths["/api/v1/sessions"]["get"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this._client.checkAuth())
-      return await this._client.get(`/sessions`);
+    if (await this.checkAuth()) return await this.get(`/sessions`);
   }
 
   async getSession(
@@ -46,8 +36,7 @@ class Session {
     | paths["/api/v1/session/{session_id}"]["get"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this._client.checkAuth())
-      return await this._client.get(`/session/${sessionId}`);
+    if (await this.checkAuth()) return await this.get(`/session/${sessionId}`);
   }
 
   async putSession(
@@ -57,16 +46,15 @@ class Session {
     | paths["/api/v1/session/{session_id}"]["put"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this._client.checkAuth())
-      return await this._client.put(`/session/${sessionId}`, payload);
+    if (await this.checkAuth())
+      return await this.put(`/session/${sessionId}`, payload);
   }
 
   async getSessionsClients(): Promise<
     | paths["/api/v1/sessions/clients"]["get"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this._client.checkAuth())
-      return await this._client.get(`/sessions/clients`);
+    if (await this.checkAuth()) return await this.get(`/sessions/clients`);
   }
 
   async approveSession(
@@ -75,8 +63,8 @@ class Session {
     | paths["/api/v1/session/{session_id}/approve"]["put"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this._client.checkAuth())
-      return await this._client.put(`/session/${sessionId}/approve`);
+    if (await this.checkAuth())
+      return await this.put(`/session/${sessionId}/approve`);
   }
 
   async cancelSession(
@@ -85,8 +73,8 @@ class Session {
     | paths["/api/v1/session/{session_id}/cancel"]["put"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this._client.checkAuth())
-      return await this._client.put(`/session/${sessionId}/cancel`);
+    if (await this.checkAuth())
+      return await this.put(`/session/${sessionId}/cancel`);
   }
 
   async reportSession(
@@ -96,8 +84,8 @@ class Session {
     | paths["/api/v1/session/{session_id}/report"]["put"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this._client.checkAuth())
-      return await this._client.put(`/session/${sessionId}/report`);
+    if (await this.checkAuth())
+      return await this.put(`/session/${sessionId}/report`, payload);
   }
 
   async refundSession(
@@ -107,8 +95,8 @@ class Session {
     | paths["/api/v1/session/{session_id}/refund"]["put"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this._client.checkAuth())
-      return await this._client.put(
+    if (await this.checkAuth())
+      return await this.put(
         `/session/${sessionId}/refund`,
         payload ?? undefined
       );
@@ -121,8 +109,8 @@ class Session {
     | paths["/api/v1/session/{session_id}/decline"]["put"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this._client.checkAuth())
-      return await this._client.put(
+    if (await this.checkAuth())
+      return await this.put(
         `/session/${sessionId}/decline`,
         payload ?? undefined
       );
@@ -135,8 +123,8 @@ class Session {
     | paths["/api/v1/session/{session_id}/reviews"]["get"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this._client.checkAuth())
-      return await this._client.get(`/session/${sessionId}/reviews`, query);
+    if (await this.checkAuth())
+      return await this.get(`/session/${sessionId}/reviews`, query);
   }
 
   async postSessionReview(
@@ -146,8 +134,8 @@ class Session {
     | paths["/api/v1/session/{session_id}/review"]["post"]["responses"]["201"]["content"]["application/json"]
     | undefined
   > {
-    if (await this._client.checkAuth())
-      return await this._client.post(`/session/${sessionId}/reviews`, payload);
+    if (await this.checkAuth())
+      return await this.post(`/session/${sessionId}/reviews`, payload);
   }
 
   async getReview(
@@ -156,8 +144,8 @@ class Session {
     | paths["/api/v1/session/review/{review_id}"]["get"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this._client.checkAuth())
-      return await this._client.get(`/session/review/${reviewId}`);
+    if (await this.checkAuth())
+      return await this.get(`/session/review/${reviewId}`);
   }
 
   async postReview(
@@ -167,8 +155,8 @@ class Session {
     | paths["/api/v1/session/review/{review_id}"]["post"]["responses"]["201"]["content"]["application/json"]
     | undefined
   > {
-    if (await this._client.checkAuth())
-      return await this._client.post(`/session/review/${reviewId}`, payload);
+    if (await this.checkAuth())
+      return await this.post(`/session/review/${reviewId}`, payload);
   }
 
   async deleteReview(
@@ -177,8 +165,8 @@ class Session {
     | paths["/api/v1/session/review/{review_id}"]["delete"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this._client.checkAuth())
-      return await this._client.delete(`/session/review/${reviewId}`);
+    if (await this.checkAuth())
+      return await this.delete(`/session/review/${reviewId}`);
   }
 
   async getSessionIcs(
@@ -187,8 +175,8 @@ class Session {
     | paths["/api/v1/session/{session_id}/ics"]["get"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this._client.checkAuth())
-      return await this._client.get(`/session/${sessionId}/ics`);
+    if (await this.checkAuth())
+      return await this.get(`/session/${sessionId}/ics`);
   }
 
   async cancelGroupSession(
@@ -197,8 +185,8 @@ class Session {
     | paths["/api/v1/session/group/{group_id}/cancel"]["put"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this._client.checkAuth())
-      return await this._client.put(`/session/group/${groupId}/cancel`);
+    if (await this.checkAuth())
+      return await this.put(`/session/group/${groupId}/cancel`);
   }
 }
 

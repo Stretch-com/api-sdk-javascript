@@ -11,7 +11,7 @@ import Session from "./session/session";
 import Storage from "./storage/storage";
 import User from "./user/user";
 
-class Stretch {
+class Stretch extends StretchAuth {
   admin: Admin;
   client: Client;
   coach: Coach;
@@ -28,18 +28,18 @@ class Stretch {
     apiUrl = "https://stage.stretch.com",
     apiBase = "/api/v1"
   ) {
-    const stretchAuthObj = new StretchAuth(clientId, apiUrl, apiBase);
+    super(clientId, apiUrl, apiBase);
 
-    this.admin = new Admin(stretchAuthObj);
-    this.client = new Client(stretchAuthObj);
-    this.coach = new Coach(stretchAuthObj);
-    this.nav = new Nav(stretchAuthObj);
-    this.payment = new Payment(stretchAuthObj);
-    this.search = new Search(stretchAuthObj);
-    this.service = new Service(stretchAuthObj);
-    this.session = new Session(stretchAuthObj);
-    this.storage = new Storage(stretchAuthObj);
-    this.user = new User(stretchAuthObj);
+    this.admin = new Admin(clientId, apiUrl, apiBase);
+    this.client = new Client(clientId, apiUrl, apiBase);
+    this.coach = new Coach(clientId, apiUrl, apiBase);
+    this.nav = new Nav(clientId, apiUrl, apiBase);
+    this.payment = new Payment(clientId, apiUrl, apiBase);
+    this.search = new Search(clientId, apiUrl, apiBase);
+    this.service = new Service(clientId, apiUrl, apiBase);
+    this.session = new Session(clientId, apiUrl, apiBase);
+    this.storage = new Storage(clientId, apiUrl, apiBase);
+    this.user = new User(clientId, apiUrl, apiBase);
   }
 }
 

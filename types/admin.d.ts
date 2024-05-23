@@ -6069,7 +6069,7 @@ export interface operations {
   };
   /** Create Feedback */
   create_feedback_api_v1_admin_support_feedback_post: {
-    requestBody?: {
+    requestBody: {
       content: {
         "multipart/form-data": components["schemas"]["Body_create_feedback_api_v1_admin_support_feedback_post"];
       };

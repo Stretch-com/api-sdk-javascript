@@ -1,19 +1,12 @@
 import { paths } from "../../types/coach";
 import { StretchAuth } from "../common/auth";
 
-class User {
-  _client: StretchAuth;
-
-  constructor(client: StretchAuth) {
-    this._client = client;
-  }
-
+class User extends StretchAuth {
   async getFavorites(): Promise<
     | paths["/api/v1/user/favorites"]["get"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this._client.checkAuth())
-      return await this._client.get(`/user/favorites`);
+    if (await this.checkAuth()) return await this.get(`/user/favorites`);
   }
 
   async postFavorite(
@@ -22,8 +15,8 @@ class User {
     | paths["/api/v1/user/favorite"]["post"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this._client.checkAuth())
-      return await this._client.post(`/user/favorite`, payload);
+    if (await this.checkAuth())
+      return await this.post(`/user/favorite`, payload);
   }
 
   async deleteFavorites(
@@ -32,16 +25,15 @@ class User {
     | paths["/api/v1/user/favorite/{user_id}"]["delete"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this._client.checkAuth())
-      return await this._client.delete(`/user/favorite/${userId}`);
+    if (await this.checkAuth())
+      return await this.delete(`/user/favorite/${userId}`);
   }
 
   async getBlacklist(): Promise<
     | paths["/api/v1/user/blacklist"]["get"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this._client.checkAuth())
-      return await this._client.get(`/user/blacklist`);
+    if (await this.checkAuth()) return await this.get(`/user/blacklist`);
   }
 
   async postBlacklist(
@@ -50,8 +42,8 @@ class User {
     | paths["/api/v1/user/blacklist"]["post"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this._client.checkAuth())
-      return await this._client.post(`/user/blacklist`, payload);
+    if (await this.checkAuth())
+      return await this.post(`/user/blacklist`, payload);
   }
 
   async deleteBlacklist(
@@ -60,8 +52,8 @@ class User {
     | paths["/api/v1/user/blacklist/{user_id}"]["delete"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this._client.checkAuth())
-      return await this._client.delete(`/user/blacklist/${userId}`);
+    if (await this.checkAuth())
+      return await this.delete(`/user/blacklist/${userId}`);
   }
 
   async getReviews(
@@ -71,8 +63,8 @@ class User {
     | paths["/api/v1/user/{user_id}/reviews"]["get"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this._client.checkAuth())
-      return await this._client.get(`/user/${userId}/reviews`, query);
+    if (await this.checkAuth())
+      return await this.get(`/user/${userId}/reviews`, query);
   }
 
   async getReviewsInfo(
@@ -81,16 +73,15 @@ class User {
     | paths["/api/v1/user/{user_id}/reviews/info"]["get"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this._client.checkAuth())
-      return await this._client.get(`/user/${userId}/reviews/info`);
+    if (await this.checkAuth())
+      return await this.get(`/user/${userId}/reviews/info`);
   }
 
   async getConfig(): Promise<
     | paths["/api/v1/user/config"]["get"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this._client.checkAuth())
-      return await this._client.get(`/user/config`);
+    if (await this.checkAuth()) return await this.get(`/user/config`);
   }
 
   async getNotes(
@@ -100,8 +91,8 @@ class User {
     | paths["/api/v1/user/{id}/notes"]["get"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this._client.checkAuth())
-      return await this._client.get(`/user/${userId}/notes`, query);
+    if (await this.checkAuth())
+      return await this.get(`/user/${userId}/notes`, query);
   }
 
   async getNote(
@@ -111,8 +102,8 @@ class User {
     | paths["/api/v1/user/{id}/note/{notes_id}"]["get"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this._client.checkAuth())
-      return await this._client.get(`/user/${userId}/note/${noteId}`);
+    if (await this.checkAuth())
+      return await this.get(`/user/${userId}/note/${noteId}`);
   }
 
   async postNote(
@@ -122,8 +113,8 @@ class User {
     | paths["/api/v1/user/{id}/note"]["post"]["responses"]["201"]["content"]["application/json"]
     | undefined
   > {
-    if (await this._client.checkAuth())
-      return await this._client.post(`/user/${userId}/note`, payload);
+    if (await this.checkAuth())
+      return await this.post(`/user/${userId}/note`, payload);
   }
 
   async putNote(
@@ -134,8 +125,8 @@ class User {
     | paths["/api/v1/user/{id}/note/{notes_id}"]["put"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this._client.checkAuth())
-      return await this._client.put(`/user/${userId}/note/${noteId}`, payload);
+    if (await this.checkAuth())
+      return await this.put(`/user/${userId}/note/${noteId}`, payload);
   }
 
   async deleteNote(
@@ -145,8 +136,8 @@ class User {
     | paths["/api/v1/user/{id}/note/{notes_id}"]["delete"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this._client.checkAuth())
-      return await this._client.delete(`/user/${userId}/note/${noteId}`);
+    if (await this.checkAuth())
+      return await this.delete(`/user/${userId}/note/${noteId}`);
   }
 }
 

@@ -28,6 +28,7 @@ export class StretchAuth extends StretchBase {
 
     try {
       this._updateToken(res);
+      /* eslint-disable */
     } catch (e: any) {
       console.error(`Fail update storage: ${e.message}`);
     }

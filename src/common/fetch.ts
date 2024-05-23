@@ -63,7 +63,7 @@ export async function apiFetch(
     }
   } catch (err) {
     if (err instanceof StretchError) throw err;
-    let error = new StretchError(
+    const error = new StretchError(
       0,
       "request-error",
       `Request error: ${err.message}`
@@ -87,7 +87,7 @@ export async function apiToken(
   clientId = "2f9445b3-5266-45cd-8a85-d5c3fff69781",
   clientSecret = ""
 ) {
-  let data = new FormData();
+  const data = new FormData();
   const basic = btoa(`${clientId}:${clientSecret}`);
   data.append("grant_type", "password");
   data.append("username", username);
