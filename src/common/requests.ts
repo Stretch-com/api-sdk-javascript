@@ -1,3 +1,4 @@
+import { paths } from "../../types/auth";
 import { StretchError } from "./error";
 import { apiFetch } from "./fetch";
 
@@ -29,13 +30,14 @@ export class StretchBase {
     return this;
   }
 
-  url<T>(uri, query: T | null = null) {
+  url<T>(uri: string, query: T | null = null) {
     const lurl = new URL(`${this._apiBase}${uri}`, this._apiUrl);
     if (query != null) lurl.search = new URLSearchParams(query).toString();
     return lurl;
   }
 
-  cleanPayload(payload) {
+  /* eslint-disable */
+  cleanPayload(payload: any) {
     if (payload && !Array.isArray(payload)) {
       payload = Object.keys(payload)
         .filter((k) => payload[k] !== null)
@@ -46,11 +48,11 @@ export class StretchBase {
   }
 
   async get<T>(
-    uri,
+    uri: string,
     query: T | null = null,
     contentType: string | null = "application/json"
   ) {
-    const headers = {
+    const headers: HeadersInit = {
       Authorization: `${this.#tokenType} ${this.#accessToken}`,
     };
     if (contentType) headers["Content-Type"] = contentType;
@@ -68,8 +70,8 @@ export class StretchBase {
     });
   }
 
-  async post(uri, payload?: object, contentType = "application/json") {
-    const headers = {
+  async post(uri: string, payload?: object, contentType = "application/json") {
+    const headers: HeadersInit = {
       Authorization: `${this.#tokenType} ${this.#accessToken}`,
     };
     if (contentType) {
@@ -90,8 +92,8 @@ export class StretchBase {
     });
   }
 
-  async put(uri, payload?: object, contentType = "application/json") {
-    const headers = {
+  async put(uri: string, payload?: object, contentType = "application/json") {
+    const headers: HeadersInit = {
       Authorization: `${this.#tokenType} ${this.#accessToken}`,
     };
     if (contentType) {
@@ -112,8 +114,12 @@ export class StretchBase {
     });
   }
 
-  async delete<T>(uri, query: T | null = null, body: object | null = null) {
-    const headers = {
+  async delete<T>(
+    uri: string,
+    query: T | null = null,
+    body: object | null = null
+  ) {
+    const headers: HeadersInit = {
       Authorization: `${this.#tokenType} ${this.#accessToken}`,
     };
 
@@ -131,7 +137,9 @@ export class StretchBase {
     });
   }
 
-  _updateToken(res) {
+  _updateToken(
+    res: paths["/api/v1/auth/token"]["post"]["responses"]["200"]["content"]["application/json"]
+  ) {
     let storageExists;
 
     try {
@@ -142,24 +150,36 @@ export class StretchBase {
       storageExists = false;
     }
 
-    if (Object.prototype.hasOwnProperty.call(res, "access_token")) {
+    if (
+      Object.prototype.hasOwnProperty.call(res, "access_token") &&
+      res.access_token
+    ) {
       this.#accessToken = res["access_token"];
       if (storageExists)
         localStorage.setItem("access_token", res["access_token"]);
     }
 
-    if (Object.prototype.hasOwnProperty.call(res, "refresh_token")) {
+    if (
+      Object.prototype.hasOwnProperty.call(res, "refresh_token") &&
+      res.refresh_token
+    ) {
       this.#refreshToken = res["refresh_token"];
       if (storageExists)
         localStorage.setItem("refresh_token", res["refresh_token"]);
     }
 
-    if (Object.prototype.hasOwnProperty.call(res, "token_type")) {
+    if (
+      Object.prototype.hasOwnProperty.call(res, "token_type") &&
+      res.token_type
+    ) {
       this.#tokenType = res["token_type"];
       if (storageExists) localStorage.setItem("token_type", res["token_type"]);
     }
 
-    if (Object.prototype.hasOwnProperty.call(res, "access_expire")) {
+    if (
+      Object.prototype.hasOwnProperty.call(res, "access_expire") &&
+      res.access_expire
+    ) {
       const currentTime = new Date();
       currentTime.setSeconds(
         currentTime.getSeconds() + res["access_expire"] - 10
@@ -170,7 +190,10 @@ export class StretchBase {
         localStorage.setItem("access_expire_date", currentTime.toTimeString());
     }
 
-    if (Object.prototype.hasOwnProperty.call(res, "refresh_expire")) {
+    if (
+      Object.prototype.hasOwnProperty.call(res, "refresh_expire") &&
+      res.refresh_expire
+    ) {
       const currentTime = new Date();
       currentTime.setSeconds(
         currentTime.getSeconds() + res["refresh_expire"] - 60
@@ -233,7 +256,8 @@ export class StretchBase {
 
     try {
       this._updateToken(res);
-    } catch (e) {
+      /* eslint-disable */
+    } catch (e: any) {
       console.error(`Fail update storage: ${e.message}`);
     }
     return res;

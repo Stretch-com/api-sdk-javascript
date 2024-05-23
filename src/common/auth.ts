@@ -75,7 +75,8 @@ export class StretchAuth extends StretchBase {
 
     try {
       this._updateToken(res);
-    } catch (e) {
+      /* eslint-disable */
+    } catch (e: any) {
       console.error(`Fail update storage: ${e.message}`);
     }
     return res;
@@ -114,7 +115,8 @@ export class StretchAuth extends StretchBase {
 
     try {
       this._updateToken(res);
-    } catch (e) {
+      /* eslint-disable */
+    } catch (e: any) {
       console.error(`Fail update storage: ${e.message}`);
     }
     return res;
@@ -145,7 +147,8 @@ export class StretchAuth extends StretchBase {
 
     try {
       this._updateToken(res);
-    } catch (e) {
+      /* eslint-disable */
+    } catch (e: any) {
       console.error(`Fail update storage: ${e.message}`);
     }
     return res;
@@ -182,7 +185,8 @@ export class StretchAuth extends StretchBase {
     const res = await this.get("/auth/verify/email", query);
     try {
       if (res) this._updateToken(res);
-    } catch (e) {
+      /* eslint-disable */
+    } catch (e: any) {
       console.error(`Fail update storage: ${e.message}`);
     }
     return res;
@@ -228,7 +232,8 @@ export class StretchAuth extends StretchBase {
       const res = await this.put("/auth/complete", payload);
       try {
         this._updateToken(res);
-      } catch (e) {
+        /* eslint-disable */
+      } catch (e: any) {
         console.error(`Fail update storage: ${e.message}`);
       }
       return res;

@@ -37,7 +37,8 @@ export async function apiFetch(
           console.warn("We get TEXT answer");
           return await res.text();
         }
-      } catch (err) {
+        /* eslint-disable */
+      } catch (err: any) {
         //const text = await res.text()
         //console.log(text)
         console.error(`Invalid JSON: ${err.message}`);
@@ -61,7 +62,8 @@ export async function apiFetch(
         err.fields ?? []
       );
     }
-  } catch (err) {
+    /* eslint-disable */
+  } catch (err: any) {
     if (err instanceof StretchError) throw err;
     const error = new StretchError(
       0,

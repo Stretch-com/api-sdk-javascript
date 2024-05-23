@@ -24,9 +24,9 @@ class Stretch extends StretchAuth {
   user: User;
 
   constructor(
-    clientId,
-    apiUrl = "https://stage.stretch.com",
-    apiBase = "/api/v1"
+    clientId: string,
+    apiUrl: string = "https://stage.stretch.com",
+    apiBase: string = "/api/v1"
   ) {
     super(clientId, apiUrl, apiBase);
 
