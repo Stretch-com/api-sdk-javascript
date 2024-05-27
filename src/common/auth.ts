@@ -85,7 +85,7 @@ export class StretchAuth extends StretchBase {
   async passwordChange(
     payload: paths["/api/v1/auth/password-reset"]["put"]["requestBody"]["content"]["application/json"]
   ): Promise<
-    | paths["/api/v1/auth/password-reset"]["post"]["responses"]["200"]["content"]["application/json"]
+    | paths["/api/v1/auth/password-reset"]["put"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
     if (await this.checkAuth())

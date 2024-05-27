@@ -1,3 +1,3 @@
-import Stretch from "./src/stretch.js";
+import Stretch from "./src/stretch";
 
 export default Stretch;

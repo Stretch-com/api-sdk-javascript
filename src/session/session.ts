@@ -68,13 +68,14 @@ class Session extends StretchAuth {
   }
 
   async cancelSession(
-    sessionId: string
+    sessionId: string,
+    payload: paths["/api/v1/session/{session_id}/cancel"]["put"]["requestBody"]["content"]["application/json"]
   ): Promise<
     | paths["/api/v1/session/{session_id}/cancel"]["put"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
     if (await this.checkAuth())
-      return await this.put(`/session/${sessionId}/cancel`);
+      return await this.put(`/session/${sessionId}/cancel`, payload);
   }
 
   async reportSession(

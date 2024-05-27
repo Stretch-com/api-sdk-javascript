@@ -25,7 +25,7 @@ export class StretchBase {
     //this._apiBase = `${apiUrl}${apiBase}`
   }
 
-  userBase(userId = null) {
+  userBase(userId: string | null = null) {
     this.#userId = userId;
     return this;
   }

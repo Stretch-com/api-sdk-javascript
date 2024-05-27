@@ -3,7 +3,6 @@
  * Do not make direct changes to the file.
  */
 
-
 export interface paths {
   "/api/v1/storage/attachments": {
     /** List Attachment */
@@ -266,7 +265,9 @@ export interface components {
       /** Filesize */
       filesize?: number | null;
       /** @description File visibility status in the system: on review, approved or rejected */
-      status?: components["schemas"]["stretchcore__models__storage__file__FileStatus__1"] | null;
+      status?:
+        | components["schemas"]["stretchcore__models__storage__file__FileStatus__1"]
+        | null;
       /**
        * Duration
        * @description Duration in seconds
@@ -291,7 +292,7 @@ export interface components {
        * Files
        * @default []
        */
-      files?: string[];
+      files?: File[];
       /** Title */
       title?: string | null;
       /** Description */
@@ -303,7 +304,7 @@ export interface components {
        * File
        * Format: binary
        */
-      file: string;
+      file: File;
       /** Title */
       title?: string | null;
       /** Description */
@@ -318,7 +319,7 @@ export interface components {
     /** Body_update_certificate_api_v1_storage_certificate__certificate_id__put */
     Body_update_certificate_api_v1_storage_certificate__certificate_id__put: {
       /** File */
-      file?: string | null;
+      file?: File | null;
       /** Title */
       title?: string | null;
       /** Description */
@@ -332,7 +333,7 @@ export interface components {
        * Files
        * @default []
        */
-      files?: string[];
+      files?: File[];
       /** Title */
       title?: string | null;
       /** Description */
@@ -341,7 +342,7 @@ export interface components {
     /** Body_update_image_api_v1_storage_image__image_id__put */
     Body_update_image_api_v1_storage_image__image_id__put: {
       /** File */
-      file?: string | null;
+      file?: File | null;
       /** Title */
       title?: string | null;
     };
@@ -351,7 +352,7 @@ export interface components {
        * File
        * Format: binary
        */
-      file?: string;
+      file?: File;
       /** Title */
       title?: string | null;
       /** Description */
@@ -368,7 +369,7 @@ export interface components {
        * File
        * Format: binary
        */
-      file: string;
+      file: File;
     };
     /** Body_upload_certificate_api_v1_storage_certificate_post */
     Body_upload_certificate_api_v1_storage_certificate_post: {
@@ -376,7 +377,7 @@ export interface components {
        * File
        * Format: binary
        */
-      file: string;
+      file: File;
       /** Title */
       title?: string | null;
       /** Description */
@@ -391,7 +392,7 @@ export interface components {
        * Format: binary
        * @description Downloadable file
        */
-      file: string;
+      file: File;
       /**
        * Title
        * @description The title name of the uploaded file
@@ -404,12 +405,12 @@ export interface components {
        * Files
        * @description List of upload files
        */
-      files: string[];
+      files: File[];
     };
     /** Body_upload_report_api_v1_storage_report__report_id__post */
     Body_upload_report_api_v1_storage_report__report_id__post: {
       /** Files */
-      files: string[];
+      files: File[];
     };
     /** Body_upload_user_avatar_api_v1_storage_profile_avatar_post */
     Body_upload_user_avatar_api_v1_storage_profile_avatar_post: {
@@ -417,7 +418,7 @@ export interface components {
        * File
        * Format: binary
        */
-      file: string;
+      file: File;
     };
     /** Body_upload_user_media_api_v1_storage_profile_media_post */
     Body_upload_user_media_api_v1_storage_profile_media_post: {
@@ -425,7 +426,7 @@ export interface components {
        * File
        * Format: binary
        */
-      file: string;
+      file: File;
       /**
        * Preview
        * Format: binary
@@ -438,7 +439,7 @@ export interface components {
        * File
        * Format: binary
        */
-      file: string;
+      file: File;
       /** Title */
       title?: string | null;
       /** Description */
@@ -518,7 +519,9 @@ export interface components {
       /** Filesize */
       filesize?: number | null;
       /** @description File visibility status in the system: on review, approved or rejected */
-      status?: components["schemas"]["stretchcore__models__storage__file__FileStatus__1"] | null;
+      status?:
+        | components["schemas"]["stretchcore__models__storage__file__FileStatus__1"]
+        | null;
       /** Issuedate */
       issueDate?: string | null;
       /** Expiredate */
@@ -558,7 +561,9 @@ export interface components {
        */
       videoThumb?: string | null;
       /** @description File visibility status in the system: on review, approved or rejected */
-      status?: components["schemas"]["stretchcore__models__storage__file__FileStatus__1"] | null;
+      status?:
+        | components["schemas"]["stretchcore__models__storage__file__FileStatus__1"]
+        | null;
       /**
        * Id
        * Format: uuid
@@ -630,7 +635,9 @@ export interface components {
       /** Filesize */
       filesize?: number | null;
       /** @description File visibility status in the system: on review, approved or rejected */
-      status?: components["schemas"]["stretchcore__models__storage__file__FileStatus__1"] | null;
+      status?:
+        | components["schemas"]["stretchcore__models__storage__file__FileStatus__1"]
+        | null;
     };
     /** HTTPValidationError */
     HTTPValidationError: {
@@ -727,7 +734,11 @@ export interface components {
      * StripeConnectStatus
      * @enum {string}
      */
-    StripeConnectStatus: "unregistered" | "completed" | "pending" | "unverified";
+    StripeConnectStatus:
+      | "unregistered"
+      | "completed"
+      | "pending"
+      | "unverified";
     /**
      * UserAllergy
      * @enum {string}
@@ -808,9 +819,12 @@ export interface components {
        * Languages
        * @description Languages
        */
-      languages: string | {
-        [key: string]: string;
-      } | null;
+      languages:
+        | string
+        | {
+            [key: string]: string;
+          }
+        | null;
       /**
        * Properties
        * @description Extra property for user
@@ -924,7 +938,14 @@ export interface components {
      * UserType
      * @enum {string}
      */
-    UserType: "guest" | "coach" | "client" | "studio" | "business" | "support" | "admin";
+    UserType:
+      | "guest"
+      | "coach"
+      | "client"
+      | "studio"
+      | "business"
+      | "support"
+      | "admin";
     /** ValidationError */
     ValidationError: {
       /** Location */
@@ -974,7 +995,9 @@ export interface components {
       /** Filesize */
       filesize?: number | null;
       /** @description File visibility status in the system: on review, approved or rejected */
-      status?: components["schemas"]["stretchcore__models__storage__file__FileStatus__1"] | null;
+      status?:
+        | components["schemas"]["stretchcore__models__storage__file__FileStatus__1"]
+        | null;
       /**
        * Duration
        * @description Duration in seconds
@@ -985,7 +1008,14 @@ export interface components {
      * FileStatus
      * @enum {string}
      */
-    stretchcore__models__storage__file__FileStatus__1: "uploaded" | "processing" | "approved" | "rejected" | "review" | "draft" | "deleted";
+    stretchcore__models__storage__file__FileStatus__1:
+      | "uploaded"
+      | "processing"
+      | "approved"
+      | "rejected"
+      | "review"
+      | "draft"
+      | "deleted";
     stretchcore__models__storage__file__FileStatus__2: components["schemas"]["stretchcore__models__storage__file__FileStatus__1"];
   };
   responses: never;
@@ -1000,7 +1030,6 @@ export type $defs = Record<string, never>;
 export type external = Record<string, never>;
 
 export interface operations {
-
   /** List Attachment */
   list_attachment_api_v1_storage_attachments_get: {
     responses: {
