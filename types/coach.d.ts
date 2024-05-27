@@ -1160,14 +1160,14 @@ export interface components {
       /**
        * Fromdate
        * @description Get the available time starting from this value
-       * @default 2024-05-20T07:53:50.439150Z
-       * @example 2024-05-21T07:53:50.439160Z
+       * @default 2024-05-24T11:57:57.299840Z
+       * @example 2024-05-25T11:57:57.299850Z
        */
       fromDate?: string;
       /**
        * Todate
-       * @default 2024-06-20T07:53:50.439247Z
-       * @example 2024-06-20T07:53:50.439253Z
+       * @default 2024-06-24T11:57:57.300282Z
+       * @example 2024-06-24T11:57:57.300297Z
        */
       toDate?: string;
       /** @default auto */
@@ -1204,7 +1204,7 @@ export interface components {
       /**
        * Start
        * @description Start date when slot is working
-       * @example 2024-05-20
+       * @example 2024-05-24
        */
       start?: string | null;
       /**
@@ -1287,7 +1287,7 @@ export interface components {
       /**
        * Start
        * @description Start date when slot is working
-       * @example 2024-05-20
+       * @example 2024-05-24
        */
       start?: string | null;
       /**
@@ -1341,7 +1341,7 @@ export interface components {
       title?: string | null;
       /**
        * Start
-       * @example 2024-05-20
+       * @example 2024-05-24
        */
       start?: string | null;
       /**
@@ -1400,7 +1400,10 @@ export interface components {
     };
     /** AwardFileOut */
     AwardFileOut: {
-      /** Contenttype */
+      /**
+       * Contenttype
+       * @description Content type of media file
+       */
       contentType?: string | null;
       /**
        * Url
@@ -1409,16 +1412,31 @@ export interface components {
       url?: string | null;
       /**
        * Thumb
-       * @description Full size url
+       * @description Thumbnail url
        */
       thumb?: string | null;
       /**
        * Videothumb
-       * @description Full size url
+       * @description Video thumbnail url
        */
       videoThumb?: string | null;
       /** @description File visibility status in the system: on review, approved or rejected */
       status?: components["schemas"]["stretchcore__models__storage__file__FileStatus__1"] | null;
+      /**
+       * Duration
+       * @description Duration of media
+       */
+      duration?: number | null;
+      /**
+       * Originfilename
+       * @description Original media filename
+       */
+      originFilename?: string | null;
+      /**
+       * Filesize
+       * @description Filesize of media
+       */
+      filesize?: number | null;
       /**
        * Id
        * Format: uuid
@@ -1682,72 +1700,117 @@ export interface components {
     BusinessContactType: "instagram" | "facebook" | "tiktok" | "twitter" | "x(twitter)" | "whatsapp" | "telegram" | "website" | "youtube" | "snapchat" | "wechat" | "kakao" | "line" | "viber" | "tumblr" | "vkontakte" | "linkedin";
     /** BusinessProfileOut */
     BusinessProfileOut: {
-      /** Id */
-      id?: string | null;
+      /**
+       * Id
+       * Format: uuid
+       */
+      id: string;
       /**
        * Categoryid
        * Format: uuid
        */
-      categoryId?: string;
+      categoryId: string;
+      /** Avatarurl */
+      avatarUrl?: string | null;
       /**
        * Displayname
        * @description User display name
        */
       displayName?: string | null;
-      /** Avatar Url */
-      avatar_url?: string | null;
-      /** @default business */
-      type?: components["schemas"]["UserType"] | null;
+      /** Description */
+      description?: string | null;
       /** Mediatype */
       mediaType?: string | null;
       /** Mediaurl */
       mediaUrl?: string | null;
       /** Mediapreviewurl */
       mediaPreviewUrl?: string | null;
-      /** Rating */
-      rating?: number | null;
+      /**
+       * Rating
+       * @default 0
+       */
+      rating?: number;
       /**
        * Reviewscount
        * @description Number of reviews
        * @default 0
        */
-      reviewsCount?: number | null;
-      /** Description */
-      description?: string | null;
+      reviewsCount?: number;
+      /** Phone */
+      phone?: string | null;
+      /** Email */
+      email?: string | null;
+      address?: components["schemas"]["PublicAddressOut"] | null;
+      /**
+       * Categories
+       * @default []
+       */
+      categories?: string[];
+      /**
+       * Amenities
+       * @default []
+       */
+      amenities?: string[];
+      /**
+       * Images
+       * @default []
+       */
+      images?: components["schemas"]["PublicFileOut"][];
+      /**
+       * Videos
+       * @default []
+       */
+      videos?: components["schemas"]["PublicFileOut"][];
+      /**
+       * Servicetypes
+       * @default []
+       */
+      serviceTypes?: components["schemas"]["BusinessServiceIn"][];
+      /**
+       * Contacts
+       * @default []
+       */
+      contacts?: components["schemas"]["BusinessContactIn"][];
+      /**
+       * Availability
+       * @default []
+       */
+      availability?: components["schemas"]["BusinessAvailabilityOut"][];
+      /**
+       * Faqs
+       * @default []
+       */
+      faqs?: components["schemas"]["FAQDetailOut"][];
+      /**
+       * Branches
+       * @default 0
+       */
+      branches?: number;
+      /**
+       * Boosted
+       * @default false
+       */
+      boosted?: boolean;
       /**
        * Distance
        * @description Distance
        */
       distance?: number | null;
-      /** Servicetypes */
-      serviceTypes?: string[] | null;
-      /** Services */
-      services?: components["schemas"]["ServiceOut"][] | null;
-      /** Images */
-      images?: components["schemas"]["PublicFileOut"][] | null;
-      /** Videos */
-      videos?: components["schemas"]["PublicFileOut"][] | null;
-      /** Awards */
-      awards?: components["schemas"]["AwardOut"][] | null;
-      /** Certificates */
-      certificates?: components["schemas"]["PublicCertificateFileOut"][] | null;
       /**
-       * Allowbooking
-       * @description User allowed to book this coach based on verification
+       * Favorite
        * @default false
        */
-      allowBooking?: boolean;
-      /** Favorite */
-      favorite?: boolean | null;
-      /** Boosted */
-      boosted?: boolean | null;
-      /** Availability */
-      availability?: components["schemas"]["BusinessAvailabilityOut"][] | null;
-      /** Features */
-      features?: string[] | null;
-      address?: components["schemas"]["PublicAddressOut"];
-      /** Contacts */
-      contacts?: components["schemas"]["BusinessContactIn"][] | null;
+      favorite?: boolean;
+      /**
+       * Isopen
+       * @default true
+       */
+      isOpen?: boolean;
+      /**
+       * Questions
+       * @default []
+       */
+      questions?: components["schemas"]["QuestionOut"][];
       /** Price */
       price?: number | null;
       /** Minprice */
@@ -1855,6 +1918,14 @@ export interface components {
     };
     /** BusinessUpdateProfileIn */
     BusinessUpdateProfileIn: {
+      /** Displayname */
+      displayName?: string | null;
+      /** Description */
+      description?: string | null;
+      /** Branchid */
+      branchId?: string | null;
+      /** Categoryid */
+      categoryId?: string | null;
       /**
        * @default {
        *   "instagram": [],
@@ -2110,16 +2181,16 @@ export interface components {
        * Issuedate
        * Format: date-time
        */
-      issueDate?: string;
-      /**
-       * Expiredate
-       * Format: date-time
-       */
-      expireDate?: string;
+      issueDate: string;
+      /** Expiredate */
+      expireDate?: string | null;
     };
     /** CoachCertificateFileOut */
     CoachCertificateFileOut: {
-      /** Contenttype */
+      /**
+       * Contenttype
+       * @description Content type of media file
+       */
       contentType?: string | null;
       /**
        * Url
@@ -2128,16 +2199,31 @@ export interface components {
       url?: string | null;
       /**
        * Thumb
-       * @description Full size url
+       * @description Thumbnail url
        */
       thumb?: string | null;
       /**
        * Videothumb
-       * @description Full size url
+       * @description Video thumbnail url
        */
       videoThumb?: string | null;
       /** @description File visibility status in the system: on review, approved or rejected */
       status?: components["schemas"]["stretchcore__models__storage__file__FileStatus__1"] | null;
+      /**
+       * Duration
+       * @description Duration of media
+       */
+      duration?: number | null;
+      /**
+       * Originfilename
+       * @description Original media filename
+       */
+      originFilename?: string | null;
+      /**
+       * Filesize
+       * @description Filesize of media
+       */
+      filesize?: number | null;
       /**
        * Id
        * Format: uuid
@@ -2160,11 +2246,8 @@ export interface components {
        * Format: date-time
        */
       issueDate?: string;
-      /**
-       * Expiredate
-       * Format: date-time
-       */
-      expireDate?: string;
+      /** Expiredate */
+      expireDate?: string | null;
       /**
        * Attachments
        * @default []
@@ -2351,7 +2434,10 @@ export interface components {
     };
     /** EquipmentFileOut */
     EquipmentFileOut: {
-      /** Contenttype */
+      /**
+       * Contenttype
+       * @description Content type of media file
+       */
       contentType?: string | null;
       /**
        * Url
@@ -2360,16 +2446,31 @@ export interface components {
       url?: string | null;
       /**
        * Thumb
-       * @description Full size url
+       * @description Thumbnail url
        */
       thumb?: string | null;
       /**
        * Videothumb
-       * @description Full size url
+       * @description Video thumbnail url
        */
       videoThumb?: string | null;
       /** @description File visibility status in the system: on review, approved or rejected */
       status?: components["schemas"]["stretchcore__models__storage__file__FileStatus__1"] | null;
+      /**
+       * Duration
+       * @description Duration of media
+       */
+      duration?: number | null;
+      /**
+       * Originfilename
+       * @description Original media filename
+       */
+      originFilename?: string | null;
+      /**
+       * Filesize
+       * @description Filesize of media
+       */
+      filesize?: number | null;
       /**
        * Id
        * Format: uuid
@@ -2465,7 +2566,10 @@ export interface components {
     };
     /** GalleryFileOut */
     GalleryFileOut: {
-      /** Contenttype */
+      /**
+       * Contenttype
+       * @description Content type of media file
+       */
       contentType?: string | null;
       /**
        * Url
@@ -2474,16 +2578,31 @@ export interface components {
       url?: string | null;
       /**
        * Thumb
-       * @description Full size url
+       * @description Thumbnail url
        */
       thumb?: string | null;
       /**
        * Videothumb
-       * @description Full size url
+       * @description Video thumbnail url
        */
       videoThumb?: string | null;
       /** @description File visibility status in the system: on review, approved or rejected */
       status?: components["schemas"]["stretchcore__models__storage__file__FileStatus__1"] | null;
+      /**
+       * Duration
+       * @description Duration of media
+       */
+      duration?: number | null;
+      /**
+       * Originfilename
+       * @description Original media filename
+       */
+      originFilename?: string | null;
+      /**
+       * Filesize
+       * @description Filesize of media
+       */
+      filesize?: number | null;
       /**
        * Id
        * Format: uuid
@@ -2502,7 +2621,10 @@ export interface components {
     LocationFields: "neighborhood" | "building" | "entrance" | "floor" | "apartment";
     /** MediaFileOut */
     MediaFileOut: {
-      /** Contenttype */
+      /**
+       * Contenttype
+       * @description Content type of media file
+       */
       contentType?: string | null;
       /**
        * Url
@@ -2511,16 +2633,31 @@ export interface components {
       url?: string | null;
       /**
        * Thumb
-       * @description Full size url
+       * @description Thumbnail url
        */
       thumb?: string | null;
       /**
        * Videothumb
-       * @description Full size url
+       * @description Video thumbnail url
        */
       videoThumb?: string | null;
       /** @description File visibility status in the system: on review, approved or rejected */
       status?: components["schemas"]["stretchcore__models__storage__file__FileStatus__1"] | null;
+      /**
+       * Duration
+       * @description Duration of media
+       */
+      duration?: number | null;
+      /**
+       * Originfilename
+       * @description Original media filename
+       */
+      originFilename?: string | null;
+      /**
+       * Filesize
+       * @description Filesize of media
+       */
+      filesize?: number | null;
     };
     /** NotesCreateIn */
     NotesCreateIn: {
@@ -2684,6 +2821,117 @@ export interface components {
        */
       lat: number;
     };
+    /** PrivateBusinessProfileOut */
+    PrivateBusinessProfileOut: {
+      /**
+       * Id
+       * Format: uuid
+       */
+      id: string;
+      /**
+       * Categoryid
+       * Format: uuid
+       */
+      categoryId: string;
+      /** Avatarurl */
+      avatarUrl?: string | null;
+      /**
+       * Displayname
+       * @description User display name
+       */
+      displayName?: string | null;
+      /** Description */
+      description?: string | null;
+      /** Mediatype */
+      mediaType?: string | null;
+      /** Mediaurl */
+      mediaUrl?: string | null;
+      /** Mediapreviewurl */
+      mediaPreviewUrl?: string | null;
+      /**
+       * Rating
+       * @default 0
+       */
+      rating?: number;
+      /**
+       * Reviewscount
+       * @description Number of reviews
+       * @default 0
+       */
+      reviewsCount?: number;
+      /** Phone */
+      phone?: string | null;
+      /** Email */
+      email?: string | null;
+      address?: components["schemas"]["PublicAddressOut"] | null;
+      /**
+       * Categories
+       * @default []
+       */
+      categories?: string[];
+      /**
+       * Amenities
+       * @default []
+       */
+      amenities?: string[];
+      /**
+       * Images
+       * @default []
+       */
+      images?: components["schemas"]["PublicFileOut"][];
+      /**
+       * Videos
+       * @default []
+       */
+      videos?: components["schemas"]["PublicFileOut"][];
+      /**
+       * Servicetypes
+       * @default []
+       */
+      serviceTypes?: components["schemas"]["BusinessServiceIn"][];
+      /**
+       * Contacts
+       * @default []
+       */
+      contacts?: components["schemas"]["BusinessContactIn"][];
+      /**
+       * Availability
+       * @default []
+       */
+      availability?: components["schemas"]["BusinessAvailabilityOut"][];
+      /**
+       * Faqs
+       * @default []
+       */
+      faqs?: components["schemas"]["FAQDetailOut"][];
+      /**
+       * Branches
+       * @default 0
+       */
+      branches?: number;
+      /**
+       * Boosted
+       * @default false
+       */
+      boosted?: boolean;
+      /**
+       * Createdat
+       * Format: date-time
+       */
+      createdAt: string;
+      /** Branchid */
+      branchId?: string | null;
+      /**
+       * Disabled
+       * @default false
+       */
+      disabled?: boolean;
+      /**
+       * Alwaysopen
+       * @default false
+       */
+      alwaysOpen?: boolean;
+    };
     /** ProfileFilling */
     ProfileFilling: {
       /** Allownonverify */
@@ -2827,96 +3075,117 @@ export interface components {
     };
     /** PublicBusinessProfile */
     PublicBusinessProfile: {
-      /** Id */
-      id?: string | null;
+      /**
+       * Id
+       * Format: uuid
+       */
+      id: string;
       /**
        * Categoryid
        * Format: uuid
        */
-      categoryId?: string;
+      categoryId: string;
+      /** Avatarurl */
+      avatarUrl?: string | null;
       /**
        * Displayname
        * @description User display name
        */
       displayName?: string | null;
-      /** Avatar Url */
-      avatar_url?: string | null;
-      /** @default business */
-      type?: components["schemas"]["UserType"] | null;
+      /** Description */
+      description?: string | null;
       /** Mediatype */
       mediaType?: string | null;
       /** Mediaurl */
       mediaUrl?: string | null;
       /** Mediapreviewurl */
       mediaPreviewUrl?: string | null;
-      /** Rating */
-      rating?: number | null;
+      /**
+       * Rating
+       * @default 0
+       */
+      rating?: number;
       /**
        * Reviewscount
        * @description Number of reviews
        * @default 0
        */
-      reviewsCount?: number | null;
-      /** Description */
-      description?: string | null;
+      reviewsCount?: number;
+      /** Phone */
+      phone?: string | null;
+      /** Email */
+      email?: string | null;
+      address?: components["schemas"]["PublicAddressOut"] | null;
+      /**
+       * Categories
+       * @default []
+       */
+      categories?: string[];
+      /**
+       * Amenities
+       * @default []
+       */
+      amenities?: string[];
+      /**
+       * Images
+       * @default []
+       */
+      images?: components["schemas"]["PublicFileOut"][];
+      /**
+       * Videos
+       * @default []
+       */
+      videos?: components["schemas"]["PublicFileOut"][];
+      /**
+       * Servicetypes
+       * @default []
+       */
+      serviceTypes?: components["schemas"]["BusinessServiceIn"][];
+      /**
+       * Contacts
+       * @default []
+       */
+      contacts?: components["schemas"]["BusinessContactIn"][];
+      /**
+       * Availability
+       * @default []
+       */
+      availability?: components["schemas"]["BusinessAvailabilityOut"][];
+      /**
+       * Faqs
+       * @default []
+       */
+      faqs?: components["schemas"]["FAQDetailOut"][];
+      /**
+       * Branches
+       * @default 0
+       */
+      branches?: number;
+      /**
+       * Boosted
+       * @default false
+       */
+      boosted?: boolean;
       /**
        * Distance
        * @description Distance
        */
       distance?: number | null;
-      /** Servicetypes */
-      serviceTypes?: string[] | null;
-      /** Services */
-      services?: components["schemas"]["ServiceOut"][] | null;
-      /** Images */
-      images?: components["schemas"]["PublicFileOut"][] | null;
-      /** Videos */
-      videos?: components["schemas"]["PublicFileOut"][] | null;
-      /** Awards */
-      awards?: components["schemas"]["AwardOut"][] | null;
-      /** Certificates */
-      certificates?: components["schemas"]["PublicCertificateFileOut"][] | null;
       /**
-       * Allowbooking
-       * @description User allowed to book this coach based on verification
+       * Favorite
        * @default false
        */
-      allowBooking?: boolean;
-      /** Favorite */
-      favorite?: boolean | null;
-      /** Boosted */
-      boosted?: boolean | null;
-      /** Availability */
-      availability?: components["schemas"]["BusinessAvailabilityOut"][] | null;
-      /** Features */
-      features?: string[] | null;
-      address?: components["schemas"]["PublicAddressOut"];
-      /** Contacts */
-      contacts?: components["schemas"]["BusinessContactIn"][] | null;
-    };
-    /** FileBase */
-    PublicCertificateFileOut: {
-      /** Title */
-      title?: string | null;
-      /** Description */
-      description?: string | null;
-      /** Contenttype */
-      contentType?: string | null;
-      /** Url */
-      url?: string | null;
-      /** Thumb */
-      thumb?: string | null;
-      status?: components["schemas"]["stretchcore__models__storage__file__FileStatus__1"] | null;
-      /** Originfilename */
-      originFilename?: string | null;
-      /** Filesize */
-      filesize?: number | null;
-      /** Duration */
-      duration?: number | null;
-      /** Issuedate */
-      issueDate?: string | null;
-      /** Expiredate */
-      expireDate?: string | null;
+      favorite?: boolean;
+      /**
+       * Isopen
+       * @default true
+       */
+      isOpen?: boolean;
+      /**
+       * Questions
+       * @default []
+       */
+      questions?: components["schemas"]["QuestionOut"][];
     };
     /** PublicClientProfileOut */
     PublicClientProfileOut: {
@@ -4308,7 +4577,7 @@ export interface components {
        * @description Availability date for create
        * @example [
        *   {
-       *     "date": "2024-05-20T07:53:35.045222",
+       *     "date": "2024-05-24T11:57:42.688867",
        *     "orderDescription": "Order description"
        *   }
        * ]
@@ -5116,7 +5385,7 @@ export interface components {
       /**
        * Slots
        * @description Availability date for create
-       * @example 2024-05-20T07:53:35.650010
+       * @example 2024-05-24T11:57:43.334135
        */
       slots: string | components["schemas"]["SessionBookingIn"][];
       location?: components["schemas"]["AddressSessionOut"] | null;
@@ -6601,7 +6870,7 @@ export interface operations {
       /** @description Successful Response */
       200: {
         content: {
-          "application/json": components["schemas"]["BusinessProfileOut"];
+          "application/json": components["schemas"]["PrivateBusinessProfileOut"];
         };
       };
     };

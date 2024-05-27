@@ -818,6 +818,8 @@ export interface components {
       ratingTo?: number | null;
       /** Startswith */
       startsWith?: string | null;
+      /** Branchid */
+      branchId?: string | null;
     };
     /** AdminBusinessQueryIn */
     AdminBusinessQueryIn: {
@@ -850,6 +852,8 @@ export interface components {
       ratingTo?: number | null;
       /** Startswith */
       startsWith?: string | null;
+      /** Branchid */
+      branchId?: string | null;
       /**
        * Page
        * @example 0
@@ -1090,6 +1094,13 @@ export interface components {
       clients: components["schemas"]["AdminBookedUsersAnalyticsOut"];
       reviews: components["schemas"]["SessionReviewInfoOut"];
     };
+    /** AdminCoachClientListCountOut */
+    AdminCoachClientListCountOut: {
+      /** Total */
+      total: number;
+      /** Blockedclients */
+      blockedClients: number;
+    };
     /** AdminCoachDetailViewOut */
     AdminCoachDetailViewOut: {
       /**
@@ -1276,6 +1287,29 @@ export interface components {
       reason?: string | null;
       /** Description */
       description?: string | null;
+    };
+    /** AdminCoachVerifySummaryCountOut */
+    AdminCoachVerifySummaryCountOut: {
+      /**
+       * Total
+       * @default 0
+       */
+      total?: number | null;
+      /**
+       * Pending
+       * @default 0
+       */
+      pending?: number | null;
+      /**
+       * Rejected
+       * @default 0
+       */
+      rejected?: number | null;
+      /**
+       * Approved
+       * @default 0
+       */
+      approved?: number | null;
     };
     /** AdminCoachVerifySummaryOut */
     AdminCoachVerifySummaryOut: {
@@ -2200,6 +2234,11 @@ export interface components {
       /** Reports */
       reports: components["schemas"]["ReportOut"][];
     };
+    /** AdminTotalCountOut */
+    AdminTotalCountOut: {
+      /** Total */
+      total: number;
+    };
     /** AdminTransactionDetailView */
     AdminTransactionDetailView: {
       /**
@@ -3021,7 +3060,10 @@ export interface components {
       | "none";
     /** AwardFileOut */
     AwardFileOut: {
-      /** Contenttype */
+      /**
+       * Contenttype
+       * @description Content type of media file
+       */
       contentType?: string | null;
       /**
        * Url
@@ -3030,18 +3072,33 @@ export interface components {
       url?: string | null;
       /**
        * Thumb
-       * @description Full size url
+       * @description Thumbnail url
        */
       thumb?: string | null;
       /**
        * Videothumb
-       * @description Full size url
+       * @description Video thumbnail url
        */
       videoThumb?: string | null;
       /** @description File visibility status in the system: on review, approved or rejected */
       status?:
         | components["schemas"]["stretchcore__models__storage__file__FileStatus__1"]
         | null;
+      /**
+       * Duration
+       * @description Duration of media
+       */
+      duration?: number | null;
+      /**
+       * Originfilename
+       * @description Original media filename
+       */
+      originFilename?: string | null;
+      /**
+       * Filesize
+       * @description Filesize of media
+       */
+      filesize?: number | null;
       /**
        * Id
        * Format: uuid
@@ -3271,89 +3328,6 @@ export interface components {
        * @default []
        */
       status?: components["schemas"]["BusinessFilterValueOut"][];
-    };
-    /** BusinessProfileOut */
-    BusinessProfileOut: {
-      /** Id */
-      id?: string | null;
-      /**
-       * Categoryid
-       * Format: uuid
-       */
-      categoryId?: string;
-      /**
-       * Displayname
-       * @description User display name
-       */
-      displayName?: string | null;
-      /** Avatar Url */
-      avatar_url?: string | null;
-      /** @default business */
-      type?: components["schemas"]["UserType"] | null;
-      /** Mediatype */
-      mediaType?: string | null;
-      /** Mediaurl */
-      mediaUrl?: string | null;
-      /** Mediapreviewurl */
-      mediaPreviewUrl?: string | null;
-      /** Rating */
-      rating?: number | null;
-      /**
-       * Reviewscount
-       * @description Number of reviews
-       * @default 0
-       */
-      reviewsCount?: number | null;
-      /** Description */
-      description?: string | null;
-      /**
-       * Distance
-       * @description Distance
-       */
-      distance?: number | null;
-      /** Servicetypes */
-      serviceTypes?: string[] | null;
-      /** Services */
-      services?: components["schemas"]["ServiceOut"][] | null;
-      /** Images */
-      images?: components["schemas"]["PublicFileOut"][] | null;
-      /** Videos */
-      videos?: components["schemas"]["PublicFileOut"][] | null;
-      /** Awards */
-      awards?: components["schemas"]["AwardOut"][] | null;
-      /** Certificates */
-      certificates?: components["schemas"]["PublicCertificateFileOut"][] | null;
-      /**
-       * Allowbooking
-       * @description User allowed to book this coach based on verification
-       * @default false
-       */
-      allowBooking?: boolean;
-      /** Favorite */
-      favorite?: boolean | null;
-      /** Boosted */
-      boosted?: boolean | null;
-      /** Availability */
-      availability?: components["schemas"]["BusinessAvailabilityOut"][] | null;
-      /** Features */
-      features?: string[] | null;
-      address?: components["schemas"]["PublicAddressOut"];
-      /** Contacts */
-      contacts?: components["schemas"]["BusinessContactIn"][] | null;
-      /** Price */
-      price?: number | null;
-      /** Minprice */
-      minPrice?: number | null;
-      /** Maxprice */
-      maxPrice?: number | null;
-      /** Pricecurrency */
-      priceCurrency?: string | null;
-      /**
-       * Allownonverify
-       * @description allows non verified users to book with them or not
-       * @default true
-       */
-      allowNonVerify?: boolean;
     };
     /** BusinessServiceIn */
     BusinessServiceIn: {
@@ -4084,7 +4058,10 @@ export interface components {
       | "ZWL";
     /** EquipmentFileOut */
     EquipmentFileOut: {
-      /** Contenttype */
+      /**
+       * Contenttype
+       * @description Content type of media file
+       */
       contentType?: string | null;
       /**
        * Url
@@ -4093,18 +4070,33 @@ export interface components {
       url?: string | null;
       /**
        * Thumb
-       * @description Full size url
+       * @description Thumbnail url
        */
       thumb?: string | null;
       /**
        * Videothumb
-       * @description Full size url
+       * @description Video thumbnail url
        */
       videoThumb?: string | null;
       /** @description File visibility status in the system: on review, approved or rejected */
       status?:
         | components["schemas"]["stretchcore__models__storage__file__FileStatus__1"]
         | null;
+      /**
+       * Duration
+       * @description Duration of media
+       */
+      duration?: number | null;
+      /**
+       * Originfilename
+       * @description Original media filename
+       */
+      originFilename?: string | null;
+      /**
+       * Filesize
+       * @description Filesize of media
+       */
+      filesize?: number | null;
       /**
        * Id
        * Format: uuid
@@ -4223,7 +4215,10 @@ export interface components {
       | "apartment";
     /** MediaFileOut */
     MediaFileOut: {
-      /** Contenttype */
+      /**
+       * Contenttype
+       * @description Content type of media file
+       */
       contentType?: string | null;
       /**
        * Url
@@ -4232,18 +4227,33 @@ export interface components {
       url?: string | null;
       /**
        * Thumb
-       * @description Full size url
+       * @description Thumbnail url
        */
       thumb?: string | null;
       /**
        * Videothumb
-       * @description Full size url
+       * @description Video thumbnail url
        */
       videoThumb?: string | null;
       /** @description File visibility status in the system: on review, approved or rejected */
       status?:
         | components["schemas"]["stretchcore__models__storage__file__FileStatus__1"]
         | null;
+      /**
+       * Duration
+       * @description Duration of media
+       */
+      duration?: number | null;
+      /**
+       * Originfilename
+       * @description Original media filename
+       */
+      originFilename?: string | null;
+      /**
+       * Filesize
+       * @description Filesize of media
+       */
+      filesize?: number | null;
     };
     /**
      * OpenHourType
@@ -4360,6 +4370,117 @@ export interface components {
        * @example 25.276
        */
       lat: number;
+    };
+    /** PrivateBusinessProfileOut */
+    PrivateBusinessProfileOut: {
+      /**
+       * Id
+       * Format: uuid
+       */
+      id: string;
+      /**
+       * Categoryid
+       * Format: uuid
+       */
+      categoryId: string;
+      /** Avatarurl */
+      avatarUrl?: string | null;
+      /**
+       * Displayname
+       * @description User display name
+       */
+      displayName?: string | null;
+      /** Description */
+      description?: string | null;
+      /** Mediatype */
+      mediaType?: string | null;
+      /** Mediaurl */
+      mediaUrl?: string | null;
+      /** Mediapreviewurl */
+      mediaPreviewUrl?: string | null;
+      /**
+       * Rating
+       * @default 0
+       */
+      rating?: number;
+      /**
+       * Reviewscount
+       * @description Number of reviews
+       * @default 0
+       */
+      reviewsCount?: number;
+      /** Phone */
+      phone?: string | null;
+      /** Email */
+      email?: string | null;
+      address?: components["schemas"]["PublicAddressOut"] | null;
+      /**
+       * Categories
+       * @default []
+       */
+      categories?: string[];
+      /**
+       * Amenities
+       * @default []
+       */
+      amenities?: string[];
+      /**
+       * Images
+       * @default []
+       */
+      images?: components["schemas"]["PublicFileOut"][];
+      /**
+       * Videos
+       * @default []
+       */
+      videos?: components["schemas"]["PublicFileOut"][];
+      /**
+       * Servicetypes
+       * @default []
+       */
+      serviceTypes?: components["schemas"]["BusinessServiceIn"][];
+      /**
+       * Contacts
+       * @default []
+       */
+      contacts?: components["schemas"]["BusinessContactIn"][];
+      /**
+       * Availability
+       * @default []
+       */
+      availability?: components["schemas"]["BusinessAvailabilityOut"][];
+      /**
+       * Faqs
+       * @default []
+       */
+      faqs?: components["schemas"]["FAQDetailOut"][];
+      /**
+       * Branches
+       * @default 0
+       */
+      branches?: number;
+      /**
+       * Boosted
+       * @default false
+       */
+      boosted?: boolean;
+      /**
+       * Createdat
+       * Format: date-time
+       */
+      createdAt: string;
+      /** Branchid */
+      branchId?: string | null;
+      /**
+       * Disabled
+       * @default false
+       */
+      disabled?: boolean;
+      /**
+       * Alwaysopen
+       * @default false
+       */
+      alwaysOpen?: boolean;
     };
     /** ProfileFilling */
     ProfileFilling: {
@@ -4501,32 +4622,6 @@ export interface components {
       parkingDescription?: string | null;
       /** Isdefault */
       isDefault?: boolean | null;
-    };
-    /** FileBase */
-    PublicCertificateFileOut: {
-      /** Title */
-      title?: string | null;
-      /** Description */
-      description?: string | null;
-      /** Contenttype */
-      contentType?: string | null;
-      /** Url */
-      url?: string | null;
-      /** Thumb */
-      thumb?: string | null;
-      status?:
-        | components["schemas"]["stretchcore__models__storage__file__FileStatus__1"]
-        | null;
-      /** Originfilename */
-      originFilename?: string | null;
-      /** Filesize */
-      filesize?: number | null;
-      /** Duration */
-      duration?: number | null;
-      /** Issuedate */
-      issueDate?: string | null;
-      /** Expiredate */
-      expireDate?: string | null;
     };
     /** PublicCoachShortProfileOut */
     PublicCoachShortProfileOut: {
@@ -5760,7 +5855,7 @@ export interface operations {
       /** @description Successful Response */
       200: {
         content: {
-          "application/json": unknown;
+          "application/json": components["schemas"]["AdminTotalCountOut"];
         };
       };
       /** @description Validation Error */
@@ -5809,7 +5904,7 @@ export interface operations {
       /** @description Successful Response */
       200: {
         content: {
-          "application/json": unknown;
+          "application/json": components["schemas"]["StretchResponse"];
         };
       };
       /** @description Validation Error */
@@ -5835,7 +5930,7 @@ export interface operations {
       /** @description Successful Response */
       200: {
         content: {
-          "application/json": unknown;
+          "application/json": components["schemas"]["StretchResponse"];
         };
       };
       /** @description Validation Error */
@@ -5879,7 +5974,7 @@ export interface operations {
       /** @description Successful Response */
       200: {
         content: {
-          "application/json": unknown;
+          "application/json": components["schemas"]["StretchResponse"];
         };
       };
       /** @description Validation Error */
@@ -5940,7 +6035,7 @@ export interface operations {
       /** @description Successful Response */
       200: {
         content: {
-          "application/json": unknown;
+          "application/json": components["schemas"]["AdminCoachClientListCountOut"];
         };
       };
       /** @description Validation Error */
@@ -5994,7 +6089,7 @@ export interface operations {
       /** @description Successful Response */
       200: {
         content: {
-          "application/json": unknown;
+          "application/json": components["schemas"]["AdminTotalCountOut"];
         };
       };
       /** @description Validation Error */
@@ -6401,7 +6496,7 @@ export interface operations {
       /** @description Successful Response */
       200: {
         content: {
-          "application/json": unknown;
+          "application/json": components["schemas"]["AdminTotalCountOut"];
         };
       };
       /** @description Validation Error */
@@ -6423,7 +6518,7 @@ export interface operations {
       /** @description Successful Response */
       200: {
         content: {
-          "application/json": components["schemas"]["BusinessProfileOut"];
+          "application/json": components["schemas"]["PrivateBusinessProfileOut"];
         };
       };
       /** @description Validation Error */
@@ -6450,7 +6545,7 @@ export interface operations {
       /** @description Successful Response */
       200: {
         content: {
-          "application/json": unknown;
+          "application/json": components["schemas"]["StretchResponse"];
         };
       };
       /** @description Validation Error */
@@ -6476,7 +6571,7 @@ export interface operations {
       /** @description Successful Response */
       200: {
         content: {
-          "application/json": unknown;
+          "application/json": components["schemas"]["StretchResponse"];
         };
       };
       /** @description Validation Error */
@@ -6585,7 +6680,7 @@ export interface operations {
       /** @description Successful Response */
       200: {
         content: {
-          "application/json": unknown;
+          "application/json": components["schemas"]["UserProfileOut"];
         };
       };
       /** @description Validation Error */
@@ -6704,7 +6799,7 @@ export interface operations {
       /** @description Successful Response */
       200: {
         content: {
-          "application/json": unknown;
+          "application/json": components["schemas"]["StretchResponse"];
         };
       };
       /** @description Validation Error */
@@ -6790,7 +6885,7 @@ export interface operations {
       /** @description Successful Response */
       200: {
         content: {
-          "application/json": unknown;
+          "application/json": components["schemas"]["StretchResponse"];
         };
       };
       /** @description Validation Error */
@@ -6812,7 +6907,7 @@ export interface operations {
       /** @description Successful Response */
       200: {
         content: {
-          "application/json": unknown;
+          "application/json": components["schemas"]["StretchResponse"];
         };
       };
       /** @description Validation Error */
@@ -6948,7 +7043,7 @@ export interface operations {
       /** @description Successful Response */
       200: {
         content: {
-          "application/json": unknown;
+          "application/json": components["schemas"]["StretchResponse"];
         };
       };
       /** @description Validation Error */
@@ -6999,7 +7094,7 @@ export interface operations {
       /** @description Successful Response */
       200: {
         content: {
-          "application/json": unknown;
+          "application/json": components["schemas"]["AdminCoachVerifySummaryCountOut"];
         };
       };
       /** @description Validation Error */
@@ -7301,7 +7396,7 @@ export interface operations {
       /** @description Successful Response */
       200: {
         content: {
-          "application/json": unknown;
+          "application/json": components["schemas"]["StretchResponse"];
         };
       };
       /** @description Validation Error */
@@ -7388,7 +7483,7 @@ export interface operations {
       /** @description Successful Response */
       200: {
         content: {
-          "application/json": unknown;
+          "application/json": components["schemas"]["StretchResponse"];
         };
       };
       /** @description Validation Error */
@@ -7476,7 +7571,7 @@ export interface operations {
       /** @description Successful Response */
       200: {
         content: {
-          "application/json": unknown;
+          "application/json": components["schemas"]["StretchResponse"];
         };
       };
       /** @description Validation Error */

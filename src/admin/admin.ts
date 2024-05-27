@@ -732,7 +732,8 @@ class Admin extends StretchAuth {
   async deleteServiceType(
     serviceTypeId: string
   ): Promise<
-    paths["/api/v1/admin/config/service-type/{service_type_id}"]["delete"]["responses"]["200"]["content"]["application/json"]
+    | paths["/api/v1/admin/config/service-type/{service_type_id}"]["delete"]["responses"]["200"]["content"]["application/json"]
+    | undefined
   > {
     if (await this.checkAuth())
       return await this.delete(`/admin/config/service-type/${serviceTypeId}`);

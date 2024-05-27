@@ -543,7 +543,10 @@ export interface components {
     };
     /** EquipmentFileOut */
     EquipmentFileOut: {
-      /** Contenttype */
+      /**
+       * Contenttype
+       * @description Content type of media file
+       */
       contentType?: string | null;
       /**
        * Url
@@ -552,18 +555,33 @@ export interface components {
       url?: string | null;
       /**
        * Thumb
-       * @description Full size url
+       * @description Thumbnail url
        */
       thumb?: string | null;
       /**
        * Videothumb
-       * @description Full size url
+       * @description Video thumbnail url
        */
       videoThumb?: string | null;
       /** @description File visibility status in the system: on review, approved or rejected */
       status?:
         | components["schemas"]["stretchcore__models__storage__file__FileStatus__1"]
         | null;
+      /**
+       * Duration
+       * @description Duration of media
+       */
+      duration?: number | null;
+      /**
+       * Originfilename
+       * @description Original media filename
+       */
+      originFilename?: string | null;
+      /**
+       * Filesize
+       * @description Filesize of media
+       */
+      filesize?: number | null;
       /**
        * Id
        * Format: uuid

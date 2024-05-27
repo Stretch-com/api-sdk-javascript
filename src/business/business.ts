@@ -1,19 +1,12 @@
 import { paths } from "../../types/coach";
 import { StretchAuth } from "../common/auth";
 
-export class Business {
-  _client: StretchAuth;
-
-  constructor(client: StretchAuth) {
-    this._client = client;
-  }
-
+class Business extends StretchAuth {
   async getProfile(): Promise<
     | paths["/api/v1/business/profile"]["get"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this._client.checkAuth())
-      return await this._client.get(`/business/profile`);
+    if (await this.checkAuth()) return await this.get(`/business/profile`);
   }
 
   async getBusinessProfile(
@@ -22,8 +15,8 @@ export class Business {
     | paths["/api/v1/business/{business_id}/profile"]["get"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this._client.checkAuth())
-      return await this._client.get(`/business/${businessId}/profile`);
+    if (await this.checkAuth())
+      return await this.get(`/business/${businessId}/profile`);
   }
 
   async putProfile(
@@ -32,8 +25,8 @@ export class Business {
     | paths["/api/v1/business/profile"]["put"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this._client.checkAuth())
-      return await this._client.put(`/business/profile`, payload);
+    if (await this.checkAuth())
+      return await this.put(`/business/profile`, payload);
   }
 
   async claimBusiness(
@@ -43,8 +36,8 @@ export class Business {
     | paths["/api/v1/business/{business_id}/claim"]["post"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this._client.checkAuth())
-      return await this._client.post(`/business/${businessId}/claim`, payload);
+    if (await this.checkAuth())
+      return await this.post(`/business/${businessId}/claim`, payload);
   }
 
   async getQuestions(
@@ -54,8 +47,8 @@ export class Business {
     | paths["/api/v1/business/{business_id}/questions"]["get"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this._client.checkAuth())
-      return await this._client.get(`/business/${businessId}/questions`, query);
+    if (await this.checkAuth())
+      return await this.get(`/business/${businessId}/questions`, query);
   }
 
   async getQuestion(
@@ -64,8 +57,8 @@ export class Business {
     | paths["/api/v1/business/question/{question_id}"]["get"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this._client.checkAuth())
-      return await this._client.get(`/business/question/${questionId}`);
+    if (await this.checkAuth())
+      return await this.get(`/business/question/${questionId}`);
   }
 
   async postQuestion(
@@ -75,11 +68,8 @@ export class Business {
     | paths["/api/v1/business/question/{question_id}"]["post"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this._client.checkAuth())
-      return await this._client.post(
-        `/business/question/${questionId}`,
-        payload
-      );
+    if (await this.checkAuth())
+      return await this.post(`/business/question/${questionId}`, payload);
   }
 
   async putQuestion(
@@ -89,11 +79,8 @@ export class Business {
     | paths["/api/v1/business/question/{question_id}"]["put"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this._client.checkAuth())
-      return await this._client.put(
-        `/business/question/${questionId}`,
-        payload
-      );
+    if (await this.checkAuth())
+      return await this.put(`/business/question/${questionId}`, payload);
   }
 
   async deleteQuestion(
@@ -102,7 +89,9 @@ export class Business {
     | paths["/api/v1/business/question/{question_id}"]["delete"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this._client.checkAuth())
-      return await this._client.delete(`/business/question/${questionId}`);
+    if (await this.checkAuth())
+      return await this.delete(`/business/question/${questionId}`);
   }
 }
+
+export default Business;

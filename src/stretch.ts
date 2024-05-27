@@ -1,6 +1,7 @@
 import { StretchAuth } from "./common/auth";
 
 import Admin from "./admin/admin";
+import Business from "./business/business";
 import Client from "./client/client";
 import Coach from "./coach/coach";
 import Nav from "./nav/nav";
@@ -13,6 +14,7 @@ import User from "./user/user";
 
 class Stretch extends StretchAuth {
   admin: Admin;
+  business: Business;
   client: Client;
   coach: Coach;
   nav: Nav;
@@ -31,6 +33,7 @@ class Stretch extends StretchAuth {
     super(clientId, apiUrl, apiBase);
 
     this.admin = new Admin(clientId, apiUrl, apiBase);
+    this.business = new Business(clientId, apiUrl, apiBase);
     this.client = new Client(clientId, apiUrl, apiBase);
     this.coach = new Coach(clientId, apiUrl, apiBase);
     this.nav = new Nav(clientId, apiUrl, apiBase);
