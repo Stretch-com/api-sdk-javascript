@@ -1731,6 +1731,7 @@ export interface components {
       description?: string | null;
       /** Refundamount */
       refundAmount?: number | null;
+      attachmentIds?: string[];
     };
     /** AdminReportDetailOut */
     AdminReportDetailOut: {
