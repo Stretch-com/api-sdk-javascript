@@ -17,7 +17,8 @@ class Payment extends StretchAuth {
     | paths["/api/v1/payment/methods"]["get"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this.checkAuth()) return await this.get(`/payment/method`, query);
+    if (await this.checkAuth())
+      return await this.get(`/payment/methods`, query);
   }
 
   async getPaymentCheckout(
