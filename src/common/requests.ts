@@ -10,9 +10,9 @@ export class StretchBase {
   #accessToken: string | null = null;
   #userId: string | null = null;
   #refreshToken: string | null = null;
-  #tokenType = "Bearer";
-  #accessExpireDate = new Date();
-  #refreshExpireDate = new Date();
+  #tokenType: string = "Bearer";
+  #accessExpireDate: Date = new Date();
+  #refreshExpireDate: Date = new Date();
 
   constructor(
     clientId: string,
@@ -140,68 +140,50 @@ export class StretchBase {
   _updateToken(
     res: paths["/api/v1/auth/token"]["post"]["responses"]["200"]["content"]["application/json"]
   ) {
-    let storageExists;
+    let storageExists = false;
 
     try {
       localStorage.getItem("access_token");
       storageExists = true;
     } catch (e) {
       console.error("LocalStorage in current context not exists");
-      storageExists = false;
     }
 
-    if (
-      Object.prototype.hasOwnProperty.call(res, "access_token") &&
-      res.access_token
-    ) {
-      this.#accessToken = res["access_token"];
+    if (res.access_token) {
+      this.#accessToken = res.access_token;
+      if (storageExists && res.access_token)
+        localStorage.setItem("access_token", res.access_token);
+    }
+
+    if (res.refresh_token) {
+      this.#refreshToken = res.refresh_token;
       if (storageExists)
-        localStorage.setItem("access_token", res["access_token"]);
+        localStorage.setItem("refresh_token", res.refresh_token);
     }
 
-    if (
-      Object.prototype.hasOwnProperty.call(res, "refresh_token") &&
-      res.refresh_token
-    ) {
-      this.#refreshToken = res["refresh_token"];
-      if (storageExists)
-        localStorage.setItem("refresh_token", res["refresh_token"]);
+    if (res.token_type) {
+      this.#tokenType = res.token_type;
+      if (storageExists) localStorage.setItem("token_type", res.token_type);
     }
 
-    if (
-      Object.prototype.hasOwnProperty.call(res, "token_type") &&
-      res.token_type
-    ) {
-      this.#tokenType = res["token_type"];
-      if (storageExists) localStorage.setItem("token_type", res["token_type"]);
-    }
-
-    if (
-      Object.prototype.hasOwnProperty.call(res, "access_expire") &&
-      res.access_expire
-    ) {
+    if (res.access_expire) {
       const currentTime = new Date();
-      currentTime.setSeconds(
-        currentTime.getSeconds() + res["access_expire"] - 10
-      );
+      currentTime.setSeconds(currentTime.getSeconds() + res.access_expire - 10);
       this.#accessExpireDate = currentTime;
 
       if (storageExists)
-        localStorage.setItem("access_expire_date", currentTime.toTimeString());
+        localStorage.setItem("access_expire_date", "" + currentTime.getTime());
     }
 
-    if (
-      Object.prototype.hasOwnProperty.call(res, "refresh_expire") &&
-      res.refresh_expire
-    ) {
+    if (res.refresh_expire) {
       const currentTime = new Date();
       currentTime.setSeconds(
-        currentTime.getSeconds() + res["refresh_expire"] - 60
+        currentTime.getSeconds() + res.refresh_expire - 60
       );
 
       this.#refreshExpireDate = currentTime;
       if (storageExists)
-        localStorage.setItem("refresh_expire_date", currentTime.toTimeString());
+        localStorage.setItem("refresh_expire_date", "" + currentTime.getTime());
     }
 
     return res;
@@ -286,14 +268,14 @@ export class StretchBase {
         this.#accessToken = localStorage.getItem("access_token");
         const accessExpireDate = localStorage.getItem("access_expire_date");
         if (accessExpireDate)
-          this.#accessExpireDate = new Date(parseInt(accessExpireDate));
+          this.#accessExpireDate = new Date(parseInt(accessExpireDate), 10);
       }
 
       if (this.#refreshToken == null) {
         this.#refreshToken = localStorage.getItem("refresh_token");
         const refreshExpireDate = localStorage.getItem("refresh_expire_date");
         if (refreshExpireDate)
-          this.#refreshExpireDate = new Date(parseInt(refreshExpireDate));
+          this.#refreshExpireDate = new Date(parseInt(refreshExpireDate), 10);
       }
     } catch (e) {
       console.error(`LocalStorage in current context not exists ${e}`);
