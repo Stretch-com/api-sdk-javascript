@@ -9,11 +9,11 @@ class Service extends StretchAuth {
     if (await this.checkAuth()) return await this.get("/servicetypes");
   }
 
-  async getAvailabilityService(
+  async postAvailabilityService(
     serviceId: string,
     payload: paths["/api/v1/service/{service_id}/availability"]["post"]["requestBody"]["content"]["application/json"]
   ): Promise<
-    | paths["/api/v1/service/{service_id}/availability"]["post"]["requestBody"]["content"]["application/json"]
+    | paths["/api/v1/service/{service_id}/availability"]["post"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
     if (await this.checkAuth())
