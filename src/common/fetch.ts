@@ -1,8 +1,12 @@
-import { StretchError } from "./error.js";
+import { StretchError } from "./error";
 
 // authorise a user using the Authorization headers on any URI and return the JSON value of
 // its response
-export async function apiFetch(uri, options, verifySSL = false) {
+export async function apiFetch(
+  uri: URL,
+  options?: RequestInit,
+  verifySSL: boolean = false
+) {
   //console.log(verifySSL)
   //console.log(uri)
   //console.log(options)
@@ -33,7 +37,8 @@ export async function apiFetch(uri, options, verifySSL = false) {
           console.warn("We get TEXT answer");
           return await res.text();
         }
-      } catch (err) {
+        /* eslint-disable */
+      } catch (err: any) {
         //const text = await res.text()
         //console.log(text)
         console.error(`Invalid JSON: ${err.message}`);
@@ -57,9 +62,10 @@ export async function apiFetch(uri, options, verifySSL = false) {
         err.fields ?? []
       );
     }
-  } catch (err) {
+    /* eslint-disable */
+  } catch (err: any) {
     if (err instanceof StretchError) throw err;
-    let error = new StretchError(
+    const error = new StretchError(
       0,
       "request-error",
       `Request error: ${err.message}`
@@ -69,20 +75,21 @@ export async function apiFetch(uri, options, verifySSL = false) {
       error.status = err.status;
     }
     console.error(`Request error: ${err.message}`);
-    error.caught = err;
+
+    if (typeof err === "string") error.caught = err;
     throw error;
   }
 }
 
 export async function apiToken(
-  uri,
-  username,
-  password,
+  uri: URL,
+  username: string,
+  password: string,
   scope = "coach",
   clientId = "2f9445b3-5266-45cd-8a85-d5c3fff69781",
   clientSecret = ""
 ) {
-  let data = new FormData();
+  const data = new FormData();
   const basic = btoa(`${clientId}:${clientSecret}`);
   data.append("grant_type", "password");
   data.append("username", username);

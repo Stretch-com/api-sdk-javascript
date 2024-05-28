@@ -1,20 +1,21 @@
-import { StretchError } from "./error.js";
-import { apiFetch } from "./fetch.js";
+import { paths } from "../../types/auth";
+import { StretchError } from "./error";
+import { apiFetch } from "./fetch";
 
 export class StretchBase {
-  _clientId = null;
-  _apiUrl = null;
+  _clientId?: string = undefined;
+  _apiUrl?: string | URL = undefined;
   _apiBase = "/api/v1";
 
-  #accessToken = null;
-  #userId = null;
-  #refreshToken = null;
+  #accessToken: string | null = null;
+  #userId: string | null = null;
+  #refreshToken: string | null = null;
   #tokenType = "Bearer";
   #accessExpireDate = new Date();
   #refreshExpireDate = new Date();
 
   constructor(
-    clientId,
+    clientId: string,
     apiUrl = "https://stage.stretch.com",
     apiBase = "/api/v1"
   ) {
@@ -24,18 +25,19 @@ export class StretchBase {
     //this._apiBase = `${apiUrl}${apiBase}`
   }
 
-  user(userId = null) {
+  userBase(userId: string | null = null) {
     this.#userId = userId;
     return this;
   }
 
-  url(uri, query = null) {
-    let lurl = new URL(`${this._apiBase}${uri}`, this._apiUrl);
+  url<T>(uri: string, query: T | null = null) {
+    const lurl = new URL(`${this._apiBase}${uri}`, this._apiUrl);
     if (query != null) lurl.search = new URLSearchParams(query).toString();
     return lurl;
   }
 
-  cleanPayload(payload) {
+  /* eslint-disable */
+  cleanPayload(payload: any) {
     if (payload && !Array.isArray(payload)) {
       payload = Object.keys(payload)
         .filter((k) => payload[k] !== null)
@@ -45,11 +47,15 @@ export class StretchBase {
     return payload;
   }
 
-  async get(uri, query = null) {
-    let headers = {
+  async get<T>(
+    uri: string,
+    query: T | null = null,
+    contentType: string | null = "application/json"
+  ) {
+    const headers: HeadersInit = {
       Authorization: `${this.#tokenType} ${this.#accessToken}`,
-      "Content-Type": "application/json",
     };
+    if (contentType) headers["Content-Type"] = contentType;
 
     if (this.#userId) {
       headers["Authorization-User"] = this.#userId;
@@ -64,8 +70,8 @@ export class StretchBase {
     });
   }
 
-  async post(uri, payload = {}, contentType = "application/json") {
-    const headers = {
+  async post(uri: string, payload?: object, contentType = "application/json") {
+    const headers: HeadersInit = {
       Authorization: `${this.#tokenType} ${this.#accessToken}`,
     };
     if (contentType) {
@@ -81,31 +87,13 @@ export class StretchBase {
     return await apiFetch(this.url(uri), {
       method: "POST",
       credentials: "include",
-      body: contentType ? JSON.stringify(payload) : payload,
+      body: contentType ? JSON.stringify(payload) : (payload as BodyInit),
       headers,
     });
   }
 
-  async postForm(uri, body) {
-    const headers = {
-      Authorization: `${this.#tokenType} ${this.#accessToken}`,
-    };
-
-    if (this.#userId) {
-      headers["Authorization-User"] = this.#userId;
-      // this.#userId = null;
-    }
-
-    return await apiFetch(this.url(uri), {
-      method: "POST",
-      credentials: "include",
-      body,
-      headers,
-    });
-  }
-
-  async put(uri, payload = {}, contentType = "application/json") {
-    const headers = {
+  async put(uri: string, payload?: object, contentType = "application/json") {
+    const headers: HeadersInit = {
       Authorization: `${this.#tokenType} ${this.#accessToken}`,
     };
     if (contentType) {
@@ -121,31 +109,17 @@ export class StretchBase {
     return await apiFetch(this.url(uri), {
       method: "PUT",
       credentials: "include",
-      body: contentType ? JSON.stringify(payload) : payload,
+      body: contentType ? JSON.stringify(payload) : (payload as BodyInit),
       headers,
     });
   }
 
-  async putForm(uri, body) {
-    let headers = {
-      Authorization: `${this.#tokenType} ${this.#accessToken}`,
-    };
-
-    if (this.#userId) {
-      headers["Authorization-User"] = this.#userId;
-      // this.#userId = null;
-    }
-
-    return await apiFetch(this.url(uri), {
-      method: "PUT",
-      credentials: "include",
-      body,
-      headers,
-    });
-  }
-
-  async delete(uri, query = null, body = null) {
-    let headers = {
+  async delete<T>(
+    uri: string,
+    query: T | null = null,
+    body: object | null = null
+  ) {
+    const headers: HeadersInit = {
       Authorization: `${this.#tokenType} ${this.#accessToken}`,
     };
 
@@ -158,12 +132,14 @@ export class StretchBase {
     return await apiFetch(this.url(uri, query), {
       method: "DELETE",
       credentials: "include",
-      body,
+      body: body as BodyInit,
       headers,
     });
   }
 
-  _updateToken(res) {
+  _updateToken(
+    res: paths["/api/v1/auth/token"]["post"]["responses"]["200"]["content"]["application/json"]
+  ) {
     let storageExists;
 
     try {
@@ -174,43 +150,58 @@ export class StretchBase {
       storageExists = false;
     }
 
-    if (res.hasOwnProperty("access_token")) {
+    if (
+      Object.prototype.hasOwnProperty.call(res, "access_token") &&
+      res.access_token
+    ) {
       this.#accessToken = res["access_token"];
       if (storageExists)
         localStorage.setItem("access_token", res["access_token"]);
     }
 
-    if (res.hasOwnProperty("refresh_token")) {
+    if (
+      Object.prototype.hasOwnProperty.call(res, "refresh_token") &&
+      res.refresh_token
+    ) {
       this.#refreshToken = res["refresh_token"];
       if (storageExists)
         localStorage.setItem("refresh_token", res["refresh_token"]);
     }
 
-    if (res.hasOwnProperty("token_type")) {
+    if (
+      Object.prototype.hasOwnProperty.call(res, "token_type") &&
+      res.token_type
+    ) {
       this.#tokenType = res["token_type"];
       if (storageExists) localStorage.setItem("token_type", res["token_type"]);
     }
 
-    if (res.hasOwnProperty("access_expire")) {
-      let currentTime = new Date();
+    if (
+      Object.prototype.hasOwnProperty.call(res, "access_expire") &&
+      res.access_expire
+    ) {
+      const currentTime = new Date();
       currentTime.setSeconds(
         currentTime.getSeconds() + res["access_expire"] - 10
       );
       this.#accessExpireDate = currentTime;
 
       if (storageExists)
-        localStorage.setItem("access_expire_date", currentTime);
+        localStorage.setItem("access_expire_date", currentTime.toTimeString());
     }
 
-    if (res.hasOwnProperty("refresh_expire")) {
-      let currentTime = new Date();
+    if (
+      Object.prototype.hasOwnProperty.call(res, "refresh_expire") &&
+      res.refresh_expire
+    ) {
+      const currentTime = new Date();
       currentTime.setSeconds(
         currentTime.getSeconds() + res["refresh_expire"] - 60
       );
 
       this.#refreshExpireDate = currentTime;
       if (storageExists)
-        localStorage.setItem("refresh_expire_date", currentTime);
+        localStorage.setItem("refresh_expire_date", currentTime.toTimeString());
     }
 
     return res;
@@ -218,7 +209,7 @@ export class StretchBase {
 
   async refresh() {
     let storageExists;
-    let refreshToken = null;
+    let refreshToken: string | null = null;
 
     try {
       localStorage.getItem("access_token");
@@ -265,7 +256,8 @@ export class StretchBase {
 
     try {
       this._updateToken(res);
-    } catch (e) {
+      /* eslint-disable */
+    } catch (e: any) {
       console.error(`Fail update storage: ${e.message}`);
     }
     return res;
@@ -292,16 +284,16 @@ export class StretchBase {
     try {
       if (this.#accessToken == null) {
         this.#accessToken = localStorage.getItem("access_token");
-        this.#accessExpireDate = new Date(
-          Date.parse(localStorage.getItem("access_expire_date"))
-        );
+        const accessExpireDate = localStorage.getItem("access_expire_date");
+        if (accessExpireDate)
+          this.#accessExpireDate = new Date(parseInt(accessExpireDate));
       }
 
       if (this.#refreshToken == null) {
         this.#refreshToken = localStorage.getItem("refresh_token");
-        this.#refreshExpireDate = new Date(
-          Date.parse(localStorage.getItem("refresh_expire_date"))
-        );
+        const refreshExpireDate = localStorage.getItem("refresh_expire_date");
+        if (refreshExpireDate)
+          this.#refreshExpireDate = new Date(parseInt(refreshExpireDate));
       }
     } catch (e) {
       console.error(`LocalStorage in current context not exists ${e}`);

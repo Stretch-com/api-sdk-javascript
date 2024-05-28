@@ -1,9 +1,15 @@
 export class StretchError extends Error {
+  response: Response | null = null;
+  status: number | null = null;
+  error: string | null = null;
+  fields: string[] | null = null;
+  caught: string | null = null;
+
   constructor(
     status = 200,
     error = "error",
     message = "Something went wrong",
-    response = null,
+    response: Response | null = null,
     fields = []
   ) {
     super();
