@@ -6,7 +6,8 @@
   "types": "index",
   "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build-swagger": "npx openapi-typescript https://dev.stretch.com/api/v1/admin/apidoc.json -o ./types/admin.d.ts && npx openapi-typescript https://dev.stretch.com/api/v1/auth/apidoc.json -o ./types/auth.d.ts && npx openapi-typescript https://dev.stretch.com/api/v1/chat/apidoc.json -o ./types/chat.d.ts && npx openapi-typescript https://dev.stretch.com/api/v1/coach/apidoc.json -o ./types/coach.d.ts && npx openapi-typescript https://dev.stretch.com/api/v1/nav/apidoc.json -o ./types/nav.d.ts && npx openapi-typescript https://dev.stretch.com/api/v1/notification/apidoc.json -o ./types/notification.d.ts && npx openapi-typescript https://dev.stretch.com/api/v1/payment/apidoc.json -o ./types/payment.d.ts && npx openapi-typescript https://dev.stretch.com/api/v1/storage/apidoc.json -o ./types/storage.d.ts"
   },
   "repository": {
     "type": "git",
@@ -23,5 +24,13 @@
   "bugs": {
     "url": "https://github.com/Stretch-com/api-sdk-javascript/issues"
   },
-  "homepage": "https://github.com/Stretch-com/api-sdk-javascript#readme"
+  "homepage": "https://github.com/Stretch-com/api-sdk-javascript#readme",
+  "devDependencies": {
+    "@eslint/compat": "^1.0.1",
+    "@eslint/js": "^9.3.0",
+    "eslint": "^9.3.0",
+    "eslint-plugin-react": "^7.34.1",
+    "globals": "^15.3.0",
+    "typescript-eslint": "^7.10.0"
+  }
 }
