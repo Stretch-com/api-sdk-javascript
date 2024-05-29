@@ -377,6 +377,19 @@ class Admin extends StretchAuth {
     if (await this.checkAuth()) return await this.get(`/admin/user/config`);
   }
 
+  async getUserFilters(): Promise<any | undefined> {
+    if (await this.checkAuth()) return await this.get(`/admin/user/filters`);
+  }
+
+  async getUsers(query: any): Promise<any | undefined> {
+    if (await this.checkAuth()) return await this.get(`/admin/users`, query);
+  }
+
+  async getUsersCount(query: any): Promise<any | undefined> {
+    if (await this.checkAuth())
+      return await this.get(`/admin/users/count`, query);
+  }
+
   // Sessions endpoints
   async getSessions(
     query: paths["/api/v1/admin/sessions"]["get"]["parameters"]["query"]
