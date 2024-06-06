@@ -182,12 +182,12 @@ export interface components {
        */
       displayName?: string | null;
       /** Firstname */
-      firstName?: string | null;
+      firstName: string;
       /** Lastname */
-      lastName?: string | null;
+      lastName: string;
       /** Avatarurl */
       avatarUrl?: string | null;
-      type?: components["schemas"]["UserType"] | null;
+      type: components["schemas"]["UserType"];
       /** Rating */
       rating?: number | null;
       /**
@@ -717,21 +717,33 @@ export interface components {
        * Format: date-time
        */
       createdAt: string;
-      /** Itemprice */
-      itemPrice?: number | null;
+      /**
+       * Itemprice
+       * @default 0
+       */
+      itemPrice?: number;
       /** Itemcount */
-      itemCount?: number | null;
+      itemCount: number;
       /** Price */
-      price?: number | null;
-      /** Discount */
-      discount?: number | null;
-      /** Balance */
-      balance?: number | null;
+      price: number;
+      /**
+       * Discount
+       * @default 0
+       */
+      discount?: number;
+      /**
+       * Balance
+       * @default 0
+       */
+      balance?: number;
       /** Servicefee */
-      serviceFee?: number | null;
+      serviceFee: number;
       user?: components["schemas"]["UserBaseInfo"] | null;
-      /** Sessions */
-      sessions?: components["schemas"]["SessionGeneralOut"][] | null;
+      /**
+       * Sessions
+       * @default []
+       */
+      sessions?: components["schemas"]["SessionGeneralOut"][];
       withdrawal?: components["schemas"]["WalletPublicInfoOut"] | null;
     };
     /**
@@ -753,12 +765,12 @@ export interface components {
        */
       displayName?: string | null;
       /** Firstname */
-      firstName?: string | null;
+      firstName: string;
       /** Lastname */
-      lastName?: string | null;
+      lastName: string;
       /** Avatarurl */
       avatarUrl?: string | null;
-      type?: components["schemas"]["UserType"] | null;
+      type: components["schemas"]["UserType"];
     };
     /**
      * UserGender
@@ -799,11 +811,11 @@ export interface components {
     /** WalletBankOut */
     WalletBankOut: {
       /** Accountholdername */
-      accountHolderName?: string | null;
+      accountHolderName: string;
       /** Bankname */
-      bankName?: string | null;
+      bankName: string;
       /** Last4 */
-      last4?: string | null;
+      last4: string;
       /** Id */
       id?: string | null;
       /** Metadata */
@@ -814,13 +826,13 @@ export interface components {
     /** WalletCardOut */
     WalletCardOut: {
       /** Name */
-      name?: string | null;
+      name: string;
       /** Brand */
-      brand?: string | null;
+      brand: string;
       /** Funding */
       funding?: string | null;
       /** Last4 */
-      last4?: string | null;
+      last4: string;
       /** Id */
       id: string;
       /** Addresscity */
@@ -853,15 +865,12 @@ export interface components {
       /** Id */
       id: string | null;
       /** Name */
-      name?: string | null;
-      type?: components["schemas"]["WalletType"] | null;
+      name?: string;
+      type?: components["schemas"]["WalletType"];
       /** Config */
       config?: Record<string, never> | null;
-      /**
-       * Currency
-       * @default AED
-       */
-      currency?: string | null;
+      /** @default AED */
+      currency?: components["schemas"]["CurrencyCode"];
       card?: components["schemas"]["WalletCardOut"] | null;
       bank?: components["schemas"]["WalletBankOut"] | null;
     };
@@ -879,59 +888,68 @@ export interface components {
     };
     /** WalletPaymentInfoOut */
     WalletPaymentInfoOut: {
-      /** Pending */
-      pending?: number | null;
-      /** Available */
-      available?: number | null;
-      /** Delivered */
-      delivered?: number | null;
-      /** Currency */
-      currency?: string | null;
-      /** Total */
-      total?: number | null;
+      /**
+       * Pending
+       * @default 0
+       */
+      pending?: number;
+      /**
+       * Available
+       * @default 0
+       */
+      available?: number;
+      /**
+       * Delivered
+       * @default 0
+       */
+      delivered?: number;
+      /** @default AED */
+      currency?: components["schemas"]["CurrencyCode"];
+      /**
+       * Total
+       * @default 0
+       */
+      total?: number;
       /**
        * Minwithdrawal
        * @default 100
        */
-      minWithdrawal?: number | null;
+      minWithdrawal?: number;
       /**
        * Currencies
        * @default [
        *   "AED"
        * ]
        */
-      currencies?: string[] | null;
+      currencies?: string[];
     };
     /** WalletPublicBankOut */
     WalletPublicBankOut: {
       /** Accountholdername */
-      accountHolderName?: string | null;
+      accountHolderName: string;
       /** Bankname */
-      bankName?: string | null;
+      bankName: string;
       /** Last4 */
-      last4?: string | null;
+      last4: string;
     };
     /** WalletPublicCardOut */
     WalletPublicCardOut: {
       /** Name */
-      name?: string | null;
+      name: string;
       /** Brand */
-      brand?: string | null;
+      brand: string;
       /** Funding */
       funding?: string | null;
       /** Last4 */
-      last4?: string | null;
+      last4: string;
     };
     /** WalletPublicInfoOut */
     WalletPublicInfoOut: {
       /** Name */
-      name?: string | null;
-      type?: components["schemas"]["WalletType"] | null;
-      /**
-       * Currency
-       * @default AED
-       */
-      currency?: string | null;
+      name?: string;
+      type?: components["schemas"]["WalletType"];
+      /** @default AED */
+      currency?: components["schemas"]["CurrencyCode"];
       card?: components["schemas"]["WalletPublicCardOut"] | null;
       bank?: components["schemas"]["WalletPublicBankOut"] | null;
     };

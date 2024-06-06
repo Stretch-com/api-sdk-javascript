@@ -305,13 +305,13 @@ class Admin extends StretchAuth {
   }
 
   async postBusiness(
-    query: paths["/api/v1/admin/business"]["post"]["requestBody"]["content"]["application/json"]
+    payload: paths["/api/v1/admin/business"]["post"]["requestBody"]["content"]["application/json"]
   ): Promise<
     | paths["/api/v1/admin/business"]["post"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
     if (await this.checkAuth())
-      return await this.post(`/admin/business`, query);
+      return await this.post(`/admin/business`, payload);
   }
 
   async putBusiness(
@@ -375,6 +375,32 @@ class Admin extends StretchAuth {
     | undefined
   > {
     if (await this.checkAuth()) return await this.get(`/admin/user/config`);
+  }
+
+  async getUserFilters(): Promise<
+    | paths["/api/v1/admin/user/filters"]["get"]["responses"]["200"]["content"]["application/json"]
+    | undefined
+  > {
+    if (await this.checkAuth()) return await this.get(`/admin/user/filters`);
+  }
+
+  async getUsers(
+    payload: paths["/api/v1/admin/users"]["post"]["requestBody"]["content"]["application/json"]
+  ): Promise<
+    | paths["/api/v1/admin/users"]["post"]["responses"]["200"]["content"]["application/json"]
+    | undefined
+  > {
+    if (await this.checkAuth()) return await this.post(`/admin/users`, payload);
+  }
+
+  async getUsersCount(
+    payload: paths["/api/v1/admin/users/count"]["post"]["requestBody"]["content"]["application/json"]
+  ): Promise<
+    | paths["/api/v1/admin/users/count"]["post"]["responses"]["200"]["content"]["application/json"]
+    | undefined
+  > {
+    if (await this.checkAuth())
+      return await this.post(`/admin/users/count`, payload);
   }
 
   // Sessions endpoints
