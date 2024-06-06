@@ -3,6 +3,7 @@
  * Do not make direct changes to the file.
  */
 
+
 export interface paths {
   "/api/v1/chat/channels": {
     /** Get Channels */
@@ -193,6 +194,7 @@ export type $defs = Record<string, never>;
 export type external = Record<string, never>;
 
 export interface operations {
+
   /** Get Channels */
   get_channels_api_v1_chat_channels_get: {
     responses: {

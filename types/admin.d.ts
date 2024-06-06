@@ -3,6 +3,7 @@
  * Do not make direct changes to the file.
  */
 
+
 export interface paths {
   "/api/v1/admin/coaches": {
     /** Get Coaches */
@@ -151,6 +152,18 @@ export interface paths {
   "/api/v1/admin/user/config": {
     /** User Config */
     get: operations["user_config_api_v1_admin_user_config_get"];
+  };
+  "/api/v1/admin/user/filters": {
+    /** Get User Filters */
+    get: operations["get_user_filters_api_v1_admin_user_filters_get"];
+  };
+  "/api/v1/admin/users": {
+    /** Get Users */
+    post: operations["get_users_api_v1_admin_users_post"];
+  };
+  "/api/v1/admin/users/count": {
+    /** Get Users Count */
+    post: operations["get_users_count_api_v1_admin_users_count_post"];
   };
   "/api/v1/admin/sessions": {
     /** Get Sessions */
@@ -378,13 +391,7 @@ export interface components {
      * Accommodations
      * @enum {string}
      */
-    Accommodations:
-      | "any"
-      | "hotel"
-      | "house"
-      | "apartment"
-      | "office"
-      | "other";
+    Accommodations: "any" | "hotel" | "house" | "apartment" | "office" | "other";
     /** AddressOut */
     AddressOut: {
       /**
@@ -489,6 +496,17 @@ export interface components {
        * @example 10000
        */
       radius?: number | null;
+      /**
+       * @description Location label
+       * @default home
+       * @example home
+       */
+      label?: components["schemas"]["LocationLabel"];
+      /**
+       * Labelother
+       * @description Location label
+       */
+      labelOther?: string | null;
       /**
        * Details
        * @description notes for address
@@ -612,6 +630,17 @@ export interface components {
        * @example 10000
        */
       radius?: number | null;
+      /**
+       * @description Location label
+       * @default home
+       * @example home
+       */
+      label?: components["schemas"]["LocationLabel"];
+      /**
+       * Labelother
+       * @description Location label
+       */
+      labelOther?: string | null;
       /**
        * Details
        * @description notes for address
@@ -772,21 +801,7 @@ export interface components {
      * AdminBusinessOrderFields
      * @enum {string}
      */
-    AdminBusinessOrderFields:
-      | "display_name"
-      | "-display_name"
-      | "category_name"
-      | "-category_name"
-      | "country"
-      | "-country"
-      | "created_at"
-      | "-created_at"
-      | "rating"
-      | "-rating"
-      | "email"
-      | "-email"
-      | "phone"
-      | "-phone";
+    AdminBusinessOrderFields: "display_name" | "-display_name" | "category_name" | "-category_name" | "country" | "-country" | "created_at" | "-created_at" | "rating" | "-rating" | "email" | "-email" | "phone" | "-phone";
     /** AdminBusinessQueryCountIn */
     AdminBusinessQueryCountIn: {
       /** Search */
@@ -873,48 +888,60 @@ export interface components {
        * Format: uuid
        */
       id: string;
-      /** Displayname */
-      displayName?: string | null;
       /** Avatarurl */
       avatarUrl?: string | null;
-      /** Createdat */
-      createdAt?: string | null;
-      /** Phone */
-      phone?: string | null;
-      /** Email */
-      email?: string | null;
-      /**
-       * Rating
-       * @default 0
-       */
-      rating?: number | null;
-      /**
-       * Reviewscount
-       * @default 0
-       */
-      reviewsCount?: number;
-      /** Available */
-      available?: boolean | null;
-      /** Verified */
-      verified?: boolean | null;
-      /** Disabled */
-      disabled?: boolean | null;
       /** Categoryname */
       categoryName?: string | null;
-      /**
-       * Boosted
-       * @default false
-       */
-      boosted?: boolean | null;
       /**
        * Subcategories
        * @default []
        */
       subcategories?: string[];
-      /** Country */
-      country?: string | null;
       /** City */
       city?: string | null;
+      /** Country */
+      country?: string | null;
+      /**
+       * Createdat
+       * Format: date-time
+       */
+      createdAt: string;
+      /**
+       * Rating
+       * @default 0
+       */
+      rating?: number;
+      /**
+       * Reviewscount
+       * @default 0
+       */
+      reviewsCount?: number;
+      /** Email */
+      email?: string | null;
+      /** Phone */
+      phone?: string | null;
+      /**
+       * Disabled
+       * @default false
+       */
+      disabled?: boolean;
+      /**
+       * Verified
+       * @default false
+       */
+      verified?: boolean;
+      /**
+       * Boosted
+       * @default false
+       */
+      boosted?: boolean;
+      /**
+       * Available
+       * @default true
+       */
+      available?: boolean;
+      /** Displayname */
+      displayName?: string | null;
     };
     /** AdminClientAnalyticsSummary */
     AdminClientAnalyticsSummary: {
@@ -974,21 +1001,7 @@ export interface components {
      * AdminClientOrderFields
      * @enum {string}
      */
-    AdminClientOrderFields:
-      | "created_at"
-      | "-created_at"
-      | "last_name"
-      | "-last_name"
-      | "first_name"
-      | "-first_name"
-      | "email"
-      | "-email"
-      | "sessions_count"
-      | "-sessions_count"
-      | "rating"
-      | "-rating"
-      | "spend"
-      | "-spend";
+    AdminClientOrderFields: "created_at" | "-created_at" | "last_name" | "-last_name" | "first_name" | "-first_name" | "email" | "-email" | "sessions_count" | "-sessions_count" | "rating" | "-rating" | "spend" | "-spend";
     /** AdminClientSummaryOut */
     AdminClientSummaryOut: {
       /** @default AED */
@@ -1209,19 +1222,7 @@ export interface components {
      * AdminCoachOrderFields
      * @enum {string}
      */
-    AdminCoachOrderFields:
-      | "name"
-      | "-name"
-      | "created_at"
-      | "-created_at"
-      | "certificates_count"
-      | "-certificates_count"
-      | "experience"
-      | "-experience"
-      | "services_count"
-      | "-services_count"
-      | "rating"
-      | "-rating";
+    AdminCoachOrderFields: "name" | "-name" | "created_at" | "-created_at" | "certificates_count" | "-certificates_count" | "experience" | "-experience" | "services_count" | "-services_count" | "rating" | "-rating";
     /** AdminCoachSummaryViewOut */
     AdminCoachSummaryViewOut: {
       /**
@@ -1542,6 +1543,11 @@ export interface components {
       verifyPhone?: boolean;
       /** Displayname */
       displayName?: string | null;
+      /**
+       * Subcategories
+       * @default []
+       */
+      subcategories?: string[];
     };
     /** AdminDashboardAnalytics */
     AdminDashboardAnalytics: {
@@ -1565,15 +1571,7 @@ export interface components {
      * AdminEquipmentOrderFields
      * @enum {string}
      */
-    AdminEquipmentOrderFields:
-      | "full_name"
-      | "-full_name"
-      | "created_at"
-      | "-created_at"
-      | "services"
-      | "-services"
-      | "description"
-      | "-description";
+    AdminEquipmentOrderFields: "full_name" | "-full_name" | "created_at" | "-created_at" | "services" | "-services" | "description" | "-description";
     /** AdminEquipmentSummaryViewOut */
     AdminEquipmentSummaryViewOut: {
       /**
@@ -1647,11 +1645,7 @@ export interface components {
      * AdminPropertyFieldAffiliationFilterIn
      * @enum {string}
      */
-    AdminPropertyFieldAffiliationFilterIn:
-      | "coach"
-      | "client"
-      | "location"
-      | "service";
+    AdminPropertyFieldAffiliationFilterIn: "coach" | "client" | "location" | "service";
     /** AdminRefundSummaryCountOut */
     AdminRefundSummaryCountOut: {
       /** Total */
@@ -1731,6 +1725,10 @@ export interface components {
       description?: string | null;
       /** Refundamount */
       refundAmount?: number | null;
+      /**
+       * Attachmentids
+       * @default []
+       */
       attachmentIds?: string[];
     };
     /** AdminReportDetailOut */
@@ -1855,7 +1853,7 @@ export interface components {
     /** AdminRevenueChartOut */
     AdminRevenueChartOut: {
       /** Labels */
-      labels?: (string | number)[] | null;
+      labels?: ((string | number)[]) | null;
       /** Data */
       data: components["schemas"]["RevenueChartDataOut"][];
     };
@@ -1889,12 +1887,7 @@ export interface components {
      * AdminSessionPaymentMethod
      * @enum {string}
      */
-    AdminSessionPaymentMethod:
-      | "amex"
-      | "mastercard"
-      | "unionpay"
-      | "visa"
-      | "stripe";
+    AdminSessionPaymentMethod: "amex" | "mastercard" | "unionpay" | "visa" | "stripe";
     /** AdminSessionReviewUpdateIn */
     AdminSessionReviewUpdateIn: {
       state?: components["schemas"]["SessionReviewState"] | null;
@@ -2269,17 +2262,7 @@ export interface components {
      * AdminTransactionOrderFields
      * @enum {string}
      */
-    AdminTransactionOrderFields:
-      | "coach_first_name"
-      | "-coach_first_name"
-      | "client_first_name"
-      | "-client_first_name"
-      | "created_at"
-      | "-created_at"
-      | "revenue"
-      | "-revenue"
-      | "status"
-      | "-status";
+    AdminTransactionOrderFields: "coach_first_name" | "-coach_first_name" | "client_first_name" | "-client_first_name" | "created_at" | "-created_at" | "revenue" | "-revenue" | "status" | "-status";
     /** AdminTransactionSummaryCountOut */
     AdminTransactionSummaryCountOut: {
       /**
@@ -2431,6 +2414,99 @@ export interface components {
        */
       consumerId: string;
     };
+    /** AdminUserCountQueryIn */
+    AdminUserCountQueryIn: {
+      /** Search */
+      search?: string | null;
+      /** Category */
+      category?: string | null;
+      /**
+       * Subcategories
+       * @default []
+       */
+      subcategories?: string[];
+      /** Disabled */
+      disabled?: boolean | null;
+      /** Verified */
+      verified?: boolean | null;
+      /** City */
+      city?: string | null;
+      /** Country */
+      country?: string | null;
+      /** Registeredfrom */
+      registeredFrom?: string | null;
+      /** Registeredto */
+      registeredTo?: string | null;
+    };
+    /** AdminUserListOut */
+    AdminUserListOut: {
+      /**
+       * Id
+       * Format: uuid
+       */
+      id: string;
+      /** Avatarurl */
+      avatarUrl?: string | null;
+      /** Categoryname */
+      categoryName?: string | null;
+      /**
+       * Subcategories
+       * @default []
+       */
+      subcategories?: string[];
+      /** City */
+      city?: string | null;
+      /** Country */
+      country?: string | null;
+      /**
+       * Createdat
+       * Format: date-time
+       */
+      createdAt: string;
+      /**
+       * Rating
+       * @default 0
+       */
+      rating?: number;
+      /**
+       * Reviewscount
+       * @default 0
+       */
+      reviewsCount?: number;
+      /** Email */
+      email?: string | null;
+      /** Phone */
+      phone?: string | null;
+      /**
+       * Disabled
+       * @default false
+       */
+      disabled?: boolean;
+      /**
+       * Verified
+       * @default false
+       */
+      verified?: boolean;
+      /**
+       * Boosted
+       * @default false
+       */
+      boosted?: boolean;
+      /**
+       * Available
+       * @default true
+       */
+      available?: boolean;
+      /** Firstname */
+      firstName: string;
+      /** Lastname */
+      lastName: string;
+    };
+    /**
+     * AdminUserOrderFields
+     * @enum {string}
+     */
+    AdminUserOrderFields: "first_name" | "-first_name" | "category_name" | "-category_name" | "subcategories" | "-subcategories" | "country" | "-country" | "created_at" | "-created_at" | "rating" | "-rating" | "email" | "-email" | "phone" | "-phone" | "disabled" | "-disabled";
     /** AdminUserPropertyFieldIn */
     AdminUserPropertyFieldIn: {
       /** Name */
@@ -2494,6 +2570,42 @@ export interface components {
        */
       affiliation?: string | null;
     };
+    /** AdminUserQueryIn */
+    AdminUserQueryIn: {
+      /**
+       * Page
+       * @example 0
+       */
+      page?: number | null;
+      /**
+       * Limit
+       * @example 20
+       */
+      limit?: number | null;
+      /** Search */
+      search?: string | null;
+      /** Category */
+      category?: string | null;
+      /**
+       * Subcategories
+       * @default []
+       */
+      subcategories?: string[];
+      /** Disabled */
+      disabled?: boolean | null;
+      /** Verified */
+      verified?: boolean | null;
+      /** City */
+      city?: string | null;
+      /** Country */
+      country?: string | null;
+      /** Registeredfrom */
+      registeredFrom?: string | null;
+      /** Registeredto */
+      registeredTo?: string | null;
+      /** @default -created_at */
+      sorting?: components["schemas"]["AdminUserOrderFields"];
+    };
     /** AdminUserUpdateIn */
     AdminUserUpdateIn: {
       /**
@@ -2518,19 +2630,7 @@ export interface components {
      * AdminVerificationOrderIn
      * @enum {string}
      */
-    AdminVerificationOrderIn:
-      | "first_name"
-      | "-first_name"
-      | "created_at"
-      | "-created_at"
-      | "certificates_count"
-      | "-certificates_count"
-      | "experience"
-      | "-experience"
-      | "services_count"
-      | "-services_count"
-      | "state"
-      | "-state";
+    AdminVerificationOrderIn: "first_name" | "-first_name" | "created_at" | "-created_at" | "certificates_count" | "-certificates_count" | "experience" | "-experience" | "services_count" | "-services_count" | "state" | "-state";
     /** AdminWithdrawalDetailOut */
     AdminWithdrawalDetailOut: {
       /**
@@ -2565,17 +2665,7 @@ export interface components {
      * AdminWithdrawalOrderFields
      * @enum {string}
      */
-    AdminWithdrawalOrderFields:
-      | "user_first_name"
-      | "-user_first_name"
-      | "created_at"
-      | "-created_at"
-      | "amount"
-      | "-amount"
-      | "withdrawal_fee"
-      | "-withdrawal_fee"
-      | "status"
-      | "-status";
+    AdminWithdrawalOrderFields: "user_first_name" | "-user_first_name" | "created_at" | "-created_at" | "amount" | "-amount" | "withdrawal_fee" | "-withdrawal_fee" | "status" | "-status";
     /** AdminWithdrawalSummaryCountOut */
     AdminWithdrawalSummaryCountOut: {
       /**
@@ -2627,6 +2717,11 @@ export interface components {
       last4?: string | null;
       /** Withdrawalfee */
       withdrawalFee?: number | null;
+      /**
+       * Currency
+       * @default AED
+       */
+      currency?: string | null;
       /** @default pending */
       status?: components["schemas"]["WithdrawalState"] | null;
     };
@@ -2984,9 +3079,7 @@ export interface components {
       /** Filesize */
       filesize?: number | null;
       /** @description File visibility status in the system: on review, approved or rejected */
-      status?:
-        | components["schemas"]["stretchcore__models__storage__file__FileStatus__1"]
-        | null;
+      status?: components["schemas"]["stretchcore__models__storage__file__FileStatus__1"] | null;
       /**
        * Duration
        * @description Duration in seconds
@@ -3044,21 +3137,7 @@ export interface components {
      * AvailabilityType
      * @enum {string}
      */
-    AvailabilityType:
-      | "daily"
-      | "workday"
-      | "weekend"
-      | "monday"
-      | "tuesday"
-      | "wednesday"
-      | "thursday"
-      | "friday"
-      | "saturday"
-      | "sunday"
-      | "once"
-      | "ignore"
-      | "session"
-      | "none";
+    AvailabilityType: "daily" | "workday" | "weekend" | "monday" | "tuesday" | "wednesday" | "thursday" | "friday" | "saturday" | "sunday" | "once" | "ignore" | "session" | "none";
     /** AwardFileOut */
     AwardFileOut: {
       /**
@@ -3082,9 +3161,7 @@ export interface components {
        */
       videoThumb?: string | null;
       /** @description File visibility status in the system: on review, approved or rejected */
-      status?:
-        | components["schemas"]["stretchcore__models__storage__file__FileStatus__1"]
-        | null;
+      status?: components["schemas"]["stretchcore__models__storage__file__FileStatus__1"] | null;
       /**
        * Duration
        * @description Duration of media
@@ -3136,22 +3213,22 @@ export interface components {
        * Reason
        * @description Reason feedback
        */
-      reason?: string | null;
+      reason: string;
+      /**
+       * Phone
+       * @description Feedback phone
+       */
+      phone: string;
       /**
        * Full Name
        * @description Fullname
        */
       full_name?: string | null;
       /**
-       * Phone
-       * @description Feedback phone
-       */
-      phone?: string | null;
-      /**
        * Message
        * @description Feedback message
        */
-      message?: string;
+      message?: string | null;
       /**
        * File
        * @description Downloadable file
@@ -3184,13 +3261,7 @@ export interface components {
      * BookingReasonType
      * @enum {string}
      */
-    BookingReasonType:
-      | "client_unverified"
-      | "client_too_far"
-      | "client_blocked"
-      | "coach_unavailable"
-      | "coach_allergic"
-      | "coach_blocked";
+    BookingReasonType: "client_unverified" | "client_too_far" | "client_blocked" | "coach_unavailable" | "coach_allergic" | "coach_blocked";
     /** BusinessAvailabilityOut */
     BusinessAvailabilityOut: {
       /** Title */
@@ -3263,24 +3334,7 @@ export interface components {
      * BusinessContactType
      * @enum {string}
      */
-    BusinessContactType:
-      | "instagram"
-      | "facebook"
-      | "tiktok"
-      | "twitter"
-      | "x(twitter)"
-      | "whatsapp"
-      | "telegram"
-      | "website"
-      | "youtube"
-      | "snapchat"
-      | "wechat"
-      | "kakao"
-      | "line"
-      | "viber"
-      | "tumblr"
-      | "vkontakte"
-      | "linkedin";
+    BusinessContactType: "instagram" | "facebook" | "tiktok" | "twitter" | "x(twitter)" | "whatsapp" | "telegram" | "website" | "youtube" | "snapchat" | "wechat" | "kakao" | "line" | "viber" | "tumblr" | "vkontakte" | "linkedin";
     /** BusinessFeatureOut */
     BusinessFeatureOut: {
       /** Name */
@@ -3424,17 +3478,7 @@ export interface components {
      * CardPaymentBrandType
      * @enum {string}
      */
-    CardPaymentBrandType:
-      | "amex"
-      | "diners"
-      | "discover"
-      | "eftpos_au"
-      | "jcb"
-      | "mastercard"
-      | "unionpay"
-      | "visa"
-      | "bank_account"
-      | "unknown";
+    CardPaymentBrandType: "amex" | "diners" | "discover" | "eftpos_au" | "jcb" | "mastercard" | "unionpay" | "visa" | "bank_account" | "unknown";
     /** Category */
     CategoryIn: {
       /** Name */
@@ -3530,9 +3574,7 @@ export interface components {
       /** Filesize */
       filesize?: number | null;
       /** @description File visibility status in the system: on review, approved or rejected */
-      status?:
-        | components["schemas"]["stretchcore__models__storage__file__FileStatus__1"]
-        | null;
+      status?: components["schemas"]["stretchcore__models__storage__file__FileStatus__1"] | null;
       /** Issuedate */
       issueDate?: string | null;
       /** Expiredate */
@@ -3552,12 +3594,12 @@ export interface components {
        */
       displayName?: string | null;
       /** Firstname */
-      firstName?: string | null;
+      firstName: string;
       /** Lastname */
-      lastName?: string | null;
+      lastName: string;
       /** Avatarurl */
       avatarUrl?: string | null;
-      type?: components["schemas"]["UserType"] | null;
+      type: components["schemas"]["UserType"];
       /** Rating */
       rating?: number | null;
       /**
@@ -3608,12 +3650,9 @@ export interface components {
        * Languages
        * @description Languages
        */
-      languages:
-        | string
-        | {
-            [key: string]: string;
-          }
-        | null;
+      languages: string | {
+        [key: string]: string;
+      } | null;
       /**
        * Properties
        * @description Extra property for user
@@ -3684,12 +3723,12 @@ export interface components {
        */
       displayName?: string | null;
       /** Firstname */
-      firstName?: string | null;
+      firstName: string;
       /** Lastname */
-      lastName?: string | null;
+      lastName: string;
       /** Avatarurl */
       avatarUrl?: string | null;
-      type?: components["schemas"]["UserType"] | null;
+      type: components["schemas"]["UserType"];
       /** Rating */
       rating?: number | null;
       /**
@@ -3740,12 +3779,9 @@ export interface components {
        * Languages
        * @description Languages
        */
-      languages:
-        | string
-        | {
-            [key: string]: string;
-          }
-        | null;
+      languages: string | {
+        [key: string]: string;
+      } | null;
       /**
        * Properties
        * @description Extra property for user
@@ -3874,189 +3910,7 @@ export interface components {
      * CurrencyCode
      * @enum {string}
      */
-    CurrencyCode:
-      | "AED"
-      | "AFN"
-      | "ALL"
-      | "AMD"
-      | "ANG"
-      | "AOA"
-      | "ARS"
-      | "AUD"
-      | "AWG"
-      | "AZN"
-      | "BAM"
-      | "BBD"
-      | "BDT"
-      | "BGN"
-      | "BHD"
-      | "BIF"
-      | "BMD"
-      | "BND"
-      | "BOB"
-      | "BRL"
-      | "BSD"
-      | "BTC"
-      | "BTN"
-      | "BTS"
-      | "BWP"
-      | "BYN"
-      | "BZD"
-      | "CAD"
-      | "CDF"
-      | "CHF"
-      | "CLF"
-      | "CLP"
-      | "CNH"
-      | "CNY"
-      | "COP"
-      | "CRC"
-      | "CUC"
-      | "CUP"
-      | "CVE"
-      | "CZK"
-      | "DASH"
-      | "DJF"
-      | "DKK"
-      | "DOGE"
-      | "DOP"
-      | "DZD"
-      | "EGP"
-      | "ERN"
-      | "ETB"
-      | "ETH"
-      | "EUR"
-      | "FJD"
-      | "FKP"
-      | "GBP"
-      | "GEL"
-      | "GGP"
-      | "GHS"
-      | "GIP"
-      | "GMD"
-      | "GNF"
-      | "GTQ"
-      | "GYD"
-      | "HKD"
-      | "HNL"
-      | "HRK"
-      | "HTG"
-      | "HUF"
-      | "IDR"
-      | "ILS"
-      | "IMP"
-      | "INR"
-      | "IQD"
-      | "IRR"
-      | "ISK"
-      | "JEP"
-      | "JMD"
-      | "JOD"
-      | "JPY"
-      | "KES"
-      | "KGS"
-      | "KHR"
-      | "KMF"
-      | "KPW"
-      | "KRW"
-      | "KWD"
-      | "KYD"
-      | "KZT"
-      | "LAK"
-      | "LBP"
-      | "LD"
-      | "LKR"
-      | "LRD"
-      | "LSL"
-      | "LTC"
-      | "LYD"
-      | "MAD"
-      | "MDL"
-      | "MGA"
-      | "MKD"
-      | "MMK"
-      | "MNT"
-      | "MOP"
-      | "MRU"
-      | "MUR"
-      | "MVR"
-      | "MWK"
-      | "MXN"
-      | "MYR"
-      | "MZN"
-      | "NAD"
-      | "NGN"
-      | "NIO"
-      | "NOK"
-      | "NPR"
-      | "NXT"
-      | "NZD"
-      | "OMR"
-      | "PAB"
-      | "PEN"
-      | "PGK"
-      | "PHP"
-      | "PKR"
-      | "PLN"
-      | "PYG"
-      | "QAR"
-      | "RON"
-      | "RSD"
-      | "RUB"
-      | "RWF"
-      | "SAR"
-      | "SBD"
-      | "SCR"
-      | "SDG"
-      | "SEK"
-      | "SGD"
-      | "SHP"
-      | "SLL"
-      | "SOS"
-      | "SRD"
-      | "SSP"
-      | "STD"
-      | "STN"
-      | "STR"
-      | "SVC"
-      | "SYP"
-      | "SZL"
-      | "THB"
-      | "TJS"
-      | "TMT"
-      | "TND"
-      | "TOP"
-      | "TRY"
-      | "TTD"
-      | "TWD"
-      | "TZS"
-      | "UAH"
-      | "UGX"
-      | "USD"
-      | "UYU"
-      | "UZS"
-      | "VEF_BLKMKT"
-      | "VEF_DICOM"
-      | "VEF_DIPRO"
-      | "VES"
-      | "VND"
-      | "VUV"
-      | "WST"
-      | "XAF"
-      | "XAG"
-      | "XAU"
-      | "XCD"
-      | "XDR"
-      | "XMR"
-      | "XOF"
-      | "XPD"
-      | "XPF"
-      | "XPT"
-      | "XRP"
-      | "YER"
-      | "ZAR"
-      | "ZMW"
-      | "ZWL";
+    CurrencyCode: "AED" | "AFN" | "ALL" | "AMD" | "ANG" | "AOA" | "ARS" | "AUD" | "AWG" | "AZN" | "BAM" | "BBD" | "BDT" | "BGN" | "BHD" | "BIF" | "BMD" | "BND" | "BOB" | "BRL" | "BSD" | "BTC" | "BTN" | "BTS" | "BWP" | "BYN" | "BZD" | "CAD" | "CDF" | "CHF" | "CLF" | "CLP" | "CNH" | "CNY" | "COP" | "CRC" | "CUC" | "CUP" | "CVE" | "CZK" | "DASH" | "DJF" | "DKK" | "DOGE" | "DOP" | "DZD" | "EGP" | "ERN" | "ETB" | "ETH" | "EUR" | "FJD" | "FKP" | "GBP" | "GEL" | "GGP" | "GHS" | "GIP" | "GMD" | "GNF" | "GTQ" | "GYD" | "HKD" | "HNL" | "HRK" | "HTG" | "HUF" | "IDR" | "ILS" | "IMP" | "INR" | "IQD" | "IRR" | "ISK" | "JEP" | "JMD" | "JOD" | "JPY" | "KES" | "KGS" | "KHR" | "KMF" | "KPW" | "KRW" | "KWD" | "KYD" | "KZT" | "LAK" | "LBP" | "LD" | "LKR" | "LRD" | "LSL" | "LTC" | "LYD" | "MAD" | "MDL" | "MGA" | "MKD" | "MMK" | "MNT" | "MOP" | "MRU" | "MUR" | "MVR" | "MWK" | "MXN" | "MYR" | "MZN" | "NAD" | "NGN" | "NIO" | "NOK" | "NPR" | "NXT" | "NZD" | "OMR" | "PAB" | "PEN" | "PGK" | "PHP" | "PKR" | "PLN" | "PYG" | "QAR" | "RON" | "RSD" | "RUB" | "RWF" | "SAR" | "SBD" | "SCR" | "SDG" | "SEK" | "SGD" | "SHP" | "SLL" | "SOS" | "SRD" | "SSP" | "STD" | "STN" | "STR" | "SVC" | "SYP" | "SZL" | "THB" | "TJS" | "TMT" | "TND" | "TOP" | "TRY" | "TTD" | "TWD" | "TZS" | "UAH" | "UGX" | "USD" | "UYU" | "UZS" | "VEF_BLKMKT" | "VEF_DICOM" | "VEF_DIPRO" | "VES" | "VND" | "VUV" | "WST" | "XAF" | "XAG" | "XAU" | "XCD" | "XDR" | "XMR" | "XOF" | "XPD" | "XPF" | "XPT" | "XRP" | "YER" | "ZAR" | "ZMW" | "ZWL";
     /** EquipmentFileOut */
     EquipmentFileOut: {
       /**
@@ -4080,9 +3934,7 @@ export interface components {
        */
       videoThumb?: string | null;
       /** @description File visibility status in the system: on review, approved or rejected */
-      status?:
-        | components["schemas"]["stretchcore__models__storage__file__FileStatus__1"]
-        | null;
+      status?: components["schemas"]["stretchcore__models__storage__file__FileStatus__1"] | null;
       /**
        * Duration
        * @description Duration of media
@@ -4188,9 +4040,7 @@ export interface components {
       /** Filesize */
       filesize?: number | null;
       /** @description File visibility status in the system: on review, approved or rejected */
-      status?:
-        | components["schemas"]["stretchcore__models__storage__file__FileStatus__1"]
-        | null;
+      status?: components["schemas"]["stretchcore__models__storage__file__FileStatus__1"] | null;
     };
     /** HTTPValidationError */
     HTTPValidationError: {
@@ -4208,12 +4058,12 @@ export interface components {
      * LocationFields
      * @enum {string}
      */
-    LocationFields:
-      | "neighborhood"
-      | "building"
-      | "entrance"
-      | "floor"
-      | "apartment";
+    LocationFields: "neighborhood" | "building" | "entrance" | "floor" | "apartment";
+    /**
+     * LocationLabel
+     * @enum {string}
+     */
+    LocationLabel: "home" | "work" | "other";
     /** MediaFileOut */
     MediaFileOut: {
       /**
@@ -4237,9 +4087,7 @@ export interface components {
        */
       videoThumb?: string | null;
       /** @description File visibility status in the system: on review, approved or rejected */
-      status?:
-        | components["schemas"]["stretchcore__models__storage__file__FileStatus__1"]
-        | null;
+      status?: components["schemas"]["stretchcore__models__storage__file__FileStatus__1"] | null;
       /**
        * Duration
        * @description Duration of media
@@ -4260,14 +4108,7 @@ export interface components {
      * OpenHourType
      * @enum {string}
      */
-    OpenHourType:
-      | "monday"
-      | "tuesday"
-      | "wednesday"
-      | "thursday"
-      | "friday"
-      | "saturday"
-      | "sunday";
+    OpenHourType: "monday" | "tuesday" | "wednesday" | "thursday" | "friday" | "saturday" | "sunday";
     /**
      * ParkingType
      * @enum {string}
@@ -4285,14 +4126,7 @@ export interface components {
        * @example card
        * @enum {string}
        */
-      method:
-        | "cash"
-        | "card"
-        | "bank_account"
-        | "paypal"
-        | "crypto"
-        | "apple_pay"
-        | "google_pay";
+      method: "cash" | "card" | "bank_account" | "paypal" | "crypto" | "apple_pay" | "google_pay";
       /**
        * Commission
        * @example 0.1
@@ -4350,15 +4184,7 @@ export interface components {
      * PaymentState
      * @enum {string}
      */
-    PaymentState:
-      | "awaiting"
-      | "checkout"
-      | "review"
-      | "received"
-      | "canceled"
-      | "failed"
-      | "refund"
-      | "deleted";
+    PaymentState: "awaiting" | "checkout" | "review" | "received" | "canceled" | "failed" | "refund" | "deleted";
     /** PointBase */
     PointBase: {
       /**
@@ -4614,6 +4440,17 @@ export interface components {
        */
       radius?: number | null;
       /**
+       * @description Location label
+       * @default home
+       * @example home
+       */
+      label?: components["schemas"]["LocationLabel"];
+      /**
+       * Labelother
+       * @description Location label
+       */
+      labelOther?: string | null;
+      /**
        * Details
        * @description notes for address
        */
@@ -4671,9 +4508,7 @@ export interface components {
       url?: string | null;
       /** Thumb */
       thumb?: string | null;
-      status?:
-        | components["schemas"]["stretchcore__models__storage__file__FileStatus__1"]
-        | null;
+      status?: components["schemas"]["stretchcore__models__storage__file__FileStatus__1"] | null;
       /** Originfilename */
       originFilename?: string | null;
       /** Filesize */
@@ -4943,7 +4778,7 @@ export interface components {
       /** Name */
       name: string;
       /** Description */
-      description?: string | null;
+      description?: string;
     };
     /** ServiceType */
     ServiceTypeOut: {
@@ -5127,32 +4962,12 @@ export interface components {
      * SessionReviewState
      * @enum {string}
      */
-    SessionReviewState:
-      | "approved"
-      | "cancel"
-      | "review"
-      | "claim"
-      | "deleted"
-      | "hidden";
+    SessionReviewState: "approved" | "cancel" | "review" | "claim" | "deleted" | "hidden";
     /**
      * SessionState
      * @enum {string}
      */
-    SessionState:
-      | "new"
-      | "pending"
-      | "updated_by_client"
-      | "updated_by_coach"
-      | "approved"
-      | "canceled"
-      | "upcoming"
-      | "progress"
-      | "refund_request"
-      | "refund_approved"
-      | "refund_rejected"
-      | "completed"
-      | "deleted"
-      | "paid";
+    SessionState: "new" | "pending" | "updated_by_client" | "updated_by_coach" | "approved" | "canceled" | "upcoming" | "progress" | "refund_request" | "refund_approved" | "refund_rejected" | "completed" | "deleted" | "paid";
     /** SessionUserOut */
     SessionUserOut: {
       /**
@@ -5186,11 +5001,7 @@ export interface components {
      * StripeConnectStatus
      * @enum {string}
      */
-    StripeConnectStatus:
-      | "unregistered"
-      | "completed"
-      | "pending"
-      | "unverified";
+    StripeConnectStatus: "unregistered" | "completed" | "pending" | "unverified";
     /** TotalRevenueAnalyticsOut */
     TotalRevenueAnalyticsOut: {
       /**
@@ -5266,191 +5077,7 @@ export interface components {
      * UserLanguages
      * @enum {string}
      */
-    UserLanguages:
-      | "ab"
-      | "aa"
-      | "af"
-      | "ak"
-      | "sq"
-      | "am"
-      | "ar"
-      | "an"
-      | "hy"
-      | "as"
-      | "av"
-      | "ae"
-      | "ay"
-      | "az"
-      | "bm"
-      | "ba"
-      | "eu"
-      | "be"
-      | "bn"
-      | "bh"
-      | "bi"
-      | "bs"
-      | "br"
-      | "bg"
-      | "my"
-      | "ca"
-      | "ch"
-      | "ce"
-      | "ny"
-      | "zh"
-      | "cv"
-      | "kw"
-      | "co"
-      | "cr"
-      | "hr"
-      | "cs"
-      | "da"
-      | "dv"
-      | "nl"
-      | "dz"
-      | "en"
-      | "eo"
-      | "et"
-      | "ee"
-      | "fo"
-      | "fj"
-      | "fi"
-      | "fr"
-      | "ff"
-      | "gl"
-      | "ka"
-      | "de"
-      | "el"
-      | "gn"
-      | "gu"
-      | "ht"
-      | "ha"
-      | "he"
-      | "hz"
-      | "hi"
-      | "ho"
-      | "hu"
-      | "ia"
-      | "id"
-      | "ie"
-      | "ga"
-      | "ig"
-      | "ik"
-      | "io"
-      | "is"
-      | "it"
-      | "iu"
-      | "ja"
-      | "jv"
-      | "kl"
-      | "kn"
-      | "kr"
-      | "ks"
-      | "kk"
-      | "km"
-      | "ki"
-      | "rw"
-      | "ky"
-      | "kv"
-      | "kg"
-      | "ko"
-      | "ku"
-      | "kj"
-      | "la"
-      | "lb"
-      | "lg"
-      | "li"
-      | "ln"
-      | "lo"
-      | "lt"
-      | "lu"
-      | "lv"
-      | "gv"
-      | "mk"
-      | "mg"
-      | "ms"
-      | "ml"
-      | "mt"
-      | "mi"
-      | "mr"
-      | "mh"
-      | "mn"
-      | "na"
-      | "nv"
-      | "nd"
-      | "ne"
-      | "ng"
-      | "nb"
-      | "nn"
-      | "no"
-      | "ii"
-      | "nr"
-      | "oc"
-      | "oj"
-      | "cu"
-      | "om"
-      | "or"
-      | "os"
-      | "pa"
-      | "pi"
-      | "fa"
-      | "pl"
-      | "ps"
-      | "pt"
-      | "qu"
-      | "rm"
-      | "rn"
-      | "ro"
-      | "ru"
-      | "sa"
-      | "sc"
-      | "sd"
-      | "se"
-      | "sm"
-      | "sg"
-      | "sr"
-      | "gd"
-      | "sn"
-      | "si"
-      | "sk"
-      | "sl"
-      | "so"
-      | "st"
-      | "es"
-      | "su"
-      | "sw"
-      | "ss"
-      | "sv"
-      | "ta"
-      | "te"
-      | "tg"
-      | "th"
-      | "ti"
-      | "bo"
-      | "tk"
-      | "tl"
-      | "tn"
-      | "to"
-      | "tr"
-      | "ts"
-      | "tt"
-      | "tw"
-      | "ty"
-      | "ug"
-      | "uk"
-      | "ur"
-      | "uz"
-      | "ve"
-      | "vi"
-      | "vo"
-      | "wa"
-      | "cy"
-      | "wo"
-      | "fy"
-      | "xh"
-      | "yi"
-      | "yo"
-      | "za"
-      | "zu";
+    UserLanguages: "ab" | "aa" | "af" | "ak" | "sq" | "am" | "ar" | "an" | "hy" | "as" | "av" | "ae" | "ay" | "az" | "bm" | "ba" | "eu" | "be" | "bn" | "bh" | "bi" | "bs" | "br" | "bg" | "my" | "ca" | "ch" | "ce" | "ny" | "zh" | "cv" | "kw" | "co" | "cr" | "hr" | "cs" | "da" | "dv" | "nl" | "dz" | "en" | "eo" | "et" | "ee" | "fo" | "fj" | "fi" | "fr" | "ff" | "gl" | "ka" | "de" | "el" | "gn" | "gu" | "ht" | "ha" | "he" | "hz" | "hi" | "ho" | "hu" | "ia" | "id" | "ie" | "ga" | "ig" | "ik" | "io" | "is" | "it" | "iu" | "ja" | "jv" | "kl" | "kn" | "kr" | "ks" | "kk" | "km" | "ki" | "rw" | "ky" | "kv" | "kg" | "ko" | "ku" | "kj" | "la" | "lb" | "lg" | "li" | "ln" | "lo" | "lt" | "lu" | "lv" | "gv" | "mk" | "mg" | "ms" | "ml" | "mt" | "mi" | "mr" | "mh" | "mn" | "na" | "nv" | "nd" | "ne" | "ng" | "nb" | "nn" | "no" | "ii" | "nr" | "oc" | "oj" | "cu" | "om" | "or" | "os" | "pa" | "pi" | "fa" | "pl" | "ps" | "pt" | "qu" | "rm" | "rn" | "ro" | "ru" | "sa" | "sc" | "sd" | "se" | "sm" | "sg" | "sr" | "gd" | "sn" | "si" | "sk" | "sl" | "so" | "st" | "es" | "su" | "sw" | "ss" | "sv" | "ta" | "te" | "tg" | "th" | "ti" | "bo" | "tk" | "tl" | "tn" | "to" | "tr" | "ts" | "tt" | "tw" | "ty" | "ug" | "uk" | "ur" | "uz" | "ve" | "vi" | "vo" | "wa" | "cy" | "wo" | "fy" | "xh" | "yi" | "yo" | "za" | "zu";
     /** UserProfileOut */
     UserProfileOut: {
       /**
@@ -5465,12 +5092,12 @@ export interface components {
        */
       displayName?: string | null;
       /** Firstname */
-      firstName?: string | null;
+      firstName: string;
       /** Lastname */
-      lastName?: string | null;
+      lastName: string;
       /** Avatarurl */
       avatarUrl?: string | null;
-      type?: components["schemas"]["UserType"] | null;
+      type: components["schemas"]["UserType"];
       /** Rating */
       rating?: number | null;
       /**
@@ -5521,12 +5148,9 @@ export interface components {
        * Languages
        * @description Languages
        */
-      languages:
-        | string
-        | {
-            [key: string]: string;
-          }
-        | null;
+      languages: string | {
+        [key: string]: string;
+      } | null;
       /**
        * Properties
        * @description Extra property for user
@@ -5663,30 +5287,12 @@ export interface components {
      * UserPropertyType
      * @enum {string}
      */
-    UserPropertyType:
-      | "empty"
-      | "id"
-      | "int"
-      | "bool"
-      | "float"
-      | "str"
-      | "list"
-      | "dict"
-      | "select"
-      | "radio"
-      | "datetime";
+    UserPropertyType: "empty" | "id" | "int" | "bool" | "float" | "str" | "list" | "dict" | "select" | "radio" | "datetime";
     /**
      * UserType
      * @enum {string}
      */
-    UserType:
-      | "guest"
-      | "coach"
-      | "client"
-      | "studio"
-      | "business"
-      | "support"
-      | "admin";
+    UserType: "guest" | "coach" | "client" | "studio" | "business" | "support" | "admin";
     /** ValidationError */
     ValidationError: {
       /** Location */
@@ -5736,9 +5342,7 @@ export interface components {
       /** Filesize */
       filesize?: number | null;
       /** @description File visibility status in the system: on review, approved or rejected */
-      status?:
-        | components["schemas"]["stretchcore__models__storage__file__FileStatus__1"]
-        | null;
+      status?: components["schemas"]["stretchcore__models__storage__file__FileStatus__1"] | null;
       /**
        * Duration
        * @description Duration in seconds
@@ -5763,43 +5367,23 @@ export interface components {
      * AdminSessionOrderFields
      * @enum {string}
      */
-    stretchcore__models__review__schema__admin_session_review__AdminSessionOrderFields:
-      | "rating"
-      | "-rating";
+    stretchcore__models__review__schema__admin_session_review__AdminSessionOrderFields: "rating" | "-rating";
     /**
      * ServicePriceCurrencies
      * @enum {string}
      */
-    stretchcore__models__service__service__ServicePriceCurrencies__1:
-      | "AED"
-      | "USD"
-      | "EUR";
+    stretchcore__models__service__service__ServicePriceCurrencies__1: "AED" | "USD" | "EUR";
     stretchcore__models__service__service__ServicePriceCurrencies__2: components["schemas"]["stretchcore__models__service__service__ServicePriceCurrencies__1"];
     /**
      * AdminSessionOrderFields
      * @enum {string}
      */
-    stretchcore__models__session__schema__admin_session__AdminSessionOrderFields:
-      | "created_at"
-      | "-created_at"
-      | "date_start"
-      | "-date_start"
-      | "name"
-      | "-name"
-      | "price"
-      | "-price";
+    stretchcore__models__session__schema__admin_session__AdminSessionOrderFields: "created_at" | "-created_at" | "date_start" | "-date_start" | "name" | "-name" | "price" | "-price";
     /**
      * FileStatus
      * @enum {string}
      */
-    stretchcore__models__storage__file__FileStatus__1:
-      | "uploaded"
-      | "processing"
-      | "approved"
-      | "rejected"
-      | "review"
-      | "draft"
-      | "deleted";
+    stretchcore__models__storage__file__FileStatus__1: "uploaded" | "processing" | "approved" | "rejected" | "review" | "draft" | "deleted";
     stretchcore__models__storage__file__FileStatus__2: components["schemas"]["stretchcore__models__storage__file__FileStatus__1"];
   };
   responses: never;
@@ -5814,6 +5398,7 @@ export type $defs = Record<string, never>;
 export type external = Record<string, never>;
 
 export interface operations {
+
   /** Get Coaches */
   get_coaches_api_v1_admin_coaches_get: {
     parameters: {
@@ -6273,7 +5858,7 @@ export interface operations {
       /** @description Successful Response */
       200: {
         content: {
-          "application/json": unknown;
+          "application/json": components["schemas"]["AdminTotalCountOut"];
         };
       };
       /** @description Validation Error */
@@ -6703,6 +6288,61 @@ export interface operations {
       };
     };
   };
+  /** Get User Filters */
+  get_user_filters_api_v1_admin_user_filters_get: {
+    responses: {
+      /** @description Successful Response */
+      200: {
+        content: {
+          "application/json": components["schemas"]["BusinessFiltersOut"];
+        };
+      };
+    };
+  };
+  /** Get Users */
+  get_users_api_v1_admin_users_post: {
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["AdminUserQueryIn"];
+      };
+    };
+    responses: {
+      /** @description Successful Response */
+      200: {
+        content: {
+          "application/json": components["schemas"]["AdminUserListOut"][];
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        content: {
+          "application/json": components["schemas"]["HTTPValidationError"];
+        };
+      };
+    };
+  };
+  /** Get Users Count */
+  get_users_count_api_v1_admin_users_count_post: {
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["AdminUserCountQueryIn"];
+      };
+    };
+    responses: {
+      /** @description Successful Response */
+      200: {
+        content: {
+          "application/json": components["schemas"]["AdminTotalCountOut"];
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        content: {
+          "application/json": components["schemas"]["HTTPValidationError"];
+        };
+      };
+    };
+  };
   /** Get Sessions */
   get_sessions_api_v1_admin_sessions_get: {
     parameters: {
@@ -6714,9 +6354,7 @@ export interface operations {
         clientId?: string | null;
         promo?: boolean | null;
         fromDate?: string | null;
-        sorting?:
-          | components["schemas"]["stretchcore__models__session__schema__admin_session__AdminSessionOrderFields"]
-          | null;
+        sorting?: components["schemas"]["stretchcore__models__session__schema__admin_session__AdminSessionOrderFields"] | null;
         state?: components["schemas"]["SessionState"] | null;
       };
     };
@@ -6746,9 +6384,7 @@ export interface operations {
         clientId?: string | null;
         promo?: boolean | null;
         fromDate?: string | null;
-        sorting?:
-          | components["schemas"]["stretchcore__models__session__schema__admin_session__AdminSessionOrderFields"]
-          | null;
+        sorting?: components["schemas"]["stretchcore__models__session__schema__admin_session__AdminSessionOrderFields"] | null;
         state?: components["schemas"]["SessionState"] | null;
       };
     };
@@ -6823,9 +6459,7 @@ export interface operations {
         coachId?: string | null;
         clientId?: string | null;
         state?: components["schemas"]["SessionReviewState"] | null;
-        sorting?:
-          | components["schemas"]["stretchcore__models__review__schema__admin_session_review__AdminSessionOrderFields"]
-          | null;
+        sorting?: components["schemas"]["stretchcore__models__review__schema__admin_session_review__AdminSessionOrderFields"] | null;
       };
     };
     responses: {
@@ -7316,10 +6950,7 @@ export interface operations {
   get_user_properties_api_v1_admin_config_fields_get: {
     parameters: {
       query?: {
-        affiliation?:
-          | components["schemas"]["AdminPropertyFieldAffiliationFilterIn"]
-          | string
-          | null;
+        affiliation?: components["schemas"]["AdminPropertyFieldAffiliationFilterIn"] | string | null;
       };
     };
     responses: {
@@ -8054,7 +7685,7 @@ export interface operations {
       /** @description Successful Response */
       200: {
         content: {
-          "application/json": unknown;
+          "application/json": components["schemas"]["AdminTotalCountOut"];
         };
       };
       /** @description Validation Error */

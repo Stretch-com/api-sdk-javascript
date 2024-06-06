@@ -640,6 +640,17 @@ export interface components {
        */
       radius?: number | null;
       /**
+       * @description Location label
+       * @default home
+       * @example home
+       */
+      label?: components["schemas"]["LocationLabel"];
+      /**
+       * Labelother
+       * @description Location label
+       */
+      labelOther?: string | null;
+      /**
        * Details
        * @description notes for address
        */
@@ -763,6 +774,17 @@ export interface components {
        */
       radius?: number | null;
       /**
+       * @description Location label
+       * @default home
+       * @example home
+       */
+      label?: components["schemas"]["LocationLabel"];
+      /**
+       * Labelother
+       * @description Location label
+       */
+      labelOther?: string | null;
+      /**
        * Details
        * @description notes for address
        */
@@ -877,6 +899,17 @@ export interface components {
        * @example 10000
        */
       radius?: number | null;
+      /**
+       * @description Location label
+       * @default home
+       * @example home
+       */
+      label?: components["schemas"]["LocationLabel"];
+      /**
+       * Labelother
+       * @description Location label
+       */
+      labelOther?: string | null;
       /**
        * Details
        * @description notes for address
@@ -1160,14 +1193,14 @@ export interface components {
       /**
        * Fromdate
        * @description Get the available time starting from this value
-       * @default 2024-05-24T11:57:57.299840Z
-       * @example 2024-05-25T11:57:57.299850Z
+       * @default 2024-06-06T09:33:05.943996Z
+       * @example 2024-06-07T09:33:05.944005Z
        */
       fromDate?: string;
       /**
        * Todate
-       * @default 2024-06-24T11:57:57.300282Z
-       * @example 2024-06-24T11:57:57.300297Z
+       * @default 2024-07-07T09:33:05.944093Z
+       * @example 2024-07-07T09:33:05.944100Z
        */
       toDate?: string;
       /** @default auto */
@@ -1204,7 +1237,7 @@ export interface components {
       /**
        * Start
        * @description Start date when slot is working
-       * @example 2024-05-24
+       * @example 2024-06-06
        */
       start?: string | null;
       /**
@@ -1287,7 +1320,7 @@ export interface components {
       /**
        * Start
        * @description Start date when slot is working
-       * @example 2024-05-24
+       * @example 2024-06-06
        */
       start?: string | null;
       /**
@@ -1341,7 +1374,7 @@ export interface components {
       title?: string | null;
       /**
        * Start
-       * @example 2024-05-24
+       * @example 2024-06-06
        */
       start?: string | null;
       /**
@@ -2034,12 +2067,12 @@ export interface components {
        */
       displayName?: string | null;
       /** Firstname */
-      firstName?: string | null;
+      firstName: string;
       /** Lastname */
-      lastName?: string | null;
+      lastName: string;
       /** Avatarurl */
       avatarUrl?: string | null;
-      type?: components["schemas"]["UserType"] | null;
+      type: components["schemas"]["UserType"];
       /** Rating */
       rating?: number | null;
       /**
@@ -2281,12 +2314,12 @@ export interface components {
        */
       displayName?: string | null;
       /** Firstname */
-      firstName?: string | null;
+      firstName: string;
       /** Lastname */
-      lastName?: string | null;
+      lastName: string;
       /** Avatarurl */
       avatarUrl?: string | null;
-      type?: components["schemas"]["UserType"] | null;
+      type: components["schemas"]["UserType"];
       /** Rating */
       rating?: number | null;
       /**
@@ -2619,6 +2652,11 @@ export interface components {
      * @enum {string}
      */
     LocationFields: "neighborhood" | "building" | "entrance" | "floor" | "apartment";
+    /**
+     * LocationLabel
+     * @enum {string}
+     */
+    LocationLabel: "home" | "work" | "other";
     /** MediaFileOut */
     MediaFileOut: {
       /**
@@ -3063,6 +3101,17 @@ export interface components {
        */
       radius?: number | null;
       /**
+       * @description Location label
+       * @default home
+       * @example home
+       */
+      label?: components["schemas"]["LocationLabel"];
+      /**
+       * Labelother
+       * @description Location label
+       */
+      labelOther?: string | null;
+      /**
        * Details
        * @description notes for address
        */
@@ -3228,12 +3277,12 @@ export interface components {
        */
       displayName?: string | null;
       /** Firstname */
-      firstName?: string | null;
+      firstName: string;
       /** Lastname */
-      lastName?: string | null;
+      lastName: string;
       /** Avatarurl */
       avatarUrl?: string | null;
-      type?: components["schemas"]["UserType"] | null;
+      type: components["schemas"]["UserType"];
       /** Rating */
       rating?: number | null;
       /**
@@ -3440,12 +3489,12 @@ export interface components {
        */
       displayName?: string | null;
       /** Firstname */
-      firstName?: string | null;
+      firstName: string;
       /** Lastname */
-      lastName?: string | null;
+      lastName: string;
       /** Avatarurl */
       avatarUrl?: string | null;
-      type?: components["schemas"]["UserType"] | null;
+      type: components["schemas"]["UserType"];
       /** Rating */
       rating?: number | null;
       /**
@@ -4577,7 +4626,7 @@ export interface components {
        * @description Availability date for create
        * @example [
        *   {
-       *     "date": "2024-05-24T11:57:42.688867",
+       *     "date": "2024-06-06T09:32:47.026637",
        *     "orderDescription": "Order description"
        *   }
        * ]
@@ -5385,7 +5434,7 @@ export interface components {
       /**
        * Slots
        * @description Availability date for create
-       * @example 2024-05-24T11:57:43.334135
+       * @example 2024-06-06T09:32:47.874928
        */
       slots: string | components["schemas"]["SessionBookingIn"][];
       location?: components["schemas"]["AddressSessionOut"] | null;
@@ -5549,12 +5598,12 @@ export interface components {
        */
       displayName?: string | null;
       /** Firstname */
-      firstName?: string | null;
+      firstName: string;
       /** Lastname */
-      lastName?: string | null;
+      lastName: string;
       /** Avatarurl */
       avatarUrl?: string | null;
-      type?: components["schemas"]["UserType"] | null;
+      type: components["schemas"]["UserType"];
       /** Rating */
       rating?: number | null;
       /**
