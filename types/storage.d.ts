@@ -3,6 +3,7 @@
  * Do not make direct changes to the file.
  */
 
+
 export interface paths {
   "/api/v1/storage/attachments": {
     /** List Attachment */
@@ -265,9 +266,7 @@ export interface components {
       /** Filesize */
       filesize?: number | null;
       /** @description File visibility status in the system: on review, approved or rejected */
-      status?:
-        | components["schemas"]["stretchcore__models__storage__file__FileStatus__1"]
-        | null;
+      status?: components["schemas"]["stretchcore__models__storage__file__FileStatus__1"] | null;
       /**
        * Duration
        * @description Duration in seconds
@@ -519,9 +518,7 @@ export interface components {
       /** Filesize */
       filesize?: number | null;
       /** @description File visibility status in the system: on review, approved or rejected */
-      status?:
-        | components["schemas"]["stretchcore__models__storage__file__FileStatus__1"]
-        | null;
+      status?: components["schemas"]["stretchcore__models__storage__file__FileStatus__1"] | null;
       /** Issuedate */
       issueDate?: string | null;
       /** Expiredate */
@@ -564,9 +561,7 @@ export interface components {
        */
       videoThumb?: string | null;
       /** @description File visibility status in the system: on review, approved or rejected */
-      status?:
-        | components["schemas"]["stretchcore__models__storage__file__FileStatus__1"]
-        | null;
+      status?: components["schemas"]["stretchcore__models__storage__file__FileStatus__1"] | null;
       /**
        * Duration
        * @description Duration of media
@@ -653,9 +648,7 @@ export interface components {
       /** Filesize */
       filesize?: number | null;
       /** @description File visibility status in the system: on review, approved or rejected */
-      status?:
-        | components["schemas"]["stretchcore__models__storage__file__FileStatus__1"]
-        | null;
+      status?: components["schemas"]["stretchcore__models__storage__file__FileStatus__1"] | null;
     };
     /** HTTPValidationError */
     HTTPValidationError: {
@@ -752,11 +745,7 @@ export interface components {
      * StripeConnectStatus
      * @enum {string}
      */
-    StripeConnectStatus:
-      | "unregistered"
-      | "completed"
-      | "pending"
-      | "unverified";
+    StripeConnectStatus: "unregistered" | "completed" | "pending" | "unverified";
     /**
      * UserAllergy
      * @enum {string}
@@ -781,12 +770,12 @@ export interface components {
        */
       displayName?: string | null;
       /** Firstname */
-      firstName?: string | null;
+      firstName: string;
       /** Lastname */
-      lastName?: string | null;
+      lastName: string;
       /** Avatarurl */
       avatarUrl?: string | null;
-      type?: components["schemas"]["UserType"] | null;
+      type: components["schemas"]["UserType"];
       /** Rating */
       rating?: number | null;
       /**
@@ -837,12 +826,9 @@ export interface components {
        * Languages
        * @description Languages
        */
-      languages:
-        | string
-        | {
-            [key: string]: string;
-          }
-        | null;
+      languages: string | {
+        [key: string]: string;
+      } | null;
       /**
        * Properties
        * @description Extra property for user
@@ -956,14 +942,7 @@ export interface components {
      * UserType
      * @enum {string}
      */
-    UserType:
-      | "guest"
-      | "coach"
-      | "client"
-      | "studio"
-      | "business"
-      | "support"
-      | "admin";
+    UserType: "guest" | "coach" | "client" | "studio" | "business" | "support" | "admin";
     /** ValidationError */
     ValidationError: {
       /** Location */
@@ -1013,9 +992,7 @@ export interface components {
       /** Filesize */
       filesize?: number | null;
       /** @description File visibility status in the system: on review, approved or rejected */
-      status?:
-        | components["schemas"]["stretchcore__models__storage__file__FileStatus__1"]
-        | null;
+      status?: components["schemas"]["stretchcore__models__storage__file__FileStatus__1"] | null;
       /**
        * Duration
        * @description Duration in seconds
@@ -1026,14 +1003,7 @@ export interface components {
      * FileStatus
      * @enum {string}
      */
-    stretchcore__models__storage__file__FileStatus__1:
-      | "uploaded"
-      | "processing"
-      | "approved"
-      | "rejected"
-      | "review"
-      | "draft"
-      | "deleted";
+    stretchcore__models__storage__file__FileStatus__1: "uploaded" | "processing" | "approved" | "rejected" | "review" | "draft" | "deleted";
     stretchcore__models__storage__file__FileStatus__2: components["schemas"]["stretchcore__models__storage__file__FileStatus__1"];
   };
   responses: never;
@@ -1048,6 +1018,7 @@ export type $defs = Record<string, never>;
 export type external = Record<string, never>;
 
 export interface operations {
+
   /** List Attachment */
   list_attachment_api_v1_storage_attachments_get: {
     responses: {

@@ -992,12 +992,12 @@ export interface components {
        */
       displayName?: string | null;
       /** Firstname */
-      firstName?: string | null;
+      firstName: string;
       /** Lastname */
-      lastName?: string | null;
+      lastName: string;
       /** Avatarurl */
       avatarUrl?: string | null;
-      type?: components["schemas"]["UserType"] | null;
+      type: components["schemas"]["UserType"];
       /** Rating */
       rating?: number | null;
       /**

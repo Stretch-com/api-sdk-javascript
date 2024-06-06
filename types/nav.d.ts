@@ -215,6 +215,17 @@ export interface components {
        */
       radius?: number | null;
       /**
+       * @description Location label
+       * @default home
+       * @example home
+       */
+      label?: components["schemas"]["LocationLabel"];
+      /**
+       * Labelother
+       * @description Location label
+       */
+      labelOther?: string | null;
+      /**
        * Details
        * @description notes for address
        */
@@ -339,6 +350,17 @@ export interface components {
        */
       radius?: number | null;
       /**
+       * @description Location label
+       * @default home
+       * @example home
+       */
+      label?: components["schemas"]["LocationLabel"];
+      /**
+       * Labelother
+       * @description Location label
+       */
+      labelOther?: string | null;
+      /**
        * Details
        * @description notes for address
        */
@@ -462,6 +484,17 @@ export interface components {
        */
       radius?: number | null;
       /**
+       * @description Location label
+       * @default home
+       * @example home
+       */
+      label?: components["schemas"]["LocationLabel"];
+      /**
+       * Labelother
+       * @description Location label
+       */
+      labelOther?: string | null;
+      /**
        * Details
        * @description notes for address
        */
@@ -500,6 +533,11 @@ export interface components {
       /** Detail */
       detail?: components["schemas"]["ValidationError"][];
     };
+    /**
+     * LocationLabel
+     * @enum {string}
+     */
+    LocationLabel: "home" | "work" | "other";
     /**
      * ParkingType
      * @enum {string}
