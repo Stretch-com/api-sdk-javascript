@@ -1193,14 +1193,14 @@ export interface components {
       /**
        * Fromdate
        * @description Get the available time starting from this value
-       * @default 2024-06-06T09:33:05.943996Z
-       * @example 2024-06-07T09:33:05.944005Z
+       * @default 2024-06-13T04:18:30.133675Z
+       * @example 2024-06-14T04:18:30.133685Z
        */
       fromDate?: string;
       /**
        * Todate
-       * @default 2024-07-07T09:33:05.944093Z
-       * @example 2024-07-07T09:33:05.944100Z
+       * @default 2024-07-14T04:18:30.133773Z
+       * @example 2024-07-14T04:18:30.133780Z
        */
       toDate?: string;
       /** @default auto */
@@ -1237,7 +1237,7 @@ export interface components {
       /**
        * Start
        * @description Start date when slot is working
-       * @example 2024-06-06
+       * @example 2024-06-13
        */
       start?: string | null;
       /**
@@ -1320,7 +1320,7 @@ export interface components {
       /**
        * Start
        * @description Start date when slot is working
-       * @example 2024-06-06
+       * @example 2024-06-13
        */
       start?: string | null;
       /**
@@ -1374,7 +1374,7 @@ export interface components {
       title?: string | null;
       /**
        * Start
-       * @example 2024-06-06
+       * @example 2024-06-13
        */
       start?: string | null;
       /**
@@ -1598,58 +1598,6 @@ export interface components {
        */
       method?: string | null;
     };
-    /** BusinessAvailabilityIn */
-    BusinessAvailabilityIn: {
-      /** Title */
-      title?: string | null;
-      /**
-       * Slotstart
-       * @description time of open
-       * @example 05:00
-       */
-      slotStart?: string | null;
-      /**
-       * Slotend
-       * @description time of close
-       * @example 12:00
-       */
-      slotEnd?: string | null;
-      /**
-       * Slotstart2
-       * @description time of open second range
-       * @example 15:00
-       */
-      slotStart2?: string | null;
-      /**
-       * Slotend2
-       * @description time of close second range
-       * @example 22:00
-       */
-      slotEnd2?: string | null;
-      /**
-       * Isclosed
-       * @description is location open all hours
-       * @default false
-       */
-      isClosed?: boolean;
-      /** @example monday */
-      slotType?: components["schemas"]["OpenHourType"] | null;
-      /**
-       * @default available
-       * @example available
-       */
-      slotState?: components["schemas"]["AvailabilityState"] | null;
-      /**
-       * Timerangeverbose
-       * @example Time range as it is read in from web scraper
-       */
-      timerangeVerbose?: string | null;
-      /**
-       * Timezone
-       * @default Asia/Dubai
-       */
-      timezone?: string;
-    };
     /** BusinessAvailabilityOut */
     BusinessAvailabilityOut: {
       /** Title */
@@ -1712,9 +1660,10 @@ export interface components {
     };
     /** BusinessContactIn */
     BusinessContactIn: {
+      /** @default website */
       type?: components["schemas"]["BusinessContactType"];
       /** Value */
-      value?: string;
+      value: string;
       /**
        * Values
        * @default []
@@ -1981,11 +1930,6 @@ export interface components {
        */
       contacts?: components["schemas"]["BusinessSocialMediaIn"];
       /**
-       * Availabilities
-       * @default []
-       */
-      availabilities?: components["schemas"]["BusinessAvailabilityIn"][];
-      /**
        * Categories
        * @default []
        */
@@ -2024,14 +1968,14 @@ export interface components {
      * @enum {string}
      */
     CardPaymentBrandType: "amex" | "diners" | "discover" | "eftpos_au" | "jcb" | "mastercard" | "unionpay" | "visa" | "bank_account" | "unknown";
-    /** Category */
+    /** CategoryOut */
     CategoryOut: {
       /** Name */
       name?: string;
-      /** Slug */
-      slug?: string | null;
       /** Description */
       description?: string | null;
+      /** Slug */
+      slug?: string | null;
       /** @default business */
       type?: components["schemas"]["CategoryType"] | null;
       /** Parentid */
@@ -2045,8 +1989,16 @@ export interface components {
       imageUrl?: string | null;
       /** Count */
       count?: number | null;
-      /** Subcategories */
-      subcategories?: components["schemas"]["CategoryOut"][] | null;
+      /**
+       * Subcategories
+       * @default []
+       */
+      subcategories?: components["schemas"]["CategoryOut"][];
+      /**
+       * Attachments
+       * @default []
+       */
+      attachments?: components["schemas"]["MediaFileOut"][] | null;
     };
     /**
      * CategoryType
@@ -2108,6 +2060,8 @@ export interface components {
        * @description Avatar type of banner picture
        */
       avatarType?: string | null;
+      /** Avatarimageurl */
+      avatarImageUrl?: string | null;
       /** Mediatype */
       mediaType?: string | null;
       /** Mediaurl */
@@ -2355,6 +2309,8 @@ export interface components {
        * @description Avatar type of banner picture
        */
       avatarType?: string | null;
+      /** Avatarimageurl */
+      avatarImageUrl?: string | null;
       /** Mediatype */
       mediaType?: string | null;
       /** Mediaurl */
@@ -3319,6 +3275,8 @@ export interface components {
        * @description Avatar type of banner picture
        */
       avatarType?: string | null;
+      /** Avatarimageurl */
+      avatarImageUrl?: string | null;
       /** Mediatype */
       mediaType?: string | null;
       /** Mediaurl */
@@ -3530,6 +3488,8 @@ export interface components {
        * @description Avatar type of banner picture
        */
       avatarType?: string | null;
+      /** Avatarimageurl */
+      avatarImageUrl?: string | null;
       /** Mediatype */
       mediaType?: string | null;
       /** Mediaurl */
@@ -3676,10 +3636,13 @@ export interface components {
       label?: string | null;
       /** Refundamount */
       refundAmount?: number | null;
-      /** Attachments */
-      attachments?: string[] | null;
+      /**
+       * Attachments
+       * @default []
+       */
+      attachments?: components["schemas"]["MediaFileOut"][];
       role?: components["schemas"]["UserType"] | null;
-      state?: components["schemas"]["ReportState"] | null;
+      state?: components["schemas"]["ReportState"];
       /**
        * Userid
        * Format: uuid
@@ -4626,7 +4589,7 @@ export interface components {
        * @description Availability date for create
        * @example [
        *   {
-       *     "date": "2024-06-06T09:32:47.026637",
+       *     "date": "2024-06-13T04:18:06.075739",
        *     "orderDescription": "Order description"
        *   }
        * ]
@@ -4911,6 +4874,29 @@ export interface components {
        * @default AED
        */
       currency?: string | null;
+    };
+    /** SessionInfoOut */
+    SessionInfoOut: {
+      /**
+       * Awaiting
+       * @default 0
+       */
+      awaiting?: number;
+      /**
+       * Active
+       * @default 0
+       */
+      active?: number;
+      /**
+       * Settled
+       * @default 0
+       */
+      settled?: number;
+      /**
+       * All
+       * @default 0
+       */
+      all?: number;
     };
     /** SessionMessageIn */
     SessionMessageIn: {
@@ -5434,7 +5420,7 @@ export interface components {
       /**
        * Slots
        * @description Availability date for create
-       * @example 2024-06-06T09:32:47.874928
+       * @example 2024-06-13T04:18:06.904013
        */
       slots: string | components["schemas"]["SessionBookingIn"][];
       location?: components["schemas"]["AddressSessionOut"] | null;
@@ -5639,6 +5625,8 @@ export interface components {
        * @description Avatar type of banner picture
        */
       avatarType?: string | null;
+      /** Avatarimageurl */
+      avatarImageUrl?: string | null;
       /** Mediatype */
       mediaType?: string | null;
       /** Mediaurl */
@@ -6139,7 +6127,7 @@ export interface operations {
       /** @description Successful Response */
       200: {
         content: {
-          "application/json": unknown;
+          "application/json": components["schemas"]["SessionInfoOut"];
         };
       };
     };
@@ -6277,7 +6265,7 @@ export interface operations {
       /** @description Successful Response */
       200: {
         content: {
-          "application/json": unknown;
+          "application/json": components["schemas"]["StretchResponse"];
         };
       };
       /** @description Validation Error */
@@ -6307,7 +6295,7 @@ export interface operations {
       /** @description Successful Response */
       200: {
         content: {
-          "application/json": unknown;
+          "application/json": components["schemas"]["StretchResponse"];
         };
       };
       /** @description Validation Error */
@@ -6391,7 +6379,7 @@ export interface operations {
       /** @description Successful Response */
       200: {
         content: {
-          "application/json": unknown;
+          "application/json": components["schemas"]["StretchResponse"];
         };
       };
       /** @description Validation Error */
@@ -6582,7 +6570,7 @@ export interface operations {
       /** @description Successful Response */
       200: {
         content: {
-          "application/json": unknown;
+          "application/json": components["schemas"]["StretchResponse"];
         };
       };
       /** @description Validation Error */
@@ -6875,7 +6863,7 @@ export interface operations {
       /** @description Successful Response */
       200: {
         content: {
-          "application/json": unknown;
+          "application/json": components["schemas"]["StretchResponse"];
         };
       };
       /** @description Validation Error */
@@ -7754,7 +7742,7 @@ export interface operations {
       /** @description Successful Response */
       200: {
         content: {
-          "application/json": unknown;
+          "application/json": components["schemas"]["StretchResponse"];
         };
       };
       /** @description Bad Request */
@@ -7892,7 +7880,7 @@ export interface operations {
       /** @description Successful Response */
       201: {
         content: {
-          "application/json": components["schemas"]["AvailabilityOut"][] | null;
+          "application/json": components["schemas"]["AvailabilityOut"][];
         };
       };
       /** @description Bad Request */
@@ -8051,7 +8039,7 @@ export interface operations {
       /** @description Successful Response */
       200: {
         content: {
-          "application/json": unknown;
+          "application/json": components["schemas"]["StretchResponse"];
         };
       };
       /** @description Bad Request */

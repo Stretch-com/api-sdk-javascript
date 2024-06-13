@@ -507,14 +507,14 @@ export interface components {
       /** Client Secret */
       client_secret?: string | null;
     };
-    /** Category */
+    /** CategoryOut */
     CategoryOut: {
       /** Name */
       name?: string;
-      /** Slug */
-      slug?: string | null;
       /** Description */
       description?: string | null;
+      /** Slug */
+      slug?: string | null;
       /** @default business */
       type?: components["schemas"]["CategoryType"] | null;
       /** Parentid */
@@ -528,8 +528,16 @@ export interface components {
       imageUrl?: string | null;
       /** Count */
       count?: number | null;
-      /** Subcategories */
-      subcategories?: components["schemas"]["CategoryOut"][] | null;
+      /**
+       * Subcategories
+       * @default []
+       */
+      subcategories?: components["schemas"]["CategoryOut"][];
+      /**
+       * Attachments
+       * @default []
+       */
+      attachments?: components["schemas"]["MediaFileOut"][] | null;
     };
     /**
      * CategoryType
@@ -602,6 +610,16 @@ export interface components {
        */
       code: number;
     };
+    /** EmailCodeOut */
+    EmailCodeOut: {
+      /**
+       * Status
+       * @description Validation session status
+       */
+      status?: string | null;
+      /** Email */
+      email?: string | null;
+    };
     /** EmailOut */
     EmailOut: {
       /**
@@ -639,6 +657,11 @@ export interface components {
       /** Code */
       code: number;
     };
+    /**
+     * FileStatus
+     * @enum {string}
+     */
+    FileStatus: "uploaded" | "processing" | "approved" | "rejected" | "review" | "draft" | "deleted";
     /** HTTPValidationError */
     HTTPValidationError: {
       /** Detail */
@@ -649,6 +672,46 @@ export interface components {
      * @enum {string}
      */
     LocationFields: "neighborhood" | "building" | "entrance" | "floor" | "apartment";
+    /** MediaFileOut */
+    MediaFileOut: {
+      /**
+       * Contenttype
+       * @description Content type of media file
+       */
+      contentType?: string | null;
+      /**
+       * Url
+       * @description Full size url
+       */
+      url?: string | null;
+      /**
+       * Thumb
+       * @description Thumbnail url
+       */
+      thumb?: string | null;
+      /**
+       * Videothumb
+       * @description Video thumbnail url
+       */
+      videoThumb?: string | null;
+      /** @description File visibility status in the system: on review, approved or rejected */
+      status?: components["schemas"]["FileStatus"] | null;
+      /**
+       * Duration
+       * @description Duration of media
+       */
+      duration?: number | null;
+      /**
+       * Originfilename
+       * @description Original media filename
+       */
+      originFilename?: string | null;
+      /**
+       * Filesize
+       * @description Filesize of media
+       */
+      filesize?: number | null;
+    };
     /** MobileCodeOut */
     MobileCodeOut: {
       /**
@@ -1033,6 +1096,8 @@ export interface components {
        * @description Avatar type of banner picture
        */
       avatarType?: string | null;
+      /** Avatarimageurl */
+      avatarImageUrl?: string | null;
       /** Mediatype */
       mediaType?: string | null;
       /** Mediaurl */
@@ -1925,7 +1990,7 @@ export interface operations {
       /** @description Successful Response */
       200: {
         content: {
-          "application/json": unknown;
+          "application/json": components["schemas"]["EmailCodeOut"];
         };
       };
       /** @description Validation Error */
@@ -2065,7 +2130,7 @@ export interface operations {
       /** @description Successful Response */
       200: {
         content: {
-          "application/json": unknown;
+          "application/json": components["schemas"]["StretchResponse"];
         };
       };
       /** @description Bad Request */

@@ -5,6 +5,10 @@
 
 
 export interface paths {
+  "/api/v1/admin/geo": {
+    /** Import Categories */
+    post: operations["import_categories_api_v1_admin_geo_post"];
+  };
   "/api/v1/admin/coaches": {
     /** Get Coaches */
     get: operations["get_coaches_api_v1_admin_coaches_get"];
@@ -1718,7 +1722,8 @@ export interface components {
     };
     /** AdminRefundUpdateIn */
     AdminRefundUpdateIn: {
-      state: components["schemas"]["ReportState"];
+      /** @default rejected */
+      state?: components["schemas"]["ReportState"];
       /** Reason */
       reason: string;
       /** Description */
@@ -1845,8 +1850,11 @@ export interface components {
       /** Description */
       description: string;
       role?: components["schemas"]["UserType"] | null;
-      /** Attachments */
-      attachments?: string[] | null;
+      /**
+       * Attachments
+       * @default []
+       */
+      attachments?: components["schemas"]["MediaFileOut"][];
       /** Refundamount */
       refundAmount?: number | null;
     };
@@ -3251,6 +3259,14 @@ export interface components {
        */
       file: File;
     };
+    /** Body_import_categories_api_v1_admin_geo_post */
+    Body_import_categories_api_v1_admin_geo_post: {
+      /**
+       * File
+       * Format: binary
+       */
+      file: File;
+    };
     /** BookingReasonOut */
     BookingReasonOut: {
       type?: components["schemas"]["BookingReasonType"] | null;
@@ -3316,9 +3332,10 @@ export interface components {
     };
     /** BusinessContactIn */
     BusinessContactIn: {
+      /** @default website */
       type?: components["schemas"]["BusinessContactType"];
       /** Value */
-      value?: string;
+      value: string;
       /**
        * Values
        * @default []
@@ -3479,27 +3496,29 @@ export interface components {
      * @enum {string}
      */
     CardPaymentBrandType: "amex" | "diners" | "discover" | "eftpos_au" | "jcb" | "mastercard" | "unionpay" | "visa" | "bank_account" | "unknown";
-    /** Category */
+    /** CategoryIn */
     CategoryIn: {
       /** Name */
       name?: string;
-      /** Slug */
-      slug?: string | null;
       /** Description */
       description?: string | null;
+      /** Slug */
+      slug?: string | null;
       /** @default business */
       type?: components["schemas"]["CategoryType"] | null;
       /** Parentid */
       parentId?: string | null;
+      /** Attachmentid */
+      attachmentId?: string | null;
     };
-    /** Category */
+    /** CategoryOut */
     CategoryOut: {
       /** Name */
       name?: string;
-      /** Slug */
-      slug?: string | null;
       /** Description */
       description?: string | null;
+      /** Slug */
+      slug?: string | null;
       /** @default business */
       type?: components["schemas"]["CategoryType"] | null;
       /** Parentid */
@@ -3513,26 +3532,36 @@ export interface components {
       imageUrl?: string | null;
       /** Count */
       count?: number | null;
-      /** Subcategories */
-      subcategories?: components["schemas"]["CategoryOut"][] | null;
+      /**
+       * Subcategories
+       * @default []
+       */
+      subcategories?: components["schemas"]["CategoryOut"][];
+      /**
+       * Attachments
+       * @default []
+       */
+      attachments?: components["schemas"]["MediaFileOut"][] | null;
     };
     /**
      * CategoryType
      * @enum {string}
      */
     CategoryType: "stretch" | "coach" | "business" | "nutrition" | "calculator";
-    /** Category */
+    /** CategoryUpdateIn */
     CategoryUpdateIn: {
       /** Name */
       name?: string | null;
-      /** Slug */
-      slug?: string | null;
       /** Description */
       description?: string | null;
+      /** Slug */
+      slug?: string | null;
       /** @default business */
       type?: components["schemas"]["CategoryType"] | null;
       /** Parentid */
       parentId?: string | null;
+      /** Attachmentid */
+      attachmentId?: string | null;
     };
     /** FileBase */
     CertificateFileOut: {
@@ -3635,6 +3664,8 @@ export interface components {
        * @description Avatar type of banner picture
        */
       avatarType?: string | null;
+      /** Avatarimageurl */
+      avatarImageUrl?: string | null;
       /** Mediatype */
       mediaType?: string | null;
       /** Mediaurl */
@@ -3764,6 +3795,8 @@ export interface components {
        * @description Avatar type of banner picture
        */
       avatarType?: string | null;
+      /** Avatarimageurl */
+      avatarImageUrl?: string | null;
       /** Mediatype */
       mediaType?: string | null;
       /** Mediaurl */
@@ -3845,8 +3878,11 @@ export interface components {
     };
     /** ConsumerIn */
     ConsumerIn: {
-      /** Name */
-      name?: string | null;
+      /**
+       * Name
+       * @default Stayfit Consumer
+       */
+      name?: string;
       /** Description */
       description?: string | null;
       /**
@@ -3872,8 +3908,11 @@ export interface components {
     };
     /** ConsumerOut */
     ConsumerOut: {
-      /** Name */
-      name?: string | null;
+      /**
+       * Name
+       * @default Stayfit Consumer
+       */
+      name?: string;
       /** Description */
       description?: string | null;
       /**
@@ -4042,6 +4081,11 @@ export interface components {
       /** @description File visibility status in the system: on review, approved or rejected */
       status?: components["schemas"]["stretchcore__models__storage__file__FileStatus__1"] | null;
     };
+    /**
+     * GeoImportFileType
+     * @enum {string}
+     */
+    GeoImportFileType: "region" | "subregion" | "country" | "state" | "city";
     /** HTTPValidationError */
     HTTPValidationError: {
       /** Detail */
@@ -4551,10 +4595,13 @@ export interface components {
       label?: string | null;
       /** Refundamount */
       refundAmount?: number | null;
-      /** Attachments */
-      attachments?: string[] | null;
+      /**
+       * Attachments
+       * @default []
+       */
+      attachments?: components["schemas"]["MediaFileOut"][];
       role?: components["schemas"]["UserType"] | null;
-      state?: components["schemas"]["ReportState"] | null;
+      state?: components["schemas"]["ReportState"];
       /**
        * Userid
        * Format: uuid
@@ -5133,6 +5180,8 @@ export interface components {
        * @description Avatar type of banner picture
        */
       avatarType?: string | null;
+      /** Avatarimageurl */
+      avatarImageUrl?: string | null;
       /** Mediatype */
       mediaType?: string | null;
       /** Mediaurl */
@@ -5399,6 +5448,33 @@ export type external = Record<string, never>;
 
 export interface operations {
 
+  /** Import Categories */
+  import_categories_api_v1_admin_geo_post: {
+    parameters: {
+      query: {
+        type: components["schemas"]["GeoImportFileType"];
+      };
+    };
+    requestBody: {
+      content: {
+        "multipart/form-data": components["schemas"]["Body_import_categories_api_v1_admin_geo_post"];
+      };
+    };
+    responses: {
+      /** @description Successful Response */
+      200: {
+        content: {
+          "application/json": unknown;
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        content: {
+          "application/json": components["schemas"]["HTTPValidationError"];
+        };
+      };
+    };
+  };
   /** Get Coaches */
   get_coaches_api_v1_admin_coaches_get: {
     parameters: {
@@ -6773,9 +6849,11 @@ export interface operations {
       query?: {
         page?: number | null;
         limit?: number | null;
+        fromDate?: string | null;
+        toDate?: string | null;
+        allTime?: boolean | null;
         search?: string | null;
         state?: components["schemas"]["ReportState"] | null;
-        fromDate?: string | null;
         sorting?: components["schemas"]["AdminReportOrderBy"] | null;
       };
     };
@@ -6798,9 +6876,11 @@ export interface operations {
   get_refunds_count_api_v1_admin_refunds_count_get: {
     parameters: {
       query?: {
+        fromDate?: string | null;
+        toDate?: string | null;
+        allTime?: boolean | null;
         search?: string | null;
         state?: components["schemas"]["ReportState"] | null;
-        fromDate?: string | null;
       };
     };
     responses: {
@@ -6874,8 +6954,10 @@ export interface operations {
         page?: number | null;
         limit?: number | null;
         search?: string | null;
-        direction?: components["schemas"]["AdminReportDirection"] | null;
         fromDate?: string | null;
+        toDate?: string | null;
+        allTime?: boolean | null;
+        direction?: components["schemas"]["AdminReportDirection"] | null;
         state?: components["schemas"]["AdminReportState"] | null;
         coachId?: string | null;
         clientId?: string | null;
@@ -6902,8 +6984,10 @@ export interface operations {
     parameters: {
       query?: {
         search?: string | null;
-        direction?: components["schemas"]["AdminReportDirection"] | null;
         fromDate?: string | null;
+        toDate?: string | null;
+        allTime?: boolean | null;
+        direction?: components["schemas"]["AdminReportDirection"] | null;
         state?: components["schemas"]["AdminReportState"] | null;
         coachId?: string | null;
         clientId?: string | null;
@@ -7242,9 +7326,11 @@ export interface operations {
       query?: {
         page?: number | null;
         limit?: number | null;
+        fromDate?: string | null;
+        toDate?: string | null;
+        allTime?: boolean | null;
         search?: string | null;
         status?: components["schemas"]["WithdrawalState"] | null;
-        fromDate?: string | null;
         userId?: string | null;
         sorting?: components["schemas"]["AdminWithdrawalOrderFields"] | null;
       };
@@ -7268,9 +7354,11 @@ export interface operations {
   get_withdrawals_count_api_v1_admin_withdrawals_count_get: {
     parameters: {
       query?: {
+        fromDate?: string | null;
+        toDate?: string | null;
+        allTime?: boolean | null;
         search?: string | null;
         status?: components["schemas"]["WithdrawalState"] | null;
-        fromDate?: string | null;
         userId?: string | null;
       };
     };

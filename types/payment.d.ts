@@ -223,6 +223,8 @@ export interface components {
        * @description Avatar type of banner picture
        */
       avatarType?: string | null;
+      /** Avatarimageurl */
+      avatarImageUrl?: string | null;
       /** Mediatype */
       mediaType?: string | null;
       /** Mediaurl */
