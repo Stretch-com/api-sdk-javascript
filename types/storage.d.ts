@@ -449,14 +449,14 @@ export interface components {
        */
       preview?: string;
     };
-    /** Category */
+    /** CategoryOut */
     CategoryOut: {
       /** Name */
       name?: string;
-      /** Slug */
-      slug?: string | null;
       /** Description */
       description?: string | null;
+      /** Slug */
+      slug?: string | null;
       /** @default business */
       type?: components["schemas"]["CategoryType"] | null;
       /** Parentid */
@@ -470,8 +470,16 @@ export interface components {
       imageUrl?: string | null;
       /** Count */
       count?: number | null;
-      /** Subcategories */
-      subcategories?: components["schemas"]["CategoryOut"][] | null;
+      /**
+       * Subcategories
+       * @default []
+       */
+      subcategories?: components["schemas"]["CategoryOut"][];
+      /**
+       * Attachments
+       * @default []
+       */
+      attachments?: components["schemas"]["MediaFileOut"][] | null;
     };
     /**
      * CategoryType
@@ -655,6 +663,46 @@ export interface components {
       /** Detail */
       detail?: components["schemas"]["ValidationError"][];
     };
+    /** MediaFileOut */
+    MediaFileOut: {
+      /**
+       * Contenttype
+       * @description Content type of media file
+       */
+      contentType?: string | null;
+      /**
+       * Url
+       * @description Full size url
+       */
+      url?: string | null;
+      /**
+       * Thumb
+       * @description Thumbnail url
+       */
+      thumb?: string | null;
+      /**
+       * Videothumb
+       * @description Video thumbnail url
+       */
+      videoThumb?: string | null;
+      /** @description File visibility status in the system: on review, approved or rejected */
+      status?: components["schemas"]["stretchcore__models__storage__file__FileStatus__1"] | null;
+      /**
+       * Duration
+       * @description Duration of media
+       */
+      duration?: number | null;
+      /**
+       * Originfilename
+       * @description Original media filename
+       */
+      originFilename?: string | null;
+      /**
+       * Filesize
+       * @description Filesize of media
+       */
+      filesize?: number | null;
+    };
     /**
      * OrderIn
      * @description Order by IDs
@@ -811,6 +859,8 @@ export interface components {
        * @description Avatar type of banner picture
        */
       avatarType?: string | null;
+      /** Avatarimageurl */
+      avatarImageUrl?: string | null;
       /** Mediatype */
       mediaType?: string | null;
       /** Mediaurl */
