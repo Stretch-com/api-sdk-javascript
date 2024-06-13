@@ -5,6 +5,14 @@
 
 
 export interface paths {
+  "/api/v1/nav/geo/countries": {
+    /** Get Countries */
+    get: operations["get_countries_api_v1_nav_geo_countries_get"];
+  };
+  "/api/v1/nav/geo/cities": {
+    /** Get Cities */
+    get: operations["get_cities_api_v1_nav_geo_cities_get"];
+  };
   "/api/v1/nav/geosearch": {
     /**
      * Geolocation
@@ -528,6 +536,60 @@ export interface components {
       /** Code */
       code: number;
     };
+    /** GeoCityOut */
+    GeoCityOut: {
+      /**
+       * Lng
+       * @example 55.296249
+       */
+      lng: number;
+      /**
+       * Lat
+       * @example 25.276
+       */
+      lat: number;
+      /**
+       * Zoom
+       * @default 17
+       * @example 14
+       */
+      zoom?: number | null;
+      /** Name */
+      name: string;
+      /** Countrycode */
+      countryCode: string;
+      /** Countryname */
+      countryName: string;
+      /** Statename */
+      stateName?: string | null;
+    };
+    /** GeoCountryOut */
+    GeoCountryOut: {
+      /**
+       * Lng
+       * @example 55.296249
+       */
+      lng: number;
+      /**
+       * Lat
+       * @example 25.276
+       */
+      lat: number;
+      /**
+       * Zoom
+       * @default 17
+       * @example 14
+       */
+      zoom?: number | null;
+      /** Name */
+      name: string;
+      /** Native */
+      native: string | null;
+      /** Countrycode */
+      countryCode: string;
+      /** Currency */
+      currency: string;
+    };
     /** HTTPValidationError */
     HTTPValidationError: {
       /** Detail */
@@ -597,6 +659,68 @@ export type external = Record<string, never>;
 
 export interface operations {
 
+  /** Get Countries */
+  get_countries_api_v1_nav_geo_countries_get: {
+    parameters: {
+      query?: {
+        /**
+         * @description longitude,latitude
+         * @example 55,25
+         */
+        proximity?: string | null;
+        /** @description longitude,latitude */
+        text?: string | null;
+        limit?: number;
+      };
+    };
+    responses: {
+      /** @description Successful Response */
+      200: {
+        content: {
+          "application/json": components["schemas"]["GeoCountryOut"][];
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        content: {
+          "application/json": components["schemas"]["HTTPValidationError"];
+        };
+      };
+    };
+  };
+  /** Get Cities */
+  get_cities_api_v1_nav_geo_cities_get: {
+    parameters: {
+      query?: {
+        /**
+         * @description longitude,latitude
+         * @example 55,25
+         */
+        proximity?: string | null;
+        /**
+         * @description country iso2 code
+         * @example ae
+         */
+        countryCode?: string | null;
+        text?: string | null;
+        limit?: number;
+      };
+    };
+    responses: {
+      /** @description Successful Response */
+      200: {
+        content: {
+          "application/json": components["schemas"]["GeoCityOut"][];
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        content: {
+          "application/json": components["schemas"]["HTTPValidationError"];
+        };
+      };
+    };
+  };
   /**
    * Geolocation
    * @description Try to found locations by address name
