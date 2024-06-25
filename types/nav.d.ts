@@ -117,7 +117,7 @@ export interface components {
      * Accommodations
      * @enum {string}
      */
-    Accommodations: "any" | "hotel" | "house" | "apartment" | "office" | "other";
+    Accommodations: "apartment" | "hotel" | "flat" | "house" | "any" | "other";
     /** AddressIn */
     AddressIn: {
       /**
@@ -590,6 +590,21 @@ export interface components {
       /** Currency */
       currency: string;
     };
+    /** GeocodingPlaceAutocompleteOut */
+    GeocodingPlaceAutocompleteOut: {
+      /**
+       * Title
+       * @description Format address
+       */
+      title: string;
+      /**
+       * Description
+       * @description Format address
+       */
+      description: string;
+      /** Placeid */
+      placeId: string;
+    };
     /** HTTPValidationError */
     HTTPValidationError: {
       /** Detail */
@@ -605,6 +620,15 @@ export interface components {
      * @enum {string}
      */
     ParkingType: "free" | "paid" | "other";
+    /** StretchResponse */
+    StretchResponse: {
+      /**
+       * Status
+       * @description Stretch status response
+       * @default success
+       */
+      status?: string;
+    };
     /**
      * UserAllergy
      * @enum {string}
@@ -773,7 +797,7 @@ export interface operations {
       /** @description Successful Response */
       200: {
         content: {
-          "application/json": unknown;
+          "application/json": components["schemas"]["GeocodingPlaceAutocompleteOut"][];
         };
       };
       /** @description Bad Request */
@@ -940,7 +964,7 @@ export interface operations {
       /** @description Successful Response */
       200: {
         content: {
-          "application/json": unknown;
+          "application/json": components["schemas"]["StretchResponse"];
         };
       };
       /** @description Bad Request */

@@ -77,7 +77,7 @@ class User extends StretchAuth {
       return await this.get(`/user/${userId}/reviews/info`);
   }
 
-  async getConfig(): Promise<
+  async getUserConfig(): Promise<
     | paths["/api/v1/user/config"]["get"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
