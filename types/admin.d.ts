@@ -3241,7 +3241,7 @@ export interface components {
        * File
        * @description Downloadable file
        */
-      file?: File | null;
+      file?: string | null;
     };
     /** Body_import_business_api_v1_admin_business_import_post */
     Body_import_business_api_v1_admin_business_import_post: {
@@ -3249,7 +3249,7 @@ export interface components {
        * File
        * Format: binary
        */
-      file: File;
+      file: string;
     };
     /** Body_import_categories_api_v1_admin_category_import_post */
     Body_import_categories_api_v1_admin_category_import_post: {
@@ -3257,7 +3257,7 @@ export interface components {
        * File
        * Format: binary
        */
-      file: File;
+      file: string;
     };
     /** Body_import_categories_api_v1_admin_geo_post */
     Body_import_categories_api_v1_admin_geo_post: {
@@ -3265,7 +3265,7 @@ export interface components {
        * File
        * Format: binary
        */
-      file: File;
+      file: string;
     };
     /** BookingReasonOut */
     BookingReasonOut: {
