@@ -74,29 +74,17 @@ export interface paths {
     get: operations["get_client_coaches_list_count_api_v1_admin_client__client_id__coaches_count_get"];
   };
   "/api/v1/admin/categories": {
-    /**
-     * Get Categories
-     * @description Get all categories
-     */
+    /** Get Categories */
     get: operations["get_categories_api_v1_admin_categories_get"];
   };
   "/api/v1/admin/category": {
-    /**
-     * Post Create Category
-     * @description Create category
-     */
+    /** Post Create Category */
     post: operations["post_create_category_api_v1_admin_category_post"];
   };
   "/api/v1/admin/category/{category_id}": {
-    /**
-     * Put Update Category
-     * @description Update category
-     */
+    /** Put Update Category */
     put: operations["put_update_category_api_v1_admin_category__category_id__put"];
-    /**
-     * Delete Category
-     * @description Delete category
-     */
+    /** Delete Category */
     delete: operations["delete_category_api_v1_admin_category__category_id__delete"];
   };
   "/api/v1/admin/category/import": {
@@ -395,7 +383,7 @@ export interface components {
      * Accommodations
      * @enum {string}
      */
-    Accommodations: "any" | "hotel" | "house" | "apartment" | "office" | "other";
+    Accommodations: "apartment" | "hotel" | "flat" | "house" | "any" | "other";
     /** AddressOut */
     AddressOut: {
       /**
@@ -825,8 +813,11 @@ export interface components {
       country?: string | null;
       /** State */
       state?: string | null;
-      /** City */
-      city?: string | null;
+      /**
+       * Cities
+       * @default []
+       */
+      cities?: string[];
       /** Registeredfrom */
       registeredFrom?: string | null;
       /** Registeredto */
@@ -859,8 +850,11 @@ export interface components {
       country?: string | null;
       /** State */
       state?: string | null;
-      /** City */
-      city?: string | null;
+      /**
+       * Cities
+       * @default []
+       */
+      cities?: string[];
       /** Registeredfrom */
       registeredFrom?: string | null;
       /** Registeredto */
@@ -2437,10 +2431,13 @@ export interface components {
       disabled?: boolean | null;
       /** Verified */
       verified?: boolean | null;
-      /** City */
-      city?: string | null;
       /** Country */
       country?: string | null;
+      /**
+       * Cities
+       * @default []
+       */
+      cities?: string[];
       /** Registeredfrom */
       registeredFrom?: string | null;
       /** Registeredto */
@@ -2603,10 +2600,13 @@ export interface components {
       disabled?: boolean | null;
       /** Verified */
       verified?: boolean | null;
-      /** City */
-      city?: string | null;
       /** Country */
       country?: string | null;
+      /**
+       * Cities
+       * @default []
+       */
+      cities?: string[];
       /** Registeredfrom */
       registeredFrom?: string | null;
       /** Registeredto */
@@ -2617,17 +2617,17 @@ export interface components {
     /** AdminUserUpdateIn */
     AdminUserUpdateIn: {
       /**
-       * Email
-       * @description Email format
-       * @example info@stretch.com
-       */
-      email?: string | null;
-      /**
        * Phone
        * @description Phone number in international format
        * @example +97100000000
        */
       phone?: string | null;
+      /**
+       * Email
+       * @description Email format
+       * @example info@stretch.com
+       */
+      email?: string | null;
       /**
        * Username
        * @description Username input
@@ -3381,20 +3381,15 @@ export interface components {
     /** BusinessFiltersOut */
     BusinessFiltersOut: {
       /**
-       * Category
+       * Categories
        * @default []
        */
-      category?: components["schemas"]["BusinessFilterValueOut"][];
+      categories?: components["schemas"]["CategoryFilterItem"][];
       /**
-       * Subcategories
+       * Countries
        * @default []
        */
-      subcategories?: components["schemas"]["BusinessFilterValueOut"][];
-      /**
-       * Citycountry
-       * @default []
-       */
-      cityCountry?: components["schemas"]["BusinessFilterValueOut"][];
+      countries?: components["schemas"]["CountryFilterItem"][];
       /**
        * Status
        * @default []
@@ -3496,6 +3491,15 @@ export interface components {
      * @enum {string}
      */
     CardPaymentBrandType: "amex" | "diners" | "discover" | "eftpos_au" | "jcb" | "mastercard" | "unionpay" | "visa" | "bank_account" | "unknown";
+    /** CategoryFilterItem */
+    CategoryFilterItem: {
+      /** Name */
+      name: string;
+      /** Count */
+      count: number;
+      /** Subcategories */
+      subcategories: components["schemas"]["BusinessFilterValueOut"][];
+    };
     /** CategoryIn */
     CategoryIn: {
       /** Name */
@@ -3945,11 +3949,34 @@ export interface components {
       /** Baseid */
       baseId?: string | null;
     };
+    /** CountryFilterItem */
+    CountryFilterItem: {
+      /** Name */
+      name: string;
+      /** Count */
+      count: number;
+      /** Cities */
+      cities: components["schemas"]["BusinessFilterValueOut"][];
+    };
     /**
      * CurrencyCode
      * @enum {string}
      */
     CurrencyCode: "AED" | "AFN" | "ALL" | "AMD" | "ANG" | "AOA" | "ARS" | "AUD" | "AWG" | "AZN" | "BAM" | "BBD" | "BDT" | "BGN" | "BHD" | "BIF" | "BMD" | "BND" | "BOB" | "BRL" | "BSD" | "BTC" | "BTN" | "BTS" | "BWP" | "BYN" | "BZD" | "CAD" | "CDF" | "CHF" | "CLF" | "CLP" | "CNH" | "CNY" | "COP" | "CRC" | "CUC" | "CUP" | "CVE" | "CZK" | "DASH" | "DJF" | "DKK" | "DOGE" | "DOP" | "DZD" | "EGP" | "ERN" | "ETB" | "ETH" | "EUR" | "FJD" | "FKP" | "GBP" | "GEL" | "GGP" | "GHS" | "GIP" | "GMD" | "GNF" | "GTQ" | "GYD" | "HKD" | "HNL" | "HRK" | "HTG" | "HUF" | "IDR" | "ILS" | "IMP" | "INR" | "IQD" | "IRR" | "ISK" | "JEP" | "JMD" | "JOD" | "JPY" | "KES" | "KGS" | "KHR" | "KMF" | "KPW" | "KRW" | "KWD" | "KYD" | "KZT" | "LAK" | "LBP" | "LD" | "LKR" | "LRD" | "LSL" | "LTC" | "LYD" | "MAD" | "MDL" | "MGA" | "MKD" | "MMK" | "MNT" | "MOP" | "MRU" | "MUR" | "MVR" | "MWK" | "MXN" | "MYR" | "MZN" | "NAD" | "NGN" | "NIO" | "NOK" | "NPR" | "NXT" | "NZD" | "OMR" | "PAB" | "PEN" | "PGK" | "PHP" | "PKR" | "PLN" | "PYG" | "QAR" | "RON" | "RSD" | "RUB" | "RWF" | "SAR" | "SBD" | "SCR" | "SDG" | "SEK" | "SGD" | "SHP" | "SLL" | "SOS" | "SRD" | "SSP" | "STD" | "STN" | "STR" | "SVC" | "SYP" | "SZL" | "THB" | "TJS" | "TMT" | "TND" | "TOP" | "TRY" | "TTD" | "TWD" | "TZS" | "UAH" | "UGX" | "USD" | "UYU" | "UZS" | "VEF_BLKMKT" | "VEF_DICOM" | "VEF_DIPRO" | "VES" | "VND" | "VUV" | "WST" | "XAF" | "XAG" | "XAU" | "XCD" | "XDR" | "XMR" | "XOF" | "XPD" | "XPF" | "XPT" | "XRP" | "YER" | "ZAR" | "ZMW" | "ZWL";
+    /** DeleteResponse */
+    DeleteResponse: {
+      /**
+       * Status
+       * @description Stretch status response
+       * @default success
+       */
+      status?: string;
+      /**
+       * Deleted
+       * @default 0
+       */
+      deleted?: number;
+    };
     /** EquipmentFileOut */
     EquipmentFileOut: {
       /**
@@ -4942,14 +4969,14 @@ export interface components {
        * Reviewscount
        * @default 0
        */
-      reviewsCount?: number | null;
+      reviewsCount?: number;
       /** Reviewspercentage */
       reviewsPercentage?: number | null;
       /**
        * Rating
        * @default 0
        */
-      rating?: number | null;
+      rating?: number;
       /** Ratingpercentage */
       ratingPercentage?: number | null;
       /**
@@ -4964,7 +4991,7 @@ export interface components {
        */
       ratingSummary?: {
         [key: string]: number;
-      } | null;
+      };
     };
     /** SessionReviewOut */
     SessionReviewOut: {
@@ -5945,10 +5972,7 @@ export interface operations {
       };
     };
   };
-  /**
-   * Get Categories
-   * @description Get all categories
-   */
+  /** Get Categories */
   get_categories_api_v1_admin_categories_get: {
     responses: {
       /** @description Successful Response */
@@ -5959,10 +5983,7 @@ export interface operations {
       };
     };
   };
-  /**
-   * Post Create Category
-   * @description Create category
-   */
+  /** Post Create Category */
   post_create_category_api_v1_admin_category_post: {
     requestBody: {
       content: {
@@ -5984,10 +6005,7 @@ export interface operations {
       };
     };
   };
-  /**
-   * Put Update Category
-   * @description Update category
-   */
+  /** Put Update Category */
   put_update_category_api_v1_admin_category__category_id__put: {
     parameters: {
       path: {
@@ -6014,10 +6032,7 @@ export interface operations {
       };
     };
   };
-  /**
-   * Delete Category
-   * @description Delete category
-   */
+  /** Delete Category */
   delete_category_api_v1_admin_category__category_id__delete: {
     parameters: {
       path: {
@@ -6028,7 +6043,7 @@ export interface operations {
       /** @description Successful Response */
       200: {
         content: {
-          "application/json": components["schemas"]["StretchResponse"];
+          "application/json": components["schemas"]["DeleteResponse"];
         };
       };
       /** @description Validation Error */
@@ -7190,11 +7205,6 @@ export interface operations {
         client_id: string;
       };
     };
-    requestBody: {
-      content: {
-        "application/json": components["schemas"]["ConsumerIn"];
-      };
-    };
     responses: {
       /** @description Successful Response */
       200: {
@@ -7613,11 +7623,22 @@ export interface operations {
   };
   /** Cache Sessions */
   cache_sessions_api_v1_admin_cache_sessions_post: {
+    parameters: {
+      query?: {
+        run_in_background?: boolean;
+      };
+    };
     responses: {
       /** @description Successful Response */
       200: {
         content: {
           "application/json": unknown;
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        content: {
+          "application/json": components["schemas"]["HTTPValidationError"];
         };
       };
     };
