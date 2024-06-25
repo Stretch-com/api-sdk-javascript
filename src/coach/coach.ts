@@ -118,6 +118,16 @@ class Coach extends StretchAuth {
       return await this.put(`/coach/faq/${faqId}`, payload);
   }
 
+  async putFAQsOrder(
+    payload: paths["/api/v1/coach/faqs/order"]["put"]["requestBody"]["content"]["application/json"]
+  ): Promise<
+    | paths["/api/v1/coach/faqs/order"]["put"]["responses"]["200"]["content"]["application/json"]
+    | undefined
+  > {
+    if (await this.checkAuth())
+      return await this.delete(`/coach/faqs/order`, payload);
+  }
+
   async deleteFAQ(
     faqId: string
   ): Promise<
@@ -235,6 +245,16 @@ class Coach extends StretchAuth {
   > {
     if (await this.checkAuth())
       return await this.put(`/coach/service/${serviceId}`, payload);
+  }
+
+  async putServicesOrder(
+    payload: paths["/api/v1/coach/services/order"]["put"]["requestBody"]["content"]["application/json"]
+  ): Promise<
+    | paths["/api/v1/coach/services/order"]["put"]["responses"]["200"]["content"]["application/json"]
+    | undefined
+  > {
+    if (await this.checkAuth())
+      return await this.put(`/coach/services/order`, payload);
   }
 
   async deleteService(

@@ -710,18 +710,13 @@ class Admin extends StretchAuth {
   }
 
   async deleteConsumer(
-    clientId: string,
-    payload: paths["/api/v1/admin/config/consumer/{client_id}"]["delete"]["requestBody"]["content"]["application/json"]
+    clientId: string
   ): Promise<
     | paths["/api/v1/admin/config/consumer/{client_id}"]["delete"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
     if (await this.checkAuth())
-      return await this.delete(
-        `/admin/config/consumer/${clientId}`,
-        null,
-        payload ?? null
-      );
+      return await this.delete(`/admin/config/consumer/${clientId}`);
   }
 
   // Config endpoints

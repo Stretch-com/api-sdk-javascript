@@ -3,1446 +3,1863 @@
  * Do not make direct changes to the file.
  */
 
-
 export interface paths {
-  "/api/v1/payments": {
-    /** Get Payments */
-    get: operations["get_payments_api_v1_payments_get"];
-  };
-  "/api/v1/payment/hash/{hash_id}": {
-    /** Get Payment */
-    get: operations["get_payment_api_v1_payment_hash__hash_id__get"];
-  };
-  "/api/v1/payment/methods": {
-    /** List Methods */
-    get: operations["list_methods_api_v1_payment_methods_get"];
-  };
-  "/api/v1/payment/checkout/{payment_id}": {
-    /**
-     * Get Payment
-     * @description This request using long pooling for approving payments but not more then 30 seconds
-     */
-    get: operations["get_payment_api_v1_payment_checkout__payment_id__get"];
-    /** Checkout Payment */
-    post: operations["checkout_payment_api_v1_payment_checkout__payment_id__post"];
-  };
-  "/api/v1/payment/wallets": {
-    /** List Wallets */
-    get: operations["list_wallets_api_v1_payment_wallets_get"];
-  };
-  "/api/v1/payment/wallet/info": {
-    /** Wallet Info */
-    get: operations["wallet_info_api_v1_payment_wallet_info_get"];
-  };
-  "/api/v1/payment/wallet": {
-    /** Add Wallet Method */
-    post: operations["add_wallet_method_api_v1_payment_wallet_post"];
-  };
-  "/api/v1/payment/wallet/{wallet_id}": {
-    /** Update Wallet */
-    put: operations["update_wallet_api_v1_payment_wallet__wallet_id__put"];
-    /** Delete Wallet Method */
-    delete: operations["delete_wallet_method_api_v1_payment_wallet__wallet_id__delete"];
-  };
-  "/api/v1/payment/webhook": {
-    /** Stripe Webhook */
-    post: operations["stripe_webhook_api_v1_payment_webhook_post"];
-  };
-  "/api/v1/payment/kyc/stripe/account": {
-    /** Get Stripe Account */
-    get: operations["get_stripe_account_api_v1_payment_kyc_stripe_account_get"];
-    /** Create Stripe Account */
-    post: operations["create_stripe_account_api_v1_payment_kyc_stripe_account_post"];
-    /** Delete Account */
-    delete: operations["delete_account_api_v1_payment_kyc_stripe_account_delete"];
-  };
-  "/api/v1/payment/kyc/redirect": {
-    /** Redirect To Deep Link */
-    get: operations["redirect_to_deep_link_api_v1_payment_kyc_redirect_get"];
-  };
-  "/api/v1/payment/transactions": {
-    /** Get Transactions */
-    get: operations["get_transactions_api_v1_payment_transactions_get"];
-  };
-  "/api/v1/payment/transaction/{transaction_id}": {
-    /** Get Transaction */
-    get: operations["get_transaction_api_v1_payment_transaction__transaction_id__get"];
-  };
-  "/api/v1/payment/withdraw": {
-    /** Withdraw Balance */
-    post: operations["withdraw_balance_api_v1_payment_withdraw_post"];
-  };
-  "/api/v1/payment/config/balance": {
-    /** Get Consumer Available Balance */
-    get: operations["get_consumer_available_balance_api_v1_payment_config_balance_get"];
-  };
-  "/api/v1/payment/gateway/checkout/{payment_id}": {
-    /** Checkout */
-    get: operations["checkout_api_v1_payment_gateway_checkout__payment_id__get"];
-  };
-  "/api/v1/payment/gateway/checkout/{payment_id}/status": {
-    /** Checkout Status */
-    get: operations["checkout_status_api_v1_payment_gateway_checkout__payment_id__status_get"];
-  };
-  "/api/v1/payment/gateway/checkout/{payment_id}/check/status": {
-    /** Check Status */
-    get: operations["check_status_api_v1_payment_gateway_checkout__payment_id__check_status_get"];
-  };
+    "/api/v1/payments": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Get Payments */
+        get: operations["get_payments_api_v1_payments_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/payment/hash/{hash_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Get Payment */
+        get: operations["get_payment_api_v1_payment_hash__hash_id__get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/payment/methods": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** List Methods */
+        get: operations["list_methods_api_v1_payment_methods_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/payment/checkout/{payment_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get Payment
+         * @description This request using long pooling for approving payments but not more then 30 seconds
+         */
+        get: operations["get_payment_api_v1_payment_checkout__payment_id__get"];
+        put?: never;
+        /** Checkout Payment */
+        post: operations["checkout_payment_api_v1_payment_checkout__payment_id__post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/payment/wallets": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** List Wallets */
+        get: operations["list_wallets_api_v1_payment_wallets_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/payment/wallet/info": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Wallet Info */
+        get: operations["wallet_info_api_v1_payment_wallet_info_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/payment/wallet": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Add Wallet Method */
+        post: operations["add_wallet_method_api_v1_payment_wallet_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/payment/wallet/{wallet_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        /** Update Wallet */
+        put: operations["update_wallet_api_v1_payment_wallet__wallet_id__put"];
+        post?: never;
+        /** Delete Wallet Method */
+        delete: operations["delete_wallet_method_api_v1_payment_wallet__wallet_id__delete"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/payment/webhook": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Stripe Webhook */
+        post: operations["stripe_webhook_api_v1_payment_webhook_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/payment/kyc/stripe/account": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Get Stripe Account */
+        get: operations["get_stripe_account_api_v1_payment_kyc_stripe_account_get"];
+        put?: never;
+        /** Create Stripe Account */
+        post: operations["create_stripe_account_api_v1_payment_kyc_stripe_account_post"];
+        /** Delete Account */
+        delete: operations["delete_account_api_v1_payment_kyc_stripe_account_delete"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/payment/kyc/redirect": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Redirect To Deep Link */
+        get: operations["redirect_to_deep_link_api_v1_payment_kyc_redirect_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/payment/transactions": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Get Transactions */
+        get: operations["get_transactions_api_v1_payment_transactions_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/payment/transaction/{transaction_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Get Transaction */
+        get: operations["get_transaction_api_v1_payment_transaction__transaction_id__get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/payment/withdraw": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Withdraw Balance */
+        post: operations["withdraw_balance_api_v1_payment_withdraw_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/payment/config/balance": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Get Consumer Available Balance */
+        get: operations["get_consumer_available_balance_api_v1_payment_config_balance_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/payment/gateway/checkout/{payment_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Checkout */
+        get: operations["checkout_api_v1_payment_gateway_checkout__payment_id__get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/payment/gateway/checkout/{payment_id}/status": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Checkout Status */
+        get: operations["checkout_status_api_v1_payment_gateway_checkout__payment_id__status_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/payment/gateway/checkout/{payment_id}/check/status": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Check Status */
+        get: operations["check_status_api_v1_payment_gateway_checkout__payment_id__check_status_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
 }
-
 export type webhooks = Record<string, never>;
-
 export interface components {
-  schemas: {
-    /** Availability */
-    AvailabilityOut: {
-      /** Id */
-      id: string | null;
-      /** Title */
-      title?: string | null;
-      /** Start */
-      start?: string | null;
-      /** End */
-      end?: string | null;
-      /**
-       * Enable
-       * @default true
-       */
-      enable?: boolean;
-      /**
-       * Slotstart
-       * @example 10:00T+04:00
-       */
-      slotStart?: string | null;
-      /**
-       * Slotend
-       * @example 10:00T+04:00
-       */
-      slotEnd?: string | null;
-      /** @default none */
-      slotType?: components["schemas"]["AvailabilityType"] | null;
-      /** @default available */
-      slotState?: components["schemas"]["AvailabilityState"];
-      /** Client */
-      client?: string | null;
-      /**
-       * Slotgap
-       * @example 12:00T+04:00
-       */
-      slotGap?: string | null;
+    schemas: {
+        /** Availability */
+        AvailabilityOut: {
+            /** Id */
+            id: string | null;
+            /** Title */
+            title?: string | null;
+            /** Start */
+            start?: string | null;
+            /** End */
+            end?: string | null;
+            /**
+             * Enable
+             * @default true
+             */
+            enable: boolean;
+            /**
+             * Slotstart
+             * @example 10:00T+04:00
+             */
+            slotStart?: string | null;
+            /**
+             * Slotend
+             * @example 10:00T+04:00
+             */
+            slotEnd?: string | null;
+            /** @default none */
+            slotType: components["schemas"]["AvailabilityType"] | null;
+            /** @default available */
+            slotState: components["schemas"]["AvailabilityState"];
+            /** Client */
+            client?: string | null;
+            /**
+             * Slotgap
+             * @example 12:00T+04:00
+             */
+            slotGap?: string | null;
+        };
+        /**
+         * AvailabilityState
+         * @enum {string}
+         */
+        AvailabilityState: "available" | "busy" | "session" | "closed";
+        /**
+         * AvailabilityType
+         * @enum {string}
+         */
+        AvailabilityType: "daily" | "workday" | "weekend" | "monday" | "tuesday" | "wednesday" | "thursday" | "friday" | "saturday" | "sunday" | "once" | "ignore" | "session" | "none";
+        /** BookingReasonOut */
+        BookingReasonOut: {
+            type?: components["schemas"]["BookingReasonType"] | null;
+            /** Message */
+            message?: string | null;
+        };
+        /**
+         * BookingReasonType
+         * @enum {string}
+         */
+        BookingReasonType: "client_unverified" | "client_too_far" | "client_blocked" | "coach_unavailable" | "coach_allergic" | "coach_blocked";
+        /**
+         * CardPaymentBrandType
+         * @enum {string}
+         */
+        CardPaymentBrandType: "amex" | "diners" | "discover" | "eftpos_au" | "jcb" | "mastercard" | "unionpay" | "visa" | "bank_account" | "unknown";
+        /** CardPaymentMethodOut */
+        CardPaymentMethodOut: {
+            /** Setupintentid */
+            setupIntentId: string;
+            /** Clientsecret */
+            clientSecret: string;
+        };
+        /** CheckStatusOut */
+        CheckStatusOut: {
+            status: components["schemas"]["PaymentState"];
+        };
+        /** ClientDetails */
+        ClientDetails: {
+            /**
+             * Id
+             * Format: uuid
+             */
+            id: string;
+            /**
+             * Displayname
+             * @description User display name
+             * @example Smith
+             */
+            displayName?: string | null;
+            /** Firstname */
+            firstName: string;
+            /** Lastname */
+            lastName: string;
+            /** Avatarurl */
+            avatarUrl?: string | null;
+            type: components["schemas"]["UserType"];
+            /** Rating */
+            rating?: number | null;
+            /**
+             * Reviewscount
+             * @description Number of reviews
+             * @default 0
+             */
+            reviewsCount: number | null;
+            /** Sessionscount */
+            sessionsCount?: number | null;
+            /**
+             * Registrationdate
+             * @description User registration date
+             */
+            registrationDate?: string | null;
+            /** Verified */
+            verified?: boolean | null;
+            /**
+             * Experience
+             * @description User experience
+             */
+            experience?: number | null;
+            allergy?: components["schemas"]["UserAllergy"] | null;
+            /** Allownonverify */
+            allowNonVerify?: boolean | null;
+            /**
+             * @description User gender
+             * @example male
+             */
+            gender?: components["schemas"]["UserGender"] | null;
+            /**
+             * Avatartype
+             * @description Avatar type of banner picture
+             */
+            avatarType?: string | null;
+            /** Avatarimageurl */
+            avatarImageUrl?: string | null;
+            /** Mediatype */
+            mediaType?: string | null;
+            /** Mediaurl */
+            mediaUrl?: string | null;
+            /** Mediapreviewurl */
+            mediaPreviewUrl?: string | null;
+            /**
+             * Description
+             * @description About
+             */
+            description?: string | null;
+            /**
+             * Languages
+             * @description Languages
+             */
+            languages: string | {
+                [key: string]: string | undefined;
+            } | null;
+            /**
+             * Properties
+             * @description Extra property for user
+             */
+            properties?: components["schemas"]["UserPropOut"][] | null;
+            /**
+             * Phone
+             * @description Phone number in international format
+             * @example +97100000000
+             */
+            phone?: string | null;
+            /**
+             * Whatsapp
+             * @description Whatsapp  number in international format
+             * @example +97100000000
+             */
+            whatsapp?: string | null;
+            /** @description KYC verification */
+            kycStatus?: components["schemas"]["StripeConnectStatus"] | null;
+            /** Chaturl */
+            chatUrl?: string | null;
+            /**
+             * Blocked
+             * @default false
+             */
+            blocked: boolean;
+            /**
+             * Username
+             * @description Username input
+             */
+            username?: string | null;
+            /**
+             * Email
+             * @description Email format
+             * @example info@stretch.com
+             */
+            email?: string | null;
+            /**
+             * Timezone
+             * @description Default timezone for user
+             * @example Asia/Dubai
+             */
+            timezone?: string | null;
+            /**
+             * Birthdate
+             * @description User Birth date
+             * @example 2000-07-08
+             */
+            birthDate?: string | null;
+            /**
+             * Fullname
+             * @description Default timezone for user
+             * @example Asia/Dubai
+             */
+            fullName?: string | null;
+        };
+        /** ConsumerAvailableBalanceOut */
+        ConsumerAvailableBalanceOut: {
+            /**
+             * Currency
+             * @default AED
+             */
+            currency: string | null;
+            /** Available */
+            available: number;
+            /** Connectreserved */
+            connectReserved: number;
+            /** Pending */
+            pending: number;
+        };
+        /**
+         * CurrencyCode
+         * @enum {string}
+         */
+        CurrencyCode: "AED" | "AFN" | "ALL" | "AMD" | "ANG" | "AOA" | "ARS" | "AUD" | "AWG" | "AZN" | "BAM" | "BBD" | "BDT" | "BGN" | "BHD" | "BIF" | "BMD" | "BND" | "BOB" | "BRL" | "BSD" | "BTC" | "BTN" | "BTS" | "BWP" | "BYN" | "BZD" | "CAD" | "CDF" | "CHF" | "CLF" | "CLP" | "CNH" | "CNY" | "COP" | "CRC" | "CUC" | "CUP" | "CVE" | "CZK" | "DASH" | "DJF" | "DKK" | "DOGE" | "DOP" | "DZD" | "EGP" | "ERN" | "ETB" | "ETH" | "EUR" | "FJD" | "FKP" | "GBP" | "GEL" | "GGP" | "GHS" | "GIP" | "GMD" | "GNF" | "GTQ" | "GYD" | "HKD" | "HNL" | "HRK" | "HTG" | "HUF" | "IDR" | "ILS" | "IMP" | "INR" | "IQD" | "IRR" | "ISK" | "JEP" | "JMD" | "JOD" | "JPY" | "KES" | "KGS" | "KHR" | "KMF" | "KPW" | "KRW" | "KWD" | "KYD" | "KZT" | "LAK" | "LBP" | "LD" | "LKR" | "LRD" | "LSL" | "LTC" | "LYD" | "MAD" | "MDL" | "MGA" | "MKD" | "MMK" | "MNT" | "MOP" | "MRU" | "MUR" | "MVR" | "MWK" | "MXN" | "MYR" | "MZN" | "NAD" | "NGN" | "NIO" | "NOK" | "NPR" | "NXT" | "NZD" | "OMR" | "PAB" | "PEN" | "PGK" | "PHP" | "PKR" | "PLN" | "PYG" | "QAR" | "RON" | "RSD" | "RUB" | "RWF" | "SAR" | "SBD" | "SCR" | "SDG" | "SEK" | "SGD" | "SHP" | "SLL" | "SOS" | "SRD" | "SSP" | "STD" | "STN" | "STR" | "SVC" | "SYP" | "SZL" | "THB" | "TJS" | "TMT" | "TND" | "TOP" | "TRY" | "TTD" | "TWD" | "TZS" | "UAH" | "UGX" | "USD" | "UYU" | "UZS" | "VEF_BLKMKT" | "VEF_DICOM" | "VEF_DIPRO" | "VES" | "VND" | "VUV" | "WST" | "XAF" | "XAG" | "XAU" | "XCD" | "XDR" | "XMR" | "XOF" | "XPD" | "XPF" | "XPT" | "XRP" | "YER" | "ZAR" | "ZMW" | "ZWL";
+        /** HTTPValidationError */
+        HTTPValidationError: {
+            /** Detail */
+            detail?: components["schemas"]["ValidationError"][];
+        };
+        /** PaymentCheckoutIn */
+        PaymentCheckoutIn: {
+            /**
+             * Method
+             * @example card
+             */
+            method?: string | null;
+        };
+        /** PaymentClientOut */
+        PaymentClientOut: {
+            /**
+             * Id
+             * @description ID for payment schema
+             */
+            id?: string | null;
+            /**
+             * Price
+             * @example 199.9
+             */
+            price?: number | null;
+            /**
+             * Methodid
+             * Format: uuid
+             */
+            methodId?: string;
+            /** Coachid */
+            coachId?: string | null;
+            /** Clientid */
+            clientId?: string | null;
+            /** Serviceid */
+            serviceId?: string | null;
+            /** Clientsecret */
+            clientSecret?: string | null;
+            /** Checkout */
+            checkout?: Record<string, never> | null;
+            /** Expirationat */
+            expirationAt?: string | null;
+            /** Createdat */
+            createdAt?: string | null;
+            transactionType?: components["schemas"]["stretchcore__models__payment__schema__payment__TransactionType"] | null;
+            /** Confirmurl */
+            confirmUrl?: string | null;
+            /** Currency */
+            currency?: string | null;
+            status?: components["schemas"]["PaymentState"] | null;
+            coach?: components["schemas"]["ClientDetails"] | null;
+            service?: components["schemas"]["ServiceOut"] | null;
+        };
+        /** PaymentCoachOut */
+        PaymentCoachOut: {
+            /**
+             * Id
+             * @description ID for payment schema
+             */
+            id?: string | null;
+            /**
+             * Price
+             * @example 199.9
+             */
+            price?: number | null;
+            /**
+             * Methodid
+             * Format: uuid
+             */
+            methodId?: string;
+            /** Coachid */
+            coachId?: string | null;
+            /** Clientid */
+            clientId?: string | null;
+            /** Serviceid */
+            serviceId?: string | null;
+            /** Clientsecret */
+            clientSecret?: string | null;
+            /** Checkout */
+            checkout?: Record<string, never> | null;
+            /** Expirationat */
+            expirationAt?: string | null;
+            /** Createdat */
+            createdAt?: string | null;
+            transactionType?: components["schemas"]["stretchcore__models__payment__schema__payment__TransactionType"] | null;
+            /** Confirmurl */
+            confirmUrl?: string | null;
+            /** Currency */
+            currency?: string | null;
+            status?: components["schemas"]["PaymentState"] | null;
+            coach?: components["schemas"]["ClientDetails"] | null;
+            service?: components["schemas"]["ServiceOut"] | null;
+            internalState?: components["schemas"]["PaymentInternalState"] | null;
+            client?: components["schemas"]["ClientDetails"] | null;
+        };
+        /**
+         * PaymentInternalState
+         * @enum {string}
+         */
+        PaymentInternalState: "pending" | "available" | "processing" | "delivered";
+        /** PaymentMethod */
+        PaymentMethodOut: {
+            /** Name */
+            name: string | null;
+            /**
+             * Default
+             * @default false
+             */
+            default: boolean;
+            /** Method */
+            method: string;
+            brand?: components["schemas"]["CardPaymentBrandType"] | null;
+            /** Last4 */
+            last4?: string | null;
+            /**
+             * Type
+             * @default standard
+             */
+            type: string;
+        };
+        /**
+         * PaymentMethodType
+         * @enum {string}
+         */
+        PaymentMethodType: "all" | "available" | "saved";
+        /** PaymentOut */
+        PaymentOut: {
+            /**
+             * Id
+             * @description ID for payment schema
+             */
+            id?: string | null;
+            /**
+             * Price
+             * @example 199.9
+             */
+            price?: number | null;
+            /**
+             * Methodid
+             * Format: uuid
+             */
+            methodId?: string;
+            /** Coachid */
+            coachId?: string | null;
+            /** Clientid */
+            clientId?: string | null;
+            /** Serviceid */
+            serviceId?: string | null;
+            /** Clientsecret */
+            clientSecret?: string | null;
+            /** Checkout */
+            checkout?: Record<string, never> | null;
+            /** Expirationat */
+            expirationAt?: string | null;
+            /** Createdat */
+            createdAt?: string | null;
+            transactionType?: components["schemas"]["stretchcore__models__payment__schema__payment__TransactionType"] | null;
+            /** Confirmurl */
+            confirmUrl?: string | null;
+            /** Currency */
+            currency?: string | null;
+            status?: components["schemas"]["PaymentState"] | null;
+        };
+        /**
+         * PaymentState
+         * @enum {string}
+         */
+        PaymentState: "awaiting" | "checkout" | "review" | "received" | "canceled" | "failed" | "refund" | "deleted";
+        /**
+         * ServiceAccommodation
+         * @enum {string}
+         */
+        ServiceAccommodation: "indoor" | "outdoor" | "any";
+        /** Service */
+        ServiceOut: {
+            /** Id */
+            id: string | null;
+            /**
+             * Name
+             * @description This is a name of service
+             */
+            name: string;
+            /** Description */
+            description: (string | null) | null;
+            /**
+             * Promo
+             * @default false
+             */
+            promo: boolean | null;
+            /**
+             * Price
+             * @example 199.9
+             */
+            price?: number | null;
+            /**
+             * Price Currency
+             * @description aed: AED<br/>usd: USD<br/>eur: EUR
+             * @default USD
+             */
+            priceCurrency: components["schemas"]["stretchcore__models__service__service__ServicePriceCurrencies__1"];
+            /** Service Other Type */
+            serviceOtherType: (string | null) | null;
+            /**
+             * Session Minutes Duration
+             * @description Duration session in minutes
+             * @default 60
+             */
+            sessionMinutesDuration: number;
+            /**
+             * Session Cancellation Hours
+             * @description Session cancellation time before cancel
+             * @default 8
+             */
+            sessionCancellationHours: number;
+            /**
+             * Status
+             * @description uploaded: uploaded<br/>processing: processing<br/>approved: approved<br/>rejected: rejected<br/>review: review<br/>draft: draft<br/>deleted: deleted
+             * @default review
+             */
+            status: components["schemas"]["stretchcore__models__storage__file__FileStatus__1"];
+            /** Servicetypes */
+            serviceTypes?: string[] | null;
+            /** Numberofsessions */
+            numberOfSessions?: number | null;
+            /** Expiresindays */
+            expiresInDays?: number | null;
+            /** Groupsession */
+            groupSession?: boolean | null;
+            /** Maxgroupsize */
+            maxGroupSize?: number | null;
+            /** Discount */
+            discount?: number | null;
+            /**
+             * Prohibitrecording
+             * @default true
+             */
+            prohibitRecording: boolean;
+            /** Rating */
+            rating?: number | null;
+            /**
+             * Reviewscount
+             * @default 0
+             * @example 0
+             */
+            reviewsCount: number;
+            /** @default any */
+            accommodation: components["schemas"]["ServiceAccommodation"];
+            /** Slots */
+            slots?: components["schemas"]["AvailabilityOut"][] | null;
+            /**
+             * Properties
+             * @description Extra property for user
+             */
+            properties?: components["schemas"]["UserPropOut"][] | null;
+            /** Coachid */
+            coachId?: string | null;
+            /**
+             * Allowbooking
+             * @description User allowed to book with this coach on this service
+             */
+            allowBooking?: boolean | null;
+            bookingReason?: components["schemas"]["BookingReasonOut"] | null;
+            /** Equipmenttitles */
+            equipmentTitles?: string[] | null;
+        };
+        /** SessionGeneralOut */
+        SessionGeneralOut: {
+            /**
+             * Id
+             * Format: uuid
+             */
+            id: string;
+            /** Name */
+            name: string;
+            /** Datestart */
+            dateStart?: string | null;
+            /** Dateend */
+            dateEnd?: string | null;
+            /**
+             * Expirationdate
+             * @example 01/01/2023
+             */
+            expirationDate?: string | null;
+            state?: components["schemas"]["SessionState"] | null;
+            /** Price */
+            price?: number | null;
+            /**
+             * Currency
+             * @default USD
+             */
+            currency: string | null;
+            /** Discount */
+            discount?: number | null;
+            /** Promo */
+            promo?: boolean | null;
+            /**
+             * Cancellationfee
+             * @default 0
+             * @example 0
+             */
+            cancellationFee: number;
+            /**
+             * Cancellationhours
+             * @default 24
+             * @example 0
+             */
+            cancellationHours: number;
+            /**
+             * Minutesduration
+             * @example 0
+             */
+            minutesDuration?: number;
+            /**
+             * Minutestravel
+             * @example 0
+             */
+            minutesTravel?: number;
+            /**
+             * Dayavailability
+             * @example 0
+             */
+            dayAvailability?: number;
+            /** Parking */
+            parking?: string | null;
+            /** Parkingdescription */
+            parkingDescription?: string | null;
+            /** Orderdescription */
+            orderDescription?: string | null;
+        };
+        /**
+         * SessionState
+         * @enum {string}
+         */
+        SessionState: "new" | "pending" | "updated_by_client" | "updated_by_coach" | "approved" | "canceled" | "upcoming" | "progress" | "refund_request" | "refund_approved" | "refund_rejected" | "completed" | "deleted" | "paid";
+        /** StripeConnectAccountOut */
+        StripeConnectAccountOut: {
+            /** Completiondate */
+            completionDate?: string | null;
+            /** Createdat */
+            createdAt?: string | null;
+            /** @default pending */
+            status: components["schemas"]["StripeConnectStatus"];
+            /** Accountlink */
+            accountLink?: string | null;
+        };
+        /**
+         * StripeConnectStatus
+         * @enum {string}
+         */
+        StripeConnectStatus: "unregistered" | "completed" | "pending" | "unverified";
+        /**
+         * TransactionDirection
+         * @enum {string}
+         */
+        TransactionDirection: "income" | "outcome";
+        /** TransactionOut */
+        TransactionOut: {
+            /**
+             * Id
+             * Format: uuid
+             */
+            id: string;
+            type: components["schemas"]["stretchcore__models__payment__transaction__TransactionType"];
+            direction: components["schemas"]["TransactionDirection"];
+            /** @default completed */
+            status: components["schemas"]["TransactionStatus"];
+            /** Amount */
+            amount: number;
+            /** Currency */
+            currency: string;
+            /**
+             * Createdat
+             * Format: date-time
+             */
+            createdAt: string;
+        };
+        /**
+         * TransactionStatus
+         * @enum {string}
+         */
+        TransactionStatus: "completed" | "pending" | "canceled";
+        /** TransactionSummaryOut */
+        TransactionSummaryOut: {
+            /**
+             * Id
+             * Format: uuid
+             */
+            id: string;
+            type: components["schemas"]["stretchcore__models__payment__transaction__TransactionType"];
+            direction: components["schemas"]["TransactionDirection"];
+            /** @default completed */
+            status: components["schemas"]["TransactionStatus"];
+            /** Amount */
+            amount: number;
+            /** Currency */
+            currency: string;
+            /**
+             * Createdat
+             * Format: date-time
+             */
+            createdAt: string;
+            /**
+             * Itemprice
+             * @default 0
+             */
+            itemPrice: number;
+            /** Itemcount */
+            itemCount: number;
+            /** Price */
+            price: number;
+            /**
+             * Discount
+             * @default 0
+             */
+            discount: number;
+            /**
+             * Balance
+             * @default 0
+             */
+            balance: number;
+            /** Servicefee */
+            serviceFee: number;
+            user?: components["schemas"]["UserBaseInfo"] | null;
+            /**
+             * Sessions
+             * @default []
+             */
+            sessions: components["schemas"]["SessionGeneralOut"][];
+            withdrawal?: components["schemas"]["WalletPublicInfoOut"] | null;
+        };
+        /**
+         * UserAllergy
+         * @enum {string}
+         */
+        UserAllergy: "none" | "cat" | "dog" | "all";
+        /** UserBaseInfo */
+        UserBaseInfo: {
+            /**
+             * Id
+             * Format: uuid
+             */
+            id: string;
+            /**
+             * Displayname
+             * @description User display name
+             * @example Smith
+             */
+            displayName?: string | null;
+            /** Firstname */
+            firstName: string;
+            /** Lastname */
+            lastName: string;
+            /** Avatarurl */
+            avatarUrl?: string | null;
+            type: components["schemas"]["UserType"];
+        };
+        /**
+         * UserGender
+         * @enum {string}
+         */
+        UserGender: "male" | "female" | "transman" | "transwoman";
+        /** UserPropOut */
+        UserPropOut: {
+            /** Name */
+            name: string;
+            /** Value */
+            value?: string | number | boolean | null;
+            /** Title */
+            title?: string | null;
+            /** Description */
+            description?: string | null;
+            /** Type */
+            type: string | null;
+            /** Options */
+            options?: {
+                [key: string]: string | undefined;
+            } | null;
+        };
+        /**
+         * UserType
+         * @enum {string}
+         */
+        UserType: "guest" | "coach" | "client" | "studio" | "business" | "support" | "admin";
+        /** ValidationError */
+        ValidationError: {
+            /** Location */
+            loc: (string | number)[];
+            /** Message */
+            msg: string;
+            /** Error Type */
+            type: string;
+        };
+        /** WalletBankOut */
+        WalletBankOut: {
+            /** Accountholdername */
+            accountHolderName: string;
+            /** Bankname */
+            bankName: string;
+            /** Last4 */
+            last4: string;
+            /** Id */
+            id?: string | null;
+            /** Metadata */
+            metadata?: Record<string, never> | null;
+            /** Status */
+            status?: string | null;
+        };
+        /** WalletCardOut */
+        WalletCardOut: {
+            /** Name */
+            name: string;
+            /** Brand */
+            brand: string;
+            /** Funding */
+            funding?: string | null;
+            /** Last4 */
+            last4: string;
+            /** Id */
+            id: string;
+            /** Addresscity */
+            addressCity?: string | null;
+            /** Addresscountry */
+            addressCountry?: string | null;
+            /** Addressline1 */
+            addressLine1?: string | null;
+            /** Addressline2 */
+            addressLine2?: string | null;
+            /** Addressstate */
+            addressState?: string | null;
+            /** Addresszip */
+            addressZip?: string | null;
+            /** Country */
+            country?: string | null;
+            /** Expmonth */
+            expMonth?: number | null;
+            /** Expyear */
+            expYear?: number | null;
+            /** Number */
+            number?: string | null;
+            /** Metadata */
+            metadata?: Record<string, never> | null;
+            /** Status */
+            status?: string | null;
+        };
+        /** Wallet */
+        WalletInfoOut: {
+            /** Id */
+            id: string | null;
+            /** Name */
+            name?: string;
+            type?: components["schemas"]["WalletType"];
+            /** Config */
+            config?: Record<string, never> | null;
+            /** @default AED */
+            currency: components["schemas"]["CurrencyCode"];
+            card?: components["schemas"]["WalletCardOut"] | null;
+            bank?: components["schemas"]["WalletBankOut"] | null;
+        };
+        /** WalletMethodIn */
+        WalletMethodIn: {
+            /** @default card */
+            method: components["schemas"]["WalletType"] | null;
+        };
+        /** WalletMethodUpdateIn */
+        WalletMethodUpdateIn: {
+            /** @default card */
+            method: components["schemas"]["WalletType"] | null;
+            /** Default */
+            default: boolean;
+        };
+        /** WalletPaymentInfoOut */
+        WalletPaymentInfoOut: {
+            /**
+             * Pending
+             * @default 0
+             */
+            pending: number;
+            /**
+             * Available
+             * @default 0
+             */
+            available: number;
+            /**
+             * Delivered
+             * @default 0
+             */
+            delivered: number;
+            /** @default AED */
+            currency: components["schemas"]["CurrencyCode"];
+            /**
+             * Total
+             * @default 0
+             */
+            total: number;
+            /**
+             * Minwithdrawal
+             * @default 100
+             */
+            minWithdrawal: number;
+            /**
+             * Currencies
+             * @default [
+             *       "AED"
+             *     ]
+             */
+            currencies: string[];
+        };
+        /** WalletPublicBankOut */
+        WalletPublicBankOut: {
+            /** Accountholdername */
+            accountHolderName: string;
+            /** Bankname */
+            bankName: string;
+            /** Last4 */
+            last4: string;
+        };
+        /** WalletPublicCardOut */
+        WalletPublicCardOut: {
+            /** Name */
+            name: string;
+            /** Brand */
+            brand: string;
+            /** Funding */
+            funding?: string | null;
+            /** Last4 */
+            last4: string;
+        };
+        /** WalletPublicInfoOut */
+        WalletPublicInfoOut: {
+            /** Name */
+            name?: string;
+            type?: components["schemas"]["WalletType"];
+            /** @default AED */
+            currency: components["schemas"]["CurrencyCode"];
+            card?: components["schemas"]["WalletPublicCardOut"] | null;
+            bank?: components["schemas"]["WalletPublicBankOut"] | null;
+        };
+        /**
+         * WalletType
+         * @enum {string}
+         */
+        WalletType: "card" | "bank_account" | "paypal" | "crypto";
+        /** Withdrawal */
+        WithdrawalOut: {
+            /** Id */
+            id: string | null;
+            /** Amount */
+            amount: number;
+            /**
+             * Currency
+             * @default AED
+             */
+            currency: string | null;
+            /** Withdrawal Fee */
+            withdrawalFee: (number | null) | null;
+            /**
+             * Status
+             * @description pending: pending<br/>completed: completed<br/>rejected: rejected
+             * @default pending
+             */
+            status: string | null;
+            /**
+             * Created At
+             * Format: date-time
+             */
+            readonly createdAt: string;
+        };
+        /**
+         * TransactionType
+         * @enum {string}
+         */
+        stretchcore__models__payment__schema__payment__TransactionType: "income" | "outcome" | "withdrawal";
+        /**
+         * TransactionType
+         * @enum {string}
+         */
+        stretchcore__models__payment__transaction__TransactionType: "payment" | "withdrawal" | "balance";
+        /**
+         * ServicePriceCurrencies
+         * @enum {string}
+         */
+        stretchcore__models__service__service__ServicePriceCurrencies__1: "AED" | "USD" | "EUR";
+        stretchcore__models__service__service__ServicePriceCurrencies__2: components["schemas"]["stretchcore__models__service__service__ServicePriceCurrencies__1"];
+        /**
+         * FileStatus
+         * @enum {string}
+         */
+        stretchcore__models__storage__file__FileStatus__1: "uploaded" | "processing" | "approved" | "rejected" | "review" | "draft" | "deleted";
+        stretchcore__models__storage__file__FileStatus__2: components["schemas"]["stretchcore__models__storage__file__FileStatus__1"];
     };
-    /**
-     * AvailabilityState
-     * @enum {string}
-     */
-    AvailabilityState: "available" | "busy" | "session" | "closed";
-    /**
-     * AvailabilityType
-     * @enum {string}
-     */
-    AvailabilityType: "daily" | "workday" | "weekend" | "monday" | "tuesday" | "wednesday" | "thursday" | "friday" | "saturday" | "sunday" | "once" | "ignore" | "session" | "none";
-    /** BookingReasonOut */
-    BookingReasonOut: {
-      type?: components["schemas"]["BookingReasonType"] | null;
-      /** Message */
-      message?: string | null;
-    };
-    /**
-     * BookingReasonType
-     * @enum {string}
-     */
-    BookingReasonType: "client_unverified" | "client_too_far" | "client_blocked" | "coach_unavailable" | "coach_allergic" | "coach_blocked";
-    /**
-     * CardPaymentBrandType
-     * @enum {string}
-     */
-    CardPaymentBrandType: "amex" | "diners" | "discover" | "eftpos_au" | "jcb" | "mastercard" | "unionpay" | "visa" | "bank_account" | "unknown";
-    /** CardPaymentMethodOut */
-    CardPaymentMethodOut: {
-      /** Setupintentid */
-      setupIntentId: string;
-      /** Clientsecret */
-      clientSecret: string;
-    };
-    /** CheckStatusOut */
-    CheckStatusOut: {
-      status: components["schemas"]["PaymentState"];
-    };
-    /** ClientDetails */
-    ClientDetails: {
-      /**
-       * Id
-       * Format: uuid
-       */
-      id: string;
-      /**
-       * Displayname
-       * @description User display name
-       * @example Smith
-       */
-      displayName?: string | null;
-      /** Firstname */
-      firstName: string;
-      /** Lastname */
-      lastName: string;
-      /** Avatarurl */
-      avatarUrl?: string | null;
-      type: components["schemas"]["UserType"];
-      /** Rating */
-      rating?: number | null;
-      /**
-       * Reviewscount
-       * @description Number of reviews
-       * @default 0
-       */
-      reviewsCount?: number | null;
-      /** Sessionscount */
-      sessionsCount?: number | null;
-      /**
-       * Registrationdate
-       * @description User registration date
-       */
-      registrationDate?: string | null;
-      /** Verified */
-      verified?: boolean | null;
-      /**
-       * Experience
-       * @description User experience
-       */
-      experience?: number | null;
-      allergy?: components["schemas"]["UserAllergy"] | null;
-      /** Allownonverify */
-      allowNonVerify?: boolean | null;
-      /**
-       * @description User gender
-       * @example male
-       */
-      gender?: components["schemas"]["UserGender"] | null;
-      /**
-       * Avatartype
-       * @description Avatar type of banner picture
-       */
-      avatarType?: string | null;
-      /** Avatarimageurl */
-      avatarImageUrl?: string | null;
-      /** Mediatype */
-      mediaType?: string | null;
-      /** Mediaurl */
-      mediaUrl?: string | null;
-      /** Mediapreviewurl */
-      mediaPreviewUrl?: string | null;
-      /**
-       * Description
-       * @description About
-       */
-      description?: string | null;
-      /**
-       * Languages
-       * @description Languages
-       */
-      languages: string | {
-        [key: string]: string;
-      } | null;
-      /**
-       * Properties
-       * @description Extra property for user
-       */
-      properties?: components["schemas"]["UserPropOut"][] | null;
-      /**
-       * Phone
-       * @description Phone number in international format
-       * @example +97100000000
-       */
-      phone?: string | null;
-      /**
-       * Whatsapp
-       * @description Whatsapp  number in international format
-       * @example +97100000000
-       */
-      whatsapp?: string | null;
-      /** @description KYC verification */
-      kycStatus?: components["schemas"]["StripeConnectStatus"] | null;
-      /** Chaturl */
-      chatUrl?: string | null;
-      /**
-       * Blocked
-       * @default false
-       */
-      blocked?: boolean;
-      /**
-       * Username
-       * @description Username input
-       */
-      username?: string | null;
-      /**
-       * Email
-       * @description Email format
-       * @example info@stretch.com
-       */
-      email?: string | null;
-      /**
-       * Timezone
-       * @description Default timezone for user
-       * @example Asia/Dubai
-       */
-      timezone?: string | null;
-      /**
-       * Birthdate
-       * @description User Birth date
-       * @example 2000-07-08
-       */
-      birthDate?: string | null;
-      /**
-       * Fullname
-       * @description Default timezone for user
-       * @example Asia/Dubai
-       */
-      fullName?: string | null;
-    };
-    /** ConsumerAvailableBalanceOut */
-    ConsumerAvailableBalanceOut: {
-      /**
-       * Currency
-       * @default AED
-       */
-      currency?: string | null;
-      /** Available */
-      available: number;
-      /** Connectreserved */
-      connectReserved: number;
-      /** Pending */
-      pending: number;
-    };
-    /**
-     * CurrencyCode
-     * @enum {string}
-     */
-    CurrencyCode: "AED" | "AFN" | "ALL" | "AMD" | "ANG" | "AOA" | "ARS" | "AUD" | "AWG" | "AZN" | "BAM" | "BBD" | "BDT" | "BGN" | "BHD" | "BIF" | "BMD" | "BND" | "BOB" | "BRL" | "BSD" | "BTC" | "BTN" | "BTS" | "BWP" | "BYN" | "BZD" | "CAD" | "CDF" | "CHF" | "CLF" | "CLP" | "CNH" | "CNY" | "COP" | "CRC" | "CUC" | "CUP" | "CVE" | "CZK" | "DASH" | "DJF" | "DKK" | "DOGE" | "DOP" | "DZD" | "EGP" | "ERN" | "ETB" | "ETH" | "EUR" | "FJD" | "FKP" | "GBP" | "GEL" | "GGP" | "GHS" | "GIP" | "GMD" | "GNF" | "GTQ" | "GYD" | "HKD" | "HNL" | "HRK" | "HTG" | "HUF" | "IDR" | "ILS" | "IMP" | "INR" | "IQD" | "IRR" | "ISK" | "JEP" | "JMD" | "JOD" | "JPY" | "KES" | "KGS" | "KHR" | "KMF" | "KPW" | "KRW" | "KWD" | "KYD" | "KZT" | "LAK" | "LBP" | "LD" | "LKR" | "LRD" | "LSL" | "LTC" | "LYD" | "MAD" | "MDL" | "MGA" | "MKD" | "MMK" | "MNT" | "MOP" | "MRU" | "MUR" | "MVR" | "MWK" | "MXN" | "MYR" | "MZN" | "NAD" | "NGN" | "NIO" | "NOK" | "NPR" | "NXT" | "NZD" | "OMR" | "PAB" | "PEN" | "PGK" | "PHP" | "PKR" | "PLN" | "PYG" | "QAR" | "RON" | "RSD" | "RUB" | "RWF" | "SAR" | "SBD" | "SCR" | "SDG" | "SEK" | "SGD" | "SHP" | "SLL" | "SOS" | "SRD" | "SSP" | "STD" | "STN" | "STR" | "SVC" | "SYP" | "SZL" | "THB" | "TJS" | "TMT" | "TND" | "TOP" | "TRY" | "TTD" | "TWD" | "TZS" | "UAH" | "UGX" | "USD" | "UYU" | "UZS" | "VEF_BLKMKT" | "VEF_DICOM" | "VEF_DIPRO" | "VES" | "VND" | "VUV" | "WST" | "XAF" | "XAG" | "XAU" | "XCD" | "XDR" | "XMR" | "XOF" | "XPD" | "XPF" | "XPT" | "XRP" | "YER" | "ZAR" | "ZMW" | "ZWL";
-    /** HTTPValidationError */
-    HTTPValidationError: {
-      /** Detail */
-      detail?: components["schemas"]["ValidationError"][];
-    };
-    /** PaymentCheckoutIn */
-    PaymentCheckoutIn: {
-      /**
-       * Method
-       * @example card
-       */
-      method?: string | null;
-    };
-    /** PaymentClientOut */
-    PaymentClientOut: {
-      /**
-       * Id
-       * @description ID for payment schema
-       */
-      id?: string | null;
-      /**
-       * Price
-       * @example 199.9
-       */
-      price?: number | null;
-      /**
-       * Methodid
-       * Format: uuid
-       */
-      methodId?: string;
-      /** Coachid */
-      coachId?: string | null;
-      /** Clientid */
-      clientId?: string | null;
-      /** Serviceid */
-      serviceId?: string | null;
-      /** Clientsecret */
-      clientSecret?: string | null;
-      /** Checkout */
-      checkout?: Record<string, never> | null;
-      /** Expirationat */
-      expirationAt?: string | null;
-      /** Createdat */
-      createdAt?: string | null;
-      transactionType?: components["schemas"]["stretchcore__models__payment__schema__payment__TransactionType"] | null;
-      /** Confirmurl */
-      confirmUrl?: string | null;
-      /** Currency */
-      currency?: string | null;
-      status?: components["schemas"]["PaymentState"] | null;
-      coach?: components["schemas"]["ClientDetails"] | null;
-      service?: components["schemas"]["ServiceOut"] | null;
-    };
-    /** PaymentCoachOut */
-    PaymentCoachOut: {
-      /**
-       * Id
-       * @description ID for payment schema
-       */
-      id?: string | null;
-      /**
-       * Price
-       * @example 199.9
-       */
-      price?: number | null;
-      /**
-       * Methodid
-       * Format: uuid
-       */
-      methodId?: string;
-      /** Coachid */
-      coachId?: string | null;
-      /** Clientid */
-      clientId?: string | null;
-      /** Serviceid */
-      serviceId?: string | null;
-      /** Clientsecret */
-      clientSecret?: string | null;
-      /** Checkout */
-      checkout?: Record<string, never> | null;
-      /** Expirationat */
-      expirationAt?: string | null;
-      /** Createdat */
-      createdAt?: string | null;
-      transactionType?: components["schemas"]["stretchcore__models__payment__schema__payment__TransactionType"] | null;
-      /** Confirmurl */
-      confirmUrl?: string | null;
-      /** Currency */
-      currency?: string | null;
-      status?: components["schemas"]["PaymentState"] | null;
-      coach?: components["schemas"]["ClientDetails"] | null;
-      service?: components["schemas"]["ServiceOut"] | null;
-      internalState?: components["schemas"]["PaymentInternalState"] | null;
-      client?: components["schemas"]["ClientDetails"] | null;
-    };
-    /**
-     * PaymentInternalState
-     * @enum {string}
-     */
-    PaymentInternalState: "pending" | "available" | "processing" | "delivered";
-    /** PaymentMethod */
-    PaymentMethodOut: {
-      /** Name */
-      name: string | null;
-      /**
-       * Default
-       * @default false
-       */
-      default?: boolean;
-      /** Method */
-      method: string;
-      brand?: components["schemas"]["CardPaymentBrandType"] | null;
-      /** Last4 */
-      last4?: string | null;
-      /**
-       * Type
-       * @default standard
-       */
-      type?: string;
-    };
-    /**
-     * PaymentMethodType
-     * @enum {string}
-     */
-    PaymentMethodType: "all" | "available" | "saved";
-    /** PaymentOut */
-    PaymentOut: {
-      /**
-       * Id
-       * @description ID for payment schema
-       */
-      id?: string | null;
-      /**
-       * Price
-       * @example 199.9
-       */
-      price?: number | null;
-      /**
-       * Methodid
-       * Format: uuid
-       */
-      methodId?: string;
-      /** Coachid */
-      coachId?: string | null;
-      /** Clientid */
-      clientId?: string | null;
-      /** Serviceid */
-      serviceId?: string | null;
-      /** Clientsecret */
-      clientSecret?: string | null;
-      /** Checkout */
-      checkout?: Record<string, never> | null;
-      /** Expirationat */
-      expirationAt?: string | null;
-      /** Createdat */
-      createdAt?: string | null;
-      transactionType?: components["schemas"]["stretchcore__models__payment__schema__payment__TransactionType"] | null;
-      /** Confirmurl */
-      confirmUrl?: string | null;
-      /** Currency */
-      currency?: string | null;
-      status?: components["schemas"]["PaymentState"] | null;
-    };
-    /**
-     * PaymentState
-     * @enum {string}
-     */
-    PaymentState: "awaiting" | "checkout" | "review" | "received" | "canceled" | "failed" | "refund" | "deleted";
-    /**
-     * ServiceAccommodation
-     * @enum {string}
-     */
-    ServiceAccommodation: "indoor" | "outdoor" | "any";
-    /** Service */
-    ServiceOut: {
-      /** Id */
-      id: string | null;
-      /**
-       * Name
-       * @description This is a name of service
-       */
-      name: string;
-      /** Description */
-      description: (string | null) | null;
-      /**
-       * Promo
-       * @default false
-       */
-      promo?: boolean | null;
-      /**
-       * Price
-       * @example 199.9
-       */
-      price?: number | null;
-      /**
-       * Price Currency
-       * @description aed: AED<br/>usd: USD<br/>eur: EUR
-       * @default USD
-       */
-      priceCurrency?: components["schemas"]["stretchcore__models__service__service__ServicePriceCurrencies__1"];
-      /** Service Other Type */
-      serviceOtherType: (string | null) | null;
-      /**
-       * Session Minutes Duration
-       * @description Duration session in minutes
-       * @default 60
-       */
-      sessionMinutesDuration?: number;
-      /**
-       * Session Cancellation Hours
-       * @description Session cancellation time before cancel
-       * @default 8
-       */
-      sessionCancellationHours?: number;
-      /**
-       * Status
-       * @description uploaded: uploaded<br/>processing: processing<br/>approved: approved<br/>rejected: rejected<br/>review: review<br/>draft: draft<br/>deleted: deleted
-       * @default review
-       */
-      status?: components["schemas"]["stretchcore__models__storage__file__FileStatus__1"];
-      /** Servicetypes */
-      serviceTypes?: string[] | null;
-      /** Numberofsessions */
-      numberOfSessions?: number | null;
-      /** Expiresindays */
-      expiresInDays?: number | null;
-      /** Groupsession */
-      groupSession?: boolean | null;
-      /** Maxgroupsize */
-      maxGroupSize?: number | null;
-      /** Discount */
-      discount?: number | null;
-      /**
-       * Prohibitrecording
-       * @default true
-       */
-      prohibitRecording?: boolean;
-      /** Rating */
-      rating?: number | null;
-      /**
-       * Reviewscount
-       * @default 0
-       * @example 0
-       */
-      reviewsCount?: number;
-      /** @default any */
-      accommodation?: components["schemas"]["ServiceAccommodation"];
-      /** Slots */
-      slots?: components["schemas"]["AvailabilityOut"][] | null;
-      /**
-       * Properties
-       * @description Extra property for user
-       */
-      properties?: components["schemas"]["UserPropOut"][] | null;
-      /** Coachid */
-      coachId?: string | null;
-      /**
-       * Allowbooking
-       * @description User allowed to book with this coach on this service
-       */
-      allowBooking?: boolean | null;
-      bookingReason?: components["schemas"]["BookingReasonOut"] | null;
-      /** Equipmenttitles */
-      equipmentTitles?: string[] | null;
-    };
-    /** SessionGeneralOut */
-    SessionGeneralOut: {
-      /**
-       * Id
-       * Format: uuid
-       */
-      id: string;
-      /** Name */
-      name: string;
-      /** Datestart */
-      dateStart?: string | null;
-      /** Dateend */
-      dateEnd?: string | null;
-      /**
-       * Expirationdate
-       * @example 01/01/2023
-       */
-      expirationDate?: string | null;
-      state?: components["schemas"]["SessionState"] | null;
-      /** Price */
-      price?: number | null;
-      /**
-       * Currency
-       * @default USD
-       */
-      currency?: string | null;
-      /** Discount */
-      discount?: number | null;
-      /** Promo */
-      promo?: boolean | null;
-      /**
-       * Cancellationfee
-       * @default 0
-       * @example 0
-       */
-      cancellationFee?: number;
-      /**
-       * Cancellationhours
-       * @default 24
-       * @example 0
-       */
-      cancellationHours?: number;
-      /**
-       * Minutesduration
-       * @example 0
-       */
-      minutesDuration?: number;
-      /**
-       * Minutestravel
-       * @example 0
-       */
-      minutesTravel?: number;
-      /**
-       * Dayavailability
-       * @example 0
-       */
-      dayAvailability?: number;
-      /** Parking */
-      parking?: string | null;
-      /** Parkingdescription */
-      parkingDescription?: string | null;
-      /** Orderdescription */
-      orderDescription?: string | null;
-    };
-    /**
-     * SessionState
-     * @enum {string}
-     */
-    SessionState: "new" | "pending" | "updated_by_client" | "updated_by_coach" | "approved" | "canceled" | "upcoming" | "progress" | "refund_request" | "refund_approved" | "refund_rejected" | "completed" | "deleted" | "paid";
-    /** StripeConnectAccountOut */
-    StripeConnectAccountOut: {
-      /** Completiondate */
-      completionDate?: string | null;
-      /** Createdat */
-      createdAt?: string | null;
-      /** @default pending */
-      status?: components["schemas"]["StripeConnectStatus"];
-      /** Accountlink */
-      accountLink?: string | null;
-    };
-    /**
-     * StripeConnectStatus
-     * @enum {string}
-     */
-    StripeConnectStatus: "unregistered" | "completed" | "pending" | "unverified";
-    /**
-     * TransactionDirection
-     * @enum {string}
-     */
-    TransactionDirection: "income" | "outcome";
-    /** TransactionOut */
-    TransactionOut: {
-      /**
-       * Id
-       * Format: uuid
-       */
-      id: string;
-      type: components["schemas"]["stretchcore__models__payment__transaction__TransactionType"];
-      direction: components["schemas"]["TransactionDirection"];
-      /** @default completed */
-      status?: components["schemas"]["TransactionStatus"];
-      /** Amount */
-      amount: number;
-      /** Currency */
-      currency: string;
-      /**
-       * Createdat
-       * Format: date-time
-       */
-      createdAt: string;
-    };
-    /**
-     * TransactionStatus
-     * @enum {string}
-     */
-    TransactionStatus: "completed" | "pending" | "canceled";
-    /** TransactionSummaryOut */
-    TransactionSummaryOut: {
-      /**
-       * Id
-       * Format: uuid
-       */
-      id: string;
-      type: components["schemas"]["stretchcore__models__payment__transaction__TransactionType"];
-      direction: components["schemas"]["TransactionDirection"];
-      /** @default completed */
-      status?: components["schemas"]["TransactionStatus"];
-      /** Amount */
-      amount: number;
-      /** Currency */
-      currency: string;
-      /**
-       * Createdat
-       * Format: date-time
-       */
-      createdAt: string;
-      /**
-       * Itemprice
-       * @default 0
-       */
-      itemPrice?: number;
-      /** Itemcount */
-      itemCount: number;
-      /** Price */
-      price: number;
-      /**
-       * Discount
-       * @default 0
-       */
-      discount?: number;
-      /**
-       * Balance
-       * @default 0
-       */
-      balance?: number;
-      /** Servicefee */
-      serviceFee: number;
-      user?: components["schemas"]["UserBaseInfo"] | null;
-      /**
-       * Sessions
-       * @default []
-       */
-      sessions?: components["schemas"]["SessionGeneralOut"][];
-      withdrawal?: components["schemas"]["WalletPublicInfoOut"] | null;
-    };
-    /**
-     * UserAllergy
-     * @enum {string}
-     */
-    UserAllergy: "none" | "cat" | "dog" | "all";
-    /** UserBaseInfo */
-    UserBaseInfo: {
-      /**
-       * Id
-       * Format: uuid
-       */
-      id: string;
-      /**
-       * Displayname
-       * @description User display name
-       * @example Smith
-       */
-      displayName?: string | null;
-      /** Firstname */
-      firstName: string;
-      /** Lastname */
-      lastName: string;
-      /** Avatarurl */
-      avatarUrl?: string | null;
-      type: components["schemas"]["UserType"];
-    };
-    /**
-     * UserGender
-     * @enum {string}
-     */
-    UserGender: "male" | "female" | "transman" | "transwoman";
-    /** UserPropOut */
-    UserPropOut: {
-      /** Name */
-      name: string;
-      /** Value */
-      value?: string | number | boolean | null;
-      /** Title */
-      title?: string | null;
-      /** Description */
-      description?: string | null;
-      /** Type */
-      type: string | null;
-      /** Options */
-      options?: {
-        [key: string]: string;
-      } | null;
-    };
-    /**
-     * UserType
-     * @enum {string}
-     */
-    UserType: "guest" | "coach" | "client" | "studio" | "business" | "support" | "admin";
-    /** ValidationError */
-    ValidationError: {
-      /** Location */
-      loc: (string | number)[];
-      /** Message */
-      msg: string;
-      /** Error Type */
-      type: string;
-    };
-    /** WalletBankOut */
-    WalletBankOut: {
-      /** Accountholdername */
-      accountHolderName: string;
-      /** Bankname */
-      bankName: string;
-      /** Last4 */
-      last4: string;
-      /** Id */
-      id?: string | null;
-      /** Metadata */
-      metadata?: Record<string, never> | null;
-      /** Status */
-      status?: string | null;
-    };
-    /** WalletCardOut */
-    WalletCardOut: {
-      /** Name */
-      name: string;
-      /** Brand */
-      brand: string;
-      /** Funding */
-      funding?: string | null;
-      /** Last4 */
-      last4: string;
-      /** Id */
-      id: string;
-      /** Addresscity */
-      addressCity?: string | null;
-      /** Addresscountry */
-      addressCountry?: string | null;
-      /** Addressline1 */
-      addressLine1?: string | null;
-      /** Addressline2 */
-      addressLine2?: string | null;
-      /** Addressstate */
-      addressState?: string | null;
-      /** Addresszip */
-      addressZip?: string | null;
-      /** Country */
-      country?: string | null;
-      /** Expmonth */
-      expMonth?: number | null;
-      /** Expyear */
-      expYear?: number | null;
-      /** Number */
-      number?: string | null;
-      /** Metadata */
-      metadata?: Record<string, never> | null;
-      /** Status */
-      status?: string | null;
-    };
-    /** Wallet */
-    WalletInfoOut: {
-      /** Id */
-      id: string | null;
-      /** Name */
-      name?: string;
-      type?: components["schemas"]["WalletType"];
-      /** Config */
-      config?: Record<string, never> | null;
-      /** @default AED */
-      currency?: components["schemas"]["CurrencyCode"];
-      card?: components["schemas"]["WalletCardOut"] | null;
-      bank?: components["schemas"]["WalletBankOut"] | null;
-    };
-    /** WalletMethodIn */
-    WalletMethodIn: {
-      /** @default card */
-      method?: components["schemas"]["WalletType"] | null;
-    };
-    /** WalletMethodUpdateIn */
-    WalletMethodUpdateIn: {
-      /** @default card */
-      method?: components["schemas"]["WalletType"] | null;
-      /** Default */
-      default: boolean;
-    };
-    /** WalletPaymentInfoOut */
-    WalletPaymentInfoOut: {
-      /**
-       * Pending
-       * @default 0
-       */
-      pending?: number;
-      /**
-       * Available
-       * @default 0
-       */
-      available?: number;
-      /**
-       * Delivered
-       * @default 0
-       */
-      delivered?: number;
-      /** @default AED */
-      currency?: components["schemas"]["CurrencyCode"];
-      /**
-       * Total
-       * @default 0
-       */
-      total?: number;
-      /**
-       * Minwithdrawal
-       * @default 100
-       */
-      minWithdrawal?: number;
-      /**
-       * Currencies
-       * @default [
-       *   "AED"
-       * ]
-       */
-      currencies?: string[];
-    };
-    /** WalletPublicBankOut */
-    WalletPublicBankOut: {
-      /** Accountholdername */
-      accountHolderName: string;
-      /** Bankname */
-      bankName: string;
-      /** Last4 */
-      last4: string;
-    };
-    /** WalletPublicCardOut */
-    WalletPublicCardOut: {
-      /** Name */
-      name: string;
-      /** Brand */
-      brand: string;
-      /** Funding */
-      funding?: string | null;
-      /** Last4 */
-      last4: string;
-    };
-    /** WalletPublicInfoOut */
-    WalletPublicInfoOut: {
-      /** Name */
-      name?: string;
-      type?: components["schemas"]["WalletType"];
-      /** @default AED */
-      currency?: components["schemas"]["CurrencyCode"];
-      card?: components["schemas"]["WalletPublicCardOut"] | null;
-      bank?: components["schemas"]["WalletPublicBankOut"] | null;
-    };
-    /**
-     * WalletType
-     * @enum {string}
-     */
-    WalletType: "card" | "bank_account" | "paypal" | "crypto";
-    /** Withdrawal */
-    WithdrawalOut: {
-      /** Id */
-      id: string | null;
-      /** Amount */
-      amount: number;
-      /**
-       * Currency
-       * @default AED
-       */
-      currency?: string | null;
-      /** Withdrawal Fee */
-      withdrawalFee: (number | null) | null;
-      /**
-       * Status
-       * @description pending: pending<br/>completed: completed<br/>rejected: rejected
-       * @default pending
-       */
-      status?: string | null;
-      /**
-       * Created At
-       * Format: date-time
-       */
-      createdAt: string;
-    };
-    /**
-     * TransactionType
-     * @enum {string}
-     */
-    stretchcore__models__payment__schema__payment__TransactionType: "income" | "outcome" | "withdrawal";
-    /**
-     * TransactionType
-     * @enum {string}
-     */
-    stretchcore__models__payment__transaction__TransactionType: "payment" | "withdrawal" | "balance";
-    /**
-     * ServicePriceCurrencies
-     * @enum {string}
-     */
-    stretchcore__models__service__service__ServicePriceCurrencies__1: "AED" | "USD" | "EUR";
-    stretchcore__models__service__service__ServicePriceCurrencies__2: components["schemas"]["stretchcore__models__service__service__ServicePriceCurrencies__1"];
-    /**
-     * FileStatus
-     * @enum {string}
-     */
-    stretchcore__models__storage__file__FileStatus__1: "uploaded" | "processing" | "approved" | "rejected" | "review" | "draft" | "deleted";
-    stretchcore__models__storage__file__FileStatus__2: components["schemas"]["stretchcore__models__storage__file__FileStatus__1"];
-  };
-  responses: never;
-  parameters: never;
-  requestBodies: never;
-  headers: never;
-  pathItems: never;
+    responses: never;
+    parameters: never;
+    requestBodies: never;
+    headers: never;
+    pathItems: never;
 }
-
 export type $defs = Record<string, never>;
-
-export type external = Record<string, never>;
-
 export interface operations {
-
-  /** Get Payments */
-  get_payments_api_v1_payments_get: {
-    parameters: {
-      query?: {
-        page?: number | null;
-        limit?: number | null;
-        currency?: components["schemas"]["CurrencyCode"] | null;
-      };
-    };
-    responses: {
-      /** @description Successful Response */
-      200: {
-        content: {
-          "application/json": (components["schemas"]["PaymentCoachOut"] | components["schemas"]["PaymentClientOut"])[];
+    get_payments_api_v1_payments_get: {
+        parameters: {
+            query?: {
+                page?: number | null;
+                limit?: number | null;
+                currency?: components["schemas"]["CurrencyCode"] | null;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
         };
-      };
-      /** @description Validation Error */
-      422: {
-        content: {
-          "application/json": components["schemas"]["HTTPValidationError"];
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": (components["schemas"]["PaymentCoachOut"] | components["schemas"]["PaymentClientOut"])[];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
         };
-      };
     };
-  };
-  /** Get Payment */
-  get_payment_api_v1_payment_hash__hash_id__get: {
-    parameters: {
-      path: {
-        hash_id: string;
-      };
-    };
-    responses: {
-      /** @description Successful Response */
-      200: {
-        content: {
-          "application/json": components["schemas"]["PaymentOut"];
+    get_payment_api_v1_payment_hash__hash_id__get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                hash_id: string;
+            };
+            cookie?: never;
         };
-      };
-      /** @description Validation Error */
-      422: {
-        content: {
-          "application/json": components["schemas"]["HTTPValidationError"];
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PaymentOut"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
         };
-      };
     };
-  };
-  /** List Methods */
-  list_methods_api_v1_payment_methods_get: {
-    parameters: {
-      query?: {
-        methodType?: components["schemas"]["PaymentMethodType"] | null;
-      };
-    };
-    responses: {
-      /** @description Successful Response */
-      200: {
-        content: {
-          "application/json": components["schemas"]["PaymentMethodOut"][];
+    list_methods_api_v1_payment_methods_get: {
+        parameters: {
+            query?: {
+                methodType?: components["schemas"]["PaymentMethodType"] | null;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
         };
-      };
-      /** @description Validation Error */
-      422: {
-        content: {
-          "application/json": components["schemas"]["HTTPValidationError"];
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PaymentMethodOut"][];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
         };
-      };
     };
-  };
-  /**
-   * Get Payment
-   * @description This request using long pooling for approving payments but not more then 30 seconds
-   */
-  get_payment_api_v1_payment_checkout__payment_id__get: {
-    parameters: {
-      path: {
-        payment_id: string;
-      };
-    };
-    responses: {
-      /** @description Successful Response */
-      200: {
-        content: {
-          "application/json": components["schemas"]["PaymentOut"];
+    get_payment_api_v1_payment_checkout__payment_id__get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                payment_id: string;
+            };
+            cookie?: never;
         };
-      };
-      /** @description Validation Error */
-      422: {
-        content: {
-          "application/json": components["schemas"]["HTTPValidationError"];
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PaymentOut"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
         };
-      };
     };
-  };
-  /** Checkout Payment */
-  checkout_payment_api_v1_payment_checkout__payment_id__post: {
-    parameters: {
-      path: {
-        payment_id: string;
-      };
-    };
-    requestBody: {
-      content: {
-        "application/json": components["schemas"]["PaymentCheckoutIn"];
-      };
-    };
-    responses: {
-      /** @description Successful Response */
-      201: {
-        content: {
-          "application/json": components["schemas"]["PaymentOut"];
+    checkout_payment_api_v1_payment_checkout__payment_id__post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                payment_id: string;
+            };
+            cookie?: never;
         };
-      };
-      /** @description Validation Error */
-      422: {
-        content: {
-          "application/json": components["schemas"]["HTTPValidationError"];
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["PaymentCheckoutIn"];
+            };
         };
-      };
-    };
-  };
-  /** List Wallets */
-  list_wallets_api_v1_payment_wallets_get: {
-    responses: {
-      /** @description Successful Response */
-      200: {
-        content: {
-          "application/json": components["schemas"]["WalletInfoOut"][];
+        responses: {
+            /** @description Successful Response */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PaymentOut"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
         };
-      };
     };
-  };
-  /** Wallet Info */
-  wallet_info_api_v1_payment_wallet_info_get: {
-    parameters: {
-      query?: {
-        currency?: components["schemas"]["CurrencyCode"];
-      };
-    };
-    responses: {
-      /** @description Successful Response */
-      200: {
-        content: {
-          "application/json": components["schemas"]["WalletPaymentInfoOut"];
+    list_wallets_api_v1_payment_wallets_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
         };
-      };
-      /** @description Validation Error */
-      422: {
-        content: {
-          "application/json": components["schemas"]["HTTPValidationError"];
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["WalletInfoOut"][];
+                };
+            };
         };
-      };
     };
-  };
-  /** Add Wallet Method */
-  add_wallet_method_api_v1_payment_wallet_post: {
-    requestBody: {
-      content: {
-        "application/json": components["schemas"]["WalletMethodIn"];
-      };
-    };
-    responses: {
-      /** @description Successful Response */
-      200: {
-        content: {
-          "application/json": components["schemas"]["CardPaymentMethodOut"];
+    wallet_info_api_v1_payment_wallet_info_get: {
+        parameters: {
+            query?: {
+                currency?: components["schemas"]["CurrencyCode"];
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
         };
-      };
-      /** @description Validation Error */
-      422: {
-        content: {
-          "application/json": components["schemas"]["HTTPValidationError"];
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["WalletPaymentInfoOut"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
         };
-      };
     };
-  };
-  /** Update Wallet */
-  update_wallet_api_v1_payment_wallet__wallet_id__put: {
-    parameters: {
-      path: {
-        wallet_id: string;
-      };
-    };
-    requestBody: {
-      content: {
-        "application/json": components["schemas"]["WalletMethodUpdateIn"];
-      };
-    };
-    responses: {
-      /** @description Successful Response */
-      200: {
-        content: {
-          "application/json": components["schemas"]["PaymentMethodOut"];
+    add_wallet_method_api_v1_payment_wallet_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
         };
-      };
-      /** @description Validation Error */
-      422: {
-        content: {
-          "application/json": components["schemas"]["HTTPValidationError"];
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["WalletMethodIn"];
+            };
         };
-      };
-    };
-  };
-  /** Delete Wallet Method */
-  delete_wallet_method_api_v1_payment_wallet__wallet_id__delete: {
-    parameters: {
-      path: {
-        wallet_id: string;
-      };
-    };
-    responses: {
-      /** @description Successful Response */
-      200: {
-        content: {
-          "application/json": unknown;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["CardPaymentMethodOut"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
         };
-      };
-      /** @description Validation Error */
-      422: {
-        content: {
-          "application/json": components["schemas"]["HTTPValidationError"];
-        };
-      };
     };
-  };
-  /** Stripe Webhook */
-  stripe_webhook_api_v1_payment_webhook_post: {
-    parameters: {
-      header?: {
-        "stripe-signature"?: string;
-      };
-    };
-    responses: {
-      /** @description Successful Response */
-      200: {
-        content: {
-          "application/json": unknown;
+    update_wallet_api_v1_payment_wallet__wallet_id__put: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                wallet_id: string;
+            };
+            cookie?: never;
         };
-      };
-      /** @description Validation Error */
-      422: {
-        content: {
-          "application/json": components["schemas"]["HTTPValidationError"];
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["WalletMethodUpdateIn"];
+            };
         };
-      };
-    };
-  };
-  /** Get Stripe Account */
-  get_stripe_account_api_v1_payment_kyc_stripe_account_get: {
-    responses: {
-      /** @description Successful Response */
-      200: {
-        content: {
-          "application/json": components["schemas"]["StripeConnectAccountOut"];
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PaymentMethodOut"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
         };
-      };
     };
-  };
-  /** Create Stripe Account */
-  create_stripe_account_api_v1_payment_kyc_stripe_account_post: {
-    responses: {
-      /** @description Successful Response */
-      200: {
-        content: {
-          "application/json": components["schemas"]["StripeConnectAccountOut"];
+    delete_wallet_method_api_v1_payment_wallet__wallet_id__delete: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                wallet_id: string;
+            };
+            cookie?: never;
         };
-      };
-    };
-  };
-  /** Delete Account */
-  delete_account_api_v1_payment_kyc_stripe_account_delete: {
-    responses: {
-      /** @description Successful Response */
-      200: {
-        content: {
-          "application/json": unknown;
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": unknown;
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
         };
-      };
     };
-  };
-  /** Redirect To Deep Link */
-  redirect_to_deep_link_api_v1_payment_kyc_redirect_get: {
-    responses: {
-      /** @description Successful Response */
-      200: {
-        content: {
-          "application/json": unknown;
+    stripe_webhook_api_v1_payment_webhook_post: {
+        parameters: {
+            query?: never;
+            header?: {
+                "stripe-signature"?: string;
+            };
+            path?: never;
+            cookie?: never;
         };
-      };
-    };
-  };
-  /** Get Transactions */
-  get_transactions_api_v1_payment_transactions_get: {
-    parameters: {
-      query?: {
-        page?: number | null;
-        limit?: number | null;
-        currency?: components["schemas"]["CurrencyCode"] | null;
-      };
-    };
-    responses: {
-      /** @description Successful Response */
-      200: {
-        content: {
-          "application/json": components["schemas"]["TransactionOut"][];
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": unknown;
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
         };
-      };
-      /** @description Validation Error */
-      422: {
-        content: {
-          "application/json": components["schemas"]["HTTPValidationError"];
-        };
-      };
     };
-  };
-  /** Get Transaction */
-  get_transaction_api_v1_payment_transaction__transaction_id__get: {
-    parameters: {
-      path: {
-        transaction_id: string;
-      };
-    };
-    responses: {
-      /** @description Successful Response */
-      200: {
-        content: {
-          "application/json": components["schemas"]["TransactionSummaryOut"];
+    get_stripe_account_api_v1_payment_kyc_stripe_account_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
         };
-      };
-      /** @description Validation Error */
-      422: {
-        content: {
-          "application/json": components["schemas"]["HTTPValidationError"];
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StripeConnectAccountOut"];
+                };
+            };
         };
-      };
     };
-  };
-  /** Withdraw Balance */
-  withdraw_balance_api_v1_payment_withdraw_post: {
-    responses: {
-      /** @description Successful Response */
-      200: {
-        content: {
-          "application/json": components["schemas"]["WithdrawalOut"];
+    create_stripe_account_api_v1_payment_kyc_stripe_account_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
         };
-      };
-    };
-  };
-  /** Get Consumer Available Balance */
-  get_consumer_available_balance_api_v1_payment_config_balance_get: {
-    responses: {
-      /** @description Successful Response */
-      200: {
-        content: {
-          "application/json": components["schemas"]["ConsumerAvailableBalanceOut"];
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StripeConnectAccountOut"];
+                };
+            };
         };
-      };
     };
-  };
-  /** Checkout */
-  checkout_api_v1_payment_gateway_checkout__payment_id__get: {
-    parameters: {
-      path: {
-        payment_id: string;
-      };
-    };
-    responses: {
-      /** @description Successful Response */
-      200: {
-        content: {
-          "application/json": unknown;
+    delete_account_api_v1_payment_kyc_stripe_account_delete: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
         };
-      };
-      /** @description Validation Error */
-      422: {
-        content: {
-          "application/json": components["schemas"]["HTTPValidationError"];
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": unknown;
+                };
+            };
         };
-      };
     };
-  };
-  /** Checkout Status */
-  checkout_status_api_v1_payment_gateway_checkout__payment_id__status_get: {
-    parameters: {
-      path: {
-        payment_id: string;
-      };
-    };
-    responses: {
-      /** @description Successful Response */
-      200: {
-        content: {
-          "application/json": unknown;
+    redirect_to_deep_link_api_v1_payment_kyc_redirect_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
         };
-      };
-      /** @description Validation Error */
-      422: {
-        content: {
-          "application/json": components["schemas"]["HTTPValidationError"];
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": unknown;
+                };
+            };
         };
-      };
     };
-  };
-  /** Check Status */
-  check_status_api_v1_payment_gateway_checkout__payment_id__check_status_get: {
-    parameters: {
-      path: {
-        payment_id: string;
-      };
-    };
-    responses: {
-      /** @description Successful Response */
-      200: {
-        content: {
-          "application/json": components["schemas"]["CheckStatusOut"];
+    get_transactions_api_v1_payment_transactions_get: {
+        parameters: {
+            query?: {
+                page?: number | null;
+                limit?: number | null;
+                currency?: components["schemas"]["CurrencyCode"] | null;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
         };
-      };
-      /** @description Validation Error */
-      422: {
-        content: {
-          "application/json": components["schemas"]["HTTPValidationError"];
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TransactionOut"][];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
         };
-      };
     };
-  };
+    get_transaction_api_v1_payment_transaction__transaction_id__get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                transaction_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TransactionSummaryOut"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    withdraw_balance_api_v1_payment_withdraw_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["WithdrawalOut"];
+                };
+            };
+        };
+    };
+    get_consumer_available_balance_api_v1_payment_config_balance_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ConsumerAvailableBalanceOut"];
+                };
+            };
+        };
+    };
+    checkout_api_v1_payment_gateway_checkout__payment_id__get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                payment_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": unknown;
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    checkout_status_api_v1_payment_gateway_checkout__payment_id__status_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                payment_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": unknown;
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    check_status_api_v1_payment_gateway_checkout__payment_id__check_status_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                payment_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["CheckStatusOut"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
 }
