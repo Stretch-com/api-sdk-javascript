@@ -268,14 +268,14 @@ export class StretchBase {
         this.#accessToken = localStorage.getItem("access_token");
         const accessExpireDate = localStorage.getItem("access_expire_date");
         if (accessExpireDate)
-          this.#accessExpireDate = new Date(parseInt(accessExpireDate), 10);
+          this.#accessExpireDate = new Date(parseInt(accessExpireDate));
       }
 
       if (this.#refreshToken == null) {
         this.#refreshToken = localStorage.getItem("refresh_token");
         const refreshExpireDate = localStorage.getItem("refresh_expire_date");
         if (refreshExpireDate)
-          this.#refreshExpireDate = new Date(parseInt(refreshExpireDate), 10);
+          this.#refreshExpireDate = new Date(parseInt(refreshExpireDate));
       }
     } catch (e) {
       console.error(`LocalStorage in current context not exists ${e}`);
@@ -294,6 +294,7 @@ export class StretchBase {
         if (current_date.getTime() > this.#accessExpireDate.getTime()) {
           if (
             this.#refreshToken != null &&
+            this.#refreshExpireDate &&
             current_date.getTime() < this.#refreshExpireDate.getTime()
           ) {
             await this.refresh();
@@ -301,6 +302,7 @@ export class StretchBase {
             await this.loginAsGuest();
           }
         }
+
         return true;
       }
     }

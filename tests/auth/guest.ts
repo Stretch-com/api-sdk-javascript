@@ -15,15 +15,16 @@ async function main() {
   //console.log(guest)
 
   //console.log(await stretch.auth.getUser())
-  const guest = await stretch.login("bell", "123456");
+  const guest = await stretch.auth.login("bell", "123456");
   console.log("GUEST:", guest);
 
-  const form = new FormData();
+  const payload = {
+    reason: "test method",
+    phone: "+999123456789",
+    message: "test method",
+  };
 
-  form.append("reason", "test method");
-  form.append("message", "test method");
-
-  await stretch.admin.postSupportFeedback(form);
+  await stretch.admin.postSupportFeedback(payload);
   //const info = await stretch.auth.getUser()
   //console.log(info)
 

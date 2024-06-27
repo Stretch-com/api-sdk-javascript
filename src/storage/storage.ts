@@ -2,13 +2,20 @@ import { paths } from "../../types/storage";
 import { StretchAuth } from "../common/auth";
 import { payloadToFormData } from "../common/utils";
 
-class Storage extends StretchAuth {
+class Storage {
+  auth: StretchAuth;
+
+  constructor(stretchAuth: StretchAuth) {
+    this.auth = stretchAuth;
+  }
+
   // Attachments
   async getAttachments(): Promise<
     | paths["/api/v1/storage/attachments"]["get"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this.checkAuth()) return await this.get(`/storage/attachments`);
+    if (await this.auth.checkAuth())
+      return await this.auth.get(`/storage/attachments`);
   }
 
   async postAttachment(
@@ -17,10 +24,10 @@ class Storage extends StretchAuth {
     | paths["/api/v1/storage/attachment"]["post"]["responses"]["201"]["content"]["application/json"]
     | undefined
   > {
-    if (await this.checkAuth()) {
+    if (await this.auth.checkAuth()) {
       const formData = payloadToFormData(payload);
       if (!formData) return;
-      return await this.post("/storage/attachment", formData, undefined);
+      return await this.auth.post("/storage/attachment", formData, undefined);
     }
   }
 
@@ -30,8 +37,8 @@ class Storage extends StretchAuth {
     | paths["/api/v1/storage/attachment/{attachment_id}"]["delete"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this.checkAuth())
-      return await this.delete(`/storage/attachment/${attachmentId}`);
+    if (await this.auth.checkAuth())
+      return await this.auth.delete(`/storage/attachment/${attachmentId}`);
   }
 
   // User avatar
@@ -41,10 +48,14 @@ class Storage extends StretchAuth {
     | paths["/api/v1/storage/profile/avatar"]["post"]["responses"]["201"]["content"]["application/json"]
     | undefined
   > {
-    if (await this.checkAuth()) {
+    if (await this.auth.checkAuth()) {
       const formData = payloadToFormData(payload);
       if (!formData) return;
-      return await this.post("/storage/profile/avatar", formData, undefined);
+      return await this.auth.post(
+        "/storage/profile/avatar",
+        formData,
+        undefined
+      );
     }
   }
 
@@ -52,8 +63,8 @@ class Storage extends StretchAuth {
     | paths["/api/v1/storage/profile/avatar"]["delete"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this.checkAuth())
-      return await this.delete("/storage/profile/avatar");
+    if (await this.auth.checkAuth())
+      return await this.auth.delete("/storage/profile/avatar");
   }
 
   async postMedia(
@@ -62,10 +73,14 @@ class Storage extends StretchAuth {
     | paths["/api/v1/storage/profile/media"]["post"]["responses"]["201"]["content"]["application/json"]
     | undefined
   > {
-    if (await this.checkAuth()) {
+    if (await this.auth.checkAuth()) {
       const formData = payloadToFormData(payload);
       if (!formData) return;
-      return await this.post("/storage/profile/media", formData, undefined);
+      return await this.auth.post(
+        "/storage/profile/media",
+        formData,
+        undefined
+      );
     }
   }
 }

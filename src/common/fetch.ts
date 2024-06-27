@@ -70,7 +70,7 @@ export async function apiFetch(
       "request-error",
       `Request error: ${err.message}`
     );
-    console.log(err);
+    console.warn(err);
     if (err instanceof Response) {
       error.status = err.status;
     }

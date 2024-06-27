@@ -1,23 +1,11 @@
 import { paths } from "../../types/coach";
 import { StretchAuth } from "../common/auth";
 
-export class Search extends StretchAuth {
-  async search(
-    payload: paths["/api/v1/search"]["post"]["requestBody"]["content"]["application/json"]
-  ) {
-    return await this.postSearch(payload);
-  }
+export class Search {
+  auth: StretchAuth;
 
-  async count(
-    payload: paths["/api/v1/search/count"]["post"]["requestBody"]["content"]["application/json"]
-  ) {
-    return await this.postCount(payload);
-  }
-
-  async filter(
-    query: paths["/api/v1/search/filter"]["get"]["parameters"]["query"]
-  ) {
-    return await this.getFilter(query);
+  constructor(stretchAuth: StretchAuth) {
+    this.auth = stretchAuth;
   }
 
   async postSearch(
@@ -26,7 +14,8 @@ export class Search extends StretchAuth {
     | paths["/api/v1/search"]["post"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this.checkAuth()) return await this.post(`/search`, payload);
+    if (await this.auth.checkAuth())
+      return await this.auth.post(`/search`, payload);
   }
 
   async postCount(
@@ -35,8 +24,8 @@ export class Search extends StretchAuth {
     | paths["/api/v1/search/count"]["post"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this.checkAuth())
-      return await this.post(`/search/count`, payload);
+    if (await this.auth.checkAuth())
+      return await this.auth.post(`/search/count`, payload);
   }
 
   async getFilter(
@@ -45,7 +34,8 @@ export class Search extends StretchAuth {
     | paths["/api/v1/search/filter"]["get"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this.checkAuth()) return await this.get(`/search/filter`, query);
+    if (await this.auth.checkAuth())
+      return await this.auth.get(`/search/filter`, query);
   }
 }
 

@@ -1,14 +1,21 @@
 import { paths } from "../../types/payment";
 import { StretchAuth } from "../common/auth";
 
-class Payment extends StretchAuth {
+class Payment {
+  auth: StretchAuth;
+
+  constructor(stretchAuth: StretchAuth) {
+    this.auth = stretchAuth;
+  }
+
   async getPayments(
     query: paths["/api/v1/payments"]["get"]["parameters"]["query"]
   ): Promise<
     | paths["/api/v1/payments"]["get"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this.checkAuth()) return await this.get(`/payments`, query);
+    if (await this.auth.checkAuth())
+      return await this.auth.get(`/payments`, query);
   }
 
   async getMethods(
@@ -17,8 +24,8 @@ class Payment extends StretchAuth {
     | paths["/api/v1/payment/methods"]["get"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this.checkAuth())
-      return await this.get(`/payment/methods`, query);
+    if (await this.auth.checkAuth())
+      return await this.auth.get(`/payment/methods`, query);
   }
 
   async getPaymentCheckout(
@@ -27,8 +34,8 @@ class Payment extends StretchAuth {
     | paths["/api/v1/payment/checkout/{payment_id}"]["get"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this.checkAuth())
-      return await this.get(`/payment/checkout/${paymentId}`);
+    if (await this.auth.checkAuth())
+      return await this.auth.get(`/payment/checkout/${paymentId}`);
   }
 
   async postPaymentCheckout(
@@ -38,15 +45,16 @@ class Payment extends StretchAuth {
     | paths["/api/v1/payment/checkout/{payment_id}"]["post"]["responses"]["201"]["content"]["application/json"]
     | undefined
   > {
-    if (await this.checkAuth())
-      return await this.post(`/payment/checkout/${paymentId}`, payload);
+    if (await this.auth.checkAuth())
+      return await this.auth.post(`/payment/checkout/${paymentId}`, payload);
   }
 
   async getWallets(): Promise<
     | paths["/api/v1/payment/wallets"]["get"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this.checkAuth()) return await this.get(`/payment/wallets`);
+    if (await this.auth.checkAuth())
+      return await this.auth.get(`/payment/wallets`);
   }
 
   async getWalletInfo(
@@ -55,8 +63,8 @@ class Payment extends StretchAuth {
     | paths["/api/v1/payment/wallet/info"]["get"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this.checkAuth())
-      return await this.get(`/payment/wallet/info`, query);
+    if (await this.auth.checkAuth())
+      return await this.auth.get(`/payment/wallet/info`, query);
   }
 
   async postWallet(
@@ -65,8 +73,8 @@ class Payment extends StretchAuth {
     | paths["/api/v1/payment/wallet"]["post"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this.checkAuth())
-      return await this.post(`/payment/wallet`, payload);
+    if (await this.auth.checkAuth())
+      return await this.auth.post(`/payment/wallet`, payload);
   }
 
   async putWallet(
@@ -76,8 +84,8 @@ class Payment extends StretchAuth {
     | paths["/api/v1/payment/wallet/{wallet_id}"]["put"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this.checkAuth())
-      return await this.put(`/payment/wallet/${walletId}`, query);
+    if (await this.auth.checkAuth())
+      return await this.auth.put(`/payment/wallet/${walletId}`, query);
   }
 
   async deleteWallet(
@@ -86,32 +94,32 @@ class Payment extends StretchAuth {
     | paths["/api/v1/payment/wallet/{wallet_id}"]["delete"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this.checkAuth())
-      return await this.delete(`/payment/wallet/${walletId}`);
+    if (await this.auth.checkAuth())
+      return await this.auth.delete(`/payment/wallet/${walletId}`);
   }
 
   async getKyc(): Promise<
     | paths["/api/v1/payment/kyc/stripe/account"]["get"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this.checkAuth())
-      return await this.get(`/payment/kyc/stripe/account`);
+    if (await this.auth.checkAuth())
+      return await this.auth.get(`/payment/kyc/stripe/account`);
   }
 
   async postKyc(): Promise<
     | paths["/api/v1/payment/kyc/stripe/account"]["post"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this.checkAuth())
-      return await this.post(`/payment/kyc/stripe/account`);
+    if (await this.auth.checkAuth())
+      return await this.auth.post(`/payment/kyc/stripe/account`);
   }
 
   async deleteKyc(): Promise<
     | paths["/api/v1/payment/kyc/stripe/account"]["delete"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this.checkAuth())
-      return await this.delete(`/payment/kyc/stripe/account`);
+    if (await this.auth.checkAuth())
+      return await this.auth.delete(`/payment/kyc/stripe/account`);
   }
 
   async getTransactions(
@@ -120,8 +128,8 @@ class Payment extends StretchAuth {
     | paths["/api/v1/payment/transactions"]["get"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this.checkAuth())
-      return await this.get(`/payment/transactions`, query);
+    if (await this.auth.checkAuth())
+      return await this.auth.get(`/payment/transactions`, query);
   }
 
   async getTransaction(
@@ -130,23 +138,24 @@ class Payment extends StretchAuth {
     | paths["/api/v1/payment/transaction/{transaction_id}"]["get"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this.checkAuth())
-      return await this.get(`/payment/transaction/${transactionId}`);
+    if (await this.auth.checkAuth())
+      return await this.auth.get(`/payment/transaction/${transactionId}`);
   }
 
   async postWithdraw(): Promise<
     | paths["/api/v1/payment/withdraw"]["post"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this.checkAuth()) return await this.post(`/payment/withdraw`);
+    if (await this.auth.checkAuth())
+      return await this.auth.post(`/payment/withdraw`);
   }
 
   async getConfigBalance(): Promise<
     | paths["/api/v1/payment/config/balance"]["get"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this.checkAuth())
-      return await this.get(`/payment/config/balance`);
+    if (await this.auth.checkAuth())
+      return await this.auth.get(`/payment/config/balance`);
   }
 
   async getPaymentGateway(
@@ -155,8 +164,8 @@ class Payment extends StretchAuth {
     | paths["/api/v1/payment/gateway/checkout/{payment_id}"]["get"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this.checkAuth())
-      return await this.get(`/payment/gateway/checkout/${paymentId}`);
+    if (await this.auth.checkAuth())
+      return await this.auth.get(`/payment/gateway/checkout/${paymentId}`);
   }
 
   async getPaymentGatewayStatus(
@@ -165,8 +174,10 @@ class Payment extends StretchAuth {
     | paths["/api/v1/payment/gateway/checkout/{payment_id}/status"]["get"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this.checkAuth())
-      return await this.get(`/payment/gateway/checkout/${paymentId}/status`);
+    if (await this.auth.checkAuth())
+      return await this.auth.get(
+        `/payment/gateway/checkout/${paymentId}/status`
+      );
   }
 
   async checkPaymentGatewayStatus(
@@ -175,8 +186,8 @@ class Payment extends StretchAuth {
     | paths["/api/v1/payment/gateway/checkout/{payment_id}/check/status"]["get"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this.checkAuth())
-      return await this.get(
+    if (await this.auth.checkAuth())
+      return await this.auth.get(
         `/payment/gateway/checkout/${paymentId}/check/status`
       );
   }
