@@ -52,7 +52,11 @@ export class StretchAuth extends StretchBase {
     | paths["/api/v1/auth/logout"]["post"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this.checkAuth()) return await this.post(`/auth/logout`);
+    if (await this.checkAuth()) {
+      const response = await this.post(`/auth/logout`);
+      this.logout();
+      return response;
+    }
   }
 
   async passwordReset(

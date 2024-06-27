@@ -1,12 +1,19 @@
 import { paths } from "../../types/coach";
 import { StretchAuth } from "../common/auth";
 
-class Service extends StretchAuth {
+class Service {
+  auth: StretchAuth;
+
+  constructor(stretchAuth: StretchAuth) {
+    this.auth = stretchAuth;
+  }
+
   async getServiceTypes(): Promise<
     | paths["/api/v1/servicetypes"]["get"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this.checkAuth()) return await this.get("/servicetypes");
+    if (await this.auth.checkAuth())
+      return await this.auth.get("/servicetypes");
   }
 
   async postAvailabilityService(
@@ -16,8 +23,11 @@ class Service extends StretchAuth {
     | paths["/api/v1/service/{service_id}/availability"]["post"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this.checkAuth())
-      return await this.post(`/service/${serviceId}/availability`, payload);
+    if (await this.auth.checkAuth())
+      return await this.auth.post(
+        `/service/${serviceId}/availability`,
+        payload
+      );
   }
 
   async postServiceCheck(
@@ -27,8 +37,8 @@ class Service extends StretchAuth {
     | paths["/api/v1/service/{service_id}/check"]["post"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this.checkAuth())
-      return await this.post(`/service/${serviceId}/check`, payload);
+    if (await this.auth.checkAuth())
+      return await this.auth.post(`/service/${serviceId}/check`, payload);
   }
 
   async getService(
@@ -37,7 +47,8 @@ class Service extends StretchAuth {
     | paths["/api/v1/service/{service_id}"]["get"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this.checkAuth()) return await this.get(`/service/${serviceId}`);
+    if (await this.auth.checkAuth())
+      return await this.auth.get(`/service/${serviceId}`);
   }
 
   async postServiceBooking(
@@ -47,8 +58,8 @@ class Service extends StretchAuth {
     | paths["/api/v1/service/{service_id}"]["post"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this.checkAuth())
-      return await this.post(`/service/${serviceId}`, payload);
+    if (await this.auth.checkAuth())
+      return await this.auth.post(`/service/${serviceId}`, payload);
   }
 
   async getServiceReviews(
@@ -58,8 +69,8 @@ class Service extends StretchAuth {
     | paths["/api/v1/service/{service_id}/reviews"]["get"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this.checkAuth())
-      return await this.get(`/service/${serviceId}/reviews`, query);
+    if (await this.auth.checkAuth())
+      return await this.auth.get(`/service/${serviceId}/reviews`, query);
   }
 
   async getServiceReviewsInfo(
@@ -68,8 +79,8 @@ class Service extends StretchAuth {
     | paths["/api/v1/service/{service_id}/reviews/info"]["get"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this.checkAuth())
-      return await this.get(`/service/${serviceId}/reviews/info`);
+    if (await this.auth.checkAuth())
+      return await this.auth.get(`/service/${serviceId}/reviews/info`);
   }
 }
 

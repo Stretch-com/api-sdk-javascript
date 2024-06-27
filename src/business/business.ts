@@ -1,12 +1,19 @@
 import { paths } from "../../types/coach";
 import { StretchAuth } from "../common/auth";
 
-class Business extends StretchAuth {
+class Business {
+  auth: StretchAuth;
+
+  constructor(stretchAuth: StretchAuth) {
+    this.auth = stretchAuth;
+  }
+
   async getProfile(): Promise<
     | paths["/api/v1/business/profile"]["get"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this.checkAuth()) return await this.get(`/business/profile`);
+    if (await this.auth.checkAuth())
+      return await this.auth.get(`/business/profile`);
   }
 
   async getBusinessProfile(
@@ -15,8 +22,8 @@ class Business extends StretchAuth {
     | paths["/api/v1/business/{business_id}/profile"]["get"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this.checkAuth())
-      return await this.get(`/business/${businessId}/profile`);
+    if (await this.auth.checkAuth())
+      return await this.auth.get(`/business/${businessId}/profile`);
   }
 
   async putProfile(
@@ -25,8 +32,8 @@ class Business extends StretchAuth {
     | paths["/api/v1/business/profile"]["put"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this.checkAuth())
-      return await this.put(`/business/profile`, payload);
+    if (await this.auth.checkAuth())
+      return await this.auth.put(`/business/profile`, payload);
   }
 
   async claimBusiness(
@@ -36,8 +43,8 @@ class Business extends StretchAuth {
     | paths["/api/v1/business/{business_id}/claim"]["post"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this.checkAuth())
-      return await this.post(`/business/${businessId}/claim`, payload);
+    if (await this.auth.checkAuth())
+      return await this.auth.post(`/business/${businessId}/claim`, payload);
   }
 
   async getQuestions(
@@ -47,8 +54,8 @@ class Business extends StretchAuth {
     | paths["/api/v1/business/{business_id}/questions"]["get"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this.checkAuth())
-      return await this.get(`/business/${businessId}/questions`, query);
+    if (await this.auth.checkAuth())
+      return await this.auth.get(`/business/${businessId}/questions`, query);
   }
 
   async getQuestion(
@@ -57,8 +64,8 @@ class Business extends StretchAuth {
     | paths["/api/v1/business/question/{question_id}"]["get"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this.checkAuth())
-      return await this.get(`/business/question/${questionId}`);
+    if (await this.auth.checkAuth())
+      return await this.auth.get(`/business/question/${questionId}`);
   }
 
   async postQuestion(
@@ -68,8 +75,8 @@ class Business extends StretchAuth {
     | paths["/api/v1/business/question/{question_id}"]["post"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this.checkAuth())
-      return await this.post(`/business/question/${questionId}`, payload);
+    if (await this.auth.checkAuth())
+      return await this.auth.post(`/business/question/${questionId}`, payload);
   }
 
   async putQuestion(
@@ -79,8 +86,8 @@ class Business extends StretchAuth {
     | paths["/api/v1/business/question/{question_id}"]["put"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this.checkAuth())
-      return await this.put(`/business/question/${questionId}`, payload);
+    if (await this.auth.checkAuth())
+      return await this.auth.put(`/business/question/${questionId}`, payload);
   }
 
   async deleteQuestion(
@@ -89,8 +96,8 @@ class Business extends StretchAuth {
     | paths["/api/v1/business/question/{question_id}"]["delete"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this.checkAuth())
-      return await this.delete(`/business/question/${questionId}`);
+    if (await this.auth.checkAuth())
+      return await this.auth.delete(`/business/question/${questionId}`);
   }
 }
 

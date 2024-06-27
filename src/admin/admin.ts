@@ -2,7 +2,13 @@ import { paths } from "../../types/admin";
 import { StretchAuth } from "../common/auth";
 import { payloadToFormData } from "../common/utils";
 
-class Admin extends StretchAuth {
+class Admin {
+  auth: StretchAuth;
+
+  constructor(stretchAuth: StretchAuth) {
+    this.auth = stretchAuth;
+  }
+
   // Coach endpoints
   async getCoaches(
     query: paths["/api/v1/admin/coaches"]["get"]["parameters"]["query"]
@@ -10,7 +16,8 @@ class Admin extends StretchAuth {
     | paths["/api/v1/admin/coaches"]["get"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this.checkAuth()) return await this.get(`/admin/coaches`, query);
+    if (await this.auth.checkAuth())
+      return await this.auth.get(`/admin/coaches`, query);
   }
 
   async getCoachesCount(
@@ -19,8 +26,8 @@ class Admin extends StretchAuth {
     | paths["/api/v1/admin/coaches/count"]["get"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this.checkAuth())
-      return await this.get(`/admin/coaches/count`, query);
+    if (await this.auth.checkAuth())
+      return await this.auth.get(`/admin/coaches/count`, query);
   }
 
   async getCoachDetails(
@@ -29,8 +36,8 @@ class Admin extends StretchAuth {
     | paths["/api/v1/admin/coach/{coach_id}"]["get"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this.checkAuth())
-      return await this.get(`/admin/coach/${coachId}`);
+    if (await this.auth.checkAuth())
+      return await this.auth.get(`/admin/coach/${coachId}`);
   }
 
   async postCoach(
@@ -39,7 +46,8 @@ class Admin extends StretchAuth {
     | paths["/api/v1/admin/coach"]["post"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this.checkAuth()) return await this.post(`/admin/coach`, payload);
+    if (await this.auth.checkAuth())
+      return await this.auth.post(`/admin/coach`, payload);
   }
 
   async putCoach(
@@ -49,8 +57,8 @@ class Admin extends StretchAuth {
     | paths["/api/v1/admin/coach/{coach_id}"]["put"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this.checkAuth())
-      return await this.put(`/admin/coach/${coachId}`, payload);
+    if (await this.auth.checkAuth())
+      return await this.auth.put(`/admin/coach/${coachId}`, payload);
   }
 
   async deleteCoach(
@@ -60,8 +68,8 @@ class Admin extends StretchAuth {
     | paths["/api/v1/admin/coach/{coach_id}"]["delete"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this.checkAuth())
-      return await this.delete(`/admin/coach/${coachId}`, query);
+    if (await this.auth.checkAuth())
+      return await this.auth.delete(`/admin/coach/${coachId}`, query);
   }
 
   async postBoostProfile(
@@ -70,8 +78,8 @@ class Admin extends StretchAuth {
     | paths["/api/v1/admin/coach/{coach_id}/boost-profile"]["post"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this.checkAuth())
-      return await this.post(`/admin/coach/${coachId}/boost-profile`);
+    if (await this.auth.checkAuth())
+      return await this.auth.post(`/admin/coach/${coachId}/boost-profile`);
   }
 
   async getCoachClientsList(
@@ -81,8 +89,8 @@ class Admin extends StretchAuth {
     | paths["/api/v1/admin/coach/{coach_id}/clients"]["get"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this.checkAuth())
-      return await this.get(`/admin/coach/${coachId}/clients`, query);
+    if (await this.auth.checkAuth())
+      return await this.auth.get(`/admin/coach/${coachId}/clients`, query);
   }
 
   async getCoachClientsListCount(
@@ -92,8 +100,11 @@ class Admin extends StretchAuth {
     | paths["/api/v1/admin/coach/{coach_id}/clients/count"]["get"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this.checkAuth())
-      return await this.get(`/admin/coach/${coachId}/clients/count`, query);
+    if (await this.auth.checkAuth())
+      return await this.auth.get(
+        `/admin/coach/${coachId}/clients/count`,
+        query
+      );
   }
 
   // Client endpoints
@@ -103,7 +114,8 @@ class Admin extends StretchAuth {
     | paths["/api/v1/admin/clients"]["get"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this.checkAuth()) return await this.get(`/admin/clients`, query);
+    if (await this.auth.checkAuth())
+      return await this.auth.get(`/admin/clients`, query);
   }
 
   async getClientsCount(
@@ -112,8 +124,8 @@ class Admin extends StretchAuth {
     | paths["/api/v1/admin/clients/count"]["get"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this.checkAuth())
-      return await this.get(`/admin/clients/count`, query);
+    if (await this.auth.checkAuth())
+      return await this.auth.get(`/admin/clients/count`, query);
   }
 
   async getClientDetails(
@@ -122,8 +134,8 @@ class Admin extends StretchAuth {
     | paths["/api/v1/admin/client/{client_id}"]["get"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this.checkAuth())
-      return await this.get(`/admin/client/${clientId}`);
+    if (await this.auth.checkAuth())
+      return await this.auth.get(`/admin/client/${clientId}`);
   }
 
   async getClientSummaryInfo(
@@ -133,8 +145,8 @@ class Admin extends StretchAuth {
     | paths["/api/v1/admin/client/{client_id}/info"]["get"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this.checkAuth())
-      return await this.get(`/admin/client/${clientId}/info`, query);
+    if (await this.auth.checkAuth())
+      return await this.auth.get(`/admin/client/${clientId}/info`, query);
   }
 
   async postClient(
@@ -143,7 +155,8 @@ class Admin extends StretchAuth {
     | paths["/api/v1/admin/client"]["post"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this.checkAuth()) return await this.get(`/admin/client`, payload);
+    if (await this.auth.checkAuth())
+      return await this.auth.get(`/admin/client`, payload);
   }
 
   async putClient(
@@ -153,8 +166,8 @@ class Admin extends StretchAuth {
     | paths["/api/v1/admin/client/{client_id}"]["put"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this.checkAuth())
-      return await this.put(`/admin/client/${clientId}`, payload);
+    if (await this.auth.checkAuth())
+      return await this.auth.put(`/admin/client/${clientId}`, payload);
   }
 
   async deleteClient(
@@ -164,8 +177,8 @@ class Admin extends StretchAuth {
     | paths["/api/v1/admin/client/{client_id}"]["delete"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this.checkAuth())
-      return await this.delete(`/admin/client/${clientId}`, query);
+    if (await this.auth.checkAuth())
+      return await this.auth.delete(`/admin/client/${clientId}`, query);
   }
 
   async getClientCoachesList(
@@ -175,8 +188,8 @@ class Admin extends StretchAuth {
     | paths["/api/v1/admin/client/{client_id}/coaches"]["get"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this.checkAuth())
-      return await this.get(`/admin/client/${clientId}/coaches`, query);
+    if (await this.auth.checkAuth())
+      return await this.auth.get(`/admin/client/${clientId}/coaches`, query);
   }
 
   async getClientCoachesListCount(
@@ -186,8 +199,11 @@ class Admin extends StretchAuth {
     | paths["/api/v1/admin/client/{client_id}/coaches/count"]["get"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this.checkAuth())
-      return await this.get(`/admin/client/${clientId}/coaches/count`, query);
+    if (await this.auth.checkAuth())
+      return await this.auth.get(
+        `/admin/client/${clientId}/coaches/count`,
+        query
+      );
   }
 
   // Category endpoints
@@ -195,7 +211,8 @@ class Admin extends StretchAuth {
     | paths["/api/v1/admin/categories"]["get"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this.checkAuth()) return await this.get(`/admin/categories`);
+    if (await this.auth.checkAuth())
+      return await this.auth.get(`/admin/categories`);
   }
 
   async postCategory(
@@ -204,8 +221,8 @@ class Admin extends StretchAuth {
     | paths["/api/v1/admin/category"]["post"]["responses"]["201"]["content"]["application/json"]
     | undefined
   > {
-    if (await this.checkAuth())
-      return await this.post(`/admin/category`, payload);
+    if (await this.auth.checkAuth())
+      return await this.auth.post(`/admin/category`, payload);
   }
 
   async putCategory(
@@ -215,8 +232,8 @@ class Admin extends StretchAuth {
     | paths["/api/v1/admin/category/{category_id}"]["put"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this.checkAuth())
-      return await this.put(`/admin/category/${categoryId}`, payload);
+    if (await this.auth.checkAuth())
+      return await this.auth.put(`/admin/category/${categoryId}`, payload);
   }
 
   async deleteCategory(
@@ -225,8 +242,8 @@ class Admin extends StretchAuth {
     | paths["/api/v1/admin/category/{category_id}"]["delete"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this.checkAuth())
-      return await this.delete(`/admin/category/${categoryId}`);
+    if (await this.auth.checkAuth())
+      return await this.auth.delete(`/admin/category/${categoryId}`);
   }
 
   async getCategoryImport(
@@ -235,10 +252,10 @@ class Admin extends StretchAuth {
     | paths["/api/v1/admin/category/import"]["post"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this.checkAuth()) {
+    if (await this.auth.checkAuth()) {
       const formData = payloadToFormData(payload);
       if (formData)
-        return await this.get(`/admin/category/import`, formData, null);
+        return await this.auth.get(`/admin/category/import`, formData, null);
     }
   }
 
@@ -249,10 +266,10 @@ class Admin extends StretchAuth {
     | paths["/api/v1/admin/business/import"]["post"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this.checkAuth()) {
+    if (await this.auth.checkAuth()) {
       const formData = payloadToFormData(payload);
       if (formData)
-        return await this.get(`/admin/category/import`, formData, null);
+        return await this.auth.get(`/admin/category/import`, formData, null);
     }
   }
 
@@ -262,16 +279,16 @@ class Admin extends StretchAuth {
     | paths["/api/v1/admin/business/autocomplete"]["get"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this.checkAuth())
-      return await this.get(`/admin/business/autocomplete`, query);
+    if (await this.auth.checkAuth())
+      return await this.auth.get(`/admin/business/autocomplete`, query);
   }
 
   async getBusinessFilters(): Promise<
     | paths["/api/v1/admin/business/filters"]["get"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this.checkAuth())
-      return await this.get(`/admin/business/filters`);
+    if (await this.auth.checkAuth())
+      return await this.auth.get(`/admin/business/filters`);
   }
 
   async getBusinesses(
@@ -280,8 +297,8 @@ class Admin extends StretchAuth {
     | paths["/api/v1/admin/businesses"]["post"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this.checkAuth())
-      return await this.post(`/admin/businesses`, payload);
+    if (await this.auth.checkAuth())
+      return await this.auth.post(`/admin/businesses`, payload);
   }
 
   async getBusinessesCount(
@@ -290,8 +307,8 @@ class Admin extends StretchAuth {
     | paths["/api/v1/admin/businesses/count"]["post"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this.checkAuth())
-      return await this.post(`/admin/businesses/count`, payload);
+    if (await this.auth.checkAuth())
+      return await this.auth.post(`/admin/businesses/count`, payload);
   }
 
   async getBusinessDetails(
@@ -300,8 +317,8 @@ class Admin extends StretchAuth {
     | paths["/api/v1/admin/business/{business_id}"]["get"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this.checkAuth())
-      return await this.get(`/admin/business/${businessId}`);
+    if (await this.auth.checkAuth())
+      return await this.auth.get(`/admin/business/${businessId}`);
   }
 
   async postBusiness(
@@ -310,8 +327,8 @@ class Admin extends StretchAuth {
     | paths["/api/v1/admin/business"]["post"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this.checkAuth())
-      return await this.post(`/admin/business`, payload);
+    if (await this.auth.checkAuth())
+      return await this.auth.post(`/admin/business`, payload);
   }
 
   async putBusiness(
@@ -321,8 +338,8 @@ class Admin extends StretchAuth {
     | paths["/api/v1/admin/business/{business_id}"]["put"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this.checkAuth())
-      return await this.put(`/admin/business/${businessId}`, payload);
+    if (await this.auth.checkAuth())
+      return await this.auth.put(`/admin/business/${businessId}`, payload);
   }
 
   async deleteBusiness(
@@ -332,8 +349,8 @@ class Admin extends StretchAuth {
     | paths["/api/v1/admin/business/{business_id}"]["delete"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this.checkAuth())
-      return await this.delete(`/admin/business/${businessId}`, query);
+    if (await this.auth.checkAuth())
+      return await this.auth.delete(`/admin/business/${businessId}`, query);
   }
 
   // User endpoints
@@ -344,8 +361,8 @@ class Admin extends StretchAuth {
     | paths["/api/v1/admin/user/{user_id}/blacklist"]["get"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this.checkAuth())
-      return await this.get(`/admin/user/${userId}/blacklist`, query);
+    if (await this.auth.checkAuth())
+      return await this.auth.get(`/admin/user/${userId}/blacklist`, query);
   }
 
   async getUserBlacklistCount(
@@ -355,8 +372,11 @@ class Admin extends StretchAuth {
     | paths["/api/v1/admin/user/{user_id}/blacklist/count"]["get"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this.checkAuth())
-      return await this.get(`/admin/user/${userId}/blacklist/count`, query);
+    if (await this.auth.checkAuth())
+      return await this.auth.get(
+        `/admin/user/${userId}/blacklist/count`,
+        query
+      );
   }
 
   async adminPutUser(
@@ -366,22 +386,24 @@ class Admin extends StretchAuth {
     | paths["/api/v1/admin/user/{user_id}/edit"]["put"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this.checkAuth())
-      return await this.put(`/admin/user/${userId}/edit`, payload);
+    if (await this.auth.checkAuth())
+      return await this.auth.put(`/admin/user/${userId}/edit`, payload);
   }
 
   async getUserConfig(): Promise<
     | paths["/api/v1/admin/user/config"]["get"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this.checkAuth()) return await this.get(`/admin/user/config`);
+    if (await this.auth.checkAuth())
+      return await this.auth.get(`/admin/user/config`);
   }
 
   async getUserFilters(): Promise<
     | paths["/api/v1/admin/user/filters"]["get"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this.checkAuth()) return await this.get(`/admin/user/filters`);
+    if (await this.auth.checkAuth())
+      return await this.auth.get(`/admin/user/filters`);
   }
 
   async getUsers(
@@ -390,7 +412,8 @@ class Admin extends StretchAuth {
     | paths["/api/v1/admin/users"]["post"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this.checkAuth()) return await this.post(`/admin/users`, payload);
+    if (await this.auth.checkAuth())
+      return await this.auth.post(`/admin/users`, payload);
   }
 
   async getUsersCount(
@@ -399,8 +422,8 @@ class Admin extends StretchAuth {
     | paths["/api/v1/admin/users/count"]["post"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this.checkAuth())
-      return await this.post(`/admin/users/count`, payload);
+    if (await this.auth.checkAuth())
+      return await this.auth.post(`/admin/users/count`, payload);
   }
 
   // Sessions endpoints
@@ -410,7 +433,8 @@ class Admin extends StretchAuth {
     | paths["/api/v1/admin/sessions"]["get"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this.checkAuth()) return await this.get("/admin/sessions", query);
+    if (await this.auth.checkAuth())
+      return await this.auth.get("/admin/sessions", query);
   }
 
   async getSessionCount(
@@ -419,8 +443,8 @@ class Admin extends StretchAuth {
     | paths["/api/v1/admin/sessions/count"]["get"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this.checkAuth())
-      return await this.get("/admin/sessions/count", query);
+    if (await this.auth.checkAuth())
+      return await this.auth.get("/admin/sessions/count", query);
   }
 
   async getSession(
@@ -429,8 +453,8 @@ class Admin extends StretchAuth {
     | paths["/api/v1/admin/session/{session_id}"]["get"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this.checkAuth())
-      return await this.get(`/admin/session/${sessionId}`);
+    if (await this.auth.checkAuth())
+      return await this.auth.get(`/admin/session/${sessionId}`);
   }
 
   // Feedback endpoints
@@ -440,10 +464,14 @@ class Admin extends StretchAuth {
     | paths["/api/v1/admin/support/feedback"]["post"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this.checkAuth()) {
+    if (await this.auth.checkAuth()) {
       const formData = payloadToFormData(payload);
       if (formData)
-        return await this.put(`/admin/support/feedback`, formData, undefined);
+        return await this.auth.put(
+          `/admin/support/feedback`,
+          formData,
+          undefined
+        );
     }
   }
 
@@ -454,7 +482,8 @@ class Admin extends StretchAuth {
     | paths["/api/v1/admin/reviews"]["get"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this.checkAuth()) return await this.get("/admin/reviews", query);
+    if (await this.auth.checkAuth())
+      return await this.auth.get("/admin/reviews", query);
   }
 
   async getReviewsInfo(
@@ -464,8 +493,8 @@ class Admin extends StretchAuth {
     | paths["/api/v1/admin/review/{user_id}/info"]["get"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this.checkAuth())
-      return await this.get(`/admin/review/${userId}/info`, query);
+    if (await this.auth.checkAuth())
+      return await this.auth.get(`/admin/review/${userId}/info`, query);
   }
 
   async putReview(
@@ -475,8 +504,8 @@ class Admin extends StretchAuth {
     | paths["/api/v1/admin/review/{review_id}"]["put"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this.checkAuth())
-      return await this.put(`/admin/review/${reviewId}`, query);
+    if (await this.auth.checkAuth())
+      return await this.auth.put(`/admin/review/${reviewId}`, query);
   }
 
   // Transaction endpoints
@@ -486,8 +515,8 @@ class Admin extends StretchAuth {
     | paths["/api/v1/admin/transactions"]["get"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this.checkAuth())
-      return await this.get(`/admin/transactions`, query);
+    if (await this.auth.checkAuth())
+      return await this.auth.get(`/admin/transactions`, query);
   }
 
   async getTransactionsCount(
@@ -496,8 +525,8 @@ class Admin extends StretchAuth {
     | paths["/api/v1/admin/transactions/count"]["get"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this.checkAuth())
-      return await this.get(`/admin/transactions/count`, query);
+    if (await this.auth.checkAuth())
+      return await this.auth.get(`/admin/transactions/count`, query);
   }
 
   async getTransactionsInfo(
@@ -506,8 +535,8 @@ class Admin extends StretchAuth {
     | paths["/api/v1/admin/transactions/info"]["get"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this.checkAuth())
-      return await this.get(`/admin/transactions/info`, query);
+    if (await this.auth.checkAuth())
+      return await this.auth.get(`/admin/transactions/info`, query);
   }
 
   async getTransactionDetails(
@@ -516,8 +545,8 @@ class Admin extends StretchAuth {
     | paths["/api/v1/admin/transaction/{transaction_id}"]["get"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this.checkAuth())
-      return await this.get(`/admin/transaction/${transactionId}`);
+    if (await this.auth.checkAuth())
+      return await this.auth.get(`/admin/transaction/${transactionId}`);
   }
 
   async refundTransaction(
@@ -527,8 +556,8 @@ class Admin extends StretchAuth {
     | paths["/api/v1/admin/transaction/{transaction_id}/refund"]["put"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this.checkAuth())
-      return await this.put(
+    if (await this.auth.checkAuth())
+      return await this.auth.put(
         `/admin/transaction/${transactionId}/refund`,
         query
       );
@@ -541,8 +570,8 @@ class Admin extends StretchAuth {
     | paths["/api/v1/admin/verifications"]["get"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this.checkAuth())
-      return await this.get(`/admin/verifications`, query);
+    if (await this.auth.checkAuth())
+      return await this.auth.get(`/admin/verifications`, query);
   }
 
   async getVerificationsCount(
@@ -551,8 +580,8 @@ class Admin extends StretchAuth {
     | paths["/api/v1/admin/verifications/count"]["get"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this.checkAuth())
-      return await this.get(`/admin/verifications/count`, query);
+    if (await this.auth.checkAuth())
+      return await this.auth.get(`/admin/verifications/count`, query);
   }
 
   async postCoachReport(
@@ -562,8 +591,11 @@ class Admin extends StretchAuth {
     | paths["/api/v1/admin/verification/{coach_id}/report"]["post"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this.checkAuth())
-      return await this.post(`/admin/verification/${coachId}/report`, query);
+    if (await this.auth.checkAuth())
+      return await this.auth.post(
+        `/admin/verification/${coachId}/report`,
+        query
+      );
   }
 
   // Refunds endpoint
@@ -573,7 +605,8 @@ class Admin extends StretchAuth {
     | paths["/api/v1/admin/refunds"]["get"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this.checkAuth()) return await this.get(`/admin/refunds`, query);
+    if (await this.auth.checkAuth())
+      return await this.auth.get(`/admin/refunds`, query);
   }
 
   async getRefundsCount(
@@ -582,8 +615,8 @@ class Admin extends StretchAuth {
     | paths["/api/v1/admin/refunds/count"]["get"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this.checkAuth())
-      return await this.get(`/admin/refunds/count`, query);
+    if (await this.auth.checkAuth())
+      return await this.auth.get(`/admin/refunds/count`, query);
   }
 
   async getRefundDetails(
@@ -592,8 +625,8 @@ class Admin extends StretchAuth {
     | paths["/api/v1/admin/refund/{report_id}"]["get"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this.checkAuth())
-      return await this.get(`/admin/refund/${reportId}`);
+    if (await this.auth.checkAuth())
+      return await this.auth.get(`/admin/refund/${reportId}`);
   }
 
   async putRefund(
@@ -603,8 +636,8 @@ class Admin extends StretchAuth {
     | paths["/api/v1/admin/refund/{report_id}"]["put"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this.checkAuth())
-      return await this.put(`/admin/refund/${reportId}`, query);
+    if (await this.auth.checkAuth())
+      return await this.auth.put(`/admin/refund/${reportId}`, query);
   }
 
   // Reports endpoint
@@ -614,7 +647,8 @@ class Admin extends StretchAuth {
     | paths["/api/v1/admin/reports"]["get"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this.checkAuth()) return await this.get(`/admin/reports`, query);
+    if (await this.auth.checkAuth())
+      return await this.auth.get(`/admin/reports`, query);
   }
 
   async getReportsCount(
@@ -623,8 +657,8 @@ class Admin extends StretchAuth {
     | paths["/api/v1/admin/reports/count"]["get"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this.checkAuth())
-      return await this.get(`/admin/reports/count`, query);
+    if (await this.auth.checkAuth())
+      return await this.auth.get(`/admin/reports/count`, query);
   }
 
   async getReportDetails(
@@ -633,8 +667,8 @@ class Admin extends StretchAuth {
     | paths["/api/v1/admin/report/{report_id}"]["get"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this.checkAuth())
-      return await this.get(`/admin/report/${reportId}`);
+    if (await this.auth.checkAuth())
+      return await this.auth.get(`/admin/report/${reportId}`);
   }
 
   // Properties endpoints
@@ -644,8 +678,8 @@ class Admin extends StretchAuth {
     | paths["/api/v1/admin/config/fields"]["get"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this.checkAuth())
-      return await this.get(`/admin/config/fields`, query);
+    if (await this.auth.checkAuth())
+      return await this.auth.get(`/admin/config/fields`, query);
   }
 
   async postProperty(
@@ -654,8 +688,8 @@ class Admin extends StretchAuth {
     | paths["/api/v1/admin/config/field"]["post"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this.checkAuth())
-      return await this.post(`/admin/config/field`, payload);
+    if (await this.auth.checkAuth())
+      return await this.auth.post(`/admin/config/field`, payload);
   }
 
   async putProperty(
@@ -665,8 +699,8 @@ class Admin extends StretchAuth {
     | paths["/api/v1/admin/config/field/{property_field_id}"]["put"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this.checkAuth())
-      return await this.put(`/admin/config/field/${propertyId}`, payload);
+    if (await this.auth.checkAuth())
+      return await this.auth.put(`/admin/config/field/${propertyId}`, payload);
   }
 
   async deleteProperty(
@@ -675,8 +709,8 @@ class Admin extends StretchAuth {
     | paths["/api/v1/admin/config/field/{property_field_id}"]["delete"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this.checkAuth())
-      return await this.delete(`/admin/config/field/${propertyId}`);
+    if (await this.auth.checkAuth())
+      return await this.auth.delete(`/admin/config/field/${propertyId}`);
   }
 
   // Consumer endpoints
@@ -684,8 +718,8 @@ class Admin extends StretchAuth {
     | paths["/api/v1/admin/config/consumers"]["get"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this.checkAuth())
-      return await this.get(`/admin/config/consumers`);
+    if (await this.auth.checkAuth())
+      return await this.auth.get(`/admin/config/consumers`);
   }
 
   async postConsumer(
@@ -694,8 +728,8 @@ class Admin extends StretchAuth {
     | paths["/api/v1/admin/config/consumer"]["post"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this.checkAuth())
-      return await this.post(`/admin/config/consumer`, payload);
+    if (await this.auth.checkAuth())
+      return await this.auth.post(`/admin/config/consumer`, payload);
   }
 
   async putConsumer(
@@ -705,8 +739,8 @@ class Admin extends StretchAuth {
     | paths["/api/v1/admin/config/consumer/{client_id}"]["put"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this.checkAuth())
-      return await this.put(`/admin/config/consumer/${clientId}`, payload);
+    if (await this.auth.checkAuth())
+      return await this.auth.put(`/admin/config/consumer/${clientId}`, payload);
   }
 
   async deleteConsumer(
@@ -715,8 +749,8 @@ class Admin extends StretchAuth {
     | paths["/api/v1/admin/config/consumer/{client_id}"]["delete"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this.checkAuth())
-      return await this.delete(`/admin/config/consumer/${clientId}`);
+    if (await this.auth.checkAuth())
+      return await this.auth.delete(`/admin/config/consumer/${clientId}`);
   }
 
   // Config endpoints
@@ -726,8 +760,8 @@ class Admin extends StretchAuth {
     | paths["/api/v1/admin/config/languages"]["get"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this.checkAuth())
-      return await this.get(`/admin/config/languages`, query);
+    if (await this.auth.checkAuth())
+      return await this.auth.get(`/admin/config/languages`, query);
   }
 
   async getConsumerCurrencies(
@@ -736,8 +770,8 @@ class Admin extends StretchAuth {
     | paths["/api/v1/admin/config/currencies"]["get"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this.checkAuth())
-      return await this.get(`/admin/config/currencies`, query);
+    if (await this.auth.checkAuth())
+      return await this.auth.get(`/admin/config/currencies`, query);
   }
 
   async postServiceTypes(
@@ -746,8 +780,8 @@ class Admin extends StretchAuth {
     | paths["/api/v1/admin/config/service-types"]["post"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this.checkAuth())
-      return await this.post(`/admin/config/service-types`, payload);
+    if (await this.auth.checkAuth())
+      return await this.auth.post(`/admin/config/service-types`, payload);
   }
 
   async deleteServiceType(
@@ -756,8 +790,10 @@ class Admin extends StretchAuth {
     | paths["/api/v1/admin/config/service-type/{service_type_id}"]["delete"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this.checkAuth())
-      return await this.delete(`/admin/config/service-type/${serviceTypeId}`);
+    if (await this.auth.checkAuth())
+      return await this.auth.delete(
+        `/admin/config/service-type/${serviceTypeId}`
+      );
   }
 
   async postPaymentMethod(
@@ -766,8 +802,8 @@ class Admin extends StretchAuth {
     | paths["/api/v1/admin/config/method"]["post"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this.checkAuth())
-      return await this.post(`/admin/config/method`, payload);
+    if (await this.auth.checkAuth())
+      return await this.auth.post(`/admin/config/method`, payload);
   }
 
   // Withdrawal endpoint
@@ -777,8 +813,8 @@ class Admin extends StretchAuth {
     | paths["/api/v1/admin/withdrawals"]["get"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this.checkAuth())
-      return await this.get(`/admin/withdrawals`, query);
+    if (await this.auth.checkAuth())
+      return await this.auth.get(`/admin/withdrawals`, query);
   }
 
   async getWithdrawalsCount(
@@ -787,8 +823,8 @@ class Admin extends StretchAuth {
     | paths["/api/v1/admin/withdrawals/count"]["get"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this.checkAuth())
-      return await this.get(`/admin/withdrawals/count`, query);
+    if (await this.auth.checkAuth())
+      return await this.auth.get(`/admin/withdrawals/count`, query);
   }
 
   async getWithdrawalDetails(
@@ -797,8 +833,8 @@ class Admin extends StretchAuth {
     | paths["/api/v1/admin/withdrawal/{withdrawal_id}"]["get"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this.checkAuth())
-      return await this.get(`/admin/withdrawal/${withdrawalId}`);
+    if (await this.auth.checkAuth())
+      return await this.auth.get(`/admin/withdrawal/${withdrawalId}`);
   }
 
   // Analytics endpoint
@@ -808,8 +844,8 @@ class Admin extends StretchAuth {
     | paths["/api/v1/admin/analytics/revenue"]["get"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this.checkAuth())
-      return await this.get("/admin/analytics/revenue", query);
+    if (await this.auth.checkAuth())
+      return await this.auth.get("/admin/analytics/revenue", query);
   }
 
   async revenueChartAnalytics(
@@ -818,8 +854,8 @@ class Admin extends StretchAuth {
     | paths["/api/v1/admin/analytics/revenue-chart"]["get"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this.checkAuth())
-      return await this.get("/admin/analytics/revenue-chart", query);
+    if (await this.auth.checkAuth())
+      return await this.auth.get("/admin/analytics/revenue-chart", query);
   }
 
   async sessionInfoAnalytics(
@@ -828,8 +864,8 @@ class Admin extends StretchAuth {
     | paths["/api/v1/admin/analytics/session-info"]["get"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this.checkAuth())
-      return await this.get("/admin/analytics/session-info", query);
+    if (await this.auth.checkAuth())
+      return await this.auth.get("/admin/analytics/session-info", query);
   }
 
   async totalUserAnalytics(
@@ -838,8 +874,8 @@ class Admin extends StretchAuth {
     | paths["/api/v1/admin/analytics/users"]["get"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this.checkAuth())
-      return await this.get("/admin/analytics/users", query);
+    if (await this.auth.checkAuth())
+      return await this.auth.get("/admin/analytics/users", query);
   }
 
   async bestCoachAnalytics(
@@ -848,8 +884,8 @@ class Admin extends StretchAuth {
     | paths["/api/v1/admin/analytics/best-users"]["get"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this.checkAuth())
-      return await this.get("/admin/analytics/best-users", query);
+    if (await this.auth.checkAuth())
+      return await this.auth.get("/admin/analytics/best-users", query);
   }
 
   async getAnalyticsSummary(
@@ -858,8 +894,8 @@ class Admin extends StretchAuth {
     | paths["/api/v1/admin/analytics/summary"]["get"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this.checkAuth())
-      return await this.get("/admin/analytics/summary", query);
+    if (await this.auth.checkAuth())
+      return await this.auth.get("/admin/analytics/summary", query);
   }
 
   async getCoachAnalyticsSummary(
@@ -869,8 +905,11 @@ class Admin extends StretchAuth {
     | paths["/api/v1/admin/analytics/coach/{coach_id}/summary"]["get"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this.checkAuth())
-      return await this.get(`/admin/analytics/coach/${coachId}/summary`, query);
+    if (await this.auth.checkAuth())
+      return await this.auth.get(
+        `/admin/analytics/coach/${coachId}/summary`,
+        query
+      );
   }
 
   async getClientAnalyticsSummary(
@@ -880,8 +919,8 @@ class Admin extends StretchAuth {
     | paths["/api/v1/admin/analytics/client/{client_id}/summary"]["get"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this.checkAuth())
-      return await this.get(
+    if (await this.auth.checkAuth())
+      return await this.auth.get(
         `/admin/analytics/client/${clientId}/summary`,
         query
       );
@@ -891,8 +930,8 @@ class Admin extends StretchAuth {
     | paths["/api/v1/admin/analytics/dashboard"]["get"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this.checkAuth())
-      return await this.get(`/admin/analytics/dashboard`);
+    if (await this.auth.checkAuth())
+      return await this.auth.get(`/admin/analytics/dashboard`);
   }
 
   // Equipments endpoint
@@ -902,8 +941,8 @@ class Admin extends StretchAuth {
     | paths["/api/v1/admin/equipments"]["get"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this.checkAuth())
-      return await this.get(`/admin/equipments`, query);
+    if (await this.auth.checkAuth())
+      return await this.auth.get(`/admin/equipments`, query);
   }
 
   async getEquipmentsCount(
@@ -912,8 +951,8 @@ class Admin extends StretchAuth {
     | paths["/api/v1/admin/equipments/count"]["get"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this.checkAuth())
-      return await this.get(`/admin/equipments/count`, query);
+    if (await this.auth.checkAuth())
+      return await this.auth.get(`/admin/equipments/count`, query);
   }
 }
 

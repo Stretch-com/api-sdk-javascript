@@ -1,14 +1,20 @@
 import { paths } from "../../types/coach";
 import { StretchAuth } from "../common/auth";
 
-class Coach extends StretchAuth {
+class Coach {
+  auth: StretchAuth;
+
+  constructor(stretchAuth: StretchAuth) {
+    this.auth = stretchAuth;
+  }
+
   // Awards
   async getAwards(): Promise<
     | paths["/api/v1/coach/awards"]["get"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this.checkAuth()) {
-      return await this.get(`/coach/awards`);
+    if (await this.auth.checkAuth()) {
+      return await this.auth.get(`/coach/awards`);
     }
   }
 
@@ -18,8 +24,8 @@ class Coach extends StretchAuth {
     | paths["/api/v1/coach/award"]["post"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this.checkAuth()) {
-      return await this.post(`/coach/award`, payload);
+    if (await this.auth.checkAuth()) {
+      return await this.auth.post(`/coach/award`, payload);
     }
   }
 
@@ -30,8 +36,8 @@ class Coach extends StretchAuth {
     | paths["/api/v1/coach/award/{award_id}"]["put"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this.checkAuth()) {
-      return await this.put(`/coach/award/${awardId}`, payload);
+    if (await this.auth.checkAuth()) {
+      return await this.auth.put(`/coach/award/${awardId}`, payload);
     }
   }
 
@@ -41,8 +47,8 @@ class Coach extends StretchAuth {
     | paths["/api/v1/coach/award/{award_id}"]["delete"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this.checkAuth()) {
-      return await this.delete(`/coach/award/${awardId}`);
+    if (await this.auth.checkAuth()) {
+      return await this.auth.delete(`/coach/award/${awardId}`);
     }
   }
 
@@ -51,8 +57,8 @@ class Coach extends StretchAuth {
     | paths["/api/v1/coach/certificates"]["get"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this.checkAuth()) {
-      return await this.get(`/coach/certificates`);
+    if (await this.auth.checkAuth()) {
+      return await this.auth.get(`/coach/certificates`);
     }
   }
 
@@ -62,8 +68,8 @@ class Coach extends StretchAuth {
     | paths["/api/v1/coach/certificate"]["post"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this.checkAuth()) {
-      return await this.post(`/coach/certificate`, payload);
+    if (await this.auth.checkAuth()) {
+      return await this.auth.post(`/coach/certificate`, payload);
     }
   }
 
@@ -74,8 +80,11 @@ class Coach extends StretchAuth {
     | paths["/api/v1/coach/certificate/{certificate_id}"]["put"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this.checkAuth()) {
-      return await this.put(`/coach/certificate/${certificateId}`, payload);
+    if (await this.auth.checkAuth()) {
+      return await this.auth.put(
+        `/coach/certificate/${certificateId}`,
+        payload
+      );
     }
   }
 
@@ -85,8 +94,8 @@ class Coach extends StretchAuth {
     | paths["/api/v1/coach/certificate/{certificate_id}"]["delete"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this.checkAuth()) {
-      return await this.delete(`/coach/certificate/${certiticateId}`);
+    if (await this.auth.checkAuth()) {
+      return await this.auth.delete(`/coach/certificate/${certiticateId}`);
     }
   }
 
@@ -95,7 +104,7 @@ class Coach extends StretchAuth {
     | paths["/api/v1/coach/faqs"]["get"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this.checkAuth()) return await this.get(`/coach/faqs`);
+    if (await this.auth.checkAuth()) return await this.auth.get(`/coach/faqs`);
   }
 
   async postFAQ(
@@ -104,7 +113,8 @@ class Coach extends StretchAuth {
     | paths["/api/v1/coach/faq"]["post"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this.checkAuth()) return await this.post(`/coach/faq`, payload);
+    if (await this.auth.checkAuth())
+      return await this.auth.post(`/coach/faq`, payload);
   }
 
   async putFAQ(
@@ -114,8 +124,8 @@ class Coach extends StretchAuth {
     | paths["/api/v1/coach/faq/{faq_id}"]["put"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this.checkAuth())
-      return await this.put(`/coach/faq/${faqId}`, payload);
+    if (await this.auth.checkAuth())
+      return await this.auth.put(`/coach/faq/${faqId}`, payload);
   }
 
   async putFAQsOrder(
@@ -124,8 +134,8 @@ class Coach extends StretchAuth {
     | paths["/api/v1/coach/faqs/order"]["put"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this.checkAuth())
-      return await this.delete(`/coach/faqs/order`, payload);
+    if (await this.auth.checkAuth())
+      return await this.auth.delete(`/coach/faqs/order`, payload);
   }
 
   async deleteFAQ(
@@ -134,7 +144,8 @@ class Coach extends StretchAuth {
     | paths["/api/v1/coach/faq/{faq_id}"]["delete"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this.checkAuth()) return await this.delete(`/coach/faq/${faqId}`);
+    if (await this.auth.checkAuth())
+      return await this.auth.delete(`/coach/faq/${faqId}`);
   }
 
   // Equipments
@@ -144,8 +155,8 @@ class Coach extends StretchAuth {
     | paths["/api/v1/coach/equipments"]["get"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this.checkAuth())
-      return await this.get(`/coach/equipment`, query);
+    if (await this.auth.checkAuth())
+      return await this.auth.get(`/coach/equipment`, query);
   }
   async postEquipment(
     payload: paths["/api/v1/coach/equipment"]["post"]["requestBody"]["content"]["application/json"]
@@ -153,8 +164,8 @@ class Coach extends StretchAuth {
     | paths["/api/v1/coach/equipment"]["post"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this.checkAuth())
-      return await this.post(`/coach/equipment`, payload);
+    if (await this.auth.checkAuth())
+      return await this.auth.post(`/coach/equipment`, payload);
   }
 
   async putEquipment(
@@ -164,8 +175,8 @@ class Coach extends StretchAuth {
     | paths["/api/v1/coach/equipment/{equipment_id}"]["put"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this.checkAuth())
-      return await this.put(`/coach/equipment/${equipmentId}`, payload);
+    if (await this.auth.checkAuth())
+      return await this.auth.put(`/coach/equipment/${equipmentId}`, payload);
   }
 
   async deleteEquipment(
@@ -174,8 +185,8 @@ class Coach extends StretchAuth {
     | paths["/api/v1/coach/equipment/{equipment_id}"]["delete"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this.checkAuth())
-      return await this.delete(`/coach/equipment/${equipmentId}`);
+    if (await this.auth.checkAuth())
+      return await this.auth.delete(`/coach/equipment/${equipmentId}`);
   }
 
   // Gallery
@@ -183,7 +194,8 @@ class Coach extends StretchAuth {
     | paths["/api/v1/coach/gallery"]["get"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this.checkAuth()) return await this.get(`/coach/gallery`);
+    if (await this.auth.checkAuth())
+      return await this.auth.get(`/coach/gallery`);
   }
 
   async putGallery(
@@ -192,8 +204,8 @@ class Coach extends StretchAuth {
     | paths["/api/v1/coach/gallery"]["put"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this.checkAuth())
-      return await this.put(`/coach/gallery`, payload);
+    if (await this.auth.checkAuth())
+      return await this.auth.put(`/coach/gallery`, payload);
   }
 
   // Services
@@ -203,7 +215,8 @@ class Coach extends StretchAuth {
     | paths["/api/v1/coach/services"]["get"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this.checkAuth()) return await this.get("/coach/services", query);
+    if (await this.auth.checkAuth())
+      return await this.auth.get("/coach/services", query);
   }
 
   async getCoachServices(
@@ -212,8 +225,8 @@ class Coach extends StretchAuth {
     | paths["/api/v1/coach/{coach_id}/services"]["get"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this.checkAuth())
-      return await this.get(`/coach/${coachId}/services`);
+    if (await this.auth.checkAuth())
+      return await this.auth.get(`/coach/${coachId}/services`);
   }
 
   async getService(
@@ -222,8 +235,8 @@ class Coach extends StretchAuth {
     | paths["/api/v1/coach/service/{service_id}"]["get"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this.checkAuth())
-      return await this.get(`/coach/service/${serviceId}`);
+    if (await this.auth.checkAuth())
+      return await this.auth.get(`/coach/service/${serviceId}`);
   }
 
   async postService(
@@ -232,8 +245,8 @@ class Coach extends StretchAuth {
     | paths["/api/v1/coach/service"]["post"]["responses"]["201"]["content"]["application/json"]
     | undefined
   > {
-    if (await this.checkAuth())
-      return await this.post("/coach/service", payload);
+    if (await this.auth.checkAuth())
+      return await this.auth.post("/coach/service", payload);
   }
 
   async putService(
@@ -243,8 +256,8 @@ class Coach extends StretchAuth {
     | paths["/api/v1/coach/service/{service_id}"]["put"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this.checkAuth())
-      return await this.put(`/coach/service/${serviceId}`, payload);
+    if (await this.auth.checkAuth())
+      return await this.auth.put(`/coach/service/${serviceId}`, payload);
   }
 
   async putServicesOrder(
@@ -253,8 +266,8 @@ class Coach extends StretchAuth {
     | paths["/api/v1/coach/services/order"]["put"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this.checkAuth())
-      return await this.put(`/coach/services/order`, payload);
+    if (await this.auth.checkAuth())
+      return await this.auth.put(`/coach/services/order`, payload);
   }
 
   async deleteService(
@@ -263,15 +276,16 @@ class Coach extends StretchAuth {
     | paths["/api/v1/coach/service/{service_id}"]["delete"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this.checkAuth())
-      return await this.delete(`/coach/service/${serviceId}`);
+    if (await this.auth.checkAuth())
+      return await this.auth.delete(`/coach/service/${serviceId}`);
   }
 
   async getPreview(): Promise<
     | paths["/api/v1/coach/preview"]["get"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this.checkAuth()) return await this.get(`/coach/preview`);
+    if (await this.auth.checkAuth())
+      return await this.auth.get(`/coach/preview`);
   }
 
   async getCoachProfile(
@@ -280,8 +294,8 @@ class Coach extends StretchAuth {
     | paths["/api/v1/coach/{coach_id}/profile"]["get"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this.checkAuth())
-      return await this.get(`/coach/${coachId}/profile`);
+    if (await this.auth.checkAuth())
+      return await this.auth.get(`/coach/${coachId}/profile`);
   }
 
   // Coach availability CRUD
@@ -291,8 +305,8 @@ class Coach extends StretchAuth {
     | paths["/api/v1/coach/availability/calendar"]["get"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this.checkAuth())
-      return await this.get(`/coach/availability/calendar`, query);
+    if (await this.auth.checkAuth())
+      return await this.auth.get(`/coach/availability/calendar`, query);
   }
 
   async getAvailabilities(
@@ -301,8 +315,8 @@ class Coach extends StretchAuth {
     | paths["/api/v1/coach/availabilities"]["get"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this.checkAuth())
-      return await this.get(`/coach/availabilities`, query);
+    if (await this.auth.checkAuth())
+      return await this.auth.get(`/coach/availabilities`, query);
   }
 
   async getAvailability(
@@ -311,16 +325,16 @@ class Coach extends StretchAuth {
     | paths["/api/v1/coach/availability/{availability_id}"]["get"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this.checkAuth())
-      return await this.get(`/coach/availability/${availabilityId}`);
+    if (await this.auth.checkAuth())
+      return await this.auth.get(`/coach/availability/${availabilityId}`);
   }
 
   async getWeeklyAvailabilities(): Promise<
     | paths["/api/v1/coach/availabilities/weekly"]["get"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this.checkAuth())
-      return await this.get(`/coach/availabilities/weekly`);
+    if (await this.auth.checkAuth())
+      return await this.auth.get(`/coach/availabilities/weekly`);
   }
 
   async postAvailabilities(
@@ -329,8 +343,8 @@ class Coach extends StretchAuth {
     | paths["/api/v1/coach/availabilities"]["post"]["responses"]["201"]["content"]["application/json"]
     | undefined
   > {
-    if (await this.checkAuth())
-      return await this.post("/coach/availabilities", payload);
+    if (await this.auth.checkAuth())
+      return await this.auth.post("/coach/availabilities", payload);
   }
 
   async postAvailability(
@@ -339,8 +353,8 @@ class Coach extends StretchAuth {
     | paths["/api/v1/coach/availability"]["post"]["responses"]["201"]["content"]["application/json"]
     | undefined
   > {
-    if (await this.checkAuth())
-      return await this.post("/coach/availability", payload);
+    if (await this.auth.checkAuth())
+      return await this.auth.post("/coach/availability", payload);
   }
 
   async putAvailability(
@@ -350,8 +364,11 @@ class Coach extends StretchAuth {
     | paths["/api/v1/coach/availability/{availability_id}"]["put"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this.checkAuth())
-      return await this.put(`/coach/availability/${availabilityId}`, payload);
+    if (await this.auth.checkAuth())
+      return await this.auth.put(
+        `/coach/availability/${availabilityId}`,
+        payload
+      );
   }
 
   async deleteAvailabilities(
@@ -360,8 +377,8 @@ class Coach extends StretchAuth {
     | paths["/api/v1/coach/availabilities/delete"]["post"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this.checkAuth())
-      return await this.post(`/coach/availabilities/delete`, payload);
+    if (await this.auth.checkAuth())
+      return await this.auth.post(`/coach/availabilities/delete`, payload);
   }
 
   async deleteAvailability(
@@ -370,8 +387,8 @@ class Coach extends StretchAuth {
     | paths["/api/v1/coach/availability/{availability_id}"]["delete"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this.checkAuth())
-      return await this.delete(`/coach/availability/${availabilityId}`);
+    if (await this.auth.checkAuth())
+      return await this.auth.delete(`/coach/availability/${availabilityId}`);
   }
 
   async deleteAvailabilityByDate(
@@ -380,8 +397,8 @@ class Coach extends StretchAuth {
     | paths["/api/v1/coach/availabilities/available/{date}"]["delete"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this.checkAuth())
-      return await this.delete(`/coach/availabilities/available/${date}`);
+    if (await this.auth.checkAuth())
+      return await this.auth.delete(`/coach/availabilities/available/${date}`);
   }
 
   async deleteUnavailabilityByDate(
@@ -390,8 +407,10 @@ class Coach extends StretchAuth {
     | paths["/api/v1/coach/availabilities/unavailable/{date}"]["delete"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this.checkAuth())
-      return await this.delete(`/coach/availabilities/unavailable/${date}`);
+    if (await this.auth.checkAuth())
+      return await this.auth.delete(
+        `/coach/availabilities/unavailable/${date}`
+      );
   }
 
   // Coach activation
@@ -401,8 +420,8 @@ class Coach extends StretchAuth {
     | paths["/api/v1/coach/available"]["put"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this.checkAuth())
-      return await this.put("/coach/available", query);
+    if (await this.auth.checkAuth())
+      return await this.auth.put("/coach/available", query);
   }
 
   // Analytics
@@ -412,8 +431,8 @@ class Coach extends StretchAuth {
     | paths["/api/v1/coach/analytics/revenue"]["get"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this.checkAuth())
-      return await this.get(`/coach/analytics/revenue`, query);
+    if (await this.auth.checkAuth())
+      return await this.auth.get(`/coach/analytics/revenue`, query);
   }
 
   async getAnalyticsRevenueChart(
@@ -422,8 +441,8 @@ class Coach extends StretchAuth {
     | paths["/api/v1/coach/analytics/revenue-chart"]["get"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this.checkAuth())
-      return await this.get(`/coach/analytics/revenue-chart`, query);
+    if (await this.auth.checkAuth())
+      return await this.auth.get(`/coach/analytics/revenue-chart`, query);
   }
 
   async getAnalyticsSessionInfo(
@@ -432,8 +451,8 @@ class Coach extends StretchAuth {
     | paths["/api/v1/coach/analytics/session-info"]["get"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this.checkAuth())
-      return await this.get(`/coach/analytics/session-info`, query);
+    if (await this.auth.checkAuth())
+      return await this.auth.get(`/coach/analytics/session-info`, query);
   }
 
   async getAnalyticsClients(
@@ -442,8 +461,8 @@ class Coach extends StretchAuth {
     | paths["/api/v1/coach/analytics/clients"]["get"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this.checkAuth())
-      return await this.get(`/coach/analytics/clients`, query);
+    if (await this.auth.checkAuth())
+      return await this.auth.get(`/coach/analytics/clients`, query);
   }
 
   async getAnalyticsSummary(
@@ -452,8 +471,8 @@ class Coach extends StretchAuth {
     | paths["/api/v1/coach/analytics/summary"]["get"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this.checkAuth())
-      return await this.get(`/coach/analytics/summary`, query);
+    if (await this.auth.checkAuth())
+      return await this.auth.get(`/coach/analytics/summary`, query);
   }
 
   async postBoostProfile(
@@ -462,8 +481,8 @@ class Coach extends StretchAuth {
     | paths["/api/v1/coach/boost-profile"]["post"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    if (await this.checkAuth())
-      return await this.post(`/coach/boost-profile`, query);
+    if (await this.auth.checkAuth())
+      return await this.auth.post(`/coach/boost-profile`, query);
   }
 }
 

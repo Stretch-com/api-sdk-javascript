@@ -70,7 +70,7 @@ export async function apiFetch(
       "request-error",
       `Request error: ${err.message}`
     );
-    console.log(err);
+    console.warn(err);
     if (err instanceof Response) {
       error.status = err.status;
     }
@@ -85,7 +85,7 @@ export async function apiToken(
   uri: URL,
   username: string,
   password: string,
-  scope = "coach",
+  scope: string | undefined,
   clientId = "2f9445b3-5266-45cd-8a85-d5c3fff69781",
   clientSecret = ""
 ) {
