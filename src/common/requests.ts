@@ -70,7 +70,11 @@ export class StretchBase {
     });
   }
 
-  async post(uri: string, payload?: object, contentType = "application/json") {
+  async post(
+    uri: string,
+    payload?: object,
+    contentType: string | null = "application/json"
+  ) {
     const headers: HeadersInit = {
       Authorization: `${this.#tokenType} ${this.#accessToken}`,
     };
