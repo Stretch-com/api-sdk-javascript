@@ -10,6 +10,7 @@ export const payloadToFormData = (payload: object): FormData | null => {
   for (const [key, value] of Object.entries(payload)) {
     if (Array.isArray(value))
       for (const val of value) formData.append(key, val);
+    else if (value instanceof File) formData.append(key, value, value.name);
     else if (typeof value === "string") formData.append(key, value);
     else console.error(`Wrong value type:`, value);
   }

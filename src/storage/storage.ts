@@ -27,7 +27,7 @@ class Storage {
     if (await this.auth.checkAuth()) {
       const formData = payloadToFormData(payload);
       if (!formData) return;
-      return await this.auth.post("/storage/attachment", formData, undefined);
+      return await this.auth.post("/storage/attachment", formData, null);
     }
   }
 
@@ -51,11 +51,7 @@ class Storage {
     if (await this.auth.checkAuth()) {
       const formData = payloadToFormData(payload);
       if (!formData) return;
-      return await this.auth.post(
-        "/storage/profile/avatar",
-        formData,
-        undefined
-      );
+      return await this.auth.post("/storage/profile/avatar", formData, null);
     }
   }
 
@@ -76,11 +72,7 @@ class Storage {
     if (await this.auth.checkAuth()) {
       const formData = payloadToFormData(payload);
       if (!formData) return;
-      return await this.auth.post(
-        "/storage/profile/media",
-        formData,
-        undefined
-      );
+      return await this.auth.post("/storage/profile/media", formData, null);
     }
   }
 }
