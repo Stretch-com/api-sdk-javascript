@@ -236,6 +236,16 @@ class Admin {
       return await this.auth.put(`/admin/category/${categoryId}`, payload);
   }
 
+  async putCategoriesOrder(
+    payload: paths["/api/v1/admin/categories/order"]["put"]["requestBody"]["content"]["application/json"]
+  ): Promise<
+    | paths["/api/v1/admin/categories/order"]["put"]["responses"]["200"]["content"]["application/json"]
+    | undefined
+  > {
+    if (await this.auth.checkAuth())
+      return await this.auth.put(`/admin/categories/order`, payload);
+  }
+
   async deleteCategory(
     categoryId: string
   ): Promise<
