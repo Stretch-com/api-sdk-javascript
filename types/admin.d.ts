@@ -87,6 +87,10 @@ export interface paths {
     /** Delete Category */
     delete: operations["delete_category_api_v1_admin_category__category_id__delete"];
   };
+  "/api/v1/admin/categories/order": {
+    /** Set Category Order */
+    put: operations["set_category_order_api_v1_admin_categories_order_put"];
+  };
   "/api/v1/admin/category/import": {
     /**
      * Import Categories
@@ -4181,6 +4185,18 @@ export interface components {
      */
     OpenHourType: "monday" | "tuesday" | "wednesday" | "thursday" | "friday" | "saturday" | "sunday";
     /**
+     * OrderIn
+     * @description Order by IDs
+     */
+    OrderIn: {
+      /**
+       * Order
+       * @description List of IDs in the required order
+       * @default []
+       */
+      order?: string[];
+    };
+    /**
      * ParkingType
      * @enum {string}
      */
@@ -6044,6 +6060,28 @@ export interface operations {
       200: {
         content: {
           "application/json": components["schemas"]["DeleteResponse"];
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        content: {
+          "application/json": components["schemas"]["HTTPValidationError"];
+        };
+      };
+    };
+  };
+  /** Set Category Order */
+  set_category_order_api_v1_admin_categories_order_put: {
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["OrderIn"];
+      };
+    };
+    responses: {
+      /** @description Successful Response */
+      200: {
+        content: {
+          "application/json": components["schemas"]["StretchResponse"];
         };
       };
       /** @description Validation Error */
