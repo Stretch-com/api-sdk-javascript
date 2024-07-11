@@ -964,6 +964,61 @@ class Admin {
     if (await this.auth.checkAuth())
       return await this.auth.get(`/admin/equipments/count`, query);
   }
+
+  // Marketing groups endpoint
+  async getMarketingGroups(
+    query: paths["/api/v1/admin/marketing-groups"]["get"]["parameters"]["query"]
+  ): Promise<
+    | paths["/api/v1/admin/marketing-groups"]["get"]["responses"]["200"]["content"]["application/json"]
+    | undefined
+  > {
+    if (await this.auth.checkAuth())
+      return await this.auth.get(`/admin/marketing-groups`, query);
+  }
+
+  async postMarketingGroup(
+    payload: paths["/api/v1/admin/marketing-group"]["post"]["requestBody"]["content"]["application/json"]
+  ): Promise<
+    | paths["/api/v1/admin/marketing-group"]["post"]["responses"]["201"]["content"]["application/json"]
+    | undefined
+  > {
+    if (await this.auth.checkAuth())
+      return await this.auth.post(`/admin/marketing-group`, payload);
+  }
+
+  async putMarketingGroup(
+    marketingId: string,
+    payload: paths["/api/v1/admin/marketing-group/{marketing_id}"]["put"]["requestBody"]["content"]["application/json"]
+  ): Promise<
+    | paths["/api/v1/admin/marketing-group/{marketing_id}"]["put"]["responses"]["200"]["content"]["application/json"]
+    | undefined
+  > {
+    if (await this.auth.checkAuth())
+      return await this.auth.put(
+        `/admin/marketing-group/${marketingId}`,
+        payload
+      );
+  }
+
+  async putMarketingGroupsOrder(
+    payload: paths["/api/v1/admin/marketing-groups/order"]["put"]["requestBody"]["content"]["application/json"]
+  ): Promise<
+    | paths["/api/v1/admin/marketing-groups/order"]["put"]["responses"]["200"]["content"]["application/json"]
+    | undefined
+  > {
+    if (await this.auth.checkAuth())
+      return await this.auth.put(`/admin/marketing-groups/order`, payload);
+  }
+
+  async deleteMarketingGroup(
+    marketingId: string
+  ): Promise<
+    | paths["/api/v1/admin/marketing-group/{marketing_id}"]["delete"]["responses"]["200"]["content"]["application/json"]
+    | undefined
+  > {
+    if (await this.auth.checkAuth())
+      return await this.auth.delete(`/admin/marketing-group/${marketingId}`);
+  }
 }
 
 export default Admin;
