@@ -20,6 +20,18 @@ export interface paths {
      */
     get: operations["search_coach_filter_api_v1_search_filter_get"];
   };
+  "/api/v1/search/business": {
+    /** Search Businesses */
+    post: operations["search_businesses_api_v1_search_business_post"];
+  };
+  "/api/v1/search/business/count": {
+    /** Search Businesses Count */
+    post: operations["search_businesses_count_api_v1_search_business_count_post"];
+  };
+  "/api/v1/search/business/filter": {
+    /** Get Business Filters */
+    get: operations["get_business_filters_api_v1_search_business_filter_get"];
+  };
   "/api/v1/sessions/info": {
     /**
      * Get Sessions Info
@@ -291,6 +303,14 @@ export interface paths {
     /** Delete Question */
     delete: operations["delete_question_api_v1_business_question__question_id__delete"];
   };
+  "/api/v1/marketing-groups": {
+    /** List Marketing Groups */
+    get: operations["list_marketing_groups_api_v1_marketing_groups_get"];
+  };
+  "/api/v1/marketing-group/{marketing_id}": {
+    /** Get Marketing Group */
+    get: operations["get_marketing_group_api_v1_marketing_group__marketing_id__get"];
+  };
   "/api/v1/coach/awards": {
     /** Get All Awards */
     get: operations["get_all_awards_api_v1_coach_awards_get"];
@@ -538,7 +558,7 @@ export interface components {
      * Accommodations
      * @enum {string}
      */
-    Accommodations: "apartment" | "hotel" | "flat" | "house" | "any" | "other";
+    Accommodations: "apartment" | "hotel" | "flat" | "house" | "any" | "office" | "other";
     /** AddressOut */
     AddressOut: {
       /**
@@ -1197,14 +1217,14 @@ export interface components {
       /**
        * Fromdate
        * @description Get the available time starting from this value
-       * @default 2024-06-25T10:11:26.606886Z
-       * @example 2024-06-26T10:11:26.606892Z
+       * @default 2024-07-10T06:05:43.632379Z
+       * @example 2024-07-11T06:05:43.632383Z
        */
       fromDate?: string;
       /**
        * Todate
-       * @default 2024-07-26T10:11:26.606920Z
-       * @example 2024-07-26T10:11:26.606922Z
+       * @default 2024-08-10T06:05:43.632400Z
+       * @example 2024-08-10T06:05:43.632402Z
        */
       toDate?: string;
       /** @default auto */
@@ -1241,7 +1261,7 @@ export interface components {
       /**
        * Start
        * @description Start date when slot is working
-       * @example 2024-06-25
+       * @example 2024-07-10
        */
       start?: string | null;
       /**
@@ -1324,7 +1344,7 @@ export interface components {
       /**
        * Start
        * @description Start date when slot is working
-       * @example 2024-06-25
+       * @example 2024-07-10
        */
       start?: string | null;
       /**
@@ -1378,7 +1398,7 @@ export interface components {
       title?: string | null;
       /**
        * Start
-       * @example 2024-06-25
+       * @example 2024-07-10
        */
       start?: string | null;
       /**
@@ -1684,6 +1704,18 @@ export interface components {
      * @enum {string}
      */
     BusinessContactType: "instagram" | "facebook" | "tiktok" | "twitter" | "x(twitter)" | "whatsapp" | "telegram" | "website" | "youtube" | "snapchat" | "wechat" | "kakao" | "line" | "viber" | "tumblr" | "vkontakte" | "linkedin";
+    /** BusinessFilterValueOut */
+    BusinessFilterValueOut: {
+      /** Name */
+      name: string;
+      /** Count */
+      count: number;
+    };
+    /**
+     * BusinessOrderByFields
+     * @enum {string}
+     */
+    BusinessOrderByFields: "created_at" | "distance" | "rating";
     /** BusinessProfileOut */
     BusinessProfileOut: {
       /**
@@ -1738,15 +1770,10 @@ export interface components {
        */
       amenities?: string[];
       /**
-       * Images
+       * Gallery
        * @default []
        */
-      images?: components["schemas"]["PublicFileOut"][];
-      /**
-       * Videos
-       * @default []
-       */
-      videos?: components["schemas"]["PublicFileOut"][];
+      gallery?: components["schemas"]["MediaFileOut"][];
       /**
        * Servicetypes
        * @default []
@@ -1767,11 +1794,6 @@ export interface components {
        * @default []
        */
       faqs?: components["schemas"]["FAQDetailOut"][];
-      /**
-       * Branches
-       * @default 0
-       */
-      branches?: number;
       /**
        * Boosted
        * @default false
@@ -1797,6 +1819,11 @@ export interface components {
        * @default []
        */
       questions?: components["schemas"]["QuestionOut"][];
+      /**
+       * Branches
+       * @default []
+       */
+      branches?: components["schemas"]["BusinessSearchOut"][];
       /** Price */
       price?: number | null;
       /** Minprice */
@@ -1811,6 +1838,136 @@ export interface components {
        * @default true
        */
       allowNonVerify?: boolean;
+    };
+    /** BusinessSearchFilterIn */
+    BusinessSearchFilterIn: {
+      /**
+       * Page
+       * @example 0
+       */
+      page?: number | null;
+      /**
+       * Limit
+       * @example 20
+       */
+      limit?: number | null;
+      /** Search */
+      search?: string | null;
+      /** Marketingid */
+      marketingId?: string | null;
+      /** Addressid */
+      addressId?: string | null;
+      /** Lng */
+      lng?: number | null;
+      /** Lat */
+      lat?: number | null;
+      /** Radius */
+      radius?: number | null;
+      /** Branchid */
+      branchId?: string | null;
+      /** Categoryid */
+      categoryId?: string | null;
+      /** Subcategoryid */
+      subcategoryId?: string | null;
+      /** @default all */
+      workingHours?: components["schemas"]["BusinessWorkingHourFields"];
+      /**
+       * Branchescount
+       * @description Filter by branches count equal to or greater than
+       */
+      branchesCount?: number | null;
+      /**
+       * Amenities
+       * @description List of amenities by name
+       * @default []
+       */
+      amenities?: string[];
+      /** @default distance */
+      order?: components["schemas"]["BusinessOrderByFields"];
+      /** @default asc */
+      direction?: components["schemas"]["SearchOrderDirection"];
+    };
+    /** BusinessSearchFilterOut */
+    BusinessSearchFilterOut: {
+      /**
+       * Categories
+       * @default []
+       */
+      categories?: components["schemas"]["CategoryFilterItem"][];
+      /**
+       * Workinghours
+       * @default [
+       *   "all",
+       *   "open now",
+       *   "open 24/7"
+       * ]
+       */
+      workingHours?: string[];
+      /**
+       * Amenities
+       * @default []
+       */
+      amenities?: string[];
+      /**
+       * Branchescount
+       * @default [
+       *   2,
+       *   5,
+       *   10,
+       *   50,
+       *   100
+       * ]
+       */
+      branchesCount?: number[];
+    };
+    /** BusinessSearchOut */
+    BusinessSearchOut: {
+      /**
+       * Businessid
+       * Format: uuid
+       */
+      businessId: string;
+      /** Displayname */
+      displayName: string;
+      /**
+       * Rating
+       * @default 0
+       */
+      rating?: number;
+      /**
+       * Reviewscount
+       * @default 0
+       */
+      reviewsCount?: number;
+      /** Avatarurl */
+      avatarUrl?: string | null;
+      /** Mediaurl */
+      mediaUrl?: string | null;
+      /**
+       * Alwaysopen
+       * @default false
+       */
+      alwaysOpen?: boolean;
+      /** Distance */
+      distance?: number | null;
+      /**
+       * Awardscount
+       * @default 0
+       */
+      awardsCount?: number;
+      /**
+       * Gallery
+       * @default []
+       */
+      gallery?: components["schemas"]["MediaFileOut"][];
+      /**
+       * Subcategories
+       * @description Names of business subcategory
+       * @default []
+       */
+      subcategories?: string[];
+      /** Closingtime */
+      closingTime?: string | null;
     };
     /** BusinessServiceIn */
     BusinessServiceIn: {
@@ -1954,6 +2111,11 @@ export interface components {
        */
       faqs?: components["schemas"]["FAQUpdateIn"][];
     };
+    /**
+     * BusinessWorkingHourFields
+     * @enum {string}
+     */
+    BusinessWorkingHourFields: "all" | "open_now" | "open_24_7";
     /** CalendarOut */
     CalendarOut: {
       /** Availability */
@@ -1972,6 +2134,15 @@ export interface components {
      * @enum {string}
      */
     CardPaymentBrandType: "amex" | "diners" | "discover" | "eftpos_au" | "jcb" | "mastercard" | "unionpay" | "visa" | "bank_account" | "unknown";
+    /** CategoryFilterItem */
+    CategoryFilterItem: {
+      /** Name */
+      name: string;
+      /** Count */
+      count: number;
+      /** Subcategories */
+      subcategories: components["schemas"]["BusinessFilterValueOut"][];
+    };
     /** CategoryOut */
     CategoryOut: {
       /** Name */
@@ -2002,7 +2173,7 @@ export interface components {
        * Attachments
        * @default []
        */
-      attachments?: components["schemas"]["MediaFileOut"][] | null;
+      attachments?: components["schemas"]["MediaFileOut"][];
     };
     /**
      * CategoryType
@@ -2487,6 +2658,11 @@ export interface components {
        */
       public?: boolean;
       /**
+       * Servicescount
+       * @default 0
+       */
+      servicesCount?: number;
+      /**
        * Attachments
        * @default []
        */
@@ -2617,6 +2793,22 @@ export interface components {
      * @enum {string}
      */
     LocationLabel: "home" | "work" | "other";
+    /** MarketingGroupOut */
+    MarketingGroupOut: {
+      /** Title */
+      title: string;
+      /** Description */
+      description?: string | null;
+      coachRules?: components["schemas"]["SearchFilterIn"] | null;
+      businessRules?: components["schemas"]["BusinessSearchFilterIn"] | null;
+      /**
+       * Id
+       * Format: uuid
+       */
+      id: string;
+      category: components["schemas"]["CategoryOut"];
+      attachment?: components["schemas"]["MediaFileOut"] | null;
+    };
     /** MediaFileOut */
     MediaFileOut: {
       /**
@@ -2885,15 +3077,10 @@ export interface components {
        */
       amenities?: string[];
       /**
-       * Images
+       * Gallery
        * @default []
        */
-      images?: components["schemas"]["PublicFileOut"][];
-      /**
-       * Videos
-       * @default []
-       */
-      videos?: components["schemas"]["PublicFileOut"][];
+      gallery?: components["schemas"]["MediaFileOut"][];
       /**
        * Servicetypes
        * @default []
@@ -2914,11 +3101,6 @@ export interface components {
        * @default []
        */
       faqs?: components["schemas"]["FAQDetailOut"][];
-      /**
-       * Branches
-       * @default 0
-       */
-      branches?: number;
       /**
        * Boosted
        * @default false
@@ -2941,6 +3123,11 @@ export interface components {
        * @default false
        */
       alwaysOpen?: boolean;
+      /**
+       * Branchcount
+       * @default 0
+       */
+      branchCount?: number;
     };
     /** ProfileFilling */
     ProfileFilling: {
@@ -3148,15 +3335,10 @@ export interface components {
        */
       amenities?: string[];
       /**
-       * Images
+       * Gallery
        * @default []
        */
-      images?: components["schemas"]["PublicFileOut"][];
-      /**
-       * Videos
-       * @default []
-       */
-      videos?: components["schemas"]["PublicFileOut"][];
+      gallery?: components["schemas"]["MediaFileOut"][];
       /**
        * Servicetypes
        * @default []
@@ -3177,11 +3359,6 @@ export interface components {
        * @default []
        */
       faqs?: components["schemas"]["FAQDetailOut"][];
-      /**
-       * Branches
-       * @default 0
-       */
-      branches?: number;
       /**
        * Boosted
        * @default false
@@ -3207,6 +3384,11 @@ export interface components {
        * @default []
        */
       questions?: components["schemas"]["QuestionOut"][];
+      /**
+       * Branches
+       * @default []
+       */
+      branches?: components["schemas"]["BusinessSearchOut"][];
     };
     /** PublicClientProfileOut */
     PublicClientProfileOut: {
@@ -3419,21 +3601,28 @@ export interface components {
     };
     /** FileBase */
     PublicFileOut: {
+      /** Id */
+      id?: string | null;
       /** Title */
       title?: string | null;
       /** Description */
       description?: string | null;
-      /** Contenttype */
-      contentType?: string | null;
-      /** Url */
-      url?: string | null;
-      /** Thumb */
-      thumb?: string | null;
-      status?: components["schemas"]["stretchcore__models__storage__file__FileStatus__1"] | null;
+      /**
+       * Source
+       * @default local
+       */
+      source?: string;
       /** Originfilename */
       originFilename?: string | null;
       /** Filesize */
       filesize?: number | null;
+      /** Contenttype */
+      contentType?: string | null;
+      status?: components["schemas"]["stretchcore__models__storage__file__FileStatus__1"] | null;
+      /** Url */
+      url?: string | null;
+      /** Thumb */
+      thumb?: string | null;
       /** Duration */
       duration?: number | null;
     };
@@ -3783,6 +3972,8 @@ export interface components {
       onlyBookable?: boolean;
       direction?: components["schemas"]["SearchOrderDirection"] | null;
       order?: components["schemas"]["SearchOrder"] | null;
+      /** Marketingid */
+      marketingId?: string | null;
       /** Addressid */
       addressId?: string | null;
       /** Categoryid */
@@ -4605,7 +4796,7 @@ export interface components {
        * @description Availability date for create
        * @example [
        *   {
-       *     "date": "2024-06-25T14:11:18.159719",
+       *     "date": "2024-07-10T10:05:38.141867",
        *     "orderDescription": "Order description"
        *   }
        * ]
@@ -5436,7 +5627,7 @@ export interface components {
       /**
        * Slots
        * @description Availability date for create
-       * @example 2024-06-25T14:11:18.185969
+       * @example 2024-07-10T10:05:38.155269
        */
       slots: string | components["schemas"]["SessionBookingIn"][];
       location?: components["schemas"]["AddressSessionOut"] | null;
@@ -5938,6 +6129,76 @@ export interface operations {
       200: {
         content: {
           "application/json": components["schemas"]["SearchFilterOut"];
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        content: {
+          "application/json": components["schemas"]["HTTPValidationError"];
+        };
+      };
+    };
+  };
+  /** Search Businesses */
+  search_businesses_api_v1_search_business_post: {
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["BusinessSearchFilterIn"];
+      };
+    };
+    responses: {
+      /** @description Successful Response */
+      200: {
+        content: {
+          "application/json": components["schemas"]["BusinessSearchOut"][];
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        content: {
+          "application/json": components["schemas"]["HTTPValidationError"];
+        };
+      };
+    };
+  };
+  /** Search Businesses Count */
+  search_businesses_count_api_v1_search_business_count_post: {
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["BusinessSearchFilterIn"];
+      };
+    };
+    responses: {
+      /** @description Successful Response */
+      200: {
+        content: {
+          "application/json": components["schemas"]["SearchCountOut"];
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        content: {
+          "application/json": components["schemas"]["HTTPValidationError"];
+        };
+      };
+    };
+  };
+  /** Get Business Filters */
+  get_business_filters_api_v1_search_business_filter_get: {
+    parameters: {
+      query?: {
+        addressId?: string | null;
+        categoryId?: string | null;
+        lng?: number | null;
+        lat?: number | null;
+        radius?: number | null;
+      };
+    };
+    responses: {
+      /** @description Successful Response */
+      200: {
+        content: {
+          "application/json": components["schemas"]["BusinessSearchFilterOut"];
         };
       };
       /** @description Validation Error */
@@ -7168,6 +7429,52 @@ export interface operations {
       200: {
         content: {
           "application/json": components["schemas"]["DeleteResponse"];
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        content: {
+          "application/json": components["schemas"]["HTTPValidationError"];
+        };
+      };
+    };
+  };
+  /** List Marketing Groups */
+  list_marketing_groups_api_v1_marketing_groups_get: {
+    parameters: {
+      query?: {
+        search?: string | null;
+        page?: number | null;
+        limit?: number | null;
+      };
+    };
+    responses: {
+      /** @description Successful Response */
+      200: {
+        content: {
+          "application/json": components["schemas"]["MarketingGroupOut"][];
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        content: {
+          "application/json": components["schemas"]["HTTPValidationError"];
+        };
+      };
+    };
+  };
+  /** Get Marketing Group */
+  get_marketing_group_api_v1_marketing_group__marketing_id__get: {
+    parameters: {
+      path: {
+        marketing_id: string;
+      };
+    };
+    responses: {
+      /** @description Successful Response */
+      200: {
+        content: {
+          "application/json": components["schemas"]["MarketingGroupOut"];
         };
       };
       /** @description Validation Error */

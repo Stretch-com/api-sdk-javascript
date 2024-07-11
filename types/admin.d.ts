@@ -105,6 +105,13 @@ export interface paths {
      */
     post: operations["import_business_api_v1_admin_business_import_post"];
   };
+  "/api/v1/admin/business/import/new": {
+    /**
+     * Import Business New
+     * @description Import business/branches by csv file
+     */
+    post: operations["import_business_new_api_v1_admin_business_import_new_post"];
+  };
   "/api/v1/admin/business/autocomplete": {
     /** Get Business Autocomplete */
     get: operations["get_business_autocomplete_api_v1_admin_business_autocomplete_get"];
@@ -160,6 +167,16 @@ export interface paths {
   "/api/v1/admin/users/count": {
     /** Get Users Count */
     post: operations["get_users_count_api_v1_admin_users_count_post"];
+  };
+  "/api/v1/admin/user/import": {
+    /**
+     * Import Users
+     * @description Upload users from file
+     * :param file: file format: email, phone, first_name, last_name
+     * :param user:
+     * :return:
+     */
+    post: operations["import_users_api_v1_admin_user_import_post"];
   };
   "/api/v1/admin/sessions": {
     /** Get Sessions */
@@ -377,6 +394,24 @@ export interface paths {
     /** Get Equipments Count */
     get: operations["get_equipments_count_api_v1_admin_equipments_count_get"];
   };
+  "/api/v1/admin/marketing-groups": {
+    /** Get Marketing Groups */
+    get: operations["get_marketing_groups_api_v1_admin_marketing_groups_get"];
+  };
+  "/api/v1/admin/marketing-group": {
+    /** Create Marketing Group */
+    post: operations["create_marketing_group_api_v1_admin_marketing_group_post"];
+  };
+  "/api/v1/admin/marketing-group/{marketing_id}": {
+    /** Update Marketing Group */
+    put: operations["update_marketing_group_api_v1_admin_marketing_group__marketing_id__put"];
+    /** Delete Marketing Group */
+    delete: operations["delete_marketing_group_api_v1_admin_marketing_group__marketing_id__delete"];
+  };
+  "/api/v1/admin/marketing-groups/order": {
+    /** Set Marketing Groups Order */
+    put: operations["set_marketing_groups_order_api_v1_admin_marketing_groups_order_put"];
+  };
 }
 
 export type webhooks = Record<string, never>;
@@ -387,7 +422,7 @@ export interface components {
      * Accommodations
      * @enum {string}
      */
-    Accommodations: "apartment" | "hotel" | "flat" | "house" | "any" | "other";
+    Accommodations: "apartment" | "hotel" | "flat" | "house" | "any" | "office" | "other";
     /** AddressOut */
     AddressOut: {
       /**
@@ -1612,6 +1647,27 @@ export interface components {
      * @enum {string}
      */
     AdminEquipmentUserStatus: "all" | "created_by_admin" | "created_by_coach";
+    /** AdminMarketingGroupOut */
+    AdminMarketingGroupOut: {
+      /** Title */
+      title: string;
+      /** Description */
+      description?: string | null;
+      coachRules?: components["schemas"]["SearchFilterIn"] | null;
+      businessRules?: components["schemas"]["BusinessSearchFilterIn"] | null;
+      /**
+       * Id
+       * Format: uuid
+       */
+      id: string;
+      category: components["schemas"]["CategoryOut"];
+      attachment?: components["schemas"]["AttachmentFileOut"] | null;
+      /**
+       * Hidden
+       * @default false
+       */
+      hidden?: boolean;
+    };
     /** AdminNotificationStatus */
     AdminNotificationStatus: {
       /**
@@ -3054,6 +3110,11 @@ export interface components {
     /** FileBase */
     AttachmentFileOut: {
       /**
+       * Id
+       * @description UUID of file
+       */
+      id?: string | null;
+      /**
        * Title
        * @description The title name of the uploaded file
        */
@@ -3064,20 +3125,24 @@ export interface components {
        */
       description?: string | null;
       /**
-       * Contenttype
-       * @description File contents in MIME format
+       * Source
+       * @default local
        */
-      contentType?: string | null;
-      /**
-       * Id
-       * @description UUID of file
-       */
-      id?: string | null;
+      source?: string;
       /**
        * Originfilename
        * @description The original file name given when uploading the file
        */
       originFilename?: string | null;
+      /** Filesize */
+      filesize?: number | null;
+      /**
+       * Contenttype
+       * @description File contents in MIME format
+       */
+      contentType?: string | null;
+      /** @description File visibility status in the system: on review, approved or rejected */
+      status?: components["schemas"]["stretchcore__models__storage__file__FileStatus__1"] | null;
       /**
        * Url
        * @description Direct link to the downloaded file. The file can be recompressed when it is placed in the storage
@@ -3088,10 +3153,6 @@ export interface components {
        * @description Link to the preview file
        */
       thumb?: string | null;
-      /** Filesize */
-      filesize?: number | null;
-      /** @description File visibility status in the system: on review, approved or rejected */
-      status?: components["schemas"]["stretchcore__models__storage__file__FileStatus__1"] | null;
       /**
        * Duration
        * @description Duration in seconds
@@ -3255,6 +3316,14 @@ export interface components {
        */
       file: File;
     };
+    /** Body_import_business_new_api_v1_admin_business_import_new_post */
+    Body_import_business_new_api_v1_admin_business_import_new_post: {
+      /**
+       * File
+       * Format: binary
+       */
+      file: File;
+    };
     /** Body_import_categories_api_v1_admin_category_import_post */
     Body_import_categories_api_v1_admin_category_import_post: {
       /**
@@ -3265,6 +3334,14 @@ export interface components {
     };
     /** Body_import_categories_api_v1_admin_geo_post */
     Body_import_categories_api_v1_admin_geo_post: {
+      /**
+       * File
+       * Format: binary
+       */
+      file: File;
+    };
+    /** Body_import_users_api_v1_admin_user_import_post */
+    Body_import_users_api_v1_admin_user_import_post: {
       /**
        * File
        * Format: binary
@@ -3400,6 +3477,59 @@ export interface components {
        */
       status?: components["schemas"]["BusinessFilterValueOut"][];
     };
+    /**
+     * BusinessOrderByFields
+     * @enum {string}
+     */
+    BusinessOrderByFields: "created_at" | "distance" | "rating";
+    /** BusinessSearchFilterIn */
+    BusinessSearchFilterIn: {
+      /**
+       * Page
+       * @example 0
+       */
+      page?: number | null;
+      /**
+       * Limit
+       * @example 20
+       */
+      limit?: number | null;
+      /** Search */
+      search?: string | null;
+      /** Marketingid */
+      marketingId?: string | null;
+      /** Addressid */
+      addressId?: string | null;
+      /** Lng */
+      lng?: number | null;
+      /** Lat */
+      lat?: number | null;
+      /** Radius */
+      radius?: number | null;
+      /** Branchid */
+      branchId?: string | null;
+      /** Categoryid */
+      categoryId?: string | null;
+      /** Subcategoryid */
+      subcategoryId?: string | null;
+      /** @default all */
+      workingHours?: components["schemas"]["BusinessWorkingHourFields"];
+      /**
+       * Branchescount
+       * @description Filter by branches count equal to or greater than
+       */
+      branchesCount?: number | null;
+      /**
+       * Amenities
+       * @description List of amenities by name
+       * @default []
+       */
+      amenities?: string[];
+      /** @default distance */
+      order?: components["schemas"]["BusinessOrderByFields"];
+      /** @default asc */
+      direction?: components["schemas"]["SearchOrderDirection"];
+    };
     /** BusinessServiceIn */
     BusinessServiceIn: {
       /** Name */
@@ -3491,6 +3621,11 @@ export interface components {
       linkedin?: string[];
     };
     /**
+     * BusinessWorkingHourFields
+     * @enum {string}
+     */
+    BusinessWorkingHourFields: "all" | "open_now" | "open_24_7";
+    /**
      * CardPaymentBrandType
      * @enum {string}
      */
@@ -3549,7 +3684,7 @@ export interface components {
        * Attachments
        * @default []
        */
-      attachments?: components["schemas"]["MediaFileOut"][] | null;
+      attachments?: components["schemas"]["AttachmentFileOut"][];
     };
     /**
      * CategoryType
@@ -3574,6 +3709,11 @@ export interface components {
     /** FileBase */
     CertificateFileOut: {
       /**
+       * Id
+       * @description UUID of file
+       */
+      id?: string | null;
+      /**
        * Title
        * @description The title name of the uploaded file
        */
@@ -3584,20 +3724,24 @@ export interface components {
        */
       description?: string | null;
       /**
-       * Contenttype
-       * @description File contents in MIME format
+       * Source
+       * @default local
        */
-      contentType?: string | null;
-      /**
-       * Id
-       * @description UUID of file
-       */
-      id?: string | null;
+      source?: string;
       /**
        * Originfilename
        * @description The original file name given when uploading the file
        */
       originFilename?: string | null;
+      /** Filesize */
+      filesize?: number | null;
+      /**
+       * Contenttype
+       * @description File contents in MIME format
+       */
+      contentType?: string | null;
+      /** @description File visibility status in the system: on review, approved or rejected */
+      status?: components["schemas"]["stretchcore__models__storage__file__FileStatus__1"] | null;
       /**
        * Url
        * @description Direct link to the downloaded file. The file can be recompressed when it is placed in the storage
@@ -3608,10 +3752,6 @@ export interface components {
        * @description Link to the preview file
        */
       thumb?: string | null;
-      /** Filesize */
-      filesize?: number | null;
-      /** @description File visibility status in the system: on review, approved or rejected */
-      status?: components["schemas"]["stretchcore__models__storage__file__FileStatus__1"] | null;
       /** Issuedate */
       issueDate?: string | null;
       /** Expiredate */
@@ -4043,6 +4183,11 @@ export interface components {
        */
       public?: boolean;
       /**
+       * Servicescount
+       * @default 0
+       */
+      servicesCount?: number;
+      /**
        * Attachments
        * @default []
        */
@@ -4073,6 +4218,11 @@ export interface components {
      */
     FileOut: {
       /**
+       * Id
+       * @description UUID of file
+       */
+      id?: string | null;
+      /**
        * Title
        * @description The title name of the uploaded file
        */
@@ -4083,20 +4233,24 @@ export interface components {
        */
       description?: string | null;
       /**
-       * Contenttype
-       * @description File contents in MIME format
+       * Source
+       * @default local
        */
-      contentType?: string | null;
-      /**
-       * Id
-       * @description UUID of file
-       */
-      id?: string | null;
+      source?: string;
       /**
        * Originfilename
        * @description The original file name given when uploading the file
        */
       originFilename?: string | null;
+      /** Filesize */
+      filesize?: number | null;
+      /**
+       * Contenttype
+       * @description File contents in MIME format
+       */
+      contentType?: string | null;
+      /** @description File visibility status in the system: on review, approved or rejected */
+      status?: components["schemas"]["stretchcore__models__storage__file__FileStatus__1"] | null;
       /**
        * Url
        * @description Direct link to the downloaded file. The file can be recompressed when it is placed in the storage
@@ -4107,10 +4261,6 @@ export interface components {
        * @description Link to the preview file
        */
       thumb?: string | null;
-      /** Filesize */
-      filesize?: number | null;
-      /** @description File visibility status in the system: on review, approved or rejected */
-      status?: components["schemas"]["stretchcore__models__storage__file__FileStatus__1"] | null;
     };
     /**
      * GeoImportFileType
@@ -4139,6 +4289,38 @@ export interface components {
      * @enum {string}
      */
     LocationLabel: "home" | "work" | "other";
+    /** MarketingGroupIn */
+    MarketingGroupIn: {
+      /** Title */
+      title: string;
+      /** Description */
+      description?: string | null;
+      coachRules?: components["schemas"]["SearchFilterIn"] | null;
+      businessRules?: components["schemas"]["BusinessSearchFilterIn"] | null;
+      /**
+       * Categoryid
+       * Format: uuid
+       */
+      categoryId: string;
+      /**
+       * Attachmentid
+       * Format: uuid
+       */
+      attachmentId: string;
+    };
+    /** MarketingGroupUpdateIn */
+    MarketingGroupUpdateIn: {
+      /** Title */
+      title?: string | null;
+      /** Description */
+      description?: string | null;
+      coachRules?: components["schemas"]["SearchFilterIn"] | null;
+      businessRules?: components["schemas"]["BusinessSearchFilterIn"] | null;
+      /** Categoryid */
+      categoryId?: string | null;
+      /** Attachmentid */
+      attachmentId?: string | null;
+    };
     /** MediaFileOut */
     MediaFileOut: {
       /**
@@ -4339,15 +4521,10 @@ export interface components {
        */
       amenities?: string[];
       /**
-       * Images
+       * Gallery
        * @default []
        */
-      images?: components["schemas"]["PublicFileOut"][];
-      /**
-       * Videos
-       * @default []
-       */
-      videos?: components["schemas"]["PublicFileOut"][];
+      gallery?: components["schemas"]["MediaFileOut"][];
       /**
        * Servicetypes
        * @default []
@@ -4368,11 +4545,6 @@ export interface components {
        * @default []
        */
       faqs?: components["schemas"]["FAQDetailOut"][];
-      /**
-       * Branches
-       * @default 0
-       */
-      branches?: number;
       /**
        * Boosted
        * @default false
@@ -4395,6 +4567,11 @@ export interface components {
        * @default false
        */
       alwaysOpen?: boolean;
+      /**
+       * Branchcount
+       * @default 0
+       */
+      branchCount?: number;
     };
     /** ProfileFilling */
     ProfileFilling: {
@@ -4583,26 +4760,6 @@ export interface components {
       /** Rating */
       rating?: number | null;
     };
-    /** FileBase */
-    PublicFileOut: {
-      /** Title */
-      title?: string | null;
-      /** Description */
-      description?: string | null;
-      /** Contenttype */
-      contentType?: string | null;
-      /** Url */
-      url?: string | null;
-      /** Thumb */
-      thumb?: string | null;
-      status?: components["schemas"]["stretchcore__models__storage__file__FileStatus__1"] | null;
-      /** Originfilename */
-      originFilename?: string | null;
-      /** Filesize */
-      filesize?: number | null;
-      /** Duration */
-      duration?: number | null;
-    };
     /** ReportAnalyticsOut */
     ReportAnalyticsOut: {
       /** Verifications */
@@ -4671,6 +4828,95 @@ export interface components {
       /** Year */
       year?: number | null;
     };
+    /** SearchFilterIn */
+    SearchFilterIn: {
+      /**
+       * Page
+       * @example 0
+       */
+      page?: number | null;
+      /**
+       * Limit
+       * @example 20
+       */
+      limit?: number | null;
+      type?: components["schemas"]["UserCoachType"] | null;
+      /**
+       * Gender
+       * @description Gender or none
+       */
+      gender?: components["schemas"]["UserGender"] | components["schemas"]["UserGender"][] | null;
+      /**
+       * Languages
+       * @description List of all possible languages
+       */
+      languages?: components["schemas"]["UserLanguages"][] | null;
+      price?: components["schemas"]["SearchFilterPriceIn"] | null;
+      session?: components["schemas"]["SearchFilterSessionIn"] | null;
+      /**
+       * Days
+       * @description List of all possible days in current location
+       */
+      days?: components["schemas"]["UserDays"][] | null;
+      /**
+       * Time
+       * @description List of all possible time in current location
+       */
+      time?: string[] | null;
+      /**
+       * Services
+       * @description List of all possible service types
+       */
+      services?: string[] | null;
+      /**
+       * Onlybookable
+       * @default true
+       */
+      onlyBookable?: boolean;
+      direction?: components["schemas"]["SearchOrderDirection"] | null;
+      order?: components["schemas"]["SearchOrder"] | null;
+      /** Marketingid */
+      marketingId?: string | null;
+      /** Addressid */
+      addressId?: string | null;
+      /** Categoryid */
+      categoryId?: string | null;
+      /** Lng */
+      lng?: number | null;
+      /** Lat */
+      lat?: number | null;
+      /** Radius */
+      radius?: number | null;
+      /**
+       * Text
+       * @description open text entry, currently used for name searching
+       */
+      text?: string | null;
+    };
+    /** SearchFilterPriceIn */
+    SearchFilterPriceIn: {
+      /** Min */
+      min?: number | null;
+      /** Max */
+      max?: number | null;
+    };
+    /** SearchFilterSessionIn */
+    SearchFilterSessionIn: {
+      /** Min */
+      min?: number | null;
+      /** Max */
+      max?: number | null;
+    };
+    /**
+     * SearchOrder
+     * @enum {string}
+     */
+    SearchOrder: "distance" | "price" | "rating" | "sessions" | "boosted";
+    /**
+     * SearchOrderDirection
+     * @enum {string}
+     */
+    SearchOrderDirection: "asc" | "desc";
     /**
      * ServiceAccommodation
      * @enum {string}
@@ -5159,6 +5405,16 @@ export interface components {
       avatarUrls?: string[] | null;
     };
     /**
+     * UserCoachType
+     * @enum {string}
+     */
+    UserCoachType: "coach" | "studio" | "business";
+    /**
+     * UserDays
+     * @enum {string}
+     */
+    UserDays: "monday" | "tuesday" | "wednesday" | "thursday" | "friday" | "saturday" | "sunday";
+    /**
      * UserGender
      * @enum {string}
      */
@@ -5397,6 +5653,11 @@ export interface components {
     /** FileBase */
     VideoFileOut: {
       /**
+       * Id
+       * @description UUID of file
+       */
+      id?: string | null;
+      /**
        * Title
        * @description The title name of the uploaded file
        */
@@ -5407,20 +5668,24 @@ export interface components {
        */
       description?: string | null;
       /**
-       * Contenttype
-       * @description File contents in MIME format
+       * Source
+       * @default local
        */
-      contentType?: string | null;
-      /**
-       * Id
-       * @description UUID of file
-       */
-      id?: string | null;
+      source?: string;
       /**
        * Originfilename
        * @description The original file name given when uploading the file
        */
       originFilename?: string | null;
+      /** Filesize */
+      filesize?: number | null;
+      /**
+       * Contenttype
+       * @description File contents in MIME format
+       */
+      contentType?: string | null;
+      /** @description File visibility status in the system: on review, approved or rejected */
+      status?: components["schemas"]["stretchcore__models__storage__file__FileStatus__1"] | null;
       /**
        * Url
        * @description Direct link to the downloaded file. The file can be recompressed when it is placed in the storage
@@ -5431,10 +5696,6 @@ export interface components {
        * @description Link to the preview file
        */
       thumb?: string | null;
-      /** Filesize */
-      filesize?: number | null;
-      /** @description File visibility status in the system: on review, approved or rejected */
-      status?: components["schemas"]["stretchcore__models__storage__file__FileStatus__1"] | null;
       /**
        * Duration
        * @description Duration in seconds
@@ -6142,6 +6403,31 @@ export interface operations {
       };
     };
   };
+  /**
+   * Import Business New
+   * @description Import business/branches by csv file
+   */
+  import_business_new_api_v1_admin_business_import_new_post: {
+    requestBody: {
+      content: {
+        "multipart/form-data": components["schemas"]["Body_import_business_new_api_v1_admin_business_import_new_post"];
+      };
+    };
+    responses: {
+      /** @description Successful Response */
+      200: {
+        content: {
+          "application/json": unknown;
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        content: {
+          "application/json": components["schemas"]["HTTPValidationError"];
+        };
+      };
+    };
+  };
   /** Get Business Autocomplete */
   get_business_autocomplete_api_v1_admin_business_autocomplete_get: {
     parameters: {
@@ -6462,6 +6748,34 @@ export interface operations {
       200: {
         content: {
           "application/json": components["schemas"]["AdminTotalCountOut"];
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        content: {
+          "application/json": components["schemas"]["HTTPValidationError"];
+        };
+      };
+    };
+  };
+  /**
+   * Import Users
+   * @description Upload users from file
+   * :param file: file format: email, phone, first_name, last_name
+   * :param user:
+   * :return:
+   */
+  import_users_api_v1_admin_user_import_post: {
+    requestBody: {
+      content: {
+        "multipart/form-data": components["schemas"]["Body_import_users_api_v1_admin_user_import_post"];
+      };
+    };
+    responses: {
+      /** @description Successful Response */
+      200: {
+        content: {
+          "application/json": unknown;
         };
       };
       /** @description Validation Error */
@@ -7833,6 +8147,123 @@ export interface operations {
       200: {
         content: {
           "application/json": components["schemas"]["AdminTotalCountOut"];
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        content: {
+          "application/json": components["schemas"]["HTTPValidationError"];
+        };
+      };
+    };
+  };
+  /** Get Marketing Groups */
+  get_marketing_groups_api_v1_admin_marketing_groups_get: {
+    parameters: {
+      query?: {
+        search?: string | null;
+        page?: number | null;
+        limit?: number | null;
+      };
+    };
+    responses: {
+      /** @description Successful Response */
+      200: {
+        content: {
+          "application/json": components["schemas"]["AdminMarketingGroupOut"][];
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        content: {
+          "application/json": components["schemas"]["HTTPValidationError"];
+        };
+      };
+    };
+  };
+  /** Create Marketing Group */
+  create_marketing_group_api_v1_admin_marketing_group_post: {
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["MarketingGroupIn"];
+      };
+    };
+    responses: {
+      /** @description Successful Response */
+      201: {
+        content: {
+          "application/json": components["schemas"]["AdminMarketingGroupOut"];
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        content: {
+          "application/json": components["schemas"]["HTTPValidationError"];
+        };
+      };
+    };
+  };
+  /** Update Marketing Group */
+  update_marketing_group_api_v1_admin_marketing_group__marketing_id__put: {
+    parameters: {
+      path: {
+        marketing_id: string;
+      };
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["MarketingGroupUpdateIn"];
+      };
+    };
+    responses: {
+      /** @description Successful Response */
+      200: {
+        content: {
+          "application/json": components["schemas"]["AdminMarketingGroupOut"];
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        content: {
+          "application/json": components["schemas"]["HTTPValidationError"];
+        };
+      };
+    };
+  };
+  /** Delete Marketing Group */
+  delete_marketing_group_api_v1_admin_marketing_group__marketing_id__delete: {
+    parameters: {
+      path: {
+        marketing_id: string;
+      };
+    };
+    responses: {
+      /** @description Successful Response */
+      200: {
+        content: {
+          "application/json": components["schemas"]["DeleteResponse"];
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        content: {
+          "application/json": components["schemas"]["HTTPValidationError"];
+        };
+      };
+    };
+  };
+  /** Set Marketing Groups Order */
+  set_marketing_groups_order_api_v1_admin_marketing_groups_order_put: {
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["OrderIn"];
+      };
+    };
+    responses: {
+      /** @description Successful Response */
+      200: {
+        content: {
+          "application/json": components["schemas"]["StretchResponse"];
         };
       };
       /** @description Validation Error */
