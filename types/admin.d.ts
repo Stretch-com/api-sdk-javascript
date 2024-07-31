@@ -105,12 +105,12 @@ export interface paths {
      */
     post: operations["import_business_api_v1_admin_business_import_post"];
   };
-  "/api/v1/admin/business/import/new": {
+  "/api/v1/admin/business/import/external": {
     /**
-     * Import Business New
+     * Import Business External
      * @description Import business/branches by csv file
      */
-    post: operations["import_business_new_api_v1_admin_business_import_new_post"];
+    post: operations["import_business_external_api_v1_admin_business_import_external_post"];
   };
   "/api/v1/admin/business/autocomplete": {
     /** Get Business Autocomplete */
@@ -513,7 +513,7 @@ export interface components {
       neighborhood?: string | null;
       /**
        * @description accommodation
-       * @example any
+       * @example apartment
        */
       accommodation?: components["schemas"]["Accommodations"] | null;
       /**
@@ -647,7 +647,7 @@ export interface components {
       neighborhood?: string | null;
       /**
        * @description accommodation
-       * @example any
+       * @example apartment
        */
       accommodation?: components["schemas"]["Accommodations"] | null;
       /**
@@ -1387,6 +1387,191 @@ export interface components {
      * @enum {string}
      */
     AdminConsumerConfigType: "all" | "consumer";
+    /** AdminCreateBusinessAddressIn */
+    AdminCreateBusinessAddressIn: {
+      /**
+       * Lng
+       * @example 55.296249
+       */
+      lng: number;
+      /**
+       * Lat
+       * @example 25.276
+       */
+      lat: number;
+      /**
+       * Zoom
+       * @default 17
+       * @example 14
+       */
+      zoom?: number | null;
+      /**
+       * Address
+       * @description Address
+       * @example 548, floor 5, Cluster G, Tower Al mas, JLT, Dubai, UAE
+       */
+      address?: string | null;
+      /**
+       * Country
+       * @description Country
+       * @example United Arab Emirates
+       */
+      country?: string | null;
+      /**
+       * State
+       * @description state
+       * @example Dubai
+       */
+      state?: string | null;
+      /**
+       * City
+       * @description city
+       * @example Dubai
+       */
+      city?: string | null;
+      /**
+       * Line1
+       * @description line1
+       * @example Jumeirah Lake Towers
+       */
+      line1?: string | null;
+      /**
+       * Line2
+       * @description line2
+       * @example 1068, Tower Meadows 2
+       */
+      line2?: string | null;
+      /**
+       * Zip
+       * @description zip (po box)
+       */
+      zip?: string | null;
+      /**
+       * Building
+       * @description building
+       * @example Tower Meadows 2
+       */
+      building?: string | null;
+      /**
+       * Entrance
+       * @description entrance
+       * @example main
+       */
+      entrance?: string | null;
+      /**
+       * Floor
+       * @description floor
+       * @example 12
+       */
+      floor?: string | null;
+      /**
+       * Apartment
+       * @description apartment
+       * @example 1245
+       */
+      apartment?: string | null;
+      /**
+       * Neighborhood
+       * @description neighborhood
+       */
+      neighborhood?: string | null;
+      /**
+       * @description accommodation
+       * @example apartment
+       */
+      accommodation?: components["schemas"]["Accommodations"] | null;
+      /**
+       * @description allergy
+       * @example none
+       */
+      allergy?: components["schemas"]["UserAllergy"] | null;
+      /**
+       * Radius
+       * @description Radius in meters
+       * @example 10000
+       */
+      radius?: number | null;
+      /**
+       * @description Location label
+       * @default home
+       * @example home
+       */
+      label?: components["schemas"]["LocationLabel"];
+      /**
+       * Labelother
+       * @description Location label
+       */
+      labelOther?: string | null;
+      /**
+       * Details
+       * @description notes for address
+       */
+      details?: string | null;
+      parking?: components["schemas"]["ParkingType"] | null;
+      /** Parkingdescription */
+      parkingDescription?: string | null;
+      /** Isdefault */
+      isDefault?: boolean | null;
+      /**
+       * Name
+       * @description name
+       * @example Name of address
+       */
+      name?: string | null;
+      /** Id */
+      id?: string | null;
+    };
+    /** AdminCreateBusinessAvailabilityIn */
+    AdminCreateBusinessAvailabilityIn: {
+      /** Id */
+      id?: string | null;
+      /** Title */
+      title?: string | null;
+      /**
+       * Start
+       * @description Start date when slot is working
+       * @example 2024-07-26
+       */
+      start?: string | null;
+      /**
+       * End
+       * @description End date when slot is working
+       */
+      end?: string | null;
+      /**
+       * Enable
+       * @default true
+       * @example true
+       */
+      enable?: boolean | null;
+      /**
+       * Slotstart
+       * Format: time
+       * @example 10:00T+04:00
+       */
+      slotStart?: string;
+      /**
+       * Slotend
+       * Format: time
+       * @example 16:30T+04:00
+       */
+      slotEnd?: string;
+      /**
+       * @default none
+       * @example none
+       */
+      slotType?: components["schemas"]["AvailabilityType"] | null;
+      /**
+       * @default available
+       * @example available
+       */
+      slotState?: components["schemas"]["AvailabilityState"] | null;
+      /**
+       * Isopenallhours
+       * @default false
+       */
+      isOpenAllHours?: boolean;
+    };
     /** AdminCreateBusinessIn */
     AdminCreateBusinessIn: {
       /** Username */
@@ -1482,6 +1667,12 @@ export interface components {
        * @default []
        */
       faqs?: components["schemas"]["FAQCreateIn"][];
+      /**
+       * Openhours
+       * @default []
+       */
+      openHours?: components["schemas"]["AdminCreateBusinessAvailabilityIn"][];
+      address?: components["schemas"]["AdminCreateBusinessAddressIn"];
     };
     /** AdminCreateClientIn */
     AdminCreateClientIn: {
@@ -3316,8 +3507,8 @@ export interface components {
        */
       file: File;
     };
-    /** Body_import_business_new_api_v1_admin_business_import_new_post */
-    Body_import_business_new_api_v1_admin_business_import_new_post: {
+    /** Body_import_business_external_api_v1_admin_business_import_external_post */
+    Body_import_business_external_api_v1_admin_business_import_external_post: {
       /**
        * File
        * Format: binary
@@ -4689,7 +4880,7 @@ export interface components {
       neighborhood?: string | null;
       /**
        * @description accommodation
-       * @example any
+       * @example apartment
        */
       accommodation?: components["schemas"]["Accommodations"] | null;
       /**
@@ -6404,13 +6595,13 @@ export interface operations {
     };
   };
   /**
-   * Import Business New
+   * Import Business External
    * @description Import business/branches by csv file
    */
-  import_business_new_api_v1_admin_business_import_new_post: {
+  import_business_external_api_v1_admin_business_import_external_post: {
     requestBody: {
       content: {
-        "multipart/form-data": components["schemas"]["Body_import_business_new_api_v1_admin_business_import_new_post"];
+        "multipart/form-data": components["schemas"]["Body_import_business_external_api_v1_admin_business_import_external_post"];
       };
     };
     responses: {

@@ -3,745 +3,461 @@
  * Do not make direct changes to the file.
  */
 
+
 export interface paths {
-    "/api/v1/notifications": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /**
-         * Get User Notifications
-         * @description Get notified upon receiving any user request or interaction.
-         */
-        get: operations["get_user_notifications_api_v1_notifications_get"];
-        /**
-         * Put User Readed Notifications
-         * @description Update the status of the notification by changing the status from unread to read for easy filtration.
-         */
-        put: operations["put_user_readed_notifications_api_v1_notifications_put"];
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/api/v1/notification/status": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /**
-         * Get User Status Notifications
-         * @description Get notified upon receiving any user request or interaction.
-         */
-        get: operations["get_user_status_notifications_api_v1_notification_status_get"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/api/v1/notification/event": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /**
-         * Notify Event
-         * @description Get notified upon receiving any user request or interaction.
-         */
-        post: operations["notify_event_api_v1_notification_event_post"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/api/v1/notification/schedule": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /**
-         * Schedule Event
-         * @description Get notified upon receiving any user request or interaction.
-         */
-        post: operations["schedule_event_api_v1_notification_schedule_post"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/api/v1/notification/schedule/test": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /**
-         * Schedule Test
-         * @description Get notified upon receiving any user request or interaction.
-         */
-        post: operations["schedule_test_api_v1_notification_schedule_test_post"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/api/v1/notification/channel": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /**
-         * Channel Event
-         * @description Get notified upon receiving any user request or interaction.
-         */
-        post: operations["channel_event_api_v1_notification_channel_post"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/api/v1/notification/channel/gmail-init": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /** Gmail Init */
-        post: operations["gmail_init_api_v1_notification_channel_gmail_init_post"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/api/v1/notification/channel/templates": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /** Gmail Templates */
-        post: operations["gmail_templates_api_v1_notification_channel_templates_post"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/api/v1/notification/channel/getemailtmpl": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** Gmail Initus */
-        get: operations["gmail_initus_api_v1_notification_channel_getemailtmpl_get"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/api/v1/notification/channel/send-test-user-email": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /** Send Test User Email */
-        post: operations["send_test_user_email_api_v1_notification_channel_send_test_user_email_post"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/api/v1/notification/channel/test-send-session-booking-email": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /** Test Send Session Booking Email */
-        post: operations["test_send_session_booking_email_api_v1_notification_channel_test_send_session_booking_email_post"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/api/v1/notification/channel/create-test-email": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** Create Test Email */
-        get: operations["create_test_email_api_v1_notification_channel_create_test_email_get"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/api/v1/notification/push": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /**
-         * Post Create Device Token
-         * @description Update the status of the notification by changing the status from unread to read for easy filtration.
-         */
-        post: operations["post_create_device_token_api_v1_notification_push_post"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/api/v1/notification/push/test": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /** Post Test Push Notifications */
-        post: operations["post_test_push_notifications_api_v1_notification_push_test_post"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
+  "/api/v1/notifications": {
+    /**
+     * Get User Notifications
+     * @description Get notified upon receiving any user request or interaction.
+     */
+    get: operations["get_user_notifications_api_v1_notifications_get"];
+    /**
+     * Put User Readed Notifications
+     * @description Update the status of the notification by changing the status from unread to read for easy filtration.
+     */
+    put: operations["put_user_readed_notifications_api_v1_notifications_put"];
+  };
+  "/api/v1/notification/status": {
+    /**
+     * Get User Status Notifications
+     * @description Get notified upon receiving any user request or interaction.
+     */
+    get: operations["get_user_status_notifications_api_v1_notification_status_get"];
+  };
+  "/api/v1/notification/event": {
+    /**
+     * Notify Event
+     * @description Get notified upon receiving any user request or interaction.
+     */
+    post: operations["notify_event_api_v1_notification_event_post"];
+  };
+  "/api/v1/notification/schedule": {
+    /**
+     * Schedule Event
+     * @description Get notified upon receiving any user request or interaction.
+     */
+    post: operations["schedule_event_api_v1_notification_schedule_post"];
+  };
+  "/api/v1/notification/schedule/test": {
+    /**
+     * Schedule Test
+     * @description Get notified upon receiving any user request or interaction.
+     */
+    post: operations["schedule_test_api_v1_notification_schedule_test_post"];
+  };
+  "/api/v1/notification/channel": {
+    /**
+     * Channel Event
+     * @description Get notified upon receiving any user request or interaction.
+     */
+    post: operations["channel_event_api_v1_notification_channel_post"];
+  };
+  "/api/v1/notification/channel/gmail-init": {
+    /** Gmail Init */
+    post: operations["gmail_init_api_v1_notification_channel_gmail_init_post"];
+  };
+  "/api/v1/notification/channel/templates": {
+    /** Gmail Templates */
+    post: operations["gmail_templates_api_v1_notification_channel_templates_post"];
+  };
+  "/api/v1/notification/channel/getemailtmpl": {
+    /** Gmail Initus */
+    get: operations["gmail_initus_api_v1_notification_channel_getemailtmpl_get"];
+  };
+  "/api/v1/notification/channel/send-test-user-email": {
+    /** Send Test User Email */
+    post: operations["send_test_user_email_api_v1_notification_channel_send_test_user_email_post"];
+  };
+  "/api/v1/notification/channel/test-send-session-booking-email": {
+    /** Test Send Session Booking Email */
+    post: operations["test_send_session_booking_email_api_v1_notification_channel_test_send_session_booking_email_post"];
+  };
+  "/api/v1/notification/channel/create-test-email": {
+    /** Create Test Email */
+    get: operations["create_test_email_api_v1_notification_channel_create_test_email_get"];
+  };
+  "/api/v1/notification/push": {
+    /**
+     * Post Create Device Token
+     * @description Update the status of the notification by changing the status from unread to read for easy filtration.
+     */
+    post: operations["post_create_device_token_api_v1_notification_push_post"];
+  };
+  "/api/v1/notification/push/test": {
+    /** Post Test Push Notifications */
+    post: operations["post_test_push_notifications_api_v1_notification_push_test_post"];
+  };
 }
+
 export type webhooks = Record<string, never>;
+
 export interface components {
-    schemas: {
-        /** HTTPValidationError */
-        HTTPValidationError: {
-            /** Detail */
-            detail?: components["schemas"]["ValidationError"][];
-        };
-        /** NotificationEventIn */
-        NotificationEventIn: {
-            /** Notificationids */
-            notificationIds?: string[] | null;
-        };
-        /** NotificationOut */
-        NotificationOut: {
-            /** Id */
-            id?: string | null;
-            /** Contenttype */
-            contentType?: string | null;
-            /** Contentid */
-            contentId?: string | null;
-            /** Title */
-            title?: string | null;
-            /** Url */
-            url?: string | null;
-            /** Body */
-            body?: string | null;
-            /** Unread */
-            unread?: boolean | null;
-            /** Createdat */
-            createdAt?: string | null;
-        };
-        /** NotificationPushIn */
-        NotificationPushIn: {
-            /** Token */
-            token: string;
-        };
-        /** NotificationStatus */
-        NotificationStatus: {
-            /**
-             * Unratedsessions
-             * @default 0
-             */
-            unratedSessions: number;
-            /**
-             * Upcomingsessions
-             * @default 0
-             */
-            upcomingSessions: number;
-            /**
-             * Newnotifications
-             * @default 0
-             */
-            newNotifications: number;
-            /**
-             * Newmessages
-             * @default 0
-             */
-            newMessages: number;
-        };
-        /** NotificationsViewIn */
-        NotificationsViewIn: {
-            /** Notifications */
-            notifications?: string[] | null;
-        };
-        /** ScheduleEventIn */
-        ScheduleEventIn: {
-            /** Scheduleids */
-            scheduleIds?: string[] | null;
-        };
-        /** ValidationError */
-        ValidationError: {
-            /** Location */
-            loc: (string | number)[];
-            /** Message */
-            msg: string;
-            /** Error Type */
-            type: string;
-        };
+  schemas: {
+    /** HTTPValidationError */
+    HTTPValidationError: {
+      /** Detail */
+      detail?: components["schemas"]["ValidationError"][];
     };
-    responses: never;
-    parameters: never;
-    requestBodies: never;
-    headers: never;
-    pathItems: never;
+    /** NotificationEventIn */
+    NotificationEventIn: {
+      /** Notificationids */
+      notificationIds?: string[] | null;
+      /**
+       * Runinbackground
+       * @default true
+       */
+      runInBackground?: boolean;
+    };
+    /** NotificationOut */
+    NotificationOut: {
+      /** Id */
+      id?: string | null;
+      /** Contenttype */
+      contentType?: string | null;
+      /** Contentid */
+      contentId?: string | null;
+      /** Title */
+      title?: string | null;
+      /** Url */
+      url?: string | null;
+      /** Body */
+      body?: string | null;
+      /** Unread */
+      unread?: boolean | null;
+      /** Createdat */
+      createdAt?: string | null;
+    };
+    /** NotificationPushIn */
+    NotificationPushIn: {
+      /** Token */
+      token: string;
+    };
+    /** NotificationStatus */
+    NotificationStatus: {
+      /**
+       * Unratedsessions
+       * @default 0
+       */
+      unratedSessions?: number;
+      /**
+       * Upcomingsessions
+       * @default 0
+       */
+      upcomingSessions?: number;
+      /**
+       * Newnotifications
+       * @default 0
+       */
+      newNotifications?: number;
+      /**
+       * Newmessages
+       * @default 0
+       */
+      newMessages?: number;
+    };
+    /** NotificationsViewIn */
+    NotificationsViewIn: {
+      /** Notifications */
+      notifications?: string[] | null;
+    };
+    /** ScheduleEventIn */
+    ScheduleEventIn: {
+      /** Scheduleids */
+      scheduleIds?: string[] | null;
+    };
+    /** ValidationError */
+    ValidationError: {
+      /** Location */
+      loc: (string | number)[];
+      /** Message */
+      msg: string;
+      /** Error Type */
+      type: string;
+    };
+  };
+  responses: never;
+  parameters: never;
+  requestBodies: never;
+  headers: never;
+  pathItems: never;
 }
+
 export type $defs = Record<string, never>;
+
+export type external = Record<string, never>;
+
 export interface operations {
-    get_user_notifications_api_v1_notifications_get: {
-        parameters: {
-            query?: {
-                page?: number | null;
-                limit?: number | null;
-            };
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Successful Response */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["NotificationOut"][];
-                };
-            };
-            /** @description Validation Error */
-            422: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["HTTPValidationError"];
-                };
-            };
-        };
+
+  /**
+   * Get User Notifications
+   * @description Get notified upon receiving any user request or interaction.
+   */
+  get_user_notifications_api_v1_notifications_get: {
+    parameters: {
+      query?: {
+        page?: number | null;
+        limit?: number | null;
+      };
     };
-    put_user_readed_notifications_api_v1_notifications_put: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
+    responses: {
+      /** @description Successful Response */
+      200: {
+        content: {
+          "application/json": components["schemas"]["NotificationOut"][];
         };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["NotificationsViewIn"];
-            };
+      };
+      /** @description Validation Error */
+      422: {
+        content: {
+          "application/json": components["schemas"]["HTTPValidationError"];
         };
-        responses: {
-            /** @description Successful Response */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": unknown;
-                };
-            };
-            /** @description Validation Error */
-            422: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["HTTPValidationError"];
-                };
-            };
-        };
+      };
     };
-    get_user_status_notifications_api_v1_notification_status_get: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Successful Response */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["NotificationStatus"];
-                };
-            };
-        };
+  };
+  /**
+   * Put User Readed Notifications
+   * @description Update the status of the notification by changing the status from unread to read for easy filtration.
+   */
+  put_user_readed_notifications_api_v1_notifications_put: {
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["NotificationsViewIn"];
+      };
     };
-    notify_event_api_v1_notification_event_post: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
+    responses: {
+      /** @description Successful Response */
+      200: {
+        content: {
+          "application/json": unknown;
         };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["NotificationEventIn"];
-            };
+      };
+      /** @description Validation Error */
+      422: {
+        content: {
+          "application/json": components["schemas"]["HTTPValidationError"];
         };
-        responses: {
-            /** @description Successful Response */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": unknown;
-                };
-            };
-            /** @description Validation Error */
-            422: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["HTTPValidationError"];
-                };
-            };
-        };
+      };
     };
-    schedule_event_api_v1_notification_schedule_post: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
+  };
+  /**
+   * Get User Status Notifications
+   * @description Get notified upon receiving any user request or interaction.
+   */
+  get_user_status_notifications_api_v1_notification_status_get: {
+    responses: {
+      /** @description Successful Response */
+      200: {
+        content: {
+          "application/json": components["schemas"]["NotificationStatus"];
         };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["ScheduleEventIn"];
-            };
-        };
-        responses: {
-            /** @description Successful Response */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": unknown;
-                };
-            };
-            /** @description Validation Error */
-            422: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["HTTPValidationError"];
-                };
-            };
-        };
+      };
     };
-    schedule_test_api_v1_notification_schedule_test_post: {
-        parameters: {
-            query?: {
-                delta?: number;
-            };
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Successful Response */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": unknown;
-                };
-            };
-            /** @description Validation Error */
-            422: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["HTTPValidationError"];
-                };
-            };
-        };
+  };
+  /**
+   * Notify Event
+   * @description Get notified upon receiving any user request or interaction.
+   */
+  notify_event_api_v1_notification_event_post: {
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["NotificationEventIn"];
+      };
     };
-    channel_event_api_v1_notification_channel_post: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
+    responses: {
+      /** @description Successful Response */
+      200: {
+        content: {
+          "application/json": unknown;
         };
-        requestBody?: never;
-        responses: {
-            /** @description Successful Response */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": unknown;
-                };
-            };
+      };
+      /** @description Validation Error */
+      422: {
+        content: {
+          "application/json": components["schemas"]["HTTPValidationError"];
         };
+      };
     };
-    gmail_init_api_v1_notification_channel_gmail_init_post: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Successful Response */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": unknown;
-                };
-            };
-        };
+  };
+  /**
+   * Schedule Event
+   * @description Get notified upon receiving any user request or interaction.
+   */
+  schedule_event_api_v1_notification_schedule_post: {
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["ScheduleEventIn"];
+      };
     };
-    gmail_templates_api_v1_notification_channel_templates_post: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
+    responses: {
+      /** @description Successful Response */
+      200: {
+        content: {
+          "application/json": unknown;
         };
-        requestBody?: never;
-        responses: {
-            /** @description Successful Response */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": unknown;
-                };
-            };
+      };
+      /** @description Validation Error */
+      422: {
+        content: {
+          "application/json": components["schemas"]["HTTPValidationError"];
         };
+      };
     };
-    gmail_initus_api_v1_notification_channel_getemailtmpl_get: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Successful Response */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "text/html": string;
-                };
-            };
-        };
+  };
+  /**
+   * Schedule Test
+   * @description Get notified upon receiving any user request or interaction.
+   */
+  schedule_test_api_v1_notification_schedule_test_post: {
+    parameters: {
+      query?: {
+        delta?: number;
+      };
     };
-    send_test_user_email_api_v1_notification_channel_send_test_user_email_post: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
+    responses: {
+      /** @description Successful Response */
+      200: {
+        content: {
+          "application/json": unknown;
         };
-        requestBody?: never;
-        responses: {
-            /** @description Successful Response */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": unknown;
-                };
-            };
+      };
+      /** @description Validation Error */
+      422: {
+        content: {
+          "application/json": components["schemas"]["HTTPValidationError"];
         };
+      };
     };
-    test_send_session_booking_email_api_v1_notification_channel_test_send_session_booking_email_post: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
+  };
+  /**
+   * Channel Event
+   * @description Get notified upon receiving any user request or interaction.
+   */
+  channel_event_api_v1_notification_channel_post: {
+    responses: {
+      /** @description Successful Response */
+      200: {
+        content: {
+          "application/json": unknown;
         };
-        requestBody?: never;
-        responses: {
-            /** @description Successful Response */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": unknown;
-                };
-            };
-        };
+      };
     };
-    create_test_email_api_v1_notification_channel_create_test_email_get: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
+  };
+  /** Gmail Init */
+  gmail_init_api_v1_notification_channel_gmail_init_post: {
+    responses: {
+      /** @description Successful Response */
+      200: {
+        content: {
+          "application/json": unknown;
         };
-        requestBody?: never;
-        responses: {
-            /** @description Successful Response */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "text/html": string;
-                };
-            };
-        };
+      };
     };
-    post_create_device_token_api_v1_notification_push_post: {
-        parameters: {
-            query?: never;
-            header?: {
-                "user-agent"?: string | null;
-            };
-            path?: never;
-            cookie?: never;
+  };
+  /** Gmail Templates */
+  gmail_templates_api_v1_notification_channel_templates_post: {
+    responses: {
+      /** @description Successful Response */
+      200: {
+        content: {
+          "application/json": unknown;
         };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["NotificationPushIn"];
-            };
-        };
-        responses: {
-            /** @description Successful Response */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": unknown;
-                };
-            };
-            /** @description Validation Error */
-            422: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["HTTPValidationError"];
-                };
-            };
-        };
+      };
     };
-    post_test_push_notifications_api_v1_notification_push_test_post: {
-        parameters: {
-            query: {
-                message: string;
-            };
-            header?: never;
-            path?: never;
-            cookie?: never;
+  };
+  /** Gmail Initus */
+  gmail_initus_api_v1_notification_channel_getemailtmpl_get: {
+    responses: {
+      /** @description Successful Response */
+      200: {
+        content: {
+          "text/html": string;
         };
-        requestBody?: never;
-        responses: {
-            /** @description Successful Response */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": unknown;
-                };
-            };
-            /** @description Validation Error */
-            422: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["HTTPValidationError"];
-                };
-            };
-        };
+      };
     };
+  };
+  /** Send Test User Email */
+  send_test_user_email_api_v1_notification_channel_send_test_user_email_post: {
+    responses: {
+      /** @description Successful Response */
+      200: {
+        content: {
+          "application/json": unknown;
+        };
+      };
+    };
+  };
+  /** Test Send Session Booking Email */
+  test_send_session_booking_email_api_v1_notification_channel_test_send_session_booking_email_post: {
+    responses: {
+      /** @description Successful Response */
+      200: {
+        content: {
+          "application/json": unknown;
+        };
+      };
+    };
+  };
+  /** Create Test Email */
+  create_test_email_api_v1_notification_channel_create_test_email_get: {
+    responses: {
+      /** @description Successful Response */
+      200: {
+        content: {
+          "text/html": string;
+        };
+      };
+    };
+  };
+  /**
+   * Post Create Device Token
+   * @description Update the status of the notification by changing the status from unread to read for easy filtration.
+   */
+  post_create_device_token_api_v1_notification_push_post: {
+    parameters: {
+      header?: {
+        "user-agent"?: string | null;
+      };
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["NotificationPushIn"];
+      };
+    };
+    responses: {
+      /** @description Successful Response */
+      200: {
+        content: {
+          "application/json": unknown;
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        content: {
+          "application/json": components["schemas"]["HTTPValidationError"];
+        };
+      };
+    };
+  };
+  /** Post Test Push Notifications */
+  post_test_push_notifications_api_v1_notification_push_test_post: {
+    parameters: {
+      query: {
+        message: string;
+      };
+    };
+    responses: {
+      /** @description Successful Response */
+      200: {
+        content: {
+          "application/json": unknown;
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        content: {
+          "application/json": components["schemas"]["HTTPValidationError"];
+        };
+      };
+    };
+  };
 }

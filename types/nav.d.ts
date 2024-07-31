@@ -117,7 +117,7 @@ export interface components {
      * Accommodations
      * @enum {string}
      */
-    Accommodations: "apartment" | "hotel" | "flat" | "house" | "any" | "other";
+    Accommodations: "apartment" | "hotel" | "flat" | "house" | "any" | "office" | "other";
     /** AddressIn */
     AddressIn: {
       /**
@@ -208,7 +208,7 @@ export interface components {
       neighborhood?: string | null;
       /**
        * @description accommodation
-       * @example any
+       * @example apartment
        */
       accommodation?: components["schemas"]["Accommodations"] | null;
       /**
@@ -343,7 +343,7 @@ export interface components {
       neighborhood?: string | null;
       /**
        * @description accommodation
-       * @example any
+       * @example apartment
        */
       accommodation?: components["schemas"]["Accommodations"] | null;
       /**
@@ -477,7 +477,7 @@ export interface components {
       neighborhood?: string | null;
       /**
        * @description accommodation
-       * @example any
+       * @example apartment
        */
       accommodation?: components["schemas"]["Accommodations"] | null;
       /**

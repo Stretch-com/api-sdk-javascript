@@ -649,7 +649,7 @@ export interface components {
       neighborhood?: string | null;
       /**
        * @description accommodation
-       * @example any
+       * @example apartment
        */
       accommodation?: components["schemas"]["Accommodations"] | null;
       /**
@@ -783,7 +783,7 @@ export interface components {
       neighborhood?: string | null;
       /**
        * @description accommodation
-       * @example any
+       * @example apartment
        */
       accommodation?: components["schemas"]["Accommodations"] | null;
       /**
@@ -909,7 +909,7 @@ export interface components {
       neighborhood?: string | null;
       /**
        * @description accommodation
-       * @example any
+       * @example apartment
        */
       accommodation?: components["schemas"]["Accommodations"] | null;
       /**
@@ -1200,6 +1200,63 @@ export interface components {
        */
       theme?: string | null;
     };
+    /** FileBase */
+    AttachmentFileOut: {
+      /**
+       * Id
+       * @description UUID of file
+       */
+      id?: string | null;
+      /**
+       * Title
+       * @description The title name of the uploaded file
+       */
+      title?: string | null;
+      /**
+       * Description
+       * @description The description for uploaded file
+       */
+      description?: string | null;
+      /**
+       * Source
+       * @default local
+       */
+      source?: string;
+      /**
+       * Originfilename
+       * @description The original file name given when uploading the file
+       */
+      originFilename?: string | null;
+      /** Filesize */
+      filesize?: number | null;
+      /**
+       * Contenttype
+       * @description File contents in MIME format
+       */
+      contentType?: string | null;
+      /** @description File visibility status in the system: on review, approved or rejected */
+      status?: components["schemas"]["stretchcore__models__storage__file__FileStatus__1"] | null;
+      /**
+       * Url
+       * @description Direct link to the downloaded file. The file can be recompressed when it is placed in the storage
+       */
+      url?: string | null;
+      /**
+       * Thumb
+       * @description Link to the preview file
+       */
+      thumb?: string | null;
+      /**
+       * Duration
+       * @description Duration in seconds
+       */
+      duration?: number | null;
+      /**
+       * Videothumb
+       * @description Link to the preview file
+       */
+      videoThumb?: string | null;
+    };
     /** AvailabilityClientIn */
     AvailabilityClientIn: {
       /** Addressid */
@@ -1217,14 +1274,14 @@ export interface components {
       /**
        * Fromdate
        * @description Get the available time starting from this value
-       * @default 2024-07-10T06:05:43.632379Z
-       * @example 2024-07-11T06:05:43.632383Z
+       * @default 2024-07-31T11:15:54.531653Z
+       * @example 2024-08-01T11:15:54.531657Z
        */
       fromDate?: string;
       /**
        * Todate
-       * @default 2024-08-10T06:05:43.632400Z
-       * @example 2024-08-10T06:05:43.632402Z
+       * @default 2024-08-31T11:15:54.531676Z
+       * @example 2024-08-31T11:15:54.531678Z
        */
       toDate?: string;
       /** @default auto */
@@ -1261,7 +1318,7 @@ export interface components {
       /**
        * Start
        * @description Start date when slot is working
-       * @example 2024-07-10
+       * @example 2024-07-31
        */
       start?: string | null;
       /**
@@ -1344,7 +1401,7 @@ export interface components {
       /**
        * Start
        * @description Start date when slot is working
-       * @example 2024-07-10
+       * @example 2024-07-31
        */
       start?: string | null;
       /**
@@ -1398,7 +1455,7 @@ export interface components {
       title?: string | null;
       /**
        * Start
-       * @example 2024-07-10
+       * @example 2024-07-31
        */
       start?: string | null;
       /**
@@ -2173,7 +2230,7 @@ export interface components {
        * Attachments
        * @default []
        */
-      attachments?: components["schemas"]["MediaFileOut"][];
+      attachments?: components["schemas"]["AttachmentFileOut"][];
     };
     /**
      * CategoryType
@@ -2807,7 +2864,7 @@ export interface components {
        */
       id: string;
       category: components["schemas"]["CategoryOut"];
-      attachment?: components["schemas"]["MediaFileOut"] | null;
+      attachment?: components["schemas"]["AttachmentFileOut"] | null;
     };
     /** MediaFileOut */
     MediaFileOut: {
@@ -2911,7 +2968,7 @@ export interface components {
     /** PaymentMethod */
     PaymentMethodOut: {
       /** Name */
-      name: string | null;
+      name?: string | null;
       /**
        * Default
        * @default false
@@ -3245,7 +3302,7 @@ export interface components {
       neighborhood?: string | null;
       /**
        * @description accommodation
-       * @example any
+       * @example apartment
        */
       accommodation?: components["schemas"]["Accommodations"] | null;
       /**
@@ -3775,6 +3832,11 @@ export interface components {
       id: string;
       /** Message */
       message: string;
+      /**
+       * Createdat
+       * Format: date-time
+       */
+      createdAt: string;
       state: components["schemas"]["SessionReviewState"];
       user: components["schemas"]["SessionUserOut"];
       business: components["schemas"]["QuestionBusinessOut"];
@@ -4266,6 +4328,11 @@ export interface components {
        * @description Promoted coach profiles
        */
       boosted?: boolean | null;
+      /**
+       * Awardscount
+       * @default 0
+       */
+      awardsCount?: number;
     };
     /** SearchSessionFilteredOut */
     SearchSessionFilteredOut: {
@@ -4351,6 +4418,11 @@ export interface components {
        * @description Promoted coach profiles
        */
       boosted?: boolean | null;
+      /**
+       * Awardscount
+       * @default 0
+       */
+      awardsCount?: number;
     };
     /** SearchUserLanguage */
     SearchUserLanguage: {
@@ -4388,8 +4460,9 @@ export interface components {
        * Price Currency
        * @description aed: AED<br/>usd: USD<br/>eur: EUR
        * @default USD
+       * @enum {string}
        */
-      priceCurrency?: components["schemas"]["stretchcore__models__service__service__ServicePriceCurrencies__1"];
+      priceCurrency?: "AED" | "USD" | "EUR";
       /** Service Other Type */
       serviceOtherType: (string | null) | null;
       /**
@@ -4408,8 +4481,9 @@ export interface components {
        * Status
        * @description uploaded: uploaded<br/>processing: processing<br/>approved: approved<br/>rejected: rejected<br/>review: review<br/>draft: draft<br/>deleted: deleted
        * @default review
+       * @enum {string}
        */
-      status?: components["schemas"]["stretchcore__models__storage__file__FileStatus__1"];
+      status?: "uploaded" | "processing" | "approved" | "rejected" | "review" | "draft" | "deleted";
       /** Servicetypes */
       serviceTypes?: string[] | null;
       /** Numberofsessions */
@@ -4587,8 +4661,9 @@ export interface components {
        * Price Currency
        * @description aed: AED<br/>usd: USD<br/>eur: EUR
        * @default USD
+       * @enum {string}
        */
-      priceCurrency?: components["schemas"]["stretchcore__models__service__service__ServicePriceCurrencies__1"];
+      priceCurrency?: "AED" | "USD" | "EUR";
       /** Service Other Type */
       serviceOtherType: (string | null) | null;
       /**
@@ -4607,8 +4682,9 @@ export interface components {
        * Status
        * @description uploaded: uploaded<br/>processing: processing<br/>approved: approved<br/>rejected: rejected<br/>review: review<br/>draft: draft<br/>deleted: deleted
        * @default review
+       * @enum {string}
        */
-      status?: components["schemas"]["stretchcore__models__storage__file__FileStatus__1"];
+      status?: "uploaded" | "processing" | "approved" | "rejected" | "review" | "draft" | "deleted";
       /** Servicetypes */
       serviceTypes?: string[] | null;
       /** Numberofsessions */
@@ -4659,6 +4735,12 @@ export interface components {
      * @enum {string}
      */
     "ServicePriceCurrencies-Input": "AED" | "USD" | "EUR";
+    /**
+     * ServicePriceCurrencies
+     * @default USD
+     * @enum {string}
+     */
+    "ServicePriceCurrencies-Output": "AED" | "USD" | "EUR";
     /** ServiceType */
     ServiceTypeOut: {
       /**
@@ -4796,7 +4878,7 @@ export interface components {
        * @description Availability date for create
        * @example [
        *   {
-       *     "date": "2024-07-10T10:05:38.141867",
+       *     "date": "2024-07-31T15:15:45.314579",
        *     "orderDescription": "Order description"
        *   }
        * ]
@@ -5627,7 +5709,7 @@ export interface components {
       /**
        * Slots
        * @description Availability date for create
-       * @example 2024-07-10T10:05:38.155269
+       * @example 2024-07-31T15:15:45.326603
        */
       slots: string | components["schemas"]["SessionBookingIn"][];
       location?: components["schemas"]["AddressSessionOut"] | null;
@@ -5965,6 +6047,7 @@ export interface components {
     /**
      * UserPromoType
      * @constant
+     * @enum {string}
      */
     UserPromoType: "boosted";
     /** UserPropIn */
@@ -6041,17 +6124,16 @@ export interface components {
       slotType?: components["schemas"]["AvailabilityType"] | null;
     };
     /**
-     * ServicePriceCurrencies
-     * @enum {string}
-     */
-    stretchcore__models__service__service__ServicePriceCurrencies__1: "AED" | "USD" | "EUR";
-    stretchcore__models__service__service__ServicePriceCurrencies__2: components["schemas"]["stretchcore__models__service__service__ServicePriceCurrencies__1"];
-    /**
      * FileStatus
      * @enum {string}
      */
     stretchcore__models__storage__file__FileStatus__1: "uploaded" | "processing" | "approved" | "rejected" | "review" | "draft" | "deleted";
-    stretchcore__models__storage__file__FileStatus__2: components["schemas"]["stretchcore__models__storage__file__FileStatus__1"];
+    /**
+     * FileStatus
+     * @default review
+     * @enum {string}
+     */
+    stretchcore__models__storage__file__FileStatus__2: "uploaded" | "processing" | "approved" | "rejected" | "review" | "draft" | "deleted";
   };
   responses: never;
   parameters: never;
