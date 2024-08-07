@@ -135,7 +135,7 @@ class Coach {
     | undefined
   > {
     if (await this.auth.checkAuth())
-      return await this.auth.delete(`/coach/faqs/order`, payload);
+      return await this.auth.put(`/coach/faqs/order`, payload);
   }
 
   async deleteFAQ(

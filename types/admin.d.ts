@@ -1530,7 +1530,7 @@ export interface components {
       /**
        * Start
        * @description Start date when slot is working
-       * @example 2024-07-26
+       * @example 2024-08-05
        */
       start?: string | null;
       /**
@@ -1567,10 +1567,10 @@ export interface components {
        */
       slotState?: components["schemas"]["AvailabilityState"] | null;
       /**
-       * Isopenallhours
+       * Isopenallday
        * @default false
        */
-      isOpenAllHours?: boolean;
+      isOpenAllDay?: boolean;
     };
     /** AdminCreateBusinessIn */
     AdminCreateBusinessIn: {
@@ -7683,11 +7683,22 @@ export interface operations {
   };
   /** Get Consumers */
   get_consumers_api_v1_admin_config_consumers_get: {
+    parameters: {
+      query?: {
+        includeBusiness?: boolean;
+      };
+    };
     responses: {
       /** @description Successful Response */
       200: {
         content: {
           "application/json": components["schemas"]["ConsumerOut"][];
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        content: {
+          "application/json": components["schemas"]["HTTPValidationError"];
         };
       };
     };
