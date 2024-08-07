@@ -32,6 +32,54 @@ export interface paths {
     /** Get Business Filters */
     get: operations["get_business_filters_api_v1_search_business_filter_get"];
   };
+  "/api/v1/servicetypes": {
+    /**
+     * Get Service Types
+     * @description Gets the type of service or the category of a chosen service.
+     */
+    get: operations["get_service_types_api_v1_servicetypes_get"];
+  };
+  "/api/v1/service/{service_id}/availability": {
+    /**
+     * Get Availability Service
+     * @description Gets the available time in UTC for some service
+     * for a given client and returns the details for all available service and
+     * uses the following parameters:
+     *
+     * - service_id *required
+     * - address_id *optional
+     * - lat, lng *optional
+     * - from_date *optional
+     * - to_date *optional
+     */
+    post: operations["get_availability_service_api_v1_service__service_id__availability_post"];
+  };
+  "/api/v1/service/{service_id}/check": {
+    /**
+     * Check Booking Sessions
+     * @description Creates a service session using the session id and data to store a description about the session.
+     * The date and time of the session is also taken into consideration and displayed as a final result.
+     */
+    post: operations["check_booking_sessions_api_v1_service__service_id__check_post"];
+  };
+  "/api/v1/service/{service_id}": {
+    /** Get Service */
+    get: operations["get_service_api_v1_service__service_id__get"];
+    /**
+     * Create Booking Sessions
+     * @description Creates a service session using the session id and data to store a description about the session.
+     * The date and time of the session is also taken into consideration and displayed as a final result.
+     */
+    post: operations["create_booking_sessions_api_v1_service__service_id__post"];
+  };
+  "/api/v1/service/{service_id}/reviews": {
+    /** Service Reviews */
+    get: operations["service_reviews_api_v1_service__service_id__reviews_get"];
+  };
+  "/api/v1/service/{service_id}/reviews/info": {
+    /** Service Reviews Info */
+    get: operations["service_reviews_info_api_v1_service__service_id__reviews_info_get"];
+  };
   "/api/v1/sessions/info": {
     /**
      * Get Sessions Info
@@ -146,54 +194,6 @@ export interface paths {
     /** Cancel Session Group */
     put: operations["cancel_session_group_api_v1_session_group__group_id__cancel_put"];
   };
-  "/api/v1/servicetypes": {
-    /**
-     * Get Service Types
-     * @description Gets the type of service or the category of a chosen service.
-     */
-    get: operations["get_service_types_api_v1_servicetypes_get"];
-  };
-  "/api/v1/service/{service_id}/availability": {
-    /**
-     * Get Availability Service
-     * @description Gets the available time in UTC for some service
-     * for a given client and returns the details for all available service and
-     * uses the following parameters:
-     *
-     * - service_id *required
-     * - address_id *optional
-     * - lat, lng *optional
-     * - from_date *optional
-     * - to_date *optional
-     */
-    post: operations["get_availability_service_api_v1_service__service_id__availability_post"];
-  };
-  "/api/v1/service/{service_id}/check": {
-    /**
-     * Check Booking Sessions
-     * @description Creates a service session using the session id and data to store a description about the session.
-     * The date and time of the session is also taken into consideration and displayed as a final result.
-     */
-    post: operations["check_booking_sessions_api_v1_service__service_id__check_post"];
-  };
-  "/api/v1/service/{service_id}": {
-    /** Get Service */
-    get: operations["get_service_api_v1_service__service_id__get"];
-    /**
-     * Create Booking Sessions
-     * @description Creates a service session using the session id and data to store a description about the session.
-     * The date and time of the session is also taken into consideration and displayed as a final result.
-     */
-    post: operations["create_booking_sessions_api_v1_service__service_id__post"];
-  };
-  "/api/v1/service/{service_id}/reviews": {
-    /** Service Reviews */
-    get: operations["service_reviews_api_v1_service__service_id__reviews_get"];
-  };
-  "/api/v1/service/{service_id}/reviews/info": {
-    /** Service Reviews Info */
-    get: operations["service_reviews_info_api_v1_service__service_id__reviews_info_get"];
-  };
   "/api/v1/user/favorites": {
     /**
      * Get Favorites
@@ -267,10 +267,6 @@ export interface paths {
     /** Create User Notes */
     post: operations["create_user_notes_api_v1_user__id__note_post"];
   };
-  "/api/v1/client/{client_id}/public": {
-    /** Get Client Public */
-    get: operations["get_client_public_api_v1_client__client_id__public_get"];
-  };
   "/api/v1/business/profile": {
     /** Get Business Profile */
     get: operations["get_business_profile_api_v1_business_profile_get"];
@@ -302,6 +298,10 @@ export interface paths {
     post: operations["create_question_thread_api_v1_business_question__question_id__post"];
     /** Delete Question */
     delete: operations["delete_question_api_v1_business_question__question_id__delete"];
+  };
+  "/api/v1/client/{client_id}/public": {
+    /** Get Client Public */
+    get: operations["get_client_public_api_v1_client__client_id__public_get"];
   };
   "/api/v1/marketing-groups": {
     /** List Marketing Groups */
@@ -1274,14 +1274,14 @@ export interface components {
       /**
        * Fromdate
        * @description Get the available time starting from this value
-       * @default 2024-07-31T11:15:54.531653Z
-       * @example 2024-08-01T11:15:54.531657Z
+       * @default 2024-08-05T10:12:22.239348Z
+       * @example 2024-08-06T10:12:22.239354Z
        */
       fromDate?: string;
       /**
        * Todate
-       * @default 2024-08-31T11:15:54.531676Z
-       * @example 2024-08-31T11:15:54.531678Z
+       * @default 2024-09-05T10:12:22.239413Z
+       * @example 2024-09-05T10:12:22.239417Z
        */
       toDate?: string;
       /** @default auto */
@@ -1318,7 +1318,7 @@ export interface components {
       /**
        * Start
        * @description Start date when slot is working
-       * @example 2024-07-31
+       * @example 2024-08-05
        */
       start?: string | null;
       /**
@@ -1401,7 +1401,7 @@ export interface components {
       /**
        * Start
        * @description Start date when slot is working
-       * @example 2024-07-31
+       * @example 2024-08-05
        */
       start?: string | null;
       /**
@@ -1455,7 +1455,7 @@ export interface components {
       title?: string | null;
       /**
        * Start
-       * @example 2024-07-31
+       * @example 2024-08-05
        */
       start?: string | null;
       /**
@@ -1616,14 +1616,23 @@ export interface components {
       firstName?: string | null;
       /** Lastname */
       lastName?: string | null;
-      /** Rating */
-      rating?: number | null;
-      /** Reviewscount */
-      reviewsCount?: number | null;
+      /**
+       * Rating
+       * @default 0
+       */
+      rating?: number;
+      /**
+       * Reviewscount
+       * @default 0
+       */
+      reviewsCount?: number;
       /** Avatarurl */
       avatarUrl?: string | null;
-      /** Verified */
-      verified?: boolean | null;
+      /**
+       * Verified
+       * @default false
+       */
+      verified?: boolean;
     };
     /** BookedUsersAnalyticsOut */
     BookedUsersAnalyticsOut: {
@@ -2968,7 +2977,7 @@ export interface components {
     /** PaymentMethod */
     PaymentMethodOut: {
       /** Name */
-      name?: string | null;
+      name: string | null;
       /**
        * Default
        * @default false
@@ -4460,9 +4469,8 @@ export interface components {
        * Price Currency
        * @description aed: AED<br/>usd: USD<br/>eur: EUR
        * @default USD
-       * @enum {string}
        */
-      priceCurrency?: "AED" | "USD" | "EUR";
+      priceCurrency?: components["schemas"]["stretchcore__models__service__service__ServicePriceCurrencies__1"];
       /** Service Other Type */
       serviceOtherType: (string | null) | null;
       /**
@@ -4481,9 +4489,8 @@ export interface components {
        * Status
        * @description uploaded: uploaded<br/>processing: processing<br/>approved: approved<br/>rejected: rejected<br/>review: review<br/>draft: draft<br/>deleted: deleted
        * @default review
-       * @enum {string}
        */
-      status?: "uploaded" | "processing" | "approved" | "rejected" | "review" | "draft" | "deleted";
+      status?: components["schemas"]["stretchcore__models__storage__file__FileStatus__1"];
       /** Servicetypes */
       serviceTypes?: string[] | null;
       /** Numberofsessions */
@@ -4661,9 +4668,8 @@ export interface components {
        * Price Currency
        * @description aed: AED<br/>usd: USD<br/>eur: EUR
        * @default USD
-       * @enum {string}
        */
-      priceCurrency?: "AED" | "USD" | "EUR";
+      priceCurrency?: components["schemas"]["stretchcore__models__service__service__ServicePriceCurrencies__1"];
       /** Service Other Type */
       serviceOtherType: (string | null) | null;
       /**
@@ -4682,9 +4688,8 @@ export interface components {
        * Status
        * @description uploaded: uploaded<br/>processing: processing<br/>approved: approved<br/>rejected: rejected<br/>review: review<br/>draft: draft<br/>deleted: deleted
        * @default review
-       * @enum {string}
        */
-      status?: "uploaded" | "processing" | "approved" | "rejected" | "review" | "draft" | "deleted";
+      status?: components["schemas"]["stretchcore__models__storage__file__FileStatus__1"];
       /** Servicetypes */
       serviceTypes?: string[] | null;
       /** Numberofsessions */
@@ -4735,12 +4740,6 @@ export interface components {
      * @enum {string}
      */
     "ServicePriceCurrencies-Input": "AED" | "USD" | "EUR";
-    /**
-     * ServicePriceCurrencies
-     * @default USD
-     * @enum {string}
-     */
-    "ServicePriceCurrencies-Output": "AED" | "USD" | "EUR";
     /** ServiceType */
     ServiceTypeOut: {
       /**
@@ -4878,7 +4877,7 @@ export interface components {
        * @description Availability date for create
        * @example [
        *   {
-       *     "date": "2024-07-31T15:15:45.314579",
+       *     "date": "2024-08-05T10:12:07.738234",
        *     "orderDescription": "Order description"
        *   }
        * ]
@@ -5709,7 +5708,7 @@ export interface components {
       /**
        * Slots
        * @description Availability date for create
-       * @example 2024-07-31T15:15:45.326603
+       * @example 2024-08-05T10:12:08.052992
        */
       slots: string | components["schemas"]["SessionBookingIn"][];
       location?: components["schemas"]["AddressSessionOut"] | null;
@@ -6047,7 +6046,6 @@ export interface components {
     /**
      * UserPromoType
      * @constant
-     * @enum {string}
      */
     UserPromoType: "boosted";
     /** UserPropIn */
@@ -6124,16 +6122,17 @@ export interface components {
       slotType?: components["schemas"]["AvailabilityType"] | null;
     };
     /**
+     * ServicePriceCurrencies
+     * @enum {string}
+     */
+    stretchcore__models__service__service__ServicePriceCurrencies__1: "AED" | "USD" | "EUR";
+    stretchcore__models__service__service__ServicePriceCurrencies__2: components["schemas"]["stretchcore__models__service__service__ServicePriceCurrencies__1"];
+    /**
      * FileStatus
      * @enum {string}
      */
     stretchcore__models__storage__file__FileStatus__1: "uploaded" | "processing" | "approved" | "rejected" | "review" | "draft" | "deleted";
-    /**
-     * FileStatus
-     * @default review
-     * @enum {string}
-     */
-    stretchcore__models__storage__file__FileStatus__2: "uploaded" | "processing" | "approved" | "rejected" | "review" | "draft" | "deleted";
+    stretchcore__models__storage__file__FileStatus__2: components["schemas"]["stretchcore__models__storage__file__FileStatus__1"];
   };
   responses: never;
   parameters: never;
@@ -6281,6 +6280,190 @@ export interface operations {
       200: {
         content: {
           "application/json": components["schemas"]["BusinessSearchFilterOut"];
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        content: {
+          "application/json": components["schemas"]["HTTPValidationError"];
+        };
+      };
+    };
+  };
+  /**
+   * Get Service Types
+   * @description Gets the type of service or the category of a chosen service.
+   */
+  get_service_types_api_v1_servicetypes_get: {
+    responses: {
+      /** @description Successful Response */
+      200: {
+        content: {
+          "application/json": components["schemas"]["ServiceTypeOut"][];
+        };
+      };
+    };
+  };
+  /**
+   * Get Availability Service
+   * @description Gets the available time in UTC for some service
+   * for a given client and returns the details for all available service and
+   * uses the following parameters:
+   *
+   * - service_id *required
+   * - address_id *optional
+   * - lat, lng *optional
+   * - from_date *optional
+   * - to_date *optional
+   */
+  get_availability_service_api_v1_service__service_id__availability_post: {
+    parameters: {
+      path: {
+        service_id: string;
+      };
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["AvailabilityClientIn"];
+      };
+    };
+    responses: {
+      /** @description Successful Response */
+      200: {
+        content: {
+          "application/json": components["schemas"]["AvailabilityClientOut"];
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        content: {
+          "application/json": components["schemas"]["HTTPValidationError"];
+        };
+      };
+    };
+  };
+  /**
+   * Check Booking Sessions
+   * @description Creates a service session using the session id and data to store a description about the session.
+   * The date and time of the session is also taken into consideration and displayed as a final result.
+   */
+  check_booking_sessions_api_v1_service__service_id__check_post: {
+    parameters: {
+      path: {
+        service_id: string;
+      };
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["SessionCreateIn"];
+      };
+    };
+    responses: {
+      /** @description Successful Response */
+      200: {
+        content: {
+          "application/json": components["schemas"]["SessionsBookingOut"];
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        content: {
+          "application/json": components["schemas"]["HTTPValidationError"];
+        };
+      };
+    };
+  };
+  /** Get Service */
+  get_service_api_v1_service__service_id__get: {
+    parameters: {
+      path: {
+        service_id: string;
+      };
+    };
+    responses: {
+      /** @description Successful Response */
+      200: {
+        content: {
+          "application/json": components["schemas"]["ServiceDetailOut"];
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        content: {
+          "application/json": components["schemas"]["HTTPValidationError"];
+        };
+      };
+    };
+  };
+  /**
+   * Create Booking Sessions
+   * @description Creates a service session using the session id and data to store a description about the session.
+   * The date and time of the session is also taken into consideration and displayed as a final result.
+   */
+  create_booking_sessions_api_v1_service__service_id__post: {
+    parameters: {
+      path: {
+        service_id: string;
+      };
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["SessionCreateIn"];
+      };
+    };
+    responses: {
+      /** @description Successful Response */
+      200: {
+        content: {
+          "application/json": components["schemas"]["SessionOut"][];
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        content: {
+          "application/json": components["schemas"]["HTTPValidationError"];
+        };
+      };
+    };
+  };
+  /** Service Reviews */
+  service_reviews_api_v1_service__service_id__reviews_get: {
+    parameters: {
+      query?: {
+        page?: number | null;
+        limit?: number | null;
+      };
+      path: {
+        service_id: string;
+      };
+    };
+    responses: {
+      /** @description Successful Response */
+      200: {
+        content: {
+          "application/json": components["schemas"]["SessionReviewOut"][];
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        content: {
+          "application/json": components["schemas"]["HTTPValidationError"];
+        };
+      };
+    };
+  };
+  /** Service Reviews Info */
+  service_reviews_info_api_v1_service__service_id__reviews_info_get: {
+    parameters: {
+      path: {
+        service_id: string;
+      };
+    };
+    responses: {
+      /** @description Successful Response */
+      200: {
+        content: {
+          "application/json": components["schemas"]["SessionReviewInfoOut"];
         };
       };
       /** @description Validation Error */
@@ -6757,190 +6940,6 @@ export interface operations {
     };
   };
   /**
-   * Get Service Types
-   * @description Gets the type of service or the category of a chosen service.
-   */
-  get_service_types_api_v1_servicetypes_get: {
-    responses: {
-      /** @description Successful Response */
-      200: {
-        content: {
-          "application/json": components["schemas"]["ServiceTypeOut"][];
-        };
-      };
-    };
-  };
-  /**
-   * Get Availability Service
-   * @description Gets the available time in UTC for some service
-   * for a given client and returns the details for all available service and
-   * uses the following parameters:
-   *
-   * - service_id *required
-   * - address_id *optional
-   * - lat, lng *optional
-   * - from_date *optional
-   * - to_date *optional
-   */
-  get_availability_service_api_v1_service__service_id__availability_post: {
-    parameters: {
-      path: {
-        service_id: string;
-      };
-    };
-    requestBody: {
-      content: {
-        "application/json": components["schemas"]["AvailabilityClientIn"];
-      };
-    };
-    responses: {
-      /** @description Successful Response */
-      200: {
-        content: {
-          "application/json": components["schemas"]["AvailabilityClientOut"];
-        };
-      };
-      /** @description Validation Error */
-      422: {
-        content: {
-          "application/json": components["schemas"]["HTTPValidationError"];
-        };
-      };
-    };
-  };
-  /**
-   * Check Booking Sessions
-   * @description Creates a service session using the session id and data to store a description about the session.
-   * The date and time of the session is also taken into consideration and displayed as a final result.
-   */
-  check_booking_sessions_api_v1_service__service_id__check_post: {
-    parameters: {
-      path: {
-        service_id: string;
-      };
-    };
-    requestBody: {
-      content: {
-        "application/json": components["schemas"]["SessionCreateIn"];
-      };
-    };
-    responses: {
-      /** @description Successful Response */
-      200: {
-        content: {
-          "application/json": components["schemas"]["SessionsBookingOut"];
-        };
-      };
-      /** @description Validation Error */
-      422: {
-        content: {
-          "application/json": components["schemas"]["HTTPValidationError"];
-        };
-      };
-    };
-  };
-  /** Get Service */
-  get_service_api_v1_service__service_id__get: {
-    parameters: {
-      path: {
-        service_id: string;
-      };
-    };
-    responses: {
-      /** @description Successful Response */
-      200: {
-        content: {
-          "application/json": components["schemas"]["ServiceDetailOut"];
-        };
-      };
-      /** @description Validation Error */
-      422: {
-        content: {
-          "application/json": components["schemas"]["HTTPValidationError"];
-        };
-      };
-    };
-  };
-  /**
-   * Create Booking Sessions
-   * @description Creates a service session using the session id and data to store a description about the session.
-   * The date and time of the session is also taken into consideration and displayed as a final result.
-   */
-  create_booking_sessions_api_v1_service__service_id__post: {
-    parameters: {
-      path: {
-        service_id: string;
-      };
-    };
-    requestBody: {
-      content: {
-        "application/json": components["schemas"]["SessionCreateIn"];
-      };
-    };
-    responses: {
-      /** @description Successful Response */
-      200: {
-        content: {
-          "application/json": components["schemas"]["SessionOut"][];
-        };
-      };
-      /** @description Validation Error */
-      422: {
-        content: {
-          "application/json": components["schemas"]["HTTPValidationError"];
-        };
-      };
-    };
-  };
-  /** Service Reviews */
-  service_reviews_api_v1_service__service_id__reviews_get: {
-    parameters: {
-      query?: {
-        page?: number | null;
-        limit?: number | null;
-      };
-      path: {
-        service_id: string;
-      };
-    };
-    responses: {
-      /** @description Successful Response */
-      200: {
-        content: {
-          "application/json": components["schemas"]["SessionReviewOut"][];
-        };
-      };
-      /** @description Validation Error */
-      422: {
-        content: {
-          "application/json": components["schemas"]["HTTPValidationError"];
-        };
-      };
-    };
-  };
-  /** Service Reviews Info */
-  service_reviews_info_api_v1_service__service_id__reviews_info_get: {
-    parameters: {
-      path: {
-        service_id: string;
-      };
-    };
-    responses: {
-      /** @description Successful Response */
-      200: {
-        content: {
-          "application/json": components["schemas"]["SessionReviewInfoOut"];
-        };
-      };
-      /** @description Validation Error */
-      422: {
-        content: {
-          "application/json": components["schemas"]["HTTPValidationError"];
-        };
-      };
-    };
-  };
-  /**
    * Get Favorites
    * @description Get list of favorites user connect with You account
    * Return SearchOut result for favorite coaches
@@ -7260,34 +7259,6 @@ export interface operations {
       };
     };
   };
-  /** Get Client Public */
-  get_client_public_api_v1_client__client_id__public_get: {
-    parameters: {
-      path: {
-        client_id: string;
-      };
-    };
-    responses: {
-      /** @description Successful Response */
-      200: {
-        content: {
-          "application/json": components["schemas"]["PublicClientProfileOut"];
-        };
-      };
-      /** @description Bad Request */
-      400: {
-        content: {
-          "application/json": components["schemas"]["ErrorResponse"];
-        };
-      };
-      /** @description Validation Error */
-      422: {
-        content: {
-          "application/json": components["schemas"]["HTTPValidationError"];
-        };
-      };
-    };
-  };
   /** Get Business Profile */
   get_business_profile_api_v1_business_profile_get: {
     responses: {
@@ -7511,6 +7482,34 @@ export interface operations {
       200: {
         content: {
           "application/json": components["schemas"]["DeleteResponse"];
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        content: {
+          "application/json": components["schemas"]["HTTPValidationError"];
+        };
+      };
+    };
+  };
+  /** Get Client Public */
+  get_client_public_api_v1_client__client_id__public_get: {
+    parameters: {
+      path: {
+        client_id: string;
+      };
+    };
+    responses: {
+      /** @description Successful Response */
+      200: {
+        content: {
+          "application/json": components["schemas"]["PublicClientProfileOut"];
+        };
+      };
+      /** @description Bad Request */
+      400: {
+        content: {
+          "application/json": components["schemas"]["ErrorResponse"];
         };
       };
       /** @description Validation Error */
