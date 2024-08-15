@@ -1277,6 +1277,8 @@ export interface components {
       createdAt?: string | null;
       /** Phone */
       phone?: string | null;
+      /** Email */
+      email?: string | null;
       /**
        * Servicescount
        * @default 0
@@ -1530,7 +1532,7 @@ export interface components {
       /**
        * Start
        * @description Start date when slot is working
-       * @example 2024-08-05
+       * @example 2024-08-15
        */
       start?: string | null;
       /**
@@ -4603,7 +4605,7 @@ export interface components {
     /** PaymentMethod */
     PaymentMethodOut: {
       /** Name */
-      name: string | null;
+      name?: string | null;
       /**
        * Default
        * @default false
@@ -4766,30 +4768,56 @@ export interface components {
     };
     /** ProfileFilling */
     ProfileFilling: {
-      /** Allownonverify */
-      allowNonVerify?: boolean | null;
-      /** Availability */
-      availability?: boolean | null;
-      /** Avatar */
-      avatar?: boolean | null;
-      /** Certificates */
-      certificates?: boolean | null;
-      /** Description */
-      description?: boolean | null;
-      /** Experience */
-      experience?: boolean | null;
-      /** Images */
-      images?: boolean | null;
-      /** Languages */
-      languages?: boolean | null;
-      /** Locations */
-      locations?: boolean | null;
-      /** Media */
-      media?: boolean | null;
-      /** Services */
-      services?: boolean | null;
-      /** Faqs */
-      faqs?: boolean | null;
+      /**
+       * Allownonverify
+       * @default false
+       */
+      allowNonVerify?: boolean;
+      /**
+       * Availability
+       * @default false
+       */
+      availability?: boolean;
+      /**
+       * Avatar
+       * @default false
+       */
+      avatar?: boolean;
+      /**
+       * Description
+       * @default false
+       */
+      description?: boolean;
+      /**
+       * Experience
+       * @default false
+       */
+      experience?: boolean;
+      /**
+       * Images
+       * @default false
+       */
+      images?: boolean;
+      /**
+       * Languages
+       * @default false
+       */
+      languages?: boolean;
+      /**
+       * Locations
+       * @default false
+       */
+      locations?: boolean;
+      /**
+       * Media
+       * @default false
+       */
+      media?: boolean;
+      /**
+       * Services
+       * @default false
+       */
+      services?: boolean;
       /**
        * Percentage
        * @default 0
@@ -5138,8 +5166,9 @@ export interface components {
        * Price Currency
        * @description aed: AED<br/>usd: USD<br/>eur: EUR
        * @default USD
+       * @enum {string}
        */
-      priceCurrency?: components["schemas"]["stretchcore__models__service__service__ServicePriceCurrencies__1"];
+      priceCurrency?: "AED" | "USD" | "EUR";
       /** Service Other Type */
       serviceOtherType: (string | null) | null;
       /**
@@ -5158,8 +5187,9 @@ export interface components {
        * Status
        * @description uploaded: uploaded<br/>processing: processing<br/>approved: approved<br/>rejected: rejected<br/>review: review<br/>draft: draft<br/>deleted: deleted
        * @default review
+       * @enum {string}
        */
-      status?: components["schemas"]["stretchcore__models__storage__file__FileStatus__1"];
+      status?: "uploaded" | "processing" | "approved" | "rejected" | "review" | "draft" | "deleted";
       /** Servicetypes */
       serviceTypes?: string[] | null;
       /** Numberofsessions */
@@ -5233,8 +5263,9 @@ export interface components {
        * Price Currency
        * @description aed: AED<br/>usd: USD<br/>eur: EUR
        * @default USD
+       * @enum {string}
        */
-      priceCurrency?: components["schemas"]["stretchcore__models__service__service__ServicePriceCurrencies__1"];
+      priceCurrency?: "AED" | "USD" | "EUR";
       /** Service Other Type */
       serviceOtherType: (string | null) | null;
       /**
@@ -5253,8 +5284,9 @@ export interface components {
        * Status
        * @description uploaded: uploaded<br/>processing: processing<br/>approved: approved<br/>rejected: rejected<br/>review: review<br/>draft: draft<br/>deleted: deleted
        * @default review
+       * @enum {string}
        */
-      status?: components["schemas"]["stretchcore__models__storage__file__FileStatus__1"];
+      status?: "uploaded" | "processing" | "approved" | "rejected" | "review" | "draft" | "deleted";
       /** Servicetypes */
       serviceTypes?: string[] | null;
       /** Numberofsessions */
@@ -5300,6 +5332,12 @@ export interface components {
       /** Equipmenttitles */
       equipmentTitles?: string[] | null;
     };
+    /**
+     * ServicePriceCurrencies
+     * @default USD
+     * @enum {string}
+     */
+    ServicePriceCurrencies: "AED" | "USD" | "EUR";
     /** ServiceTypeIn */
     ServiceTypeIn: {
       /** Name */
@@ -5803,6 +5841,7 @@ export interface components {
     /**
      * UserPromoType
      * @constant
+     * @enum {string}
      */
     UserPromoType: "boosted";
     /** UserPropOut */
@@ -5913,12 +5952,6 @@ export interface components {
      */
     stretchcore__models__review__schema__admin_session_review__AdminSessionOrderFields: "rating" | "-rating";
     /**
-     * ServicePriceCurrencies
-     * @enum {string}
-     */
-    stretchcore__models__service__service__ServicePriceCurrencies__1: "AED" | "USD" | "EUR";
-    stretchcore__models__service__service__ServicePriceCurrencies__2: components["schemas"]["stretchcore__models__service__service__ServicePriceCurrencies__1"];
-    /**
      * AdminSessionOrderFields
      * @enum {string}
      */
@@ -5928,7 +5961,12 @@ export interface components {
      * @enum {string}
      */
     stretchcore__models__storage__file__FileStatus__1: "uploaded" | "processing" | "approved" | "rejected" | "review" | "draft" | "deleted";
-    stretchcore__models__storage__file__FileStatus__2: components["schemas"]["stretchcore__models__storage__file__FileStatus__1"];
+    /**
+     * FileStatus
+     * @default review
+     * @enum {string}
+     */
+    stretchcore__models__storage__file__FileStatus__2: "uploaded" | "processing" | "approved" | "rejected" | "review" | "draft" | "deleted";
   };
   responses: never;
   parameters: never;
