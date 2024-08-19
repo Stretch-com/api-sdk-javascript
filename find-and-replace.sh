@@ -1,5 +1,2 @@
-find . -type f -name '*.d.ts' -exec sed -i '' s/"files: string"/"files: File"/g {} +
-find . -type f -name '*.d.ts' -exec sed -i '' s/"files?: string"/"files?: File"/g {} +
-find . -type f -name '*.d.ts' -exec sed -i '' s/"file: string"/"file: File"/g {} +
-find . -type f -name '*.d.ts' -exec sed -i '' s/"file?: string"/"file?: File"/g {} +
+sed -i '' -E 's/(files?\??): string/\1: File/gi' types/*.d.ts
 echo "Successfully replaced files"

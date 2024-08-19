@@ -436,6 +436,16 @@ class Admin {
       return await this.auth.post(`/admin/users/count`, payload);
   }
 
+  async postUserValidation(
+    payload: paths["/api/v1/admin/user/validate"]["post"]["requestBody"]["content"]["application/json"]
+  ): Promise<
+    | paths["/api/v1/admin/user/validate"]["post"]["responses"]["200"]["content"]["application/json"]
+    | undefined
+  > {
+    if (await this.auth.checkAuth())
+      return await this.auth.post(`/admin/user/validate`, payload);
+  }
+
   // Sessions endpoints
   async getSessions(
     query: paths["/api/v1/admin/sessions"]["get"]["parameters"]["query"]

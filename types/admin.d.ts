@@ -178,6 +178,10 @@ export interface paths {
      */
     post: operations["import_users_api_v1_admin_user_import_post"];
   };
+  "/api/v1/admin/user/validate": {
+    /** Validate User Registration */
+    post: operations["validate_user_registration_api_v1_admin_user_validate_post"];
+  };
   "/api/v1/admin/sessions": {
     /** Get Sessions */
     get: operations["get_sessions_api_v1_admin_sessions_get"];
@@ -556,6 +560,11 @@ export interface components {
       name?: string | null;
       /** Id */
       id?: string | null;
+      /**
+       * Activesessions
+       * @default 0
+       */
+      activeSessions?: number;
     };
     /** AddressSessionOut */
     AddressSessionOut: {
@@ -1522,6 +1531,11 @@ export interface components {
       name?: string | null;
       /** Id */
       id?: string | null;
+      /**
+       * Activesessions
+       * @default 0
+       */
+      activeSessions?: number;
     };
     /** AdminCreateBusinessAvailabilityIn */
     AdminCreateBusinessAvailabilityIn: {
@@ -1532,7 +1546,7 @@ export interface components {
       /**
        * Start
        * @description Start date when slot is working
-       * @example 2024-08-15
+       * @example 2024-08-19
        */
       start?: string | null;
       /**
@@ -2480,8 +2494,12 @@ export interface components {
        * @default []
        */
       serviceTypes?: string[];
-      /** Reports */
-      reports: components["schemas"]["ReportOut"][];
+      /**
+       * Reports
+       * @default []
+       */
+      reports?: components["schemas"]["ReportOut"][];
+      cancellationDetails?: components["schemas"]["SessionCancellationDetails"] | null;
     };
     /** AdminTotalCountOut */
     AdminTotalCountOut: {
@@ -2695,6 +2713,35 @@ export interface components {
       registeredFrom?: string | null;
       /** Registeredto */
       registeredTo?: string | null;
+    };
+    /** AdminUserDataValidateIn */
+    AdminUserDataValidateIn: {
+      /**
+       * Email
+       * @description Email for getting bill information and etc
+       */
+      email?: string | null;
+      /**
+       * Phone
+       * @description Phone number in international format
+       */
+      phone?: string | null;
+      /**
+       * Username
+       * @description Username input
+       */
+      username?: string | null;
+      /**
+       * Firstname
+       * @description First name input
+       */
+      firstName?: string | null;
+      /**
+       * Lastname
+       * @description Last name input
+       */
+      lastName?: string | null;
+      userType: components["schemas"]["UserType"];
     };
     /** AdminUserListOut */
     AdminUserListOut: {
@@ -5355,6 +5402,31 @@ export interface components {
       /** Description */
       description: (string | null) | null;
     };
+    /** SessionCancellationDetails */
+    SessionCancellationDetails: {
+      /**
+       * Reason
+       * @description Description for report
+       * @example Problem with session
+       */
+      reason?: string | null;
+      /**
+       * Description
+       * @description Reason for report
+       * @example Technical problem
+       */
+      description?: string | null;
+      /** Refundamount */
+      refundAmount?: number | null;
+      source?: components["schemas"]["SessionCancellationSource"] | null;
+      /** Createdat */
+      createdAt?: string | null;
+    };
+    /**
+     * SessionCancellationSource
+     * @enum {string}
+     */
+    SessionCancellationSource: "client" | "coach" | "admin";
     /** SessionDropIn */
     SessionDropIn: {
       /**
@@ -5638,6 +5710,27 @@ export interface components {
      * @enum {string}
      */
     UserCoachType: "coach" | "studio" | "business";
+    /** UserDataValidateField */
+    UserDataValidateField: {
+      /** Error */
+      error: string;
+      /** Message */
+      message: string;
+      /** Field */
+      field: string;
+    };
+    /**
+     * UserDataValidateOut
+     * @description Validated User
+     */
+    UserDataValidateOut: {
+      /** Message */
+      message: string;
+      /** Error */
+      error: string;
+      /** Fields */
+      fields: components["schemas"]["UserDataValidateField"][];
+    };
     /**
      * UserDays
      * @enum {string}
@@ -7015,6 +7108,28 @@ export interface operations {
       };
     };
   };
+  /** Validate User Registration */
+  validate_user_registration_api_v1_admin_user_validate_post: {
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["AdminUserDataValidateIn"];
+      };
+    };
+    responses: {
+      /** @description Successful Response */
+      200: {
+        content: {
+          "application/json": components["schemas"]["StretchResponse"] | components["schemas"]["UserDataValidateOut"];
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        content: {
+          "application/json": components["schemas"]["HTTPValidationError"];
+        };
+      };
+    };
+  };
   /** Get Sessions */
   get_sessions_api_v1_admin_sessions_get: {
     parameters: {
@@ -7026,6 +7141,7 @@ export interface operations {
         clientId?: string | null;
         promo?: boolean | null;
         fromDate?: string | null;
+        toDate?: string | null;
         sorting?: components["schemas"]["stretchcore__models__session__schema__admin_session__AdminSessionOrderFields"] | null;
         state?: components["schemas"]["SessionState"] | null;
       };
@@ -7056,6 +7172,7 @@ export interface operations {
         clientId?: string | null;
         promo?: boolean | null;
         fromDate?: string | null;
+        toDate?: string | null;
         sorting?: components["schemas"]["stretchcore__models__session__schema__admin_session__AdminSessionOrderFields"] | null;
         state?: components["schemas"]["SessionState"] | null;
       };
