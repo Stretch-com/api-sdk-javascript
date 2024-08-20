@@ -1546,7 +1546,7 @@ export interface components {
       /**
        * Start
        * @description Start date when slot is working
-       * @example 2024-08-19
+       * @example 2024-08-20
        */
       start?: string | null;
       /**
@@ -2636,6 +2636,7 @@ export interface components {
        * @default 0
        */
       endingBalance?: number | null;
+      paymentMethod?: components["schemas"]["SessionPaymentMethod"] | null;
     };
     /** AdminUserConfigOut */
     AdminUserConfigOut: {
