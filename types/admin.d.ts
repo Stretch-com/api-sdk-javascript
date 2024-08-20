@@ -3547,7 +3547,7 @@ export interface components {
        * File
        * @description Downloadable file
        */
-      file?: string | null;
+      file?: File | null;
     };
     /** Body_import_business_api_v1_admin_business_import_post */
     Body_import_business_api_v1_admin_business_import_post: {
@@ -3555,7 +3555,7 @@ export interface components {
        * File
        * Format: binary
        */
-      file: string;
+      file: File;
     };
     /** Body_import_business_external_api_v1_admin_business_import_external_post */
     Body_import_business_external_api_v1_admin_business_import_external_post: {
@@ -3563,7 +3563,7 @@ export interface components {
        * File
        * Format: binary
        */
-      file: string;
+      file: File;
     };
     /** Body_import_categories_api_v1_admin_category_import_post */
     Body_import_categories_api_v1_admin_category_import_post: {
@@ -3571,7 +3571,7 @@ export interface components {
        * File
        * Format: binary
        */
-      file: string;
+      file: File;
     };
     /** Body_import_categories_api_v1_admin_geo_post */
     Body_import_categories_api_v1_admin_geo_post: {
@@ -3579,7 +3579,7 @@ export interface components {
        * File
        * Format: binary
        */
-      file: string;
+      file: File;
     };
     /** Body_import_users_api_v1_admin_user_import_post */
     Body_import_users_api_v1_admin_user_import_post: {
@@ -3587,7 +3587,7 @@ export interface components {
        * File
        * Format: binary
        */
-      file: string;
+      file: File;
     };
     /** BookingReasonOut */
     BookingReasonOut: {
