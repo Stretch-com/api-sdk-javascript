@@ -1546,7 +1546,7 @@ export interface components {
       /**
        * Start
        * @description Start date when slot is working
-       * @example 2024-08-19
+       * @example 2024-08-20
        */
       start?: string | null;
       /**
@@ -2636,6 +2636,7 @@ export interface components {
        * @default 0
        */
       endingBalance?: number | null;
+      paymentMethod?: components["schemas"]["SessionPaymentMethod"] | null;
     };
     /** AdminUserConfigOut */
     AdminUserConfigOut: {
@@ -3546,7 +3547,7 @@ export interface components {
        * File
        * @description Downloadable file
        */
-      file?: File | null;
+      file?: string | null;
     };
     /** Body_import_business_api_v1_admin_business_import_post */
     Body_import_business_api_v1_admin_business_import_post: {
@@ -3554,7 +3555,7 @@ export interface components {
        * File
        * Format: binary
        */
-      file: File;
+      file: string;
     };
     /** Body_import_business_external_api_v1_admin_business_import_external_post */
     Body_import_business_external_api_v1_admin_business_import_external_post: {
@@ -3562,7 +3563,7 @@ export interface components {
        * File
        * Format: binary
        */
-      file: File;
+      file: string;
     };
     /** Body_import_categories_api_v1_admin_category_import_post */
     Body_import_categories_api_v1_admin_category_import_post: {
@@ -3570,7 +3571,7 @@ export interface components {
        * File
        * Format: binary
        */
-      file: File;
+      file: string;
     };
     /** Body_import_categories_api_v1_admin_geo_post */
     Body_import_categories_api_v1_admin_geo_post: {
@@ -3578,7 +3579,7 @@ export interface components {
        * File
        * Format: binary
        */
-      file: File;
+      file: string;
     };
     /** Body_import_users_api_v1_admin_user_import_post */
     Body_import_users_api_v1_admin_user_import_post: {
@@ -3586,7 +3587,7 @@ export interface components {
        * File
        * Format: binary
        */
-      file: File;
+      file: string;
     };
     /** BookingReasonOut */
     BookingReasonOut: {
