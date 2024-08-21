@@ -559,6 +559,13 @@ class Admin {
       return await this.auth.get(`/admin/transactions/info`, query);
   }
 
+  async getTransactionDownload(
+    query: paths["/api/v1/admin/transaction/download"]["get"]["parameters"]["query"]
+  ) {
+    if (await this.auth.checkAuth())
+      return await this.auth.get(`/admin/transaction/download`, query);
+  }
+
   async getTransactionDetails(
     transactionId: string
   ): Promise<

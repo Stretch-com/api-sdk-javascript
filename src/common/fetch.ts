@@ -31,8 +31,11 @@ export async function apiFetch(
     if (res.status >= 200 && res.status < 300) {
       try {
         const contentType = res.headers.get("content-type");
-        if (contentType && contentType.indexOf("application/json") !== -1) {
+        if (!contentType) return;
+        if (contentType.indexOf("application/json") !== -1) {
           return await res.json();
+        } else if (contentType.indexOf("text/csv") !== -1) {
+          return await res.blob();
         } else {
           console.warn("We get TEXT answer");
           return await res.text();

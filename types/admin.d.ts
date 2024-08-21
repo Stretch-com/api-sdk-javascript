@@ -224,6 +224,10 @@ export interface paths {
     /** Get Transaction Info */
     get: operations["get_transaction_info_api_v1_admin_transactions_info_get"];
   };
+  "/api/v1/admin/transaction/download": {
+    /** Download Transaction File */
+    get: operations["download_transaction_file_api_v1_admin_transaction_download_get"];
+  };
   "/api/v1/admin/transaction/{transaction_id}": {
     /** Get Transaction Details */
     get: operations["get_transaction_details_api_v1_admin_transaction__transaction_id__get"];
@@ -1546,7 +1550,7 @@ export interface components {
       /**
        * Start
        * @description Start date when slot is working
-       * @example 2024-08-20
+       * @example 2024-08-21
        */
       start?: string | null;
       /**
@@ -2617,25 +2621,28 @@ export interface components {
        * Format: uuid
        */
       id: string;
-      status?: components["schemas"]["PaymentState"] | null;
+      status: components["schemas"]["PaymentState"];
       coach?: components["schemas"]["AdminSessionUserOut"] | null;
       client?: components["schemas"]["AdminSessionUserOut"] | null;
       /** Sessionname */
       sessionName?: string | null;
-      /** Createdat */
-      createdAt?: string | null;
+      /**
+       * Createdat
+       * Format: date-time
+       */
+      createdAt: string;
       /** Revenue */
-      revenue?: number | null;
+      revenue: number;
       /**
        * Currency
        * @default AED
        */
-      currency?: string | null;
+      currency?: string;
       /**
        * Endingbalance
        * @default 0
        */
-      endingBalance?: number | null;
+      endingBalance?: number;
       paymentMethod?: components["schemas"]["SessionPaymentMethod"] | null;
     };
     /** AdminUserConfigOut */
@@ -7420,6 +7427,34 @@ export interface operations {
       200: {
         content: {
           "application/json": components["schemas"]["AdminTransactionSummaryInfoOut"];
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        content: {
+          "application/json": components["schemas"]["HTTPValidationError"];
+        };
+      };
+    };
+  };
+  /** Download Transaction File */
+  download_transaction_file_api_v1_admin_transaction_download_get: {
+    parameters: {
+      query?: {
+        search?: string | null;
+        fromDate?: string | null;
+        toDate?: string | null;
+        allTime?: boolean | null;
+        status?: components["schemas"]["PaymentState"] | null;
+        coachId?: string | null;
+        clientId?: string | null;
+      };
+    };
+    responses: {
+      /** @description Successful Response */
+      200: {
+        content: {
+          "application/json": unknown;
         };
       };
       /** @description Validation Error */
