@@ -1,3 +1,4 @@
+import { StretchResponse } from "../../types/response";
 import { StretchError } from "./error";
 
 // authorise a user using the Authorization headers on any URI and return the JSON value of
@@ -31,8 +32,24 @@ export async function apiFetch(
     if (res.status >= 200 && res.status < 300) {
       try {
         const contentType = res.headers.get("content-type");
-        if (contentType && contentType.indexOf("application/json") !== -1) {
+        if (!contentType) return;
+        if (contentType.indexOf("application/json") !== -1) {
           return await res.json();
+        } else if (contentType.indexOf("text/csv") !== -1) {
+          const disposition = res.headers.get("Content-Disposition");
+          let filename: string | null = null;
+          if (
+            disposition &&
+            disposition.includes(";") &&
+            disposition.includes("=")
+          )
+            filename = disposition.split(";")[1].split("=")[1];
+
+          const response: StretchResponse["FileResponse"] = {
+            blob: await res.blob(),
+          };
+          if (filename) response.filename = filename;
+          return response;
         } else {
           console.warn("We get TEXT answer");
           return await res.text();

@@ -224,6 +224,10 @@ export interface paths {
     /** Get Transaction Info */
     get: operations["get_transaction_info_api_v1_admin_transactions_info_get"];
   };
+  "/api/v1/admin/transaction/download": {
+    /** Download Transaction File */
+    get: operations["download_transaction_file_api_v1_admin_transaction_download_get"];
+  };
   "/api/v1/admin/transaction/{transaction_id}": {
     /** Get Transaction Details */
     get: operations["get_transaction_details_api_v1_admin_transaction__transaction_id__get"];
@@ -325,6 +329,10 @@ export interface paths {
   "/api/v1/admin/withdrawals/count": {
     /** Get Withdrawals Count */
     get: operations["get_withdrawals_count_api_v1_admin_withdrawals_count_get"];
+  };
+  "/api/v1/admin/withdrawal/download": {
+    /** Download Withdrawal File */
+    get: operations["download_withdrawal_file_api_v1_admin_withdrawal_download_get"];
   };
   "/api/v1/admin/withdrawal/{withdrawal_id}": {
     /** Get Withdrawal Details */
@@ -1546,7 +1554,7 @@ export interface components {
       /**
        * Start
        * @description Start date when slot is working
-       * @example 2024-08-20
+       * @example 2024-08-22
        */
       start?: string | null;
       /**
@@ -2617,25 +2625,28 @@ export interface components {
        * Format: uuid
        */
       id: string;
-      status?: components["schemas"]["PaymentState"] | null;
+      status: components["schemas"]["PaymentState"];
       coach?: components["schemas"]["AdminSessionUserOut"] | null;
       client?: components["schemas"]["AdminSessionUserOut"] | null;
       /** Sessionname */
       sessionName?: string | null;
-      /** Createdat */
-      createdAt?: string | null;
+      /**
+       * Createdat
+       * Format: date-time
+       */
+      createdAt: string;
       /** Revenue */
-      revenue?: number | null;
+      revenue: number;
       /**
        * Currency
        * @default AED
        */
-      currency?: string | null;
+      currency?: string;
       /**
        * Endingbalance
        * @default 0
        */
-      endingBalance?: number | null;
+      endingBalance?: number;
       paymentMethod?: components["schemas"]["SessionPaymentMethod"] | null;
     };
     /** AdminUserConfigOut */
@@ -3005,8 +3016,11 @@ export interface components {
        * Format: uuid
        */
       id: string;
-      /** Userid */
-      userId?: string | null;
+      /**
+       * Userid
+       * Format: uuid
+       */
+      userId: string;
       /** Userfirstname */
       userFirstName?: string | null;
       /** Userlastname */
@@ -3019,7 +3033,7 @@ export interface components {
        */
       createdAt: string;
       /** Amount */
-      amount?: number | null;
+      amount: number;
       /** Brand */
       brand?: string | null;
       /** Last4 */
@@ -3030,9 +3044,9 @@ export interface components {
        * Currency
        * @default AED
        */
-      currency?: string | null;
+      currency?: string;
       /** @default pending */
-      status?: components["schemas"]["WithdrawalState"] | null;
+      status?: components["schemas"]["WithdrawalState"];
     };
     /** AppAccommodation */
     AppAccommodation: {
@@ -3405,6 +3419,11 @@ export interface components {
        */
       videoThumb?: string | null;
     };
+    /**
+     * AvailabilityDateFormat
+     * @enum {string}
+     */
+    AvailabilityDateFormat: "utc" | "auto";
     /** Availability */
     AvailabilityOut: {
       /** Id */
@@ -7196,6 +7215,9 @@ export interface operations {
   /** Get Session */
   get_session_api_v1_admin_session__session_id__get: {
     parameters: {
+      query?: {
+        dateFormat?: components["schemas"]["AvailabilityDateFormat"];
+      };
       path: {
         session_id: string;
       };
@@ -7420,6 +7442,34 @@ export interface operations {
       200: {
         content: {
           "application/json": components["schemas"]["AdminTransactionSummaryInfoOut"];
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        content: {
+          "application/json": components["schemas"]["HTTPValidationError"];
+        };
+      };
+    };
+  };
+  /** Download Transaction File */
+  download_transaction_file_api_v1_admin_transaction_download_get: {
+    parameters: {
+      query?: {
+        search?: string | null;
+        fromDate?: string | null;
+        toDate?: string | null;
+        allTime?: boolean | null;
+        status?: components["schemas"]["PaymentState"] | null;
+        coachId?: string | null;
+        clientId?: string | null;
+      };
+    };
+    responses: {
+      /** @description Successful Response */
+      200: {
+        content: {
+          "application/json": unknown;
         };
       };
       /** @description Validation Error */
@@ -8087,6 +8137,33 @@ export interface operations {
       200: {
         content: {
           "application/json": components["schemas"]["AdminWithdrawalSummaryCountOut"];
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        content: {
+          "application/json": components["schemas"]["HTTPValidationError"];
+        };
+      };
+    };
+  };
+  /** Download Withdrawal File */
+  download_withdrawal_file_api_v1_admin_withdrawal_download_get: {
+    parameters: {
+      query?: {
+        fromDate?: string | null;
+        toDate?: string | null;
+        allTime?: boolean | null;
+        search?: string | null;
+        status?: components["schemas"]["WithdrawalState"] | null;
+        userId?: string | null;
+      };
+    };
+    responses: {
+      /** @description Successful Response */
+      200: {
+        content: {
+          "application/json": unknown;
         };
       };
       /** @description Validation Error */
