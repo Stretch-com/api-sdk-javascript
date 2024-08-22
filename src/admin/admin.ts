@@ -1,4 +1,5 @@
 import { paths } from "../../types/admin";
+import { StretchResponse } from "../../types/response";
 import { StretchAuth } from "../common/auth";
 import { payloadToFormData } from "../common/utils";
 
@@ -561,7 +562,7 @@ class Admin {
 
   async getTransactionDownload(
     query: paths["/api/v1/admin/transaction/download"]["get"]["parameters"]["query"]
-  ) {
+  ): Promise<StretchResponse["FileResponse"] | undefined> {
     if (await this.auth.checkAuth())
       return await this.auth.get(`/admin/transaction/download`, query);
   }
@@ -862,6 +863,13 @@ class Admin {
   > {
     if (await this.auth.checkAuth())
       return await this.auth.get(`/admin/withdrawal/${withdrawalId}`);
+  }
+
+  async getWithdrawalDownload(
+    query: paths["/api/v1/admin/withdrawal/download"]["get"]["parameters"]["query"]
+  ): Promise<StretchResponse["FileResponse"] | undefined> {
+    if (await this.auth.checkAuth())
+      return await this.auth.get(`/admin/withdrawal/download`, query);
   }
 
   // Analytics endpoint
