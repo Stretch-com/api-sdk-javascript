@@ -330,6 +330,10 @@ export interface paths {
     /** Get Withdrawals Count */
     get: operations["get_withdrawals_count_api_v1_admin_withdrawals_count_get"];
   };
+  "/api/v1/admin/withdrawal/download": {
+    /** Download Withdrawal File */
+    get: operations["download_withdrawal_file_api_v1_admin_withdrawal_download_get"];
+  };
   "/api/v1/admin/withdrawal/{withdrawal_id}": {
     /** Get Withdrawal Details */
     get: operations["get_withdrawal_details_api_v1_admin_withdrawal__withdrawal_id__get"];
@@ -1550,7 +1554,7 @@ export interface components {
       /**
        * Start
        * @description Start date when slot is working
-       * @example 2024-08-21
+       * @example 2024-08-22
        */
       start?: string | null;
       /**
@@ -3012,8 +3016,11 @@ export interface components {
        * Format: uuid
        */
       id: string;
-      /** Userid */
-      userId?: string | null;
+      /**
+       * Userid
+       * Format: uuid
+       */
+      userId: string;
       /** Userfirstname */
       userFirstName?: string | null;
       /** Userlastname */
@@ -3026,7 +3033,7 @@ export interface components {
        */
       createdAt: string;
       /** Amount */
-      amount?: number | null;
+      amount: number;
       /** Brand */
       brand?: string | null;
       /** Last4 */
@@ -3037,9 +3044,9 @@ export interface components {
        * Currency
        * @default AED
        */
-      currency?: string | null;
+      currency?: string;
       /** @default pending */
-      status?: components["schemas"]["WithdrawalState"] | null;
+      status?: components["schemas"]["WithdrawalState"];
     };
     /** AppAccommodation */
     AppAccommodation: {
@@ -3412,6 +3419,11 @@ export interface components {
        */
       videoThumb?: string | null;
     };
+    /**
+     * AvailabilityDateFormat
+     * @enum {string}
+     */
+    AvailabilityDateFormat: "utc" | "auto";
     /** Availability */
     AvailabilityOut: {
       /** Id */
@@ -7203,6 +7215,9 @@ export interface operations {
   /** Get Session */
   get_session_api_v1_admin_session__session_id__get: {
     parameters: {
+      query?: {
+        dateFormat?: components["schemas"]["AvailabilityDateFormat"];
+      };
       path: {
         session_id: string;
       };
@@ -8122,6 +8137,33 @@ export interface operations {
       200: {
         content: {
           "application/json": components["schemas"]["AdminWithdrawalSummaryCountOut"];
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        content: {
+          "application/json": components["schemas"]["HTTPValidationError"];
+        };
+      };
+    };
+  };
+  /** Download Withdrawal File */
+  download_withdrawal_file_api_v1_admin_withdrawal_download_get: {
+    parameters: {
+      query?: {
+        fromDate?: string | null;
+        toDate?: string | null;
+        allTime?: boolean | null;
+        search?: string | null;
+        status?: components["schemas"]["WithdrawalState"] | null;
+        userId?: string | null;
+      };
+    };
+    responses: {
+      /** @description Successful Response */
+      200: {
+        content: {
+          "application/json": unknown;
         };
       };
       /** @description Validation Error */
