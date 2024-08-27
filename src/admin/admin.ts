@@ -478,6 +478,17 @@ class Admin {
       return await this.auth.get(`/admin/session/${sessionId}`);
   }
 
+  async putSessionRefund(
+    sessionId: string,
+    payload: paths["/api/v1/admin/session/{session_id}/refund"]["put"]["requestBody"]["content"]["application/json"]
+  ): Promise<
+    | paths["/api/v1/admin/session/{session_id}/refund"]["put"]["responses"]["200"]["content"]["application/json"]
+    | undefined
+  > {
+    if (await this.auth.checkAuth())
+      return await this.auth.put(`/admin/session/${sessionId}/refund`, payload);
+  }
+
   // Feedback endpoints
   async postSupportFeedback(
     payload: paths["/api/v1/admin/support/feedback"]["post"]["requestBody"]["content"]["multipart/form-data"]

@@ -194,6 +194,10 @@ export interface paths {
     /** Get Session */
     get: operations["get_session_api_v1_admin_session__session_id__get"];
   };
+  "/api/v1/admin/session/{session_id}/refund": {
+    /** Refund Session */
+    put: operations["refund_session_api_v1_admin_session__session_id__refund_put"];
+  };
   "/api/v1/admin/support/feedback": {
     /** Create Feedback */
     post: operations["create_feedback_api_v1_admin_support_feedback_post"];
@@ -1246,7 +1250,7 @@ export interface components {
        * Certificates
        * @default []
        */
-      certificates?: components["schemas"]["CertificateFileOut"][];
+      certificates?: components["schemas"]["CoachCertificateOut"][];
       /**
        * Awards
        * @default []
@@ -1554,7 +1558,7 @@ export interface components {
       /**
        * Start
        * @description Start date when slot is working
-       * @example 2024-08-22
+       * @example 2024-08-27
        */
       start?: string | null;
       /**
@@ -3966,57 +3970,6 @@ export interface components {
       /** Attachmentid */
       attachmentId?: string | null;
     };
-    /** FileBase */
-    CertificateFileOut: {
-      /**
-       * Id
-       * @description UUID of file
-       */
-      id?: string | null;
-      /**
-       * Title
-       * @description The title name of the uploaded file
-       */
-      title?: string | null;
-      /**
-       * Description
-       * @description The description for uploaded file
-       */
-      description?: string | null;
-      /**
-       * Source
-       * @default local
-       */
-      source?: string;
-      /**
-       * Originfilename
-       * @description The original file name given when uploading the file
-       */
-      originFilename?: string | null;
-      /** Filesize */
-      filesize?: number | null;
-      /**
-       * Contenttype
-       * @description File contents in MIME format
-       */
-      contentType?: string | null;
-      /** @description File visibility status in the system: on review, approved or rejected */
-      status?: components["schemas"]["stretchcore__models__storage__file__FileStatus__1"] | null;
-      /**
-       * Url
-       * @description Direct link to the downloaded file. The file can be recompressed when it is placed in the storage
-       */
-      url?: string | null;
-      /**
-       * Thumb
-       * @description Link to the preview file
-       */
-      thumb?: string | null;
-      /** Issuedate */
-      issueDate?: string | null;
-      /** Expiredate */
-      expireDate?: string | null;
-    };
     /** ClientDetails */
     ClientDetails: {
       /**
@@ -4147,6 +4100,75 @@ export interface components {
        * @example Asia/Dubai
        */
       fullName?: string | null;
+    };
+    /** CoachCertificateFileOut */
+    CoachCertificateFileOut: {
+      /**
+       * Contenttype
+       * @description Content type of media file
+       */
+      contentType?: string | null;
+      /**
+       * Url
+       * @description Full size url
+       */
+      url?: string | null;
+      /**
+       * Thumb
+       * @description Thumbnail url
+       */
+      thumb?: string | null;
+      /**
+       * Videothumb
+       * @description Video thumbnail url
+       */
+      videoThumb?: string | null;
+      /** @description File visibility status in the system: on review, approved or rejected */
+      status?: components["schemas"]["stretchcore__models__storage__file__FileStatus__1"] | null;
+      /**
+       * Duration
+       * @description Duration of media
+       */
+      duration?: number | null;
+      /**
+       * Originfilename
+       * @description Original media filename
+       */
+      originFilename?: string | null;
+      /**
+       * Filesize
+       * @description Filesize of media
+       */
+      filesize?: number | null;
+      /**
+       * Id
+       * Format: uuid
+       */
+      id: string;
+    };
+    /** CoachCertificateOut */
+    CoachCertificateOut: {
+      /**
+       * Id
+       * Format: uuid
+       */
+      id: string;
+      /** Title */
+      title: string;
+      /** Description */
+      description?: string | null;
+      /**
+       * Issuedate
+       * Format: date-time
+       */
+      issueDate?: string;
+      /** Expiredate */
+      expireDate?: string | null;
+      /**
+       * Attachments
+       * @default []
+       */
+      attachments?: components["schemas"]["CoachCertificateFileOut"][] | null;
     };
     /** CoachDetails */
     CoachDetails: {
@@ -7237,6 +7259,33 @@ export interface operations {
       };
     };
   };
+  /** Refund Session */
+  refund_session_api_v1_admin_session__session_id__refund_put: {
+    parameters: {
+      path: {
+        session_id: string;
+      };
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["SessionDropIn"];
+      };
+    };
+    responses: {
+      /** @description Successful Response */
+      200: {
+        content: {
+          "application/json": components["schemas"]["StretchResponse"];
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        content: {
+          "application/json": components["schemas"]["HTTPValidationError"];
+        };
+      };
+    };
+  };
   /** Create Feedback */
   create_feedback_api_v1_admin_support_feedback_post: {
     requestBody: {
@@ -7378,7 +7427,7 @@ export interface operations {
         status?: components["schemas"]["PaymentState"] | null;
         coachId?: string | null;
         clientId?: string | null;
-        sorting?: components["schemas"]["AdminTransactionOrderFields"] | null;
+        sorting?: components["schemas"]["AdminTransactionOrderFields"];
       };
     };
     responses: {
@@ -8102,7 +8151,7 @@ export interface operations {
         search?: string | null;
         status?: components["schemas"]["WithdrawalState"] | null;
         userId?: string | null;
-        sorting?: components["schemas"]["AdminWithdrawalOrderFields"] | null;
+        sorting?: components["schemas"]["AdminWithdrawalOrderFields"];
       };
     };
     responses: {
