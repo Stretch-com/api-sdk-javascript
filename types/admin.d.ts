@@ -1280,7 +1280,7 @@ export interface components {
      * AdminCoachOrderFields
      * @enum {string}
      */
-    AdminCoachOrderFields: "name" | "-name" | "created_at" | "-created_at" | "certificates_count" | "-certificates_count" | "experience" | "-experience" | "services_count" | "-services_count" | "rating" | "-rating";
+    AdminCoachOrderFields: "name" | "-name" | "created_at" | "-created_at" | "certificates_count" | "-certificates_count" | "experience" | "-experience" | "services_count" | "-services_count" | "rating" | "-rating" | "disabled" | "-disabled";
     /** AdminCoachSummaryViewOut */
     AdminCoachSummaryViewOut: {
       /**
@@ -1558,7 +1558,7 @@ export interface components {
       /**
        * Start
        * @description Start date when slot is working
-       * @example 2024-08-27
+       * @example 2024-09-03
        */
       start?: string | null;
       /**
@@ -1859,7 +1859,7 @@ export interface components {
        * Attachments
        * @default []
        */
-      attachments?: components["schemas"]["AttachmentFileOut"][];
+      attachments?: components["schemas"]["EquipmentFileOut"][];
     };
     /**
      * AdminEquipmentUserStatus
@@ -2101,15 +2101,22 @@ export interface components {
        * Format: date-time
        */
       createdAt: string;
+      /** Reason */
+      reason?: string | null;
+      /** Description */
+      description?: string | null;
       /**
        * Viewed
        * @default false
        */
-      viewed?: boolean | null;
+      viewed?: boolean;
       session?: components["schemas"]["AdminReportSessionSummary"] | null;
       reporter: components["schemas"]["AdminSessionUserOut"];
-      /** Subject */
-      subject: components["schemas"]["AdminSessionUserOut"][];
+      /**
+       * Subject
+       * @default []
+       */
+      subject?: components["schemas"]["AdminSessionUserOut"][];
     };
     /** AdminResolvedReportOut */
     AdminResolvedReportOut: {
