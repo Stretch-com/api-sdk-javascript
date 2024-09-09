@@ -438,7 +438,7 @@ export interface components {
      * Accommodations
      * @enum {string}
      */
-    Accommodations: "apartment" | "hotel" | "flat" | "house" | "any" | "office" | "other";
+    Accommodations: "apartment" | "hotel" | "flat" | "house" | "any" | "office" | "other" | "undefined";
     /** AddressOut */
     AddressOut: {
       /**
@@ -816,14 +816,27 @@ export interface components {
        * @default []
        */
       avatarUrls?: string[] | null;
-      /** Male */
-      male: number;
-      /** Female */
-      female: number;
+      /**
+       * Male
+       * @default 0
+       */
+      male?: number;
+      /**
+       * Female
+       * @default 0
+       */
+      female?: number;
+      /**
+       * Other
+       * @default 0
+       */
+      other?: number;
       /** Newmale */
       newMale?: number | null;
       /** Newfemale */
       newFemale?: number | null;
+      /** Newother */
+      newOther?: number | null;
       /**
        * Newavatarurls
        * @default []
@@ -1294,8 +1307,11 @@ export interface components {
       lastName?: string | null;
       /** Avatarurl */
       avatarUrl?: string | null;
-      /** Createdat */
-      createdAt?: string | null;
+      /**
+       * Createdat
+       * Format: date-time
+       */
+      createdAt: string;
       /** Phone */
       phone?: string | null;
       /** Email */
@@ -1304,30 +1320,44 @@ export interface components {
        * Servicescount
        * @default 0
        */
-      servicesCount?: number | null;
+      servicesCount?: number;
       /**
        * Certificatescount
        * @default 0
        */
-      certificatesCount?: number | null;
+      certificatesCount?: number;
       /** Experience */
       experience?: number | null;
-      /** Available */
-      available?: boolean | null;
-      /** Verified */
-      verified?: boolean | null;
-      /** Disabled */
-      disabled?: boolean | null;
+      /**
+       * Available
+       * @default false
+       */
+      available?: boolean;
+      /**
+       * Verified
+       * @default false
+       */
+      verified?: boolean;
+      /**
+       * Disabled
+       * @default false
+       */
+      disabled?: boolean;
       /**
        * Rating
        * @default 0
        */
-      rating?: number | null;
+      rating?: number;
+      /**
+       * Reviewscount
+       * @default 0
+       */
+      reviewsCount?: number;
       /**
        * Boosted
        * @default false
        */
-      boosted?: boolean | null;
+      boosted?: boolean;
       /**
        * Languages
        * @default {}
@@ -1558,7 +1588,7 @@ export interface components {
       /**
        * Start
        * @description Start date when slot is working
-       * @example 2024-09-03
+       * @example 2024-09-09
        */
       start?: string | null;
       /**
@@ -2035,8 +2065,8 @@ export interface components {
       service?: components["schemas"]["ServiceOut"] | null;
       session?: components["schemas"]["AdminSessionOut"] | null;
       resolvedReport?: components["schemas"]["AdminResolvedReportOut"] | null;
-      /** Paymentmethod */
-      paymentMethod?: string | null;
+      /** @default {} */
+      paymentMethod?: components["schemas"]["SessionPaymentMethod"];
     };
     /**
      * AdminReportDirection
@@ -2171,11 +2201,6 @@ export interface components {
       /** Parkingdescription */
       parkingDescription?: string | null;
     };
-    /**
-     * AdminSessionPaymentMethod
-     * @enum {string}
-     */
-    AdminSessionPaymentMethod: "amex" | "mastercard" | "unionpay" | "visa" | "stripe";
     /** AdminSessionReviewUpdateIn */
     AdminSessionReviewUpdateIn: {
       state?: components["schemas"]["SessionReviewState"] | null;
@@ -2305,7 +2330,8 @@ export interface components {
       clientLastName?: string | null;
       /** Clientavatarurl */
       clientAvatarUrl?: string | null;
-      paymentMethod?: components["schemas"]["AdminSessionPaymentMethod"] | null;
+      /** @default {} */
+      paymentMethod?: components["schemas"]["SessionPaymentMethod"];
       /** Cardlast4 */
       cardLast4?: string | null;
       /** Payload */
@@ -2537,8 +2563,8 @@ export interface components {
       revenue?: number | null;
       /** Currency */
       currency?: string | null;
-      /** Paymentmethod */
-      paymentMethod?: string | null;
+      /** @default {} */
+      paymentMethod?: components["schemas"]["SessionPaymentMethod"];
       /** Createdat */
       createdAt?: string | null;
       /** Modifiedat */
@@ -2658,7 +2684,8 @@ export interface components {
        * @default 0
        */
       endingBalance?: number;
-      paymentMethod?: components["schemas"]["SessionPaymentMethod"] | null;
+      /** @default {} */
+      paymentMethod?: components["schemas"]["SessionPaymentMethod"];
     };
     /** AdminUserConfigOut */
     AdminUserConfigOut: {
@@ -4074,10 +4101,10 @@ export interface components {
       /** Chaturl */
       chatUrl?: string | null;
       /**
-       * Blocked
+       * Disabled
        * @default false
        */
-      blocked?: boolean;
+      disabled?: boolean;
       /**
        * Username
        * @description Username input
@@ -4274,10 +4301,10 @@ export interface components {
       /** Chaturl */
       chatUrl?: string | null;
       /**
-       * Blocked
+       * Disabled
        * @default false
        */
-      blocked?: boolean;
+      disabled?: boolean;
       /**
        * Username
        * @description Username input
@@ -4914,6 +4941,15 @@ export interface components {
        * @default false
        */
       services?: boolean;
+      /** Allergy */
+      allergy?: boolean | null;
+      /**
+       * Certificates
+       * @default false
+       */
+      certificates?: boolean;
+      /** Awards */
+      awards?: boolean | null;
       /**
        * Percentage
        * @default 0
@@ -5789,7 +5825,7 @@ export interface components {
      * UserGender
      * @enum {string}
      */
-    UserGender: "male" | "female" | "transman" | "transwoman";
+    UserGender: "male" | "female" | "other";
     /**
      * UserLanguages
      * @enum {string}
@@ -5892,10 +5928,10 @@ export interface components {
       /** Chaturl */
       chatUrl?: string | null;
       /**
-       * Blocked
+       * Disabled
        * @default false
        */
-      blocked?: boolean;
+      disabled?: boolean;
       /**
        * Username
        * @description Username input

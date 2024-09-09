@@ -265,10 +265,10 @@ export interface components {
       /** Chaturl */
       chatUrl?: string | null;
       /**
-       * Blocked
+       * Disabled
        * @default false
        */
-      blocked?: boolean;
+      disabled?: boolean;
       /**
        * Username
        * @description Username input
@@ -778,7 +778,7 @@ export interface components {
      * UserGender
      * @enum {string}
      */
-    UserGender: "male" | "female" | "transman" | "transwoman";
+    UserGender: "male" | "female" | "other";
     /** UserPropOut */
     UserPropOut: {
       /** Name */
