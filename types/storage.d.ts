@@ -683,7 +683,7 @@ export interface components {
      * FileType
      * @enum {string}
      */
-    FileType: "media" | "gallery" | "static" | "certificate" | "equipment" | "award" | "category";
+    FileType: "media" | "gallery" | "static" | "certificate" | "equipment" | "award" | "category" | "report";
     /** HTTPValidationError */
     HTTPValidationError: {
       /** Detail */
@@ -703,30 +703,65 @@ export interface components {
     };
     /** ProfileFilling */
     ProfileFilling: {
-      /** Allownonverify */
-      allowNonVerify?: boolean | null;
-      /** Availability */
-      availability?: boolean | null;
-      /** Avatar */
-      avatar?: boolean | null;
-      /** Certificates */
-      certificates?: boolean | null;
-      /** Description */
-      description?: boolean | null;
-      /** Experience */
-      experience?: boolean | null;
-      /** Images */
-      images?: boolean | null;
-      /** Languages */
-      languages?: boolean | null;
-      /** Locations */
-      locations?: boolean | null;
-      /** Media */
-      media?: boolean | null;
-      /** Services */
-      services?: boolean | null;
-      /** Faqs */
-      faqs?: boolean | null;
+      /**
+       * Allownonverify
+       * @default false
+       */
+      allowNonVerify?: boolean;
+      /**
+       * Availability
+       * @default false
+       */
+      availability?: boolean;
+      /**
+       * Avatar
+       * @default false
+       */
+      avatar?: boolean;
+      /**
+       * Description
+       * @default false
+       */
+      description?: boolean;
+      /**
+       * Experience
+       * @default false
+       */
+      experience?: boolean;
+      /**
+       * Images
+       * @default false
+       */
+      images?: boolean;
+      /**
+       * Languages
+       * @default false
+       */
+      languages?: boolean;
+      /**
+       * Locations
+       * @default false
+       */
+      locations?: boolean;
+      /**
+       * Media
+       * @default false
+       */
+      media?: boolean;
+      /**
+       * Services
+       * @default false
+       */
+      services?: boolean;
+      /** Allergy */
+      allergy?: boolean | null;
+      /**
+       * Certificates
+       * @default false
+       */
+      certificates?: boolean;
+      /** Awards */
+      awards?: boolean | null;
       /**
        * Percentage
        * @default 0
@@ -789,7 +824,7 @@ export interface components {
      * UserGender
      * @enum {string}
      */
-    UserGender: "male" | "female" | "transman" | "transwoman";
+    UserGender: "male" | "female" | "other";
     /** UserProfileOut */
     UserProfileOut: {
       /**
@@ -887,10 +922,10 @@ export interface components {
       /** Chaturl */
       chatUrl?: string | null;
       /**
-       * Blocked
+       * Disabled
        * @default false
        */
-      blocked?: boolean;
+      disabled?: boolean;
       /**
        * Username
        * @description Username input
@@ -1850,7 +1885,7 @@ export interface operations {
       /** @description Successful Response */
       200: {
         content: {
-          "application/json": components["schemas"]["StretchResponse"];
+          "application/json": components["schemas"]["DeleteResponse"];
         };
       };
       /** @description Validation Error */
