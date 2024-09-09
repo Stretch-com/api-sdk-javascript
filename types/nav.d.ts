@@ -117,7 +117,7 @@ export interface components {
      * Accommodations
      * @enum {string}
      */
-    Accommodations: "apartment" | "hotel" | "flat" | "house" | "any" | "office" | "other";
+    Accommodations: "apartment" | "hotel" | "flat" | "house" | "any" | "office" | "other" | "undefined";
     /** AddressIn */
     AddressIn: {
       /**
@@ -386,6 +386,11 @@ export interface components {
       name?: string | null;
       /** Id */
       id?: string | null;
+      /**
+       * Activesessions
+       * @default 0
+       */
+      activeSessions?: number;
     };
     /** AddressUpdateIn */
     AddressUpdateIn: {

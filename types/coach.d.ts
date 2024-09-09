@@ -217,13 +217,13 @@ export interface paths {
     delete: operations["delete_favorite_api_v1_user_favorite__user_id__delete"];
   };
   "/api/v1/user/blacklist": {
-    /** Get Blocked Users */
-    get: operations["get_blocked_users_api_v1_user_blacklist_get"];
+    /** Get Blocked Clients */
+    get: operations["get_blocked_clients_api_v1_user_blacklist_get"];
     /**
-     * Add User To Blacklist
+     * Add Client To Blacklist
      * @description Add new favorite user. If user already added response also success
      */
-    post: operations["add_user_to_blacklist_api_v1_user_blacklist_post"];
+    post: operations["add_client_to_blacklist_api_v1_user_blacklist_post"];
   };
   "/api/v1/user/blacklist/{user_id}": {
     /**
@@ -558,7 +558,7 @@ export interface components {
      * Accommodations
      * @enum {string}
      */
-    Accommodations: "apartment" | "hotel" | "flat" | "house" | "any" | "office" | "other";
+    Accommodations: "apartment" | "hotel" | "flat" | "house" | "any" | "office" | "other" | "undefined";
     /** AddressOut */
     AddressOut: {
       /**
@@ -692,6 +692,11 @@ export interface components {
       name?: string | null;
       /** Id */
       id?: string | null;
+      /**
+       * Activesessions
+       * @default 0
+       */
+      activeSessions?: number;
     };
     /** AddressSessionIn */
     AddressSessionIn: {
@@ -1259,6 +1264,8 @@ export interface components {
     };
     /** AvailabilityClientIn */
     AvailabilityClientIn: {
+      /** @default auto */
+      dateFormat?: components["schemas"]["AvailabilityDateFormat"];
       /** Addressid */
       addressId?: string | null;
       /**
@@ -1274,18 +1281,16 @@ export interface components {
       /**
        * Fromdate
        * @description Get the available time starting from this value
-       * @default 2024-08-05T10:12:22.239348Z
-       * @example 2024-08-06T10:12:22.239354Z
+       * @default 2024-09-06T14:59:36.507820Z
+       * @example 2024-09-07T14:59:36.507827Z
        */
       fromDate?: string;
       /**
        * Todate
-       * @default 2024-09-05T10:12:22.239413Z
-       * @example 2024-09-05T10:12:22.239417Z
+       * @default 2024-10-07T14:59:36.507883Z
+       * @example 2024-10-07T14:59:36.507887Z
        */
       toDate?: string;
-      /** @default auto */
-      dateFormat?: components["schemas"]["AvailabilityDateFormat"];
     };
     /** AvailabilityClientOut */
     AvailabilityClientOut: {
@@ -1318,7 +1323,7 @@ export interface components {
       /**
        * Start
        * @description Start date when slot is working
-       * @example 2024-08-05
+       * @example 2024-09-06
        */
       start?: string | null;
       /**
@@ -1401,7 +1406,7 @@ export interface components {
       /**
        * Start
        * @description Start date when slot is working
-       * @example 2024-08-05
+       * @example 2024-09-06
        */
       start?: string | null;
       /**
@@ -1455,7 +1460,7 @@ export interface components {
       title?: string | null;
       /**
        * Start
-       * @example 2024-08-05
+       * @example 2024-09-06
        */
       start?: string | null;
       /**
@@ -1505,7 +1510,7 @@ export interface components {
       /** Title */
       title: string;
       /** Description */
-      description?: string | null;
+      description: string;
       /**
        * Attachmentids
        * @default []
@@ -1663,10 +1668,21 @@ export interface components {
        * @default []
        */
       avatarUrls?: string[] | null;
-      /** Male */
-      male: number;
-      /** Female */
-      female: number;
+      /**
+       * Male
+       * @default 0
+       */
+      male?: number;
+      /**
+       * Female
+       * @default 0
+       */
+      female?: number;
+      /**
+       * Other
+       * @default 0
+       */
+      other?: number;
     };
     /** BookingReasonOut */
     BookingReasonOut: {
@@ -2343,10 +2359,10 @@ export interface components {
       /** Chaturl */
       chatUrl?: string | null;
       /**
-       * Blocked
+       * Disabled
        * @default false
        */
-      blocked?: boolean;
+      disabled?: boolean;
       /**
        * Username
        * @description Username input
@@ -2592,10 +2608,10 @@ export interface components {
       /** Chaturl */
       chatUrl?: string | null;
       /**
-       * Blocked
+       * Disabled
        * @default false
        */
-      blocked?: boolean;
+      disabled?: boolean;
       /**
        * Username
        * @description Username input
@@ -2661,6 +2677,13 @@ export interface components {
        * @default []
        */
       attachmentIds?: string[];
+      /**
+       * Public
+       * @default false
+       */
+      public?: boolean;
+      /** Categoryid */
+      categoryId?: string | null;
     };
     /** EquipmentFileOut */
     EquipmentFileOut: {
@@ -2742,6 +2765,13 @@ export interface components {
       description?: string | null;
       /** Attachmentids */
       attachmentIds?: string[] | null;
+      /**
+       * Public
+       * @default false
+       */
+      public?: boolean;
+      /** Categoryid */
+      categoryId?: string | null;
     };
     /** ErrorResponse */
     ErrorResponse: {
@@ -3197,30 +3227,65 @@ export interface components {
     };
     /** ProfileFilling */
     ProfileFilling: {
-      /** Allownonverify */
-      allowNonVerify?: boolean | null;
-      /** Availability */
-      availability?: boolean | null;
-      /** Avatar */
-      avatar?: boolean | null;
-      /** Certificates */
-      certificates?: boolean | null;
-      /** Description */
-      description?: boolean | null;
-      /** Experience */
-      experience?: boolean | null;
-      /** Images */
-      images?: boolean | null;
-      /** Languages */
-      languages?: boolean | null;
-      /** Locations */
-      locations?: boolean | null;
-      /** Media */
-      media?: boolean | null;
-      /** Services */
-      services?: boolean | null;
-      /** Faqs */
-      faqs?: boolean | null;
+      /**
+       * Allownonverify
+       * @default false
+       */
+      allowNonVerify?: boolean;
+      /**
+       * Availability
+       * @default false
+       */
+      availability?: boolean;
+      /**
+       * Avatar
+       * @default false
+       */
+      avatar?: boolean;
+      /**
+       * Description
+       * @default false
+       */
+      description?: boolean;
+      /**
+       * Experience
+       * @default false
+       */
+      experience?: boolean;
+      /**
+       * Images
+       * @default false
+       */
+      images?: boolean;
+      /**
+       * Languages
+       * @default false
+       */
+      languages?: boolean;
+      /**
+       * Locations
+       * @default false
+       */
+      locations?: boolean;
+      /**
+       * Media
+       * @default false
+       */
+      media?: boolean;
+      /**
+       * Services
+       * @default false
+       */
+      services?: boolean;
+      /** Allergy */
+      allergy?: boolean | null;
+      /**
+       * Certificates
+       * @default false
+       */
+      certificates?: boolean;
+      /** Awards */
+      awards?: boolean | null;
       /**
        * Percentage
        * @default 0
@@ -3458,30 +3523,142 @@ export interface components {
     };
     /** PublicClientProfileOut */
     PublicClientProfileOut: {
-      profile: components["schemas"]["PublicUserBaseInfo"];
+      /**
+       * Id
+       * Format: uuid
+       */
+      id: string;
+      /**
+       * Displayname
+       * @description User display name
+       * @example Smith
+       */
+      displayName?: string | null;
+      /** Firstname */
+      firstName: string;
+      /** Lastname */
+      lastName: string;
+      /** Avatarurl */
+      avatarUrl?: string | null;
+      type: components["schemas"]["UserType"];
+      /** Rating */
+      rating?: number | null;
+      /**
+       * Reviewscount
+       * @description Number of reviews
+       * @default 0
+       */
+      reviewsCount?: number | null;
+      /** Sessionscount */
+      sessionsCount?: number | null;
+      /**
+       * Registrationdate
+       * @description User registration date
+       */
+      registrationDate?: string | null;
+      /** Verified */
+      verified?: boolean | null;
+      /**
+       * Experience
+       * @description User experience
+       */
+      experience?: number | null;
+      allergy?: components["schemas"]["UserAllergy"] | null;
+      /** Allownonverify */
+      allowNonVerify?: boolean | null;
+      /**
+       * @description User gender
+       * @example male
+       */
+      gender?: components["schemas"]["UserGender"] | null;
+      /**
+       * Avatartype
+       * @description Avatar type of banner picture
+       */
+      avatarType?: string | null;
+      /** Avatarimageurl */
+      avatarImageUrl?: string | null;
+      /** Mediatype */
+      mediaType?: string | null;
+      /** Mediaurl */
+      mediaUrl?: string | null;
+      /** Mediapreviewurl */
+      mediaPreviewUrl?: string | null;
+      /**
+       * Description
+       * @description About
+       */
+      description?: string | null;
+      /**
+       * Languages
+       * @description Languages
+       */
+      languages: string | {
+        [key: string]: string;
+      } | null;
+      /**
+       * Properties
+       * @description Extra property for user
+       */
+      properties?: components["schemas"]["UserPropOut"][] | null;
+      /**
+       * Phone
+       * @description Phone number in international format
+       * @example +97100000000
+       */
+      phone?: string | null;
+      /**
+       * Whatsapp
+       * @description Whatsapp  number in international format
+       * @example +97100000000
+       */
+      whatsapp?: string | null;
+      /** @description KYC verification */
+      kycStatus?: components["schemas"]["StripeConnectStatus"] | null;
+      /** Chaturl */
+      chatUrl?: string | null;
+      /**
+       * Disabled
+       * @default false
+       */
+      disabled?: boolean;
+      sessionsInfo?: components["schemas"]["PublicClientSessionStatOut"] | null;
       /** Reviews */
-      reviews: components["schemas"]["SessionReviewOut"][];
+      reviews?: components["schemas"]["SessionReviewOut"][] | null;
+      /** Upcomingsessions */
+      upcomingSessions?: components["schemas"]["SessionOut"][] | null;
+      /** Pastsessions */
+      pastSessions?: components["schemas"]["SessionOut"][] | null;
       /**
-       * Services
-       * @default []
+       * Blockedbyyou
+       * @default false
        */
-      services?: components["schemas"]["ServiceOut"][];
+      blockedByYou?: boolean;
+    };
+    /** PublicClientSessionStatOut */
+    PublicClientSessionStatOut: {
       /**
-       * Coaches
-       * @default []
+       * Total
+       * @default 0
        */
-      coaches?: components["schemas"]["SearchSessionFilteredOut"][];
+      total?: number;
       /**
-       * Activesessions
-       * @default []
+       * Completed
+       * @default 0
        */
-      activeSessions?: components["schemas"]["SessionOut"][];
+      completed?: number;
       /**
-       * Sessionhistory
-       * @default []
+       * Canceled
+       * @default 0
        */
-      sessionHistory?: components["schemas"]["SessionOut"][];
-      analytics?: components["schemas"]["SessionInfoAnalyticsOut"] | null;
+      canceled?: number;
+      /** Avgcost */
+      avgCost?: number | null;
+      /**
+       * Currency
+       * @default AED
+       */
+      currency?: string | null;
     };
     /** PublicCoachProfileOut */
     PublicCoachProfileOut: {
@@ -3581,10 +3758,10 @@ export interface components {
       /** Chaturl */
       chatUrl?: string | null;
       /**
-       * Blocked
+       * Disabled
        * @default false
        */
-      blocked?: boolean;
+      disabled?: boolean;
       /**
        * Distance
        * @description Distance
@@ -3629,6 +3806,11 @@ export interface components {
        */
       allowBooking?: boolean;
       bookingReason?: components["schemas"]["BookingReasonOut"];
+      /**
+       * Blockedyou
+       * @default false
+       */
+      blockedYou?: boolean;
     };
     /** PublicCoachShortProfileOut */
     PublicCoachShortProfileOut: {
@@ -3703,108 +3885,6 @@ export interface components {
       reason: string;
       /** Description */
       description?: string | null;
-    };
-    /** PublicUserBaseInfo */
-    PublicUserBaseInfo: {
-      /**
-       * Id
-       * Format: uuid
-       */
-      id: string;
-      /**
-       * Displayname
-       * @description User display name
-       * @example Smith
-       */
-      displayName?: string | null;
-      /** Firstname */
-      firstName: string;
-      /** Lastname */
-      lastName: string;
-      /** Avatarurl */
-      avatarUrl?: string | null;
-      type: components["schemas"]["UserType"];
-      /** Rating */
-      rating?: number | null;
-      /**
-       * Reviewscount
-       * @description Number of reviews
-       * @default 0
-       */
-      reviewsCount?: number | null;
-      /** Sessionscount */
-      sessionsCount?: number | null;
-      /**
-       * Registrationdate
-       * @description User registration date
-       */
-      registrationDate?: string | null;
-      /** Verified */
-      verified?: boolean | null;
-      /**
-       * Experience
-       * @description User experience
-       */
-      experience?: number | null;
-      allergy?: components["schemas"]["UserAllergy"] | null;
-      /** Allownonverify */
-      allowNonVerify?: boolean | null;
-      /**
-       * @description User gender
-       * @example male
-       */
-      gender?: components["schemas"]["UserGender"] | null;
-      /**
-       * Avatartype
-       * @description Avatar type of banner picture
-       */
-      avatarType?: string | null;
-      /** Avatarimageurl */
-      avatarImageUrl?: string | null;
-      /** Mediatype */
-      mediaType?: string | null;
-      /** Mediaurl */
-      mediaUrl?: string | null;
-      /** Mediapreviewurl */
-      mediaPreviewUrl?: string | null;
-      /**
-       * Description
-       * @description About
-       */
-      description?: string | null;
-      /**
-       * Languages
-       * @description Languages
-       */
-      languages: string | {
-        [key: string]: string;
-      } | null;
-      /**
-       * Properties
-       * @description Extra property for user
-       */
-      properties?: components["schemas"]["UserPropOut"][] | null;
-      /**
-       * Phone
-       * @description Phone number in international format
-       * @example +97100000000
-       */
-      phone?: string | null;
-      /**
-       * Whatsapp
-       * @description Whatsapp  number in international format
-       * @example +97100000000
-       */
-      whatsapp?: string | null;
-      /** @description KYC verification */
-      kycStatus?: components["schemas"]["StripeConnectStatus"] | null;
-      /** Chaturl */
-      chatUrl?: string | null;
-      /**
-       * Blocked
-       * @default false
-       */
-      blocked?: boolean;
     };
     /** QuestionBusinessOut */
     QuestionBusinessOut: {
@@ -3987,6 +4067,16 @@ export interface components {
       verified?: boolean | null;
       /** Chaturl */
       chatUrl?: string | null;
+      /**
+       * Disabled
+       * @default false
+       */
+      disabled?: boolean;
+      /**
+       * Blockedbyyou
+       * @default false
+       */
+      blockedByYou?: boolean;
     };
     /** SearchCountOut */
     SearchCountOut: {
@@ -4077,8 +4167,7 @@ export interface components {
        * @default [
        *   "male",
        *   "female",
-       *   "transman",
-       *   "transwoman"
+       *   "other"
        * ]
        */
       gender?: components["schemas"]["UserGender"][] | null;
@@ -4333,95 +4422,10 @@ export interface components {
       /** Disabled */
       disabled?: boolean | null;
       /**
-       * Boosted
-       * @description Promoted coach profiles
+       * Blockedyou
+       * @default false
        */
-      boosted?: boolean | null;
-      /**
-       * Awardscount
-       * @default 0
-       */
-      awardsCount?: number;
-    };
-    /** SearchSessionFilteredOut */
-    SearchSessionFilteredOut: {
-      /**
-       * Coachid
-       * Format: uuid
-       * @description Coach Id
-       */
-      coachId: string;
-      position?: components["schemas"]["Point"] | null;
-      /** Distance */
-      distance?: number | null;
-      /** Firstname */
-      firstName?: string | null;
-      /** Lastname */
-      lastName?: string | null;
-      /** Phone */
-      phone?: string | null;
-      /** Whatsapp */
-      whatsapp?: string | null;
-      /** Rating */
-      rating?: number | null;
-      /** Reviewscount */
-      reviewsCount?: number | null;
-      /** Experience */
-      experience?: number | null;
-      /** Avatarurl */
-      avatarUrl?: string | null;
-      /** Type */
-      type?: string | null;
-      /** Price */
-      price?: number | null;
-      /** Minprice */
-      minPrice?: number | null;
-      /** Maxprice */
-      maxPrice?: number | null;
-      /** Summary */
-      summary?: string | null;
-      /** Pricecurrency */
-      priceCurrency?: string | null;
-      /** Services */
-      services?: number[] | string | null;
-      /** Mediatype */
-      mediaType?: string | null;
-      /** Mediaurl */
-      mediaUrl?: string | null;
-      /** Mediapreviewurl */
-      mediaPreviewUrl?: string | null;
-      /** Gallery */
-      gallery?: components["schemas"]["MediaFileOut"][] | null;
-      /** Verified */
-      verified?: boolean | null;
-      /** Sessioncount */
-      sessionCount?: number | null;
-      /**
-       * Requiresparking
-       * @description Requires parking
-       */
-      requiresParking?: boolean | null;
-      /** Servicetypes */
-      serviceTypes?: string[] | null;
-      /**
-       * Languages
-       * @description Languages
-       */
-      languages?: {
-        [key: string]: string;
-      } | null;
-      /** Favorite */
-      favorite?: boolean | null;
-      /** Online */
-      online?: boolean | null;
-      /**
-       * Allowbooking
-       * @default true
-       */
-      allowBooking?: boolean;
-      bookingReason?: components["schemas"]["BookingReasonOut"] | null;
-      /** Disabled */
-      disabled?: boolean | null;
+      blockedYou?: boolean;
       /**
        * Boosted
        * @description Promoted coach profiles
@@ -4864,6 +4868,8 @@ export interface components {
       /** Refundamount */
       refundAmount?: number | null;
       source?: components["schemas"]["SessionCancellationSource"] | null;
+      /** Createdat */
+      createdAt?: string | null;
     };
     /**
      * SessionCancellationSource
@@ -4872,12 +4878,14 @@ export interface components {
     SessionCancellationSource: "client" | "coach" | "admin";
     /** SessionCreateIn */
     SessionCreateIn: {
+      /** @default auto */
+      dateFormat?: components["schemas"]["AvailabilityDateFormat"];
       /**
        * Slots
        * @description Availability date for create
        * @example [
        *   {
-       *     "date": "2024-08-05T10:12:07.738234",
+       *     "date": "2024-09-06T14:59:25.372292",
        *     "orderDescription": "Order description"
        *   }
        * ]
@@ -5708,7 +5716,7 @@ export interface components {
       /**
        * Slots
        * @description Availability date for create
-       * @example 2024-08-05T10:12:08.052992
+       * @example 2024-09-06T14:59:25.554769
        */
       slots: string | components["schemas"]["SessionBookingIn"][];
       location?: components["schemas"]["AddressSessionOut"] | null;
@@ -5830,7 +5838,7 @@ export interface components {
      * UserGender
      * @enum {string}
      */
-    UserGender: "male" | "female" | "transman" | "transwoman";
+    UserGender: "male" | "female" | "other";
     /**
      * UserLanguages
      * @enum {string}
@@ -5955,10 +5963,10 @@ export interface components {
       /** Chaturl */
       chatUrl?: string | null;
       /**
-       * Blocked
+       * Disabled
        * @default false
        */
-      blocked?: boolean;
+      disabled?: boolean;
       /**
        * Username
        * @description Username input
@@ -6522,6 +6530,7 @@ export interface operations {
   get_sessions_api_v1_sessions_get: {
     parameters: {
       query?: {
+        dateFormat?: components["schemas"]["AvailabilityDateFormat"];
         page?: number | null;
         limit?: number | null;
         state?: components["schemas"]["SessionFilterState"] | null;
@@ -6549,6 +6558,9 @@ export interface operations {
    */
   get_session_api_v1_session__session_id__get: {
     parameters: {
+      query?: {
+        dateFormat?: components["schemas"]["AvailabilityDateFormat"];
+      };
       path: {
         session_id: string;
       };
@@ -7004,8 +7016,8 @@ export interface operations {
       };
     };
   };
-  /** Get Blocked Users */
-  get_blocked_users_api_v1_user_blacklist_get: {
+  /** Get Blocked Clients */
+  get_blocked_clients_api_v1_user_blacklist_get: {
     responses: {
       /** @description Successful Response */
       200: {
@@ -7016,10 +7028,10 @@ export interface operations {
     };
   };
   /**
-   * Add User To Blacklist
+   * Add Client To Blacklist
    * @description Add new favorite user. If user already added response also success
    */
-  add_user_to_blacklist_api_v1_user_blacklist_post: {
+  add_client_to_blacklist_api_v1_user_blacklist_post: {
     requestBody: {
       content: {
         "application/json": components["schemas"]["BlackListUserIn"];
@@ -7861,11 +7873,6 @@ export interface operations {
   };
   /** Create Equipment */
   create_equipment_api_v1_coach_equipment_post: {
-    parameters: {
-      query?: {
-        public?: boolean;
-      };
-    };
     requestBody: {
       content: {
         "application/json": components["schemas"]["EquipmentCreateIn"];
@@ -7924,7 +7931,7 @@ export interface operations {
       /** @description Successful Response */
       200: {
         content: {
-          "application/json": components["schemas"]["StretchResponse"];
+          "application/json": components["schemas"]["DeleteResponse"];
         };
       };
       /** @description Validation Error */
