@@ -682,7 +682,10 @@ export interface components {
       parking?: components["schemas"]["ParkingType"] | null;
       /** Parkingdescription */
       parkingDescription?: string | null;
-      /** Isdefault */
+      /**
+       * Isdefault
+       * @default false
+       */
       isDefault?: boolean | null;
       /**
        * Name
@@ -690,8 +693,11 @@ export interface components {
        * @example Name of address
        */
       name?: string | null;
-      /** Id */
-      id?: string | null;
+      /**
+       * Id
+       * Format: uuid
+       */
+      id: string;
       /**
        * Activesessions
        * @default 0
@@ -1281,14 +1287,14 @@ export interface components {
       /**
        * Fromdate
        * @description Get the available time starting from this value
-       * @default 2024-09-06T14:59:36.507820Z
-       * @example 2024-09-07T14:59:36.507827Z
+       * @default 2024-09-16T12:47:04.926712Z
+       * @example 2024-09-17T12:47:04.926727Z
        */
       fromDate?: string;
       /**
        * Todate
-       * @default 2024-10-07T14:59:36.507883Z
-       * @example 2024-10-07T14:59:36.507887Z
+       * @default 2024-10-17T12:47:04.926822Z
+       * @example 2024-10-17T12:47:04.926830Z
        */
       toDate?: string;
     };
@@ -1323,7 +1329,7 @@ export interface components {
       /**
        * Start
        * @description Start date when slot is working
-       * @example 2024-09-06
+       * @example 2024-09-16
        */
       start?: string | null;
       /**
@@ -1406,7 +1412,7 @@ export interface components {
       /**
        * Start
        * @description Start date when slot is working
-       * @example 2024-09-06
+       * @example 2024-09-16
        */
       start?: string | null;
       /**
@@ -1460,7 +1466,7 @@ export interface components {
       title?: string | null;
       /**
        * Start
-       * @example 2024-09-06
+       * @example 2024-09-16
        */
       start?: string | null;
       /**
@@ -3521,8 +3527,8 @@ export interface components {
        */
       branches?: components["schemas"]["BusinessSearchOut"][];
     };
-    /** PublicClientProfileOut */
-    PublicClientProfileOut: {
+    /** PublicClientBaseInfo */
+    PublicClientBaseInfo: {
       /**
        * Id
        * Format: uuid
@@ -3622,43 +3628,41 @@ export interface components {
        * @default false
        */
       disabled?: boolean;
-      sessionsInfo?: components["schemas"]["PublicClientSessionStatOut"] | null;
-      /** Reviews */
-      reviews?: components["schemas"]["SessionReviewOut"][] | null;
-      /** Upcomingsessions */
-      upcomingSessions?: components["schemas"]["SessionOut"][] | null;
-      /** Pastsessions */
-      pastSessions?: components["schemas"]["SessionOut"][] | null;
       /**
        * Blockedbyyou
        * @default false
        */
       blockedByYou?: boolean;
     };
-    /** PublicClientSessionStatOut */
-    PublicClientSessionStatOut: {
+    /** PublicClientProfileOut */
+    PublicClientProfileOut: {
+      profile: components["schemas"]["PublicClientBaseInfo"];
       /**
-       * Total
-       * @default 0
+       * Reviews
+       * @default []
        */
-      total?: number;
+      reviews?: components["schemas"]["SessionReviewOut"][];
       /**
-       * Completed
-       * @default 0
+       * Services
+       * @default []
        */
-      completed?: number;
+      services?: components["schemas"]["ServiceOut"][];
       /**
-       * Canceled
-       * @default 0
+       * Coaches
+       * @default []
        */
-      canceled?: number;
-      /** Avgcost */
-      avgCost?: number | null;
+      coaches?: components["schemas"]["SearchSessionFilteredOut"][];
       /**
-       * Currency
-       * @default AED
+       * Activesessions
+       * @default []
        */
-      currency?: string | null;
+      activeSessions?: components["schemas"]["SessionOut"][];
+      /**
+       * Sessionhistory
+       * @default []
+       */
+      sessionHistory?: components["schemas"]["SessionOut"][];
+      analytics?: components["schemas"]["SessionInfoAnalyticsOut"] | null;
     };
     /** PublicCoachProfileOut */
     PublicCoachProfileOut: {
@@ -3996,7 +4000,7 @@ export interface components {
        * Attachments
        * @default []
        */
-      attachments?: components["schemas"]["MediaFileOut"][];
+      attachments?: components["schemas"]["AttachmentFileOut"][];
       role?: components["schemas"]["UserType"] | null;
       state?: components["schemas"]["ReportState"];
       /**
@@ -4004,7 +4008,7 @@ export interface components {
        * Format: uuid
        */
       userId: string;
-      session?: components["schemas"]["SessionNotificationOut"] | null;
+      session: components["schemas"]["SessionNotificationOut"];
       /**
        * Properties
        * @description Extra property for user
@@ -4344,6 +4348,101 @@ export interface components {
     SearchOrderDirection: "asc" | "desc";
     /** SearchOut */
     SearchOut: {
+      /**
+       * Coachid
+       * Format: uuid
+       * @description Coach Id
+       */
+      coachId: string;
+      position?: components["schemas"]["Point"] | null;
+      /** Distance */
+      distance?: number | null;
+      /** Firstname */
+      firstName?: string | null;
+      /** Lastname */
+      lastName?: string | null;
+      /** Phone */
+      phone?: string | null;
+      /** Whatsapp */
+      whatsapp?: string | null;
+      /** Rating */
+      rating?: number | null;
+      /** Reviewscount */
+      reviewsCount?: number | null;
+      /** Experience */
+      experience?: number | null;
+      /** Avatarurl */
+      avatarUrl?: string | null;
+      /** Type */
+      type?: string | null;
+      /** Price */
+      price?: number | null;
+      /** Minprice */
+      minPrice?: number | null;
+      /** Maxprice */
+      maxPrice?: number | null;
+      /** Summary */
+      summary?: string | null;
+      /** Pricecurrency */
+      priceCurrency?: string | null;
+      /** Services */
+      services?: number[] | string | null;
+      /** Mediatype */
+      mediaType?: string | null;
+      /** Mediaurl */
+      mediaUrl?: string | null;
+      /** Mediapreviewurl */
+      mediaPreviewUrl?: string | null;
+      /** Gallery */
+      gallery?: components["schemas"]["MediaFileOut"][] | null;
+      /** Verified */
+      verified?: boolean | null;
+      /** Sessioncount */
+      sessionCount?: number | null;
+      /**
+       * Requiresparking
+       * @description Requires parking
+       */
+      requiresParking?: boolean | null;
+      /** Servicetypes */
+      serviceTypes?: string[] | null;
+      /**
+       * Languages
+       * @description Languages
+       */
+      languages?: {
+        [key: string]: string;
+      } | null;
+      /** Favorite */
+      favorite?: boolean | null;
+      /** Online */
+      online?: boolean | null;
+      /**
+       * Allowbooking
+       * @default true
+       */
+      allowBooking?: boolean;
+      bookingReason?: components["schemas"]["BookingReasonOut"] | null;
+      /** Disabled */
+      disabled?: boolean | null;
+      /**
+       * Blockedyou
+       * @default false
+       */
+      blockedYou?: boolean;
+      /**
+       * Boosted
+       * @description Promoted coach profiles
+       */
+      boosted?: boolean | null;
+      /**
+       * Awardscount
+       * @default 0
+       */
+      awardsCount?: number;
+    };
+    /** SearchSessionFilteredOut */
+    SearchSessionFilteredOut: {
       /**
        * Coachid
        * Format: uuid
@@ -4885,7 +4984,7 @@ export interface components {
        * @description Availability date for create
        * @example [
        *   {
-       *     "date": "2024-09-06T14:59:25.372292",
+       *     "date": "2024-09-16T12:46:50.846563",
        *     "orderDescription": "Order description"
        *   }
        * ]
@@ -5716,7 +5815,7 @@ export interface components {
       /**
        * Slots
        * @description Availability date for create
-       * @example 2024-09-06T14:59:25.554769
+       * @example 2024-09-16T12:46:51.622892
        */
       slots: string | components["schemas"]["SessionBookingIn"][];
       location?: components["schemas"]["AddressSessionOut"] | null;
@@ -6715,7 +6814,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/json": components["schemas"]["SessionDropIn"] | null;
+        "application/json": components["schemas"]["SessionDropIn"];
       };
     };
     responses: {
