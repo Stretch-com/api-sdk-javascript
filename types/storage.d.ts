@@ -316,10 +316,9 @@ export interface components {
       description?: string | null;
       /**
        * Cover
-       * Format: binary
        * @description Cover image as thumbnails, if none generate from file
        */
-      cover?: string;
+      cover?: string | null;
     };
     /** Body_update_certificate_api_v1_storage_certificate__certificate_id__put */
     Body_update_certificate_api_v1_storage_certificate__certificate_id__put: {
