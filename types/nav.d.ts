@@ -776,7 +776,7 @@ export interface operations {
       /** @description Successful Response */
       200: {
         content: {
-          "application/json": unknown;
+          "application/json": components["schemas"]["AddressOut"][];
         };
       };
       /** @description Validation Error */
