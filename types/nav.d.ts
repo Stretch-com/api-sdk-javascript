@@ -376,7 +376,10 @@ export interface components {
       parking?: components["schemas"]["ParkingType"] | null;
       /** Parkingdescription */
       parkingDescription?: string | null;
-      /** Isdefault */
+      /**
+       * Isdefault
+       * @default false
+       */
       isDefault?: boolean | null;
       /**
        * Name
@@ -384,8 +387,11 @@ export interface components {
        * @example Name of address
        */
       name?: string | null;
-      /** Id */
-      id?: string | null;
+      /**
+       * Id
+       * Format: uuid
+       */
+      id: string;
       /**
        * Activesessions
        * @default 0
@@ -770,7 +776,7 @@ export interface operations {
       /** @description Successful Response */
       200: {
         content: {
-          "application/json": components["schemas"]["AddressOut"][];
+          "application/json": unknown;
         };
       };
       /** @description Validation Error */

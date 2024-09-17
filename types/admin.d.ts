@@ -562,7 +562,10 @@ export interface components {
       parking?: components["schemas"]["ParkingType"] | null;
       /** Parkingdescription */
       parkingDescription?: string | null;
-      /** Isdefault */
+      /**
+       * Isdefault
+       * @default false
+       */
       isDefault?: boolean | null;
       /**
        * Name
@@ -570,8 +573,11 @@ export interface components {
        * @example Name of address
        */
       name?: string | null;
-      /** Id */
-      id?: string | null;
+      /**
+       * Id
+       * Format: uuid
+       */
+      id: string;
       /**
        * Activesessions
        * @default 0
@@ -846,6 +852,8 @@ export interface components {
       previousMale?: number | null;
       /** Previousfemale */
       previousFemale?: number | null;
+      /** Previousother */
+      previousOther?: number | null;
       /**
        * Previousavatarurls
        * @default []
@@ -1563,7 +1571,10 @@ export interface components {
       parking?: components["schemas"]["ParkingType"] | null;
       /** Parkingdescription */
       parkingDescription?: string | null;
-      /** Isdefault */
+      /**
+       * Isdefault
+       * @default false
+       */
       isDefault?: boolean | null;
       /**
        * Name
@@ -1571,13 +1582,6 @@ export interface components {
        * @example Name of address
        */
       name?: string | null;
-      /** Id */
-      id?: string | null;
-      /**
-       * Activesessions
-       * @default 0
-       */
-      activeSessions?: number;
     };
     /** AdminCreateBusinessAvailabilityIn */
     AdminCreateBusinessAvailabilityIn: {
@@ -1588,7 +1592,7 @@ export interface components {
       /**
        * Start
        * @description Start date when slot is working
-       * @example 2024-09-09
+       * @example 2024-09-17
        */
       start?: string | null;
       /**
@@ -5150,7 +5154,7 @@ export interface components {
        * Attachments
        * @default []
        */
-      attachments?: components["schemas"]["MediaFileOut"][];
+      attachments?: components["schemas"]["AttachmentFileOut"][];
       role?: components["schemas"]["UserType"] | null;
       state?: components["schemas"]["ReportState"];
       /**
@@ -5784,6 +5788,8 @@ export interface components {
       male: number;
       /** Female */
       female: number;
+      /** Other */
+      other: number;
       /**
        * Avatarurls
        * @default []
