@@ -1592,7 +1592,7 @@ export interface components {
       /**
        * Start
        * @description Start date when slot is working
-       * @example 2024-09-17
+       * @example 2024-09-26
        */
       start?: string | null;
       /**
@@ -4427,6 +4427,11 @@ export interface components {
      * @enum {string}
      */
     CurrencyCode: "AED" | "AFN" | "ALL" | "AMD" | "ANG" | "AOA" | "ARS" | "AUD" | "AWG" | "AZN" | "BAM" | "BBD" | "BDT" | "BGN" | "BHD" | "BIF" | "BMD" | "BND" | "BOB" | "BRL" | "BSD" | "BTC" | "BTN" | "BTS" | "BWP" | "BYN" | "BZD" | "CAD" | "CDF" | "CHF" | "CLF" | "CLP" | "CNH" | "CNY" | "COP" | "CRC" | "CUC" | "CUP" | "CVE" | "CZK" | "DASH" | "DJF" | "DKK" | "DOGE" | "DOP" | "DZD" | "EGP" | "ERN" | "ETB" | "ETH" | "EUR" | "FJD" | "FKP" | "GBP" | "GEL" | "GGP" | "GHS" | "GIP" | "GMD" | "GNF" | "GTQ" | "GYD" | "HKD" | "HNL" | "HRK" | "HTG" | "HUF" | "IDR" | "ILS" | "IMP" | "INR" | "IQD" | "IRR" | "ISK" | "JEP" | "JMD" | "JOD" | "JPY" | "KES" | "KGS" | "KHR" | "KMF" | "KPW" | "KRW" | "KWD" | "KYD" | "KZT" | "LAK" | "LBP" | "LD" | "LKR" | "LRD" | "LSL" | "LTC" | "LYD" | "MAD" | "MDL" | "MGA" | "MKD" | "MMK" | "MNT" | "MOP" | "MRU" | "MUR" | "MVR" | "MWK" | "MXN" | "MYR" | "MZN" | "NAD" | "NGN" | "NIO" | "NOK" | "NPR" | "NXT" | "NZD" | "OMR" | "PAB" | "PEN" | "PGK" | "PHP" | "PKR" | "PLN" | "PYG" | "QAR" | "RON" | "RSD" | "RUB" | "RWF" | "SAR" | "SBD" | "SCR" | "SDG" | "SEK" | "SGD" | "SHP" | "SLL" | "SOS" | "SRD" | "SSP" | "STD" | "STN" | "STR" | "SVC" | "SYP" | "SZL" | "THB" | "TJS" | "TMT" | "TND" | "TOP" | "TRY" | "TTD" | "TWD" | "TZS" | "UAH" | "UGX" | "USD" | "UYU" | "UZS" | "VEF_BLKMKT" | "VEF_DICOM" | "VEF_DIPRO" | "VES" | "VND" | "VUV" | "WST" | "XAF" | "XAG" | "XAU" | "XCD" | "XDR" | "XMR" | "XOF" | "XPD" | "XPF" | "XPT" | "XRP" | "YER" | "ZAR" | "ZMW" | "ZWL";
+    /**
+     * DataFrameFileType
+     * @enum {string}
+     */
+    DataFrameFileType: "excel" | "csv" | "xml";
     /** DeleteResponse */
     DeleteResponse: {
       /**
@@ -6517,7 +6522,7 @@ export interface operations {
       /** @description Successful Response */
       200: {
         content: {
-          "application/json": unknown;
+          "application/json": components["schemas"]["StretchResponse"];
         };
       };
       /** @description Validation Error */
@@ -6543,7 +6548,7 @@ export interface operations {
       /** @description Successful Response */
       200: {
         content: {
-          "application/json": unknown;
+          "application/json": components["schemas"]["StretchResponse"];
         };
       };
       /** @description Validation Error */
@@ -7561,6 +7566,7 @@ export interface operations {
         status?: components["schemas"]["PaymentState"] | null;
         coachId?: string | null;
         clientId?: string | null;
+        filetype?: components["schemas"]["DataFrameFileType"];
       };
     };
     responses: {
@@ -8255,6 +8261,7 @@ export interface operations {
         search?: string | null;
         status?: components["schemas"]["WithdrawalState"] | null;
         userId?: string | null;
+        filetype?: components["schemas"]["DataFrameFileType"];
       };
     };
     responses: {
