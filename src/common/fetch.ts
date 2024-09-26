@@ -32,11 +32,11 @@ export async function apiFetch(
     if (res.status >= 200 && res.status < 300) {
       try {
         const contentType = res.headers.get("content-type");
+        const disposition = res.headers.get("Content-Disposition");
         if (!contentType) return;
         if (contentType.indexOf("application/json") !== -1) {
           return await res.json();
-        } else if (contentType.indexOf("text/csv") !== -1) {
-          const disposition = res.headers.get("Content-Disposition");
+        } else if (disposition) {
           let filename: string | null = null;
           if (
             disposition &&
