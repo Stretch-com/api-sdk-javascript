@@ -17,6 +17,10 @@ export interface paths {
     /** List Methods */
     get: operations["list_methods_api_v1_payment_methods_get"];
   };
+  "/api/v1/payment/method": {
+    /** Set Default Payment */
+    post: operations["set_default_payment_api_v1_payment_method_post"];
+  };
   "/api/v1/payment/checkout/{payment_id}": {
     /**
      * Get Payment
@@ -168,8 +172,73 @@ export interface components {
     CheckStatusOut: {
       status: components["schemas"]["PaymentState"];
     };
+    /** CheckoutHeroPayOut */
+    CheckoutHeroPayOut: {
+      /**
+       * Provider
+       * @default heropay
+       * @constant
+       * @enum {string}
+       */
+      provider?: "heropay";
+      /** Order Id */
+      order_id: string;
+      /** Currency */
+      currency: string;
+      /** Payment Link */
+      payment_link: string;
+      /** Price */
+      price: number;
+      /** Status */
+      status: string;
+    };
+    /** CheckoutPaypalOut */
+    CheckoutPaypalOut: {
+      /**
+       * Provider
+       * @default paypal
+       * @constant
+       * @enum {string}
+       */
+      provider?: "paypal";
+      /** Intent */
+      intent: string;
+      /** Status */
+      status: string;
+      /** Currency */
+      currency: string;
+      /** Amount */
+      amount: number;
+      /** Payment Link */
+      payment_link?: string | null;
+    };
+    /** CheckoutStripeOut */
+    CheckoutStripeOut: {
+      /**
+       * Provider
+       * @default stripe
+       * @constant
+       * @enum {string}
+       */
+      provider?: "stripe";
+      /** Currency */
+      currency: string;
+      /** Amount */
+      amount: number;
+      /**
+       * Livemode
+       * @default false
+       */
+      livemode?: boolean;
+      /** Client Secret */
+      client_secret: string;
+      /** Status */
+      status: string;
+    };
     /** ClientDetails */
     ClientDetails: {
+      /** @description User allergy */
+      allergy?: components["schemas"]["UserAllergy"] | null;
       /**
        * Id
        * Format: uuid
@@ -188,6 +257,11 @@ export interface components {
       /** Avatarurl */
       avatarUrl?: string | null;
       type: components["schemas"]["UserType"];
+      /**
+       * Isdeleted
+       * @default false
+       */
+      isDeleted?: boolean;
       /** Rating */
       rating?: number | null;
       /**
@@ -210,7 +284,6 @@ export interface components {
        * @description User experience
        */
       experience?: number | null;
-      allergy?: components["schemas"]["UserAllergy"] | null;
       /** Allownonverify */
       allowNonVerify?: boolean | null;
       /**
@@ -318,6 +391,11 @@ export interface components {
      * @enum {string}
      */
     CurrencyCode: "AED" | "AFN" | "ALL" | "AMD" | "ANG" | "AOA" | "ARS" | "AUD" | "AWG" | "AZN" | "BAM" | "BBD" | "BDT" | "BGN" | "BHD" | "BIF" | "BMD" | "BND" | "BOB" | "BRL" | "BSD" | "BTC" | "BTN" | "BTS" | "BWP" | "BYN" | "BZD" | "CAD" | "CDF" | "CHF" | "CLF" | "CLP" | "CNH" | "CNY" | "COP" | "CRC" | "CUC" | "CUP" | "CVE" | "CZK" | "DASH" | "DJF" | "DKK" | "DOGE" | "DOP" | "DZD" | "EGP" | "ERN" | "ETB" | "ETH" | "EUR" | "FJD" | "FKP" | "GBP" | "GEL" | "GGP" | "GHS" | "GIP" | "GMD" | "GNF" | "GTQ" | "GYD" | "HKD" | "HNL" | "HRK" | "HTG" | "HUF" | "IDR" | "ILS" | "IMP" | "INR" | "IQD" | "IRR" | "ISK" | "JEP" | "JMD" | "JOD" | "JPY" | "KES" | "KGS" | "KHR" | "KMF" | "KPW" | "KRW" | "KWD" | "KYD" | "KZT" | "LAK" | "LBP" | "LD" | "LKR" | "LRD" | "LSL" | "LTC" | "LYD" | "MAD" | "MDL" | "MGA" | "MKD" | "MMK" | "MNT" | "MOP" | "MRU" | "MUR" | "MVR" | "MWK" | "MXN" | "MYR" | "MZN" | "NAD" | "NGN" | "NIO" | "NOK" | "NPR" | "NXT" | "NZD" | "OMR" | "PAB" | "PEN" | "PGK" | "PHP" | "PKR" | "PLN" | "PYG" | "QAR" | "RON" | "RSD" | "RUB" | "RWF" | "SAR" | "SBD" | "SCR" | "SDG" | "SEK" | "SGD" | "SHP" | "SLL" | "SOS" | "SRD" | "SSP" | "STD" | "STN" | "STR" | "SVC" | "SYP" | "SZL" | "THB" | "TJS" | "TMT" | "TND" | "TOP" | "TRY" | "TTD" | "TWD" | "TZS" | "UAH" | "UGX" | "USD" | "UYU" | "UZS" | "VEF_BLKMKT" | "VEF_DICOM" | "VEF_DIPRO" | "VES" | "VND" | "VUV" | "WST" | "XAF" | "XAG" | "XAU" | "XCD" | "XDR" | "XMR" | "XOF" | "XPD" | "XPF" | "XPT" | "XRP" | "YER" | "ZAR" | "ZMW" | "ZWL";
+    /**
+     * FileStatus
+     * @enum {string}
+     */
+    FileStatus: "uploaded" | "processing" | "approved" | "rejected" | "review" | "draft" | "deleted";
     /** HTTPValidationError */
     HTTPValidationError: {
       /** Detail */
@@ -333,6 +411,8 @@ export interface components {
     };
     /** PaymentClientOut */
     PaymentClientOut: {
+      /** Checkout */
+      checkout?: (components["schemas"]["CheckoutStripeOut"] | components["schemas"]["CheckoutPaypalOut"] | components["schemas"]["CheckoutHeroPayOut"]) | null;
       /**
        * Id
        * @description ID for payment schema
@@ -356,8 +436,6 @@ export interface components {
       serviceId?: string | null;
       /** Clientsecret */
       clientSecret?: string | null;
-      /** Checkout */
-      checkout?: Record<string, never> | null;
       /** Expirationat */
       expirationAt?: string | null;
       /** Createdat */
@@ -373,6 +451,8 @@ export interface components {
     };
     /** PaymentCoachOut */
     PaymentCoachOut: {
+      /** Checkout */
+      checkout?: (components["schemas"]["CheckoutStripeOut"] | components["schemas"]["CheckoutPaypalOut"] | components["schemas"]["CheckoutHeroPayOut"]) | null;
       /**
        * Id
        * @description ID for payment schema
@@ -396,8 +476,6 @@ export interface components {
       serviceId?: string | null;
       /** Clientsecret */
       clientSecret?: string | null;
-      /** Checkout */
-      checkout?: Record<string, never> | null;
       /** Expirationat */
       expirationAt?: string | null;
       /** Createdat */
@@ -418,10 +496,15 @@ export interface components {
      * @enum {string}
      */
     PaymentInternalState: "pending" | "available" | "processing" | "delivered";
+    /** PaymentMethodDefaultIn */
+    PaymentMethodDefaultIn: {
+      /** Method */
+      method: string;
+    };
     /** PaymentMethod */
     PaymentMethodOut: {
       /** Name */
-      name: string | null;
+      name?: string | null;
       /**
        * Default
        * @default false
@@ -445,6 +528,8 @@ export interface components {
     PaymentMethodType: "all" | "available" | "saved";
     /** PaymentOut */
     PaymentOut: {
+      /** Checkout */
+      checkout?: (components["schemas"]["CheckoutStripeOut"] | components["schemas"]["CheckoutPaypalOut"] | components["schemas"]["CheckoutHeroPayOut"]) | null;
       /**
        * Id
        * @description ID for payment schema
@@ -468,8 +553,6 @@ export interface components {
       serviceId?: string | null;
       /** Clientsecret */
       clientSecret?: string | null;
-      /** Checkout */
-      checkout?: Record<string, never> | null;
       /** Expirationat */
       expirationAt?: string | null;
       /** Createdat */
@@ -512,12 +595,6 @@ export interface components {
        * @example 199.9
        */
       price?: number | null;
-      /**
-       * Price Currency
-       * @description aed: AED<br/>usd: USD<br/>eur: EUR
-       * @default USD
-       */
-      priceCurrency?: components["schemas"]["stretchcore__models__service__service__ServicePriceCurrencies__1"];
       /** Service Other Type */
       serviceOtherType: (string | null) | null;
       /**
@@ -532,12 +609,6 @@ export interface components {
        * @default 8
        */
       sessionCancellationHours?: number;
-      /**
-       * Status
-       * @description uploaded: uploaded<br/>processing: processing<br/>approved: approved<br/>rejected: rejected<br/>review: review<br/>draft: draft<br/>deleted: deleted
-       * @default review
-       */
-      status?: components["schemas"]["stretchcore__models__storage__file__FileStatus__1"];
       /** Servicetypes */
       serviceTypes?: string[] | null;
       /** Numberofsessions */
@@ -548,6 +619,8 @@ export interface components {
       groupSession?: boolean | null;
       /** Maxgroupsize */
       maxGroupSize?: number | null;
+      /** @default USD */
+      priceCurrency?: components["schemas"]["ServicePriceCurrencies"];
       /** Discount */
       discount?: number | null;
       /**
@@ -582,7 +655,14 @@ export interface components {
       bookingReason?: components["schemas"]["BookingReasonOut"] | null;
       /** Equipmenttitles */
       equipmentTitles?: string[] | null;
+      /** @default review */
+      status?: components["schemas"]["FileStatus"];
     };
+    /**
+     * ServicePriceCurrencies
+     * @enum {string}
+     */
+    ServicePriceCurrencies: "AED" | "USD" | "EUR";
     /** SessionGeneralOut */
     SessionGeneralOut: {
       /**
@@ -752,7 +832,7 @@ export interface components {
      * UserAllergy
      * @enum {string}
      */
-    UserAllergy: "none" | "cat" | "dog" | "all";
+    UserAllergy: "none" | "cat" | "dog" | "unknown" | "all";
     /** UserBaseInfo */
     UserBaseInfo: {
       /**
@@ -773,6 +853,11 @@ export interface components {
       /** Avatarurl */
       avatarUrl?: string | null;
       type: components["schemas"]["UserType"];
+      /**
+       * Isdeleted
+       * @default false
+       */
+      isDeleted?: boolean;
     };
     /**
      * UserGender
@@ -972,19 +1057,20 @@ export interface components {
        */
       currency?: string | null;
       /** Withdrawal Fee */
-      withdrawalFee: (number | null) | null;
-      /**
-       * Status
-       * @description pending: pending<br/>completed: completed<br/>rejected: rejected
-       * @default pending
-       */
-      status?: string | null;
+      withdrawalFee?: (number | null) | null;
       /**
        * Created At
        * Format: date-time
        */
       createdAt: string;
+      /** @default pending */
+      status?: components["schemas"]["WithdrawalState"];
     };
+    /**
+     * WithdrawalState
+     * @enum {string}
+     */
+    WithdrawalState: "pending" | "completed" | "rejected";
     /**
      * TransactionType
      * @enum {string}
@@ -995,18 +1081,6 @@ export interface components {
      * @enum {string}
      */
     stretchcore__models__payment__transaction__TransactionType: "payment" | "withdrawal" | "balance";
-    /**
-     * ServicePriceCurrencies
-     * @enum {string}
-     */
-    stretchcore__models__service__service__ServicePriceCurrencies__1: "AED" | "USD" | "EUR";
-    stretchcore__models__service__service__ServicePriceCurrencies__2: components["schemas"]["stretchcore__models__service__service__ServicePriceCurrencies__1"];
-    /**
-     * FileStatus
-     * @enum {string}
-     */
-    stretchcore__models__storage__file__FileStatus__1: "uploaded" | "processing" | "approved" | "rejected" | "review" | "draft" | "deleted";
-    stretchcore__models__storage__file__FileStatus__2: components["schemas"]["stretchcore__models__storage__file__FileStatus__1"];
   };
   responses: never;
   parameters: never;
@@ -1079,6 +1153,28 @@ export interface operations {
       200: {
         content: {
           "application/json": components["schemas"]["PaymentMethodOut"][];
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        content: {
+          "application/json": components["schemas"]["HTTPValidationError"];
+        };
+      };
+    };
+  };
+  /** Set Default Payment */
+  set_default_payment_api_v1_payment_method_post: {
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["PaymentMethodDefaultIn"];
+      };
+    };
+    responses: {
+      /** @description Successful Response */
+      200: {
+        content: {
+          "application/json": components["schemas"]["PaymentMethodOut"];
         };
       };
       /** @description Validation Error */

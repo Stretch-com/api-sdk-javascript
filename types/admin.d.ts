@@ -399,8 +399,8 @@ export interface paths {
     post: operations["cache_businesses_api_v1_admin_cache_businesses_post"];
   };
   "/api/v1/admin/cache/rebuild": {
-    /** Revalidate Cache Values */
-    post: operations["revalidate_cache_values_api_v1_admin_cache_rebuild_post"];
+    /** Rebuild Cache */
+    post: operations["rebuild_cache_api_v1_admin_cache_rebuild_post"];
   };
   "/api/v1/admin/equipments": {
     /** Get Equipments */
@@ -457,6 +457,8 @@ export interface components {
        * @example 14
        */
       zoom?: number | null;
+      /** @description User allergy */
+      allergy?: components["schemas"]["UserAllergy"] | null;
       /**
        * Address
        * @description Address
@@ -532,11 +534,6 @@ export interface components {
        * @example apartment
        */
       accommodation?: components["schemas"]["Accommodations"] | null;
-      /**
-       * @description allergy
-       * @example none
-       */
-      allergy?: components["schemas"]["UserAllergy"] | null;
       /**
        * Radius
        * @description Radius in meters
@@ -573,6 +570,8 @@ export interface components {
        * @example Name of address
        */
       name?: string | null;
+      /** Instructions */
+      instructions?: string | null;
       /**
        * Id
        * Format: uuid
@@ -602,6 +601,8 @@ export interface components {
        * @example 14
        */
       zoom?: number | null;
+      /** @description User allergy */
+      allergy?: components["schemas"]["UserAllergy"] | null;
       /**
        * Address
        * @description Address
@@ -677,11 +678,6 @@ export interface components {
        * @example apartment
        */
       accommodation?: components["schemas"]["Accommodations"] | null;
-      /**
-       * @description allergy
-       * @example none
-       */
-      allergy?: components["schemas"]["UserAllergy"] | null;
       /**
        * Radius
        * @description Radius in meters
@@ -1466,6 +1462,8 @@ export interface components {
        * @example 14
        */
       zoom?: number | null;
+      /** @description User allergy */
+      allergy?: components["schemas"]["UserAllergy"] | null;
       /**
        * Address
        * @description Address
@@ -1542,11 +1540,6 @@ export interface components {
        */
       accommodation?: components["schemas"]["Accommodations"] | null;
       /**
-       * @description allergy
-       * @example none
-       */
-      allergy?: components["schemas"]["UserAllergy"] | null;
-      /**
        * Radius
        * @description Radius in meters
        * @example 10000
@@ -1582,6 +1575,8 @@ export interface components {
        * @example Name of address
        */
       name?: string | null;
+      /** Instructions */
+      instructions?: string | null;
     };
     /** AdminCreateBusinessAvailabilityIn */
     AdminCreateBusinessAvailabilityIn: {
@@ -1592,7 +1587,7 @@ export interface components {
       /**
        * Start
        * @description Start date when slot is working
-       * @example 2024-09-26
+       * @example 2024-10-10
        */
       start?: string | null;
       /**
@@ -3340,43 +3335,43 @@ export interface components {
        * Termsandconditions
        * @description url to terms and conditions
        */
-      termsAndConditions?: string;
+      termsAndConditions?: string | null;
       /**
        * Contactinfo
        * @description url to contact support page
        */
-      contactInfo?: string;
+      contactInfo?: string | null;
       /**
        * Cancellationpolicy
        * @description url to contact support page
        */
-      cancellationPolicy?: string;
+      cancellationPolicy?: string | null;
       /**
        * Legaldocuments
        * @description url to legal documents
        */
-      legalDocuments?: string;
+      legalDocuments?: string | null;
       /**
        * Privacypolicy
        * @description url to privacy documents
        * @default https://stretch.com/privacy-policy/
        */
-      privacyPolicy?: string;
+      privacyPolicy?: string | null;
       /**
        * Licensedocuments
        * @description url to license documents
        */
-      licenseDocuments?: string;
+      licenseDocuments?: string | null;
       /**
        * Supportpage
        * @description url to support page
        */
-      supportPage?: string;
+      supportPage?: string | null;
       /**
        * Marketingpage
        * @description url to marketing page
        */
-      marketingPage?: string;
+      marketingPage?: string | null;
     };
     /** AppSettingsOut */
     AppSettingsOut: {
@@ -3438,8 +3433,6 @@ export interface components {
        * @description File contents in MIME format
        */
       contentType?: string | null;
-      /** @description File visibility status in the system: on review, approved or rejected */
-      status?: components["schemas"]["stretchcore__models__storage__file__FileStatus__1"] | null;
       /**
        * Url
        * @description Direct link to the downloaded file. The file can be recompressed when it is placed in the storage
@@ -3450,6 +3443,8 @@ export interface components {
        * @description Link to the preview file
        */
       thumb?: string | null;
+      /** @description File visibility status in the system: on review, approved or rejected */
+      status?: components["schemas"]["FileStatus"] | null;
       /**
        * Duration
        * @description Duration in seconds
@@ -3536,7 +3531,7 @@ export interface components {
        */
       videoThumb?: string | null;
       /** @description File visibility status in the system: on review, approved or rejected */
-      status?: components["schemas"]["stretchcore__models__storage__file__FileStatus__1"] | null;
+      status?: components["schemas"]["FileStatus"] | null;
       /**
        * Duration
        * @description Duration of media
@@ -4010,6 +4005,8 @@ export interface components {
     };
     /** ClientDetails */
     ClientDetails: {
+      /** @description User allergy */
+      allergy?: components["schemas"]["UserAllergy"] | null;
       /**
        * Id
        * Format: uuid
@@ -4028,6 +4025,11 @@ export interface components {
       /** Avatarurl */
       avatarUrl?: string | null;
       type: components["schemas"]["UserType"];
+      /**
+       * Isdeleted
+       * @default false
+       */
+      isDeleted?: boolean;
       /** Rating */
       rating?: number | null;
       /**
@@ -4050,7 +4052,6 @@ export interface components {
        * @description User experience
        */
       experience?: number | null;
-      allergy?: components["schemas"]["UserAllergy"] | null;
       /** Allownonverify */
       allowNonVerify?: boolean | null;
       /**
@@ -4162,7 +4163,7 @@ export interface components {
        */
       videoThumb?: string | null;
       /** @description File visibility status in the system: on review, approved or rejected */
-      status?: components["schemas"]["stretchcore__models__storage__file__FileStatus__1"] | null;
+      status?: components["schemas"]["FileStatus"] | null;
       /**
        * Duration
        * @description Duration of media
@@ -4210,6 +4211,8 @@ export interface components {
     };
     /** CoachDetails */
     CoachDetails: {
+      /** @description User allergy */
+      allergy?: components["schemas"]["UserAllergy"] | null;
       /**
        * Id
        * Format: uuid
@@ -4228,6 +4231,11 @@ export interface components {
       /** Avatarurl */
       avatarUrl?: string | null;
       type: components["schemas"]["UserType"];
+      /**
+       * Isdeleted
+       * @default false
+       */
+      isDeleted?: boolean;
       /** Rating */
       rating?: number | null;
       /**
@@ -4250,7 +4258,6 @@ export interface components {
        * @description User experience
        */
       experience?: number | null;
-      allergy?: components["schemas"]["UserAllergy"] | null;
       /** Allownonverify */
       allowNonVerify?: boolean | null;
       /**
@@ -4469,7 +4476,7 @@ export interface components {
        */
       videoThumb?: string | null;
       /** @description File visibility status in the system: on review, approved or rejected */
-      status?: components["schemas"]["stretchcore__models__storage__file__FileStatus__1"] | null;
+      status?: components["schemas"]["FileStatus"] | null;
       /**
        * Duration
        * @description Duration of media
@@ -4574,8 +4581,6 @@ export interface components {
        * @description File contents in MIME format
        */
       contentType?: string | null;
-      /** @description File visibility status in the system: on review, approved or rejected */
-      status?: components["schemas"]["stretchcore__models__storage__file__FileStatus__1"] | null;
       /**
        * Url
        * @description Direct link to the downloaded file. The file can be recompressed when it is placed in the storage
@@ -4586,7 +4591,14 @@ export interface components {
        * @description Link to the preview file
        */
       thumb?: string | null;
+      /** @description File visibility status in the system: on review, approved or rejected */
+      status?: components["schemas"]["FileStatus"] | null;
     };
+    /**
+     * FileStatus
+     * @enum {string}
+     */
+    FileStatus: "uploaded" | "processing" | "approved" | "rejected" | "review" | "draft" | "deleted";
     /**
      * GeoImportFileType
      * @enum {string}
@@ -4669,7 +4681,7 @@ export interface components {
        */
       videoThumb?: string | null;
       /** @description File visibility status in the system: on review, approved or rejected */
-      status?: components["schemas"]["stretchcore__models__storage__file__FileStatus__1"] | null;
+      status?: components["schemas"]["FileStatus"] | null;
       /**
        * Duration
        * @description Duration of media
@@ -4761,6 +4773,8 @@ export interface components {
        * @description ID for payment schema
        */
       id?: string | null;
+      /** Price */
+      price?: number | null;
       /**
        * Methodid
        * Format: uuid
@@ -4977,6 +4991,8 @@ export interface components {
        * @example 14
        */
       zoom?: number | null;
+      /** @description User allergy */
+      allergy?: components["schemas"]["UserAllergy"] | null;
       /**
        * Address
        * @description Address
@@ -5052,11 +5068,6 @@ export interface components {
        * @example apartment
        */
       accommodation?: components["schemas"]["Accommodations"] | null;
-      /**
-       * @description allergy
-       * @example none
-       */
-      allergy?: components["schemas"]["UserAllergy"] | null;
       /**
        * Radius
        * @description Radius in meters
@@ -5303,13 +5314,6 @@ export interface components {
        * @example 199.9
        */
       price?: number | null;
-      /**
-       * Price Currency
-       * @description aed: AED<br/>usd: USD<br/>eur: EUR
-       * @default USD
-       * @enum {string}
-       */
-      priceCurrency?: "AED" | "USD" | "EUR";
       /** Service Other Type */
       serviceOtherType: (string | null) | null;
       /**
@@ -5324,13 +5328,6 @@ export interface components {
        * @default 8
        */
       sessionCancellationHours?: number;
-      /**
-       * Status
-       * @description uploaded: uploaded<br/>processing: processing<br/>approved: approved<br/>rejected: rejected<br/>review: review<br/>draft: draft<br/>deleted: deleted
-       * @default review
-       * @enum {string}
-       */
-      status?: "uploaded" | "processing" | "approved" | "rejected" | "review" | "draft" | "deleted";
       /** Servicetypes */
       serviceTypes?: string[] | null;
       /** Numberofsessions */
@@ -5341,6 +5338,8 @@ export interface components {
       groupSession?: boolean | null;
       /** Maxgroupsize */
       maxGroupSize?: number | null;
+      /** @default USD */
+      priceCurrency?: components["schemas"]["ServicePriceCurrencies"];
       /** Discount */
       discount?: number | null;
       /**
@@ -5375,6 +5374,8 @@ export interface components {
       bookingReason?: components["schemas"]["BookingReasonOut"] | null;
       /** Equipmenttitles */
       equipmentTitles?: string[] | null;
+      /** @default review */
+      status?: components["schemas"]["FileStatus"];
       user?: components["schemas"]["PublicCoachShortProfileOut"] | null;
       /** Equipments */
       equipments?: components["schemas"]["EquipmentOut"][] | null;
@@ -5400,13 +5401,6 @@ export interface components {
        * @example 199.9
        */
       price?: number | null;
-      /**
-       * Price Currency
-       * @description aed: AED<br/>usd: USD<br/>eur: EUR
-       * @default USD
-       * @enum {string}
-       */
-      priceCurrency?: "AED" | "USD" | "EUR";
       /** Service Other Type */
       serviceOtherType: (string | null) | null;
       /**
@@ -5421,13 +5415,6 @@ export interface components {
        * @default 8
        */
       sessionCancellationHours?: number;
-      /**
-       * Status
-       * @description uploaded: uploaded<br/>processing: processing<br/>approved: approved<br/>rejected: rejected<br/>review: review<br/>draft: draft<br/>deleted: deleted
-       * @default review
-       * @enum {string}
-       */
-      status?: "uploaded" | "processing" | "approved" | "rejected" | "review" | "draft" | "deleted";
       /** Servicetypes */
       serviceTypes?: string[] | null;
       /** Numberofsessions */
@@ -5438,6 +5425,8 @@ export interface components {
       groupSession?: boolean | null;
       /** Maxgroupsize */
       maxGroupSize?: number | null;
+      /** @default USD */
+      priceCurrency?: components["schemas"]["ServicePriceCurrencies"];
       /** Discount */
       discount?: number | null;
       /**
@@ -5472,10 +5461,11 @@ export interface components {
       bookingReason?: components["schemas"]["BookingReasonOut"] | null;
       /** Equipmenttitles */
       equipmentTitles?: string[] | null;
+      /** @default review */
+      status?: components["schemas"]["FileStatus"];
     };
     /**
      * ServicePriceCurrencies
-     * @default USD
      * @enum {string}
      */
     ServicePriceCurrencies: "AED" | "USD" | "EUR";
@@ -5772,7 +5762,7 @@ export interface components {
      * UserAllergy
      * @enum {string}
      */
-    UserAllergy: "none" | "cat" | "dog" | "all";
+    UserAllergy: "none" | "cat" | "dog" | "unknown" | "all";
     /** UserAnalyticsOut */
     UserAnalyticsOut: {
       /**
@@ -5844,6 +5834,8 @@ export interface components {
     UserLanguages: "ab" | "aa" | "af" | "ak" | "sq" | "am" | "ar" | "an" | "hy" | "as" | "av" | "ae" | "ay" | "az" | "bm" | "ba" | "eu" | "be" | "bn" | "bh" | "bi" | "bs" | "br" | "bg" | "my" | "ca" | "ch" | "ce" | "ny" | "zh" | "cv" | "kw" | "co" | "cr" | "hr" | "cs" | "da" | "dv" | "nl" | "dz" | "en" | "eo" | "et" | "ee" | "fo" | "fj" | "fi" | "fr" | "ff" | "gl" | "ka" | "de" | "el" | "gn" | "gu" | "ht" | "ha" | "he" | "hz" | "hi" | "ho" | "hu" | "ia" | "id" | "ie" | "ga" | "ig" | "ik" | "io" | "is" | "it" | "iu" | "ja" | "jv" | "kl" | "kn" | "kr" | "ks" | "kk" | "km" | "ki" | "rw" | "ky" | "kv" | "kg" | "ko" | "ku" | "kj" | "la" | "lb" | "lg" | "li" | "ln" | "lo" | "lt" | "lu" | "lv" | "gv" | "mk" | "mg" | "ms" | "ml" | "mt" | "mi" | "mr" | "mh" | "mn" | "na" | "nv" | "nd" | "ne" | "ng" | "nb" | "nn" | "no" | "ii" | "nr" | "oc" | "oj" | "cu" | "om" | "or" | "os" | "pa" | "pi" | "fa" | "pl" | "ps" | "pt" | "qu" | "rm" | "rn" | "ro" | "ru" | "sa" | "sc" | "sd" | "se" | "sm" | "sg" | "sr" | "gd" | "sn" | "si" | "sk" | "sl" | "so" | "st" | "es" | "su" | "sw" | "ss" | "sv" | "ta" | "te" | "tg" | "th" | "ti" | "bo" | "tk" | "tl" | "tn" | "to" | "tr" | "ts" | "tt" | "tw" | "ty" | "ug" | "uk" | "ur" | "uz" | "ve" | "vi" | "vo" | "wa" | "cy" | "wo" | "fy" | "xh" | "yi" | "yo" | "za" | "zu";
     /** UserProfileOut */
     UserProfileOut: {
+      /** @description User allergy */
+      allergy?: components["schemas"]["UserAllergy"] | null;
       /**
        * Id
        * Format: uuid
@@ -5862,6 +5854,11 @@ export interface components {
       /** Avatarurl */
       avatarUrl?: string | null;
       type: components["schemas"]["UserType"];
+      /**
+       * Isdeleted
+       * @default false
+       */
+      isDeleted?: boolean;
       /** Rating */
       rating?: number | null;
       /**
@@ -5884,7 +5881,6 @@ export interface components {
        * @description User experience
        */
       experience?: number | null;
-      allergy?: components["schemas"]["UserAllergy"] | null;
       /** Allownonverify */
       allowNonVerify?: boolean | null;
       /**
@@ -5985,6 +5981,11 @@ export interface components {
       available?: boolean | null;
       /** Verifycode */
       verifyCode?: string | null;
+      /**
+       * Istemporary
+       * @default false
+       */
+      isTemporary?: boolean;
       /**
        * Totalpayment
        * @description Total payment amount
@@ -6103,8 +6104,6 @@ export interface components {
        * @description File contents in MIME format
        */
       contentType?: string | null;
-      /** @description File visibility status in the system: on review, approved or rejected */
-      status?: components["schemas"]["stretchcore__models__storage__file__FileStatus__1"] | null;
       /**
        * Url
        * @description Direct link to the downloaded file. The file can be recompressed when it is placed in the storage
@@ -6115,6 +6114,8 @@ export interface components {
        * @description Link to the preview file
        */
       thumb?: string | null;
+      /** @description File visibility status in the system: on review, approved or rejected */
+      status?: components["schemas"]["FileStatus"] | null;
       /**
        * Duration
        * @description Duration in seconds
@@ -6145,17 +6146,6 @@ export interface components {
      * @enum {string}
      */
     stretchcore__models__session__schema__admin_session__AdminSessionOrderFields: "created_at" | "-created_at" | "date_start" | "-date_start" | "name" | "-name" | "price" | "-price";
-    /**
-     * FileStatus
-     * @enum {string}
-     */
-    stretchcore__models__storage__file__FileStatus__1: "uploaded" | "processing" | "approved" | "rejected" | "review" | "draft" | "deleted";
-    /**
-     * FileStatus
-     * @default review
-     * @enum {string}
-     */
-    stretchcore__models__storage__file__FileStatus__2: "uploaded" | "processing" | "approved" | "rejected" | "review" | "draft" | "deleted";
   };
   responses: never;
   parameters: never;
@@ -8515,132 +8505,66 @@ export interface operations {
   };
   /** Cache Sessions */
   cache_sessions_api_v1_admin_cache_sessions_post: {
-    parameters: {
-      query?: {
-        run_in_background?: boolean;
-      };
-    };
     responses: {
       /** @description Successful Response */
       200: {
         content: {
-          "application/json": unknown;
-        };
-      };
-      /** @description Validation Error */
-      422: {
-        content: {
-          "application/json": components["schemas"]["HTTPValidationError"];
+          "application/json": components["schemas"]["StretchResponse"];
         };
       };
     };
   };
   /** Cache Coaches */
   cache_coaches_api_v1_admin_cache_coaches_post: {
-    parameters: {
-      query?: {
-        run_in_background?: boolean;
-      };
-    };
     responses: {
       /** @description Successful Response */
       200: {
         content: {
-          "application/json": unknown;
-        };
-      };
-      /** @description Validation Error */
-      422: {
-        content: {
-          "application/json": components["schemas"]["HTTPValidationError"];
+          "application/json": components["schemas"]["StretchResponse"];
         };
       };
     };
   };
   /** Cache Chat Users */
   cache_chat_users_api_v1_admin_cache_sb_chat_post: {
-    parameters: {
-      query?: {
-        run_in_background?: boolean;
-      };
-    };
     responses: {
       /** @description Successful Response */
       200: {
         content: {
-          "application/json": unknown;
-        };
-      };
-      /** @description Validation Error */
-      422: {
-        content: {
-          "application/json": components["schemas"]["HTTPValidationError"];
+          "application/json": components["schemas"]["StretchResponse"];
         };
       };
     };
   };
   /** Cache Categories */
   cache_categories_api_v1_admin_cache_category_post: {
-    parameters: {
-      query?: {
-        run_in_background?: boolean;
-      };
-    };
     responses: {
       /** @description Successful Response */
       200: {
         content: {
-          "application/json": unknown;
-        };
-      };
-      /** @description Validation Error */
-      422: {
-        content: {
-          "application/json": components["schemas"]["HTTPValidationError"];
+          "application/json": components["schemas"]["StretchResponse"];
         };
       };
     };
   };
   /** Cache Businesses */
   cache_businesses_api_v1_admin_cache_businesses_post: {
-    parameters: {
-      query?: {
-        run_in_background?: boolean;
-      };
-    };
     responses: {
       /** @description Successful Response */
       200: {
         content: {
-          "application/json": unknown;
-        };
-      };
-      /** @description Validation Error */
-      422: {
-        content: {
-          "application/json": components["schemas"]["HTTPValidationError"];
+          "application/json": components["schemas"]["StretchResponse"];
         };
       };
     };
   };
-  /** Revalidate Cache Values */
-  revalidate_cache_values_api_v1_admin_cache_rebuild_post: {
-    parameters: {
-      query?: {
-        run_in_background?: boolean;
-      };
-    };
+  /** Rebuild Cache */
+  rebuild_cache_api_v1_admin_cache_rebuild_post: {
     responses: {
       /** @description Successful Response */
       200: {
         content: {
-          "application/json": unknown;
-        };
-      };
-      /** @description Validation Error */
-      422: {
-        content: {
-          "application/json": components["schemas"]["HTTPValidationError"];
+          "application/json": components["schemas"]["StretchResponse"];
         };
       };
     };
