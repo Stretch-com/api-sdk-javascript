@@ -118,8 +118,8 @@ export interface components {
      * @enum {string}
      */
     Accommodations: "apartment" | "hotel" | "flat" | "house" | "any" | "office" | "other" | "undefined";
-    /** AddressIn */
-    AddressIn: {
+    /** AddressBaseOut */
+    AddressBaseOut: {
       /**
        * Lng
        * @example 55.296249
@@ -136,6 +136,8 @@ export interface components {
        * @example 14
        */
       zoom?: number | null;
+      /** @description User allergy */
+      allergy?: components["schemas"]["UserAllergy"] | null;
       /**
        * Address
        * @description Address
@@ -211,291 +213,6 @@ export interface components {
        * @example apartment
        */
       accommodation?: components["schemas"]["Accommodations"] | null;
-      /**
-       * @description allergy
-       * @example none
-       */
-      allergy?: components["schemas"]["UserAllergy"] | null;
-      /**
-       * Radius
-       * @description Radius in meters
-       * @example 10000
-       */
-      radius?: number | null;
-      /**
-       * @description Location label
-       * @default home
-       * @example home
-       */
-      label?: components["schemas"]["LocationLabel"];
-      /**
-       * Labelother
-       * @description Location label
-       */
-      labelOther?: string | null;
-      /**
-       * Details
-       * @description notes for address
-       */
-      details?: string | null;
-      parking?: components["schemas"]["ParkingType"] | null;
-      /** Parkingdescription */
-      parkingDescription?: string | null;
-      /**
-       * Isdefault
-       * @default false
-       */
-      isDefault?: boolean | null;
-      /**
-       * Name
-       * @description name
-       * @example Name of address
-       */
-      name?: string | null;
-    };
-    /** AddressOut */
-    AddressOut: {
-      /**
-       * Lng
-       * @example 55.296249
-       */
-      lng: number;
-      /**
-       * Lat
-       * @example 25.276
-       */
-      lat: number;
-      /**
-       * Zoom
-       * @default 17
-       * @example 14
-       */
-      zoom?: number | null;
-      /**
-       * Address
-       * @description Address
-       * @example 548, floor 5, Cluster G, Tower Al mas, JLT, Dubai, UAE
-       */
-      address?: string | null;
-      /**
-       * Country
-       * @description Country
-       * @example United Arab Emirates
-       */
-      country?: string | null;
-      /**
-       * State
-       * @description state
-       * @example Dubai
-       */
-      state?: string | null;
-      /**
-       * City
-       * @description city
-       * @example Dubai
-       */
-      city?: string | null;
-      /**
-       * Line1
-       * @description line1
-       * @example Jumeirah Lake Towers
-       */
-      line1?: string | null;
-      /**
-       * Line2
-       * @description line2
-       * @example 1068, Tower Meadows 2
-       */
-      line2?: string | null;
-      /**
-       * Zip
-       * @description zip (po box)
-       */
-      zip?: string | null;
-      /**
-       * Building
-       * @description building
-       * @example Tower Meadows 2
-       */
-      building?: string | null;
-      /**
-       * Entrance
-       * @description entrance
-       * @example main
-       */
-      entrance?: string | null;
-      /**
-       * Floor
-       * @description floor
-       * @example 12
-       */
-      floor?: string | null;
-      /**
-       * Apartment
-       * @description apartment
-       * @example 1245
-       */
-      apartment?: string | null;
-      /**
-       * Neighborhood
-       * @description neighborhood
-       */
-      neighborhood?: string | null;
-      /**
-       * @description accommodation
-       * @example apartment
-       */
-      accommodation?: components["schemas"]["Accommodations"] | null;
-      /**
-       * @description allergy
-       * @example none
-       */
-      allergy?: components["schemas"]["UserAllergy"] | null;
-      /**
-       * Radius
-       * @description Radius in meters
-       * @example 10000
-       */
-      radius?: number | null;
-      /**
-       * @description Location label
-       * @default home
-       * @example home
-       */
-      label?: components["schemas"]["LocationLabel"];
-      /**
-       * Labelother
-       * @description Location label
-       */
-      labelOther?: string | null;
-      /**
-       * Details
-       * @description notes for address
-       */
-      details?: string | null;
-      parking?: components["schemas"]["ParkingType"] | null;
-      /** Parkingdescription */
-      parkingDescription?: string | null;
-      /**
-       * Isdefault
-       * @default false
-       */
-      isDefault?: boolean | null;
-      /**
-       * Name
-       * @description name
-       * @example Name of address
-       */
-      name?: string | null;
-      /**
-       * Id
-       * Format: uuid
-       */
-      id: string;
-      /**
-       * Activesessions
-       * @default 0
-       */
-      activeSessions?: number;
-    };
-    /** AddressUpdateIn */
-    AddressUpdateIn: {
-      /**
-       * Lng
-       * @example 55.296249
-       */
-      lng?: number | null;
-      /**
-       * Lat
-       * @example 25.276
-       */
-      lat?: number | null;
-      /**
-       * Zoom
-       * @default 17
-       * @example 14
-       */
-      zoom?: number | null;
-      /**
-       * Address
-       * @description Address
-       * @example 548, floor 5, Cluster G, Tower Al mas, JLT, Dubai, UAE
-       */
-      address?: string | null;
-      /**
-       * Country
-       * @description Country
-       * @example United Arab Emirates
-       */
-      country?: string | null;
-      /**
-       * State
-       * @description state
-       * @example Dubai
-       */
-      state?: string | null;
-      /**
-       * City
-       * @description city
-       * @example Dubai
-       */
-      city?: string | null;
-      /**
-       * Line1
-       * @description line1
-       * @example Jumeirah Lake Towers
-       */
-      line1?: string | null;
-      /**
-       * Line2
-       * @description line2
-       * @example 1068, Tower Meadows 2
-       */
-      line2?: string | null;
-      /**
-       * Zip
-       * @description zip (po box)
-       */
-      zip?: string | null;
-      /**
-       * Building
-       * @description building
-       * @example Tower Meadows 2
-       */
-      building?: string | null;
-      /**
-       * Entrance
-       * @description entrance
-       * @example main
-       */
-      entrance?: string | null;
-      /**
-       * Floor
-       * @description floor
-       * @example 12
-       */
-      floor?: string | null;
-      /**
-       * Apartment
-       * @description apartment
-       * @example 1245
-       */
-      apartment?: string | null;
-      /**
-       * Neighborhood
-       * @description neighborhood
-       */
-      neighborhood?: string | null;
-      /**
-       * @description accommodation
-       * @example apartment
-       */
-      accommodation?: components["schemas"]["Accommodations"] | null;
-      /**
-       * @description allergy
-       * @example none
-       */
-      allergy?: components["schemas"]["UserAllergy"] | null;
       /**
        * Radius
        * @description Radius in meters
@@ -529,6 +246,419 @@ export interface components {
        * @example Name of address
        */
       name?: string | null;
+      /** Instructions */
+      instructions?: string | null;
+      /** Id */
+      id?: string | null;
+    };
+    /** AddressIn */
+    AddressIn: {
+      /**
+       * Lng
+       * @example 55.296249
+       */
+      lng: number;
+      /**
+       * Lat
+       * @example 25.276
+       */
+      lat: number;
+      /**
+       * Zoom
+       * @default 17
+       * @example 14
+       */
+      zoom?: number | null;
+      /** @description User allergy */
+      allergy?: components["schemas"]["UserAllergy"] | null;
+      /**
+       * Address
+       * @description Address
+       * @example 548, floor 5, Cluster G, Tower Al mas, JLT, Dubai, UAE
+       */
+      address?: string | null;
+      /**
+       * Country
+       * @description Country
+       * @example United Arab Emirates
+       */
+      country?: string | null;
+      /**
+       * State
+       * @description state
+       * @example Dubai
+       */
+      state?: string | null;
+      /**
+       * City
+       * @description city
+       * @example Dubai
+       */
+      city?: string | null;
+      /**
+       * Line1
+       * @description line1
+       * @example Jumeirah Lake Towers
+       */
+      line1?: string | null;
+      /**
+       * Line2
+       * @description line2
+       * @example 1068, Tower Meadows 2
+       */
+      line2?: string | null;
+      /**
+       * Zip
+       * @description zip (po box)
+       */
+      zip?: string | null;
+      /**
+       * Building
+       * @description building
+       * @example Tower Meadows 2
+       */
+      building?: string | null;
+      /**
+       * Entrance
+       * @description entrance
+       * @example main
+       */
+      entrance?: string | null;
+      /**
+       * Floor
+       * @description floor
+       * @example 12
+       */
+      floor?: string | null;
+      /**
+       * Apartment
+       * @description apartment
+       * @example 1245
+       */
+      apartment?: string | null;
+      /**
+       * Neighborhood
+       * @description neighborhood
+       */
+      neighborhood?: string | null;
+      /**
+       * @description accommodation
+       * @example apartment
+       */
+      accommodation?: components["schemas"]["Accommodations"] | null;
+      /**
+       * Radius
+       * @description Radius in meters
+       * @example 10000
+       */
+      radius?: number | null;
+      /**
+       * @description Location label
+       * @default home
+       * @example home
+       */
+      label?: components["schemas"]["LocationLabel"];
+      /**
+       * Labelother
+       * @description Location label
+       */
+      labelOther?: string | null;
+      /**
+       * Details
+       * @description notes for address
+       */
+      details?: string | null;
+      parking?: components["schemas"]["ParkingType"] | null;
+      /** Parkingdescription */
+      parkingDescription?: string | null;
+      /**
+       * Isdefault
+       * @default false
+       */
+      isDefault?: boolean | null;
+      /**
+       * Name
+       * @description name
+       * @example Name of address
+       */
+      name?: string | null;
+      /** Instructions */
+      instructions?: string | null;
+    };
+    /** AddressOut */
+    AddressOut: {
+      /**
+       * Lng
+       * @example 55.296249
+       */
+      lng: number;
+      /**
+       * Lat
+       * @example 25.276
+       */
+      lat: number;
+      /**
+       * Zoom
+       * @default 17
+       * @example 14
+       */
+      zoom?: number | null;
+      /** @description User allergy */
+      allergy?: components["schemas"]["UserAllergy"] | null;
+      /**
+       * Address
+       * @description Address
+       * @example 548, floor 5, Cluster G, Tower Al mas, JLT, Dubai, UAE
+       */
+      address?: string | null;
+      /**
+       * Country
+       * @description Country
+       * @example United Arab Emirates
+       */
+      country?: string | null;
+      /**
+       * State
+       * @description state
+       * @example Dubai
+       */
+      state?: string | null;
+      /**
+       * City
+       * @description city
+       * @example Dubai
+       */
+      city?: string | null;
+      /**
+       * Line1
+       * @description line1
+       * @example Jumeirah Lake Towers
+       */
+      line1?: string | null;
+      /**
+       * Line2
+       * @description line2
+       * @example 1068, Tower Meadows 2
+       */
+      line2?: string | null;
+      /**
+       * Zip
+       * @description zip (po box)
+       */
+      zip?: string | null;
+      /**
+       * Building
+       * @description building
+       * @example Tower Meadows 2
+       */
+      building?: string | null;
+      /**
+       * Entrance
+       * @description entrance
+       * @example main
+       */
+      entrance?: string | null;
+      /**
+       * Floor
+       * @description floor
+       * @example 12
+       */
+      floor?: string | null;
+      /**
+       * Apartment
+       * @description apartment
+       * @example 1245
+       */
+      apartment?: string | null;
+      /**
+       * Neighborhood
+       * @description neighborhood
+       */
+      neighborhood?: string | null;
+      /**
+       * @description accommodation
+       * @example apartment
+       */
+      accommodation?: components["schemas"]["Accommodations"] | null;
+      /**
+       * Radius
+       * @description Radius in meters
+       * @example 10000
+       */
+      radius?: number | null;
+      /**
+       * @description Location label
+       * @default home
+       * @example home
+       */
+      label?: components["schemas"]["LocationLabel"];
+      /**
+       * Labelother
+       * @description Location label
+       */
+      labelOther?: string | null;
+      /**
+       * Details
+       * @description notes for address
+       */
+      details?: string | null;
+      parking?: components["schemas"]["ParkingType"] | null;
+      /** Parkingdescription */
+      parkingDescription?: string | null;
+      /**
+       * Isdefault
+       * @default false
+       */
+      isDefault?: boolean | null;
+      /**
+       * Name
+       * @description name
+       * @example Name of address
+       */
+      name?: string | null;
+      /** Instructions */
+      instructions?: string | null;
+      /**
+       * Id
+       * Format: uuid
+       */
+      id: string;
+      /**
+       * Activesessions
+       * @default 0
+       */
+      activeSessions?: number;
+    };
+    /** AddressUpdateIn */
+    AddressUpdateIn: {
+      /**
+       * Lng
+       * @example 55.296249
+       */
+      lng?: number | null;
+      /**
+       * Lat
+       * @example 25.276
+       */
+      lat?: number | null;
+      /**
+       * Zoom
+       * @default 17
+       * @example 14
+       */
+      zoom?: number | null;
+      /** @description User allergy */
+      allergy?: components["schemas"]["UserAllergy"] | null;
+      /**
+       * Address
+       * @description Address
+       * @example 548, floor 5, Cluster G, Tower Al mas, JLT, Dubai, UAE
+       */
+      address?: string | null;
+      /**
+       * Country
+       * @description Country
+       * @example United Arab Emirates
+       */
+      country?: string | null;
+      /**
+       * State
+       * @description state
+       * @example Dubai
+       */
+      state?: string | null;
+      /**
+       * City
+       * @description city
+       * @example Dubai
+       */
+      city?: string | null;
+      /**
+       * Line1
+       * @description line1
+       * @example Jumeirah Lake Towers
+       */
+      line1?: string | null;
+      /**
+       * Line2
+       * @description line2
+       * @example 1068, Tower Meadows 2
+       */
+      line2?: string | null;
+      /**
+       * Zip
+       * @description zip (po box)
+       */
+      zip?: string | null;
+      /**
+       * Building
+       * @description building
+       * @example Tower Meadows 2
+       */
+      building?: string | null;
+      /**
+       * Entrance
+       * @description entrance
+       * @example main
+       */
+      entrance?: string | null;
+      /**
+       * Floor
+       * @description floor
+       * @example 12
+       */
+      floor?: string | null;
+      /**
+       * Apartment
+       * @description apartment
+       * @example 1245
+       */
+      apartment?: string | null;
+      /**
+       * Neighborhood
+       * @description neighborhood
+       */
+      neighborhood?: string | null;
+      /**
+       * @description accommodation
+       * @example apartment
+       */
+      accommodation?: components["schemas"]["Accommodations"] | null;
+      /**
+       * Radius
+       * @description Radius in meters
+       * @example 10000
+       */
+      radius?: number | null;
+      /**
+       * @description Location label
+       * @default home
+       * @example home
+       */
+      label?: components["schemas"]["LocationLabel"];
+      /**
+       * Labelother
+       * @description Location label
+       */
+      labelOther?: string | null;
+      /**
+       * Details
+       * @description notes for address
+       */
+      details?: string | null;
+      parking?: components["schemas"]["ParkingType"] | null;
+      /** Parkingdescription */
+      parkingDescription?: string | null;
+      /** Isdefault */
+      isDefault?: boolean | null;
+      /**
+       * Name
+       * @description name
+       * @example Name of address
+       */
+      name?: string | null;
+      /** Instructions */
+      instructions?: string | null;
     };
     /** CoverageOut */
     CoverageOut: {
@@ -615,6 +745,11 @@ export interface components {
       description: string;
       /** Placeid */
       placeId: string;
+      /**
+       * Distance
+       * @description Distance in meters
+       */
+      distance?: number | null;
     };
     /** HTTPValidationError */
     HTTPValidationError: {
@@ -644,7 +779,7 @@ export interface components {
      * UserAllergy
      * @enum {string}
      */
-    UserAllergy: "none" | "cat" | "dog" | "all";
+    UserAllergy: "none" | "cat" | "dog" | "unknown" | "all";
     /** ValidationError */
     ValidationError: {
       /** Location */
@@ -776,7 +911,7 @@ export interface operations {
       /** @description Successful Response */
       200: {
         content: {
-          "application/json": components["schemas"]["AddressOut"][];
+          "application/json": unknown;
         };
       };
       /** @description Validation Error */
@@ -802,6 +937,7 @@ export interface operations {
          */
         query: string;
         proximity?: string | null;
+        limit?: number | null;
       };
     };
     responses: {
@@ -836,13 +972,15 @@ export interface operations {
       query: {
         /** @description place id from autocomplete response */
         place_id: string;
+        /** @example 54.65395619853033,25.3050275806406 */
+        coords?: string | null;
       };
     };
     responses: {
       /** @description Successful Response */
       200: {
         content: {
-          "application/json": components["schemas"]["AddressOut"];
+          "application/json": components["schemas"]["AddressBaseOut"];
         };
       };
       /** @description Bad Request */

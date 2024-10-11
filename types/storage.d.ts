@@ -41,6 +41,7 @@ export interface paths {
   "/api/v1/storage/image": {
     /**
      * Upload Image
+     * @deprecated
      * @description Uploading a file to the user's gallery
      * The maximum file size is 20 MB and acceptable file types are:
      *
@@ -52,11 +53,13 @@ export interface paths {
   "/api/v1/storage/images": {
     /**
      * List Images
+     * @deprecated
      * @description List of uploaded images from the user's gallery
      */
     get: operations["list_images_api_v1_storage_images_get"];
     /**
      * Upload Images
+     * @deprecated
      * @description Uploading a files to the user's gallery. This working like upload file but  on many images.
      * The maximum file size is 20 MB and acceptable file types are:
      *
@@ -68,6 +71,7 @@ export interface paths {
   "/api/v1/storage/images/order": {
     /**
      * Set Images Order
+     * @deprecated
      * @description Changes the order of files in the user's gallery.
      *
      * The list must contain the ID of all available files,
@@ -76,14 +80,21 @@ export interface paths {
     put: operations["set_images_order_api_v1_storage_images_order_put"];
   };
   "/api/v1/storage/image/{image_id}": {
-    /** Update Image */
+    /**
+     * Update Image
+     * @deprecated
+     */
     put: operations["update_image_api_v1_storage_image__image_id__put"];
-    /** Delete Image */
+    /**
+     * Delete Image
+     * @deprecated
+     */
     delete: operations["delete_image_api_v1_storage_image__image_id__delete"];
   };
   "/api/v1/storage/video": {
     /**
      * Upload Video
+     * @deprecated
      * @description Uploads a video file and displays the preview as a separate media.
      */
     post: operations["upload_video_api_v1_storage_video_post"];
@@ -91,22 +102,28 @@ export interface paths {
   "/api/v1/storage/videos": {
     /**
      * List Video
+     * @deprecated
      * @description Lists out all the video preview made by the user.
      */
     get: operations["list_video_api_v1_storage_videos_get"];
   };
   "/api/v1/storage/videos/order": {
-    /** Set Videos Order */
+    /**
+     * Set Videos Order
+     * @deprecated
+     */
     put: operations["set_videos_order_api_v1_storage_videos_order_put"];
   };
   "/api/v1/storage/video/{video_id}": {
     /**
      * Update Video
+     * @deprecated
      * @description Replace the current video file with the new file that the user upload.
      */
     put: operations["update_video_api_v1_storage_video__video_id__put"];
     /**
      * Delete Video
+     * @deprecated
      * @description Removes the current video file specified and returns the status of removal.
      */
     delete: operations["delete_video_api_v1_storage_video__video_id__delete"];
@@ -260,8 +277,6 @@ export interface components {
        * @description File contents in MIME format
        */
       contentType?: string | null;
-      /** @description File visibility status in the system: on review, approved or rejected */
-      status?: components["schemas"]["stretchcore__models__storage__file__FileStatus__1"] | null;
       /**
        * Url
        * @description Direct link to the downloaded file. The file can be recompressed when it is placed in the storage
@@ -272,6 +287,8 @@ export interface components {
        * @description Link to the preview file
        */
       thumb?: string | null;
+      /** @description File visibility status in the system: on review, approved or rejected */
+      status?: components["schemas"]["FileStatus"] | null;
       /**
        * Duration
        * @description Duration in seconds
@@ -525,8 +542,6 @@ export interface components {
        * @description File contents in MIME format
        */
       contentType?: string | null;
-      /** @description File visibility status in the system: on review, approved or rejected */
-      status?: components["schemas"]["stretchcore__models__storage__file__FileStatus__1"] | null;
       /**
        * Url
        * @description Direct link to the downloaded file. The file can be recompressed when it is placed in the storage
@@ -537,6 +552,8 @@ export interface components {
        * @description Link to the preview file
        */
       thumb?: string | null;
+      /** @description File visibility status in the system: on review, approved or rejected */
+      status?: components["schemas"]["FileStatus"] | null;
       /** Issuedate */
       issueDate?: string | null;
       /** Expiredate */
@@ -579,7 +596,7 @@ export interface components {
        */
       videoThumb?: string | null;
       /** @description File visibility status in the system: on review, approved or rejected */
-      status?: components["schemas"]["stretchcore__models__storage__file__FileStatus__1"] | null;
+      status?: components["schemas"]["FileStatus"] | null;
       /**
        * Duration
        * @description Duration of media
@@ -665,8 +682,6 @@ export interface components {
        * @description File contents in MIME format
        */
       contentType?: string | null;
-      /** @description File visibility status in the system: on review, approved or rejected */
-      status?: components["schemas"]["stretchcore__models__storage__file__FileStatus__1"] | null;
       /**
        * Url
        * @description Direct link to the downloaded file. The file can be recompressed when it is placed in the storage
@@ -677,7 +692,14 @@ export interface components {
        * @description Link to the preview file
        */
       thumb?: string | null;
+      /** @description File visibility status in the system: on review, approved or rejected */
+      status?: components["schemas"]["FileStatus"] | null;
     };
+    /**
+     * FileStatus
+     * @enum {string}
+     */
+    FileStatus: "uploaded" | "processing" | "approved" | "rejected" | "review" | "draft" | "deleted";
     /**
      * FileType
      * @enum {string}
@@ -783,22 +805,18 @@ export interface components {
       /** Filename */
       filename: string;
       /** Origin Filename */
-      originFilename: string | null;
+      originFilename?: string | null;
       /** Filesize */
-      filesize: number | null;
+      filesize?: number | null;
       /**
        * Content Type
        * @default application/pdf
        */
       contentType?: (string | null) | null;
-      /**
-       * Status
-       * @description uploaded: uploaded<br/>processing: processing<br/>approved: approved<br/>rejected: rejected<br/>review: review<br/>draft: draft<br/>deleted: deleted
-       * @default review
-       */
-      status?: components["schemas"]["stretchcore__models__storage__file__FileStatus__1"];
       /** Url */
       url?: string | null;
+      /** @default review */
+      status?: components["schemas"]["FileStatus"];
     };
     /** StretchResponse */
     StretchResponse: {
@@ -818,7 +836,7 @@ export interface components {
      * UserAllergy
      * @enum {string}
      */
-    UserAllergy: "none" | "cat" | "dog" | "all";
+    UserAllergy: "none" | "cat" | "dog" | "unknown" | "all";
     /**
      * UserGender
      * @enum {string}
@@ -826,6 +844,8 @@ export interface components {
     UserGender: "male" | "female" | "other";
     /** UserProfileOut */
     UserProfileOut: {
+      /** @description User allergy */
+      allergy?: components["schemas"]["UserAllergy"] | null;
       /**
        * Id
        * Format: uuid
@@ -844,6 +864,11 @@ export interface components {
       /** Avatarurl */
       avatarUrl?: string | null;
       type: components["schemas"]["UserType"];
+      /**
+       * Isdeleted
+       * @default false
+       */
+      isDeleted?: boolean;
       /** Rating */
       rating?: number | null;
       /**
@@ -866,7 +891,6 @@ export interface components {
        * @description User experience
        */
       experience?: number | null;
-      allergy?: components["schemas"]["UserAllergy"] | null;
       /** Allownonverify */
       allowNonVerify?: boolean | null;
       /**
@@ -968,6 +992,11 @@ export interface components {
       /** Verifycode */
       verifyCode?: string | null;
       /**
+       * Istemporary
+       * @default false
+       */
+      isTemporary?: boolean;
+      /**
        * Totalpayment
        * @description Total payment amount
        */
@@ -1056,8 +1085,6 @@ export interface components {
        * @description File contents in MIME format
        */
       contentType?: string | null;
-      /** @description File visibility status in the system: on review, approved or rejected */
-      status?: components["schemas"]["stretchcore__models__storage__file__FileStatus__1"] | null;
       /**
        * Url
        * @description Direct link to the downloaded file. The file can be recompressed when it is placed in the storage
@@ -1068,18 +1095,14 @@ export interface components {
        * @description Link to the preview file
        */
       thumb?: string | null;
+      /** @description File visibility status in the system: on review, approved or rejected */
+      status?: components["schemas"]["FileStatus"] | null;
       /**
        * Duration
        * @description Duration in seconds
        */
       duration?: number | null;
     };
-    /**
-     * FileStatus
-     * @enum {string}
-     */
-    stretchcore__models__storage__file__FileStatus__1: "uploaded" | "processing" | "approved" | "rejected" | "review" | "draft" | "deleted";
-    stretchcore__models__storage__file__FileStatus__2: components["schemas"]["stretchcore__models__storage__file__FileStatus__1"];
   };
   responses: never;
   parameters: never;
@@ -1217,6 +1240,7 @@ export interface operations {
   };
   /**
    * Upload Image
+   * @deprecated
    * @description Uploading a file to the user's gallery
    * The maximum file size is 20 MB and acceptable file types are:
    *
@@ -1246,6 +1270,7 @@ export interface operations {
   };
   /**
    * List Images
+   * @deprecated
    * @description List of uploaded images from the user's gallery
    */
   list_images_api_v1_storage_images_get: {
@@ -1272,6 +1297,7 @@ export interface operations {
   };
   /**
    * Upload Images
+   * @deprecated
    * @description Uploading a files to the user's gallery. This working like upload file but  on many images.
    * The maximum file size is 20 MB and acceptable file types are:
    *
@@ -1301,6 +1327,7 @@ export interface operations {
   };
   /**
    * Set Images Order
+   * @deprecated
    * @description Changes the order of files in the user's gallery.
    *
    * The list must contain the ID of all available files,
@@ -1327,7 +1354,10 @@ export interface operations {
       };
     };
   };
-  /** Update Image */
+  /**
+   * Update Image
+   * @deprecated
+   */
   update_image_api_v1_storage_image__image_id__put: {
     parameters: {
       path: {
@@ -1354,7 +1384,10 @@ export interface operations {
       };
     };
   };
-  /** Delete Image */
+  /**
+   * Delete Image
+   * @deprecated
+   */
   delete_image_api_v1_storage_image__image_id__delete: {
     parameters: {
       path: {
@@ -1378,6 +1411,7 @@ export interface operations {
   };
   /**
    * Upload Video
+   * @deprecated
    * @description Uploads a video file and displays the preview as a separate media.
    */
   upload_video_api_v1_storage_video_post: {
@@ -1403,6 +1437,7 @@ export interface operations {
   };
   /**
    * List Video
+   * @deprecated
    * @description Lists out all the video preview made by the user.
    */
   list_video_api_v1_storage_videos_get: {
@@ -1427,7 +1462,10 @@ export interface operations {
       };
     };
   };
-  /** Set Videos Order */
+  /**
+   * Set Videos Order
+   * @deprecated
+   */
   set_videos_order_api_v1_storage_videos_order_put: {
     requestBody: {
       content: {
@@ -1451,6 +1489,7 @@ export interface operations {
   };
   /**
    * Update Video
+   * @deprecated
    * @description Replace the current video file with the new file that the user upload.
    */
   update_video_api_v1_storage_video__video_id__put: {
@@ -1481,6 +1520,7 @@ export interface operations {
   };
   /**
    * Delete Video
+   * @deprecated
    * @description Removes the current video file specified and returns the status of removal.
    */
   delete_video_api_v1_storage_video__video_id__delete: {

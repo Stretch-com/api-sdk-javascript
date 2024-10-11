@@ -221,14 +221,14 @@ export interface paths {
     get: operations["get_blocked_clients_api_v1_user_blacklist_get"];
     /**
      * Add Client To Blacklist
-     * @description Add new favorite user. If user already added response also success
+     * @description Add new blocked user. If user already added response also success
      */
     post: operations["add_client_to_blacklist_api_v1_user_blacklist_post"];
   };
   "/api/v1/user/blacklist/{user_id}": {
     /**
      * Delete User From Blacklist
-     * @description Add remove favorite user by id. If user already add return also success
+     * @description Add remove blocked user by id. If user already add return also success
      */
     delete: operations["delete_user_from_blacklist_api_v1_user_blacklist__user_id__delete"];
   };
@@ -577,6 +577,8 @@ export interface components {
        * @example 14
        */
       zoom?: number | null;
+      /** @description User allergy */
+      allergy?: components["schemas"]["UserAllergy"] | null;
       /**
        * Address
        * @description Address
@@ -652,11 +654,6 @@ export interface components {
        * @example apartment
        */
       accommodation?: components["schemas"]["Accommodations"] | null;
-      /**
-       * @description allergy
-       * @example none
-       */
-      allergy?: components["schemas"]["UserAllergy"] | null;
       /**
        * Radius
        * @description Radius in meters
@@ -693,6 +690,8 @@ export interface components {
        * @example Name of address
        */
       name?: string | null;
+      /** Instructions */
+      instructions?: string | null;
       /**
        * Id
        * Format: uuid
@@ -722,6 +721,8 @@ export interface components {
        * @example 14
        */
       zoom?: number | null;
+      /** @description User allergy */
+      allergy?: components["schemas"]["UserAllergy"] | null;
       /**
        * Address
        * @description Address
@@ -797,11 +798,6 @@ export interface components {
        * @example apartment
        */
       accommodation?: components["schemas"]["Accommodations"] | null;
-      /**
-       * @description allergy
-       * @example none
-       */
-      allergy?: components["schemas"]["UserAllergy"] | null;
       /**
        * Radius
        * @description Radius in meters
@@ -848,6 +844,8 @@ export interface components {
        * @example 14
        */
       zoom?: number | null;
+      /** @description User allergy */
+      allergy?: components["schemas"]["UserAllergy"] | null;
       /**
        * Address
        * @description Address
@@ -923,11 +921,6 @@ export interface components {
        * @example apartment
        */
       accommodation?: components["schemas"]["Accommodations"] | null;
-      /**
-       * @description allergy
-       * @example none
-       */
-      allergy?: components["schemas"]["UserAllergy"] | null;
       /**
        * Radius
        * @description Radius in meters
@@ -1147,43 +1140,43 @@ export interface components {
        * Termsandconditions
        * @description url to terms and conditions
        */
-      termsAndConditions?: string;
+      termsAndConditions?: string | null;
       /**
        * Contactinfo
        * @description url to contact support page
        */
-      contactInfo?: string;
+      contactInfo?: string | null;
       /**
        * Cancellationpolicy
        * @description url to contact support page
        */
-      cancellationPolicy?: string;
+      cancellationPolicy?: string | null;
       /**
        * Legaldocuments
        * @description url to legal documents
        */
-      legalDocuments?: string;
+      legalDocuments?: string | null;
       /**
        * Privacypolicy
        * @description url to privacy documents
        * @default https://stretch.com/privacy-policy/
        */
-      privacyPolicy?: string;
+      privacyPolicy?: string | null;
       /**
        * Licensedocuments
        * @description url to license documents
        */
-      licenseDocuments?: string;
+      licenseDocuments?: string | null;
       /**
        * Supportpage
        * @description url to support page
        */
-      supportPage?: string;
+      supportPage?: string | null;
       /**
        * Marketingpage
        * @description url to marketing page
        */
-      marketingPage?: string;
+      marketingPage?: string | null;
     };
     /** AppSettingsOut */
     AppSettingsOut: {
@@ -1245,8 +1238,6 @@ export interface components {
        * @description File contents in MIME format
        */
       contentType?: string | null;
-      /** @description File visibility status in the system: on review, approved or rejected */
-      status?: components["schemas"]["stretchcore__models__storage__file__FileStatus__1"] | null;
       /**
        * Url
        * @description Direct link to the downloaded file. The file can be recompressed when it is placed in the storage
@@ -1257,6 +1248,8 @@ export interface components {
        * @description Link to the preview file
        */
       thumb?: string | null;
+      /** @description File visibility status in the system: on review, approved or rejected */
+      status?: components["schemas"]["FileStatus"] | null;
       /**
        * Duration
        * @description Duration in seconds
@@ -1287,14 +1280,14 @@ export interface components {
       /**
        * Fromdate
        * @description Get the available time starting from this value
-       * @default 2024-09-16T12:47:04.926712Z
-       * @example 2024-09-17T12:47:04.926727Z
+       * @default 2024-10-10T13:41:28.521224Z
+       * @example 2024-10-11T13:41:28.521232Z
        */
       fromDate?: string;
       /**
        * Todate
-       * @default 2024-10-17T12:47:04.926822Z
-       * @example 2024-10-17T12:47:04.926830Z
+       * @default 2024-11-10T13:41:28.521306Z
+       * @example 2024-11-10T13:41:28.521312Z
        */
       toDate?: string;
     };
@@ -1329,7 +1322,7 @@ export interface components {
       /**
        * Start
        * @description Start date when slot is working
-       * @example 2024-09-16
+       * @example 2024-10-10
        */
       start?: string | null;
       /**
@@ -1412,7 +1405,7 @@ export interface components {
       /**
        * Start
        * @description Start date when slot is working
-       * @example 2024-09-16
+       * @example 2024-10-10
        */
       start?: string | null;
       /**
@@ -1466,7 +1459,7 @@ export interface components {
       title?: string | null;
       /**
        * Start
-       * @example 2024-09-16
+       * @example 2024-10-10
        */
       start?: string | null;
       /**
@@ -1546,7 +1539,7 @@ export interface components {
        */
       videoThumb?: string | null;
       /** @description File visibility status in the system: on review, approved or rejected */
-      status?: components["schemas"]["stretchcore__models__storage__file__FileStatus__1"] | null;
+      status?: components["schemas"]["FileStatus"] | null;
       /**
        * Duration
        * @description Duration of media
@@ -2268,8 +2261,73 @@ export interface components {
      * @enum {string}
      */
     CategoryType: "stretch" | "coach" | "business" | "nutrition" | "calculator";
+    /** CheckoutHeroPayOut */
+    CheckoutHeroPayOut: {
+      /**
+       * Provider
+       * @default heropay
+       * @constant
+       * @enum {string}
+       */
+      provider?: "heropay";
+      /** Order Id */
+      order_id: string;
+      /** Currency */
+      currency: string;
+      /** Payment Link */
+      payment_link: string;
+      /** Price */
+      price: number;
+      /** Status */
+      status: string;
+    };
+    /** CheckoutPaypalOut */
+    CheckoutPaypalOut: {
+      /**
+       * Provider
+       * @default paypal
+       * @constant
+       * @enum {string}
+       */
+      provider?: "paypal";
+      /** Intent */
+      intent: string;
+      /** Status */
+      status: string;
+      /** Currency */
+      currency: string;
+      /** Amount */
+      amount: number;
+      /** Payment Link */
+      payment_link?: string | null;
+    };
+    /** CheckoutStripeOut */
+    CheckoutStripeOut: {
+      /**
+       * Provider
+       * @default stripe
+       * @constant
+       * @enum {string}
+       */
+      provider?: "stripe";
+      /** Currency */
+      currency: string;
+      /** Amount */
+      amount: number;
+      /**
+       * Livemode
+       * @default false
+       */
+      livemode?: boolean;
+      /** Client Secret */
+      client_secret: string;
+      /** Status */
+      status: string;
+    };
     /** ClientDetails */
     ClientDetails: {
+      /** @description User allergy */
+      allergy?: components["schemas"]["UserAllergy"] | null;
       /**
        * Id
        * Format: uuid
@@ -2288,6 +2346,11 @@ export interface components {
       /** Avatarurl */
       avatarUrl?: string | null;
       type: components["schemas"]["UserType"];
+      /**
+       * Isdeleted
+       * @default false
+       */
+      isDeleted?: boolean;
       /** Rating */
       rating?: number | null;
       /**
@@ -2310,7 +2373,6 @@ export interface components {
        * @description User experience
        */
       experience?: number | null;
-      allergy?: components["schemas"]["UserAllergy"] | null;
       /** Allownonverify */
       allowNonVerify?: boolean | null;
       /**
@@ -2458,7 +2520,7 @@ export interface components {
        */
       videoThumb?: string | null;
       /** @description File visibility status in the system: on review, approved or rejected */
-      status?: components["schemas"]["stretchcore__models__storage__file__FileStatus__1"] | null;
+      status?: components["schemas"]["FileStatus"] | null;
       /**
        * Duration
        * @description Duration of media
@@ -2519,6 +2581,8 @@ export interface components {
     };
     /** CoachDetails */
     CoachDetails: {
+      /** @description User allergy */
+      allergy?: components["schemas"]["UserAllergy"] | null;
       /**
        * Id
        * Format: uuid
@@ -2537,6 +2601,11 @@ export interface components {
       /** Avatarurl */
       avatarUrl?: string | null;
       type: components["schemas"]["UserType"];
+      /**
+       * Isdeleted
+       * @default false
+       */
+      isDeleted?: boolean;
       /** Rating */
       rating?: number | null;
       /**
@@ -2559,7 +2628,6 @@ export interface components {
        * @description User experience
        */
       experience?: number | null;
-      allergy?: components["schemas"]["UserAllergy"] | null;
       /** Allownonverify */
       allowNonVerify?: boolean | null;
       /**
@@ -2714,7 +2782,7 @@ export interface components {
        */
       videoThumb?: string | null;
       /** @description File visibility status in the system: on review, approved or rejected */
-      status?: components["schemas"]["stretchcore__models__storage__file__FileStatus__1"] | null;
+      status?: components["schemas"]["FileStatus"] | null;
       /**
        * Duration
        * @description Duration of media
@@ -2835,6 +2903,11 @@ export interface components {
        */
       group?: string | null;
     };
+    /**
+     * FileStatus
+     * @enum {string}
+     */
+    FileStatus: "uploaded" | "processing" | "approved" | "rejected" | "review" | "draft" | "deleted";
     /** GalleryFileOut */
     GalleryFileOut: {
       /**
@@ -2858,7 +2931,7 @@ export interface components {
        */
       videoThumb?: string | null;
       /** @description File visibility status in the system: on review, approved or rejected */
-      status?: components["schemas"]["stretchcore__models__storage__file__FileStatus__1"] | null;
+      status?: components["schemas"]["FileStatus"] | null;
       /**
        * Duration
        * @description Duration of media
@@ -2934,7 +3007,7 @@ export interface components {
        */
       videoThumb?: string | null;
       /** @description File visibility status in the system: on review, approved or rejected */
-      status?: components["schemas"]["stretchcore__models__storage__file__FileStatus__1"] | null;
+      status?: components["schemas"]["FileStatus"] | null;
       /**
        * Duration
        * @description Duration of media
@@ -3013,7 +3086,7 @@ export interface components {
     /** PaymentMethod */
     PaymentMethodOut: {
       /** Name */
-      name: string | null;
+      name?: string | null;
       /**
        * Default
        * @default false
@@ -3032,6 +3105,8 @@ export interface components {
     };
     /** PaymentOut */
     PaymentOut: {
+      /** Checkout */
+      checkout?: (components["schemas"]["CheckoutStripeOut"] | components["schemas"]["CheckoutPaypalOut"] | components["schemas"]["CheckoutHeroPayOut"]) | null;
       /**
        * Id
        * @description ID for payment schema
@@ -3055,8 +3130,6 @@ export interface components {
       serviceId?: string | null;
       /** Clientsecret */
       clientSecret?: string | null;
-      /** Checkout */
-      checkout?: Record<string, never> | null;
       /** Expirationat */
       expirationAt?: string | null;
       /** Createdat */
@@ -3075,6 +3148,8 @@ export interface components {
        * @description ID for payment schema
        */
       id?: string | null;
+      /** Price */
+      price?: number | null;
       /**
        * Methodid
        * Format: uuid
@@ -3310,6 +3385,8 @@ export interface components {
        * @example 14
        */
       zoom?: number | null;
+      /** @description User allergy */
+      allergy?: components["schemas"]["UserAllergy"] | null;
       /**
        * Address
        * @description Address
@@ -3385,11 +3462,6 @@ export interface components {
        * @example apartment
        */
       accommodation?: components["schemas"]["Accommodations"] | null;
-      /**
-       * @description allergy
-       * @example none
-       */
-      allergy?: components["schemas"]["UserAllergy"] | null;
       /**
        * Radius
        * @description Radius in meters
@@ -3529,6 +3601,8 @@ export interface components {
     };
     /** PublicClientBaseInfo */
     PublicClientBaseInfo: {
+      /** @description User allergy */
+      allergy?: components["schemas"]["UserAllergy"] | null;
       /**
        * Id
        * Format: uuid
@@ -3547,6 +3621,11 @@ export interface components {
       /** Avatarurl */
       avatarUrl?: string | null;
       type: components["schemas"]["UserType"];
+      /**
+       * Isdeleted
+       * @default false
+       */
+      isDeleted?: boolean;
       /** Rating */
       rating?: number | null;
       /**
@@ -3569,7 +3648,6 @@ export interface components {
        * @description User experience
        */
       experience?: number | null;
-      allergy?: components["schemas"]["UserAllergy"] | null;
       /** Allownonverify */
       allowNonVerify?: boolean | null;
       /**
@@ -3666,6 +3744,8 @@ export interface components {
     };
     /** PublicCoachProfileOut */
     PublicCoachProfileOut: {
+      /** @description User allergy */
+      allergy?: components["schemas"]["UserAllergy"] | null;
       /**
        * Id
        * Format: uuid
@@ -3684,6 +3764,11 @@ export interface components {
       /** Avatarurl */
       avatarUrl?: string | null;
       type: components["schemas"]["UserType"];
+      /**
+       * Isdeleted
+       * @default false
+       */
+      isDeleted?: boolean;
       /** Rating */
       rating?: number | null;
       /**
@@ -3707,7 +3792,6 @@ export interface components {
        * @default 1
        */
       experience?: number | null;
-      allergy?: components["schemas"]["UserAllergy"] | null;
       /** Allownonverify */
       allowNonVerify?: boolean | null;
       /**
@@ -3809,7 +3893,7 @@ export interface components {
        * @default true
        */
       allowBooking?: boolean;
-      bookingReason?: components["schemas"]["BookingReasonOut"];
+      bookingReason?: components["schemas"]["BookingReasonOut"] | null;
       /**
        * Blockedyou
        * @default false
@@ -3870,11 +3954,11 @@ export interface components {
       filesize?: number | null;
       /** Contenttype */
       contentType?: string | null;
-      status?: components["schemas"]["stretchcore__models__storage__file__FileStatus__1"] | null;
       /** Url */
       url?: string | null;
       /** Thumb */
       thumb?: string | null;
+      status?: components["schemas"]["FileStatus"] | null;
       /** Duration */
       duration?: number | null;
     };
@@ -4568,12 +4652,6 @@ export interface components {
        * @example 199.9
        */
       price?: number | null;
-      /**
-       * Price Currency
-       * @description aed: AED<br/>usd: USD<br/>eur: EUR
-       * @default USD
-       */
-      priceCurrency?: components["schemas"]["stretchcore__models__service__service__ServicePriceCurrencies__1"];
       /** Service Other Type */
       serviceOtherType: (string | null) | null;
       /**
@@ -4588,12 +4666,6 @@ export interface components {
        * @default 8
        */
       sessionCancellationHours?: number;
-      /**
-       * Status
-       * @description uploaded: uploaded<br/>processing: processing<br/>approved: approved<br/>rejected: rejected<br/>review: review<br/>draft: draft<br/>deleted: deleted
-       * @default review
-       */
-      status?: components["schemas"]["stretchcore__models__storage__file__FileStatus__1"];
       /** Servicetypes */
       serviceTypes?: string[] | null;
       /** Numberofsessions */
@@ -4604,6 +4676,8 @@ export interface components {
       groupSession?: boolean | null;
       /** Maxgroupsize */
       maxGroupSize?: number | null;
+      /** @default USD */
+      priceCurrency?: components["schemas"]["ServicePriceCurrencies"];
       /** Discount */
       discount?: number | null;
       /**
@@ -4638,6 +4712,8 @@ export interface components {
       bookingReason?: components["schemas"]["BookingReasonOut"] | null;
       /** Equipmenttitles */
       equipmentTitles?: string[] | null;
+      /** @default review */
+      status?: components["schemas"]["FileStatus"];
       user?: components["schemas"]["PublicCoachShortProfileOut"] | null;
       /** Equipments */
       equipments?: components["schemas"]["EquipmentOut"][] | null;
@@ -4722,8 +4798,8 @@ export interface components {
        * @description Extra property for user
        */
       properties?: components["schemas"]["UserPropIn"][] | null;
-      /** @example AED */
-      priceCurrency: components["schemas"]["ServicePriceCurrencies-Input"];
+      /** @default USD */
+      priceCurrency?: components["schemas"]["ServicePriceCurrencies"];
       /**
        * Groupsession
        * @default false
@@ -4767,12 +4843,6 @@ export interface components {
        * @example 199.9
        */
       price?: number | null;
-      /**
-       * Price Currency
-       * @description aed: AED<br/>usd: USD<br/>eur: EUR
-       * @default USD
-       */
-      priceCurrency?: components["schemas"]["stretchcore__models__service__service__ServicePriceCurrencies__1"];
       /** Service Other Type */
       serviceOtherType: (string | null) | null;
       /**
@@ -4787,12 +4857,6 @@ export interface components {
        * @default 8
        */
       sessionCancellationHours?: number;
-      /**
-       * Status
-       * @description uploaded: uploaded<br/>processing: processing<br/>approved: approved<br/>rejected: rejected<br/>review: review<br/>draft: draft<br/>deleted: deleted
-       * @default review
-       */
-      status?: components["schemas"]["stretchcore__models__storage__file__FileStatus__1"];
       /** Servicetypes */
       serviceTypes?: string[] | null;
       /** Numberofsessions */
@@ -4803,6 +4867,8 @@ export interface components {
       groupSession?: boolean | null;
       /** Maxgroupsize */
       maxGroupSize?: number | null;
+      /** @default USD */
+      priceCurrency?: components["schemas"]["ServicePriceCurrencies"];
       /** Discount */
       discount?: number | null;
       /**
@@ -4837,12 +4903,14 @@ export interface components {
       bookingReason?: components["schemas"]["BookingReasonOut"] | null;
       /** Equipmenttitles */
       equipmentTitles?: string[] | null;
+      /** @default review */
+      status?: components["schemas"]["FileStatus"];
     };
     /**
      * ServicePriceCurrencies
      * @enum {string}
      */
-    "ServicePriceCurrencies-Input": "AED" | "USD" | "EUR";
+    ServicePriceCurrencies: "AED" | "USD" | "EUR";
     /** ServiceType */
     ServiceTypeOut: {
       /**
@@ -4925,7 +4993,7 @@ export interface components {
        * @description Extra property for user
        */
       properties?: components["schemas"]["UserPropIn"][] | null;
-      priceCurrency?: components["schemas"]["ServicePriceCurrencies-Input"] | null;
+      priceCurrency?: components["schemas"]["ServicePriceCurrencies"] | null;
       /**
        * Groupsession
        * @default false
@@ -4984,7 +5052,7 @@ export interface components {
        * @description Availability date for create
        * @example [
        *   {
-       *     "date": "2024-09-16T12:46:50.846563",
+       *     "date": "2024-10-10T13:41:15.198313",
        *     "orderDescription": "Order description"
        *   }
        * ]
@@ -5815,7 +5883,7 @@ export interface components {
       /**
        * Slots
        * @description Availability date for create
-       * @example 2024-09-16T12:46:51.622892
+       * @example 2024-10-10T13:41:15.437311
        */
       slots: string | components["schemas"]["SessionBookingIn"][];
       location?: components["schemas"]["AddressSessionOut"] | null;
@@ -5905,7 +5973,7 @@ export interface components {
      * UserAllergy
      * @enum {string}
      */
-    UserAllergy: "none" | "cat" | "dog" | "all";
+    UserAllergy: "none" | "cat" | "dog" | "unknown" | "all";
     /**
      * UserCoachType
      * @enum {string}
@@ -5967,6 +6035,8 @@ export interface components {
     };
     /** UserProfileOut */
     UserProfileOut: {
+      /** @description User allergy */
+      allergy?: components["schemas"]["UserAllergy"] | null;
       /**
        * Id
        * Format: uuid
@@ -5985,6 +6055,11 @@ export interface components {
       /** Avatarurl */
       avatarUrl?: string | null;
       type: components["schemas"]["UserType"];
+      /**
+       * Isdeleted
+       * @default false
+       */
+      isDeleted?: boolean;
       /** Rating */
       rating?: number | null;
       /**
@@ -6007,7 +6082,6 @@ export interface components {
        * @description User experience
        */
       experience?: number | null;
-      allergy?: components["schemas"]["UserAllergy"] | null;
       /** Allownonverify */
       allowNonVerify?: boolean | null;
       /**
@@ -6109,6 +6183,11 @@ export interface components {
       /** Verifycode */
       verifyCode?: string | null;
       /**
+       * Istemporary
+       * @default false
+       */
+      isTemporary?: boolean;
+      /**
        * Totalpayment
        * @description Total payment amount
        */
@@ -6153,6 +6232,7 @@ export interface components {
     /**
      * UserPromoType
      * @constant
+     * @enum {string}
      */
     UserPromoType: "boosted";
     /** UserPropIn */
@@ -6228,18 +6308,6 @@ export interface components {
       /** @example none */
       slotType?: components["schemas"]["AvailabilityType"] | null;
     };
-    /**
-     * ServicePriceCurrencies
-     * @enum {string}
-     */
-    stretchcore__models__service__service__ServicePriceCurrencies__1: "AED" | "USD" | "EUR";
-    stretchcore__models__service__service__ServicePriceCurrencies__2: components["schemas"]["stretchcore__models__service__service__ServicePriceCurrencies__1"];
-    /**
-     * FileStatus
-     * @enum {string}
-     */
-    stretchcore__models__storage__file__FileStatus__1: "uploaded" | "processing" | "approved" | "rejected" | "review" | "draft" | "deleted";
-    stretchcore__models__storage__file__FileStatus__2: components["schemas"]["stretchcore__models__storage__file__FileStatus__1"];
   };
   responses: never;
   parameters: never;
@@ -7128,7 +7196,7 @@ export interface operations {
   };
   /**
    * Add Client To Blacklist
-   * @description Add new favorite user. If user already added response also success
+   * @description Add new blocked user. If user already added response also success
    */
   add_client_to_blacklist_api_v1_user_blacklist_post: {
     requestBody: {
@@ -7153,7 +7221,7 @@ export interface operations {
   };
   /**
    * Delete User From Blacklist
-   * @description Add remove favorite user by id. If user already add return also success
+   * @description Add remove blocked user by id. If user already add return also success
    */
   delete_user_from_blacklist_api_v1_user_blacklist__user_id__delete: {
     parameters: {

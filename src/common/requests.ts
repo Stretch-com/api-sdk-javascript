@@ -205,7 +205,7 @@ export class StretchBase {
       storageExists = false;
     }
 
-    if (storageExists) refreshToken = localStorage.getItem("");
+    if (storageExists) refreshToken = localStorage.getItem("refresh_token");
     if (refreshToken == null) refreshToken = this.#refreshToken;
     if (refreshToken == null) {
       console.error("Refresh token not set");
@@ -302,14 +302,16 @@ export class StretchBase {
             current_date.getTime() < this.#refreshExpireDate.getTime()
           ) {
             await this.refresh();
-          } else {
-            await this.loginAsGuest();
           }
+          // else {
+          //   await this.loginAsGuest();
+          // }
         }
 
         return true;
       }
     }
+
     throw new StretchError(401, "Unauthorized");
   }
 }

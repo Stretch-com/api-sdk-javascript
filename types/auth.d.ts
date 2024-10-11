@@ -418,43 +418,43 @@ export interface components {
        * Termsandconditions
        * @description url to terms and conditions
        */
-      termsAndConditions?: string;
+      termsAndConditions?: string | null;
       /**
        * Contactinfo
        * @description url to contact support page
        */
-      contactInfo?: string;
+      contactInfo?: string | null;
       /**
        * Cancellationpolicy
        * @description url to contact support page
        */
-      cancellationPolicy?: string;
+      cancellationPolicy?: string | null;
       /**
        * Legaldocuments
        * @description url to legal documents
        */
-      legalDocuments?: string;
+      legalDocuments?: string | null;
       /**
        * Privacypolicy
        * @description url to privacy documents
        * @default https://stretch.com/privacy-policy/
        */
-      privacyPolicy?: string;
+      privacyPolicy?: string | null;
       /**
        * Licensedocuments
        * @description url to license documents
        */
-      licenseDocuments?: string;
+      licenseDocuments?: string | null;
       /**
        * Supportpage
        * @description url to support page
        */
-      supportPage?: string;
+      supportPage?: string | null;
       /**
        * Marketingpage
        * @description url to marketing page
        */
-      marketingPage?: string;
+      marketingPage?: string | null;
     };
     /** AppSettingsOut */
     AppSettingsOut: {
@@ -516,8 +516,6 @@ export interface components {
        * @description File contents in MIME format
        */
       contentType?: string | null;
-      /** @description File visibility status in the system: on review, approved or rejected */
-      status?: components["schemas"]["FileStatus"] | null;
       /**
        * Url
        * @description Direct link to the downloaded file. The file can be recompressed when it is placed in the storage
@@ -528,6 +526,8 @@ export interface components {
        * @description Link to the preview file
        */
       thumb?: string | null;
+      /** @description File visibility status in the system: on review, approved or rejected */
+      status?: components["schemas"]["FileStatus"] | null;
       /**
        * Duration
        * @description Duration in seconds
@@ -934,7 +934,7 @@ export interface components {
      * UserAllergy
      * @enum {string}
      */
-    UserAllergy: "none" | "cat" | "dog" | "all";
+    UserAllergy: "none" | "cat" | "dog" | "unknown" | "all";
     /** UserDataValidateField */
     UserDataValidateField: {
       /** Error */
@@ -1002,6 +1002,8 @@ export interface components {
      * @description Update user profile
      */
     UserProfileIn: {
+      /** @description User allergy */
+      allergy?: components["schemas"]["UserAllergy"] | null;
       /**
        * @description User gender
        * @example male
@@ -1073,7 +1075,6 @@ export interface components {
       languages?: {
         [key: string]: string;
       } | components["schemas"]["UserLanguages"][] | null;
-      allergy?: components["schemas"]["UserAllergy"] | null;
       /**
        * Allownonverify
        * @description User verification
@@ -1098,8 +1099,10 @@ export interface components {
        */
       publicViewAllowed?: boolean | null;
     };
-    /** UserProfileOut */
-    UserProfileOut: {
+    /** UserProfileInfoOut */
+    UserProfileInfoOut: {
+      /** @description User allergy */
+      allergy?: components["schemas"]["UserAllergy"] | null;
       /**
        * Id
        * Format: uuid
@@ -1118,6 +1121,11 @@ export interface components {
       /** Avatarurl */
       avatarUrl?: string | null;
       type: components["schemas"]["UserType"];
+      /**
+       * Isdeleted
+       * @default false
+       */
+      isDeleted?: boolean;
       /** Rating */
       rating?: number | null;
       /**
@@ -1140,7 +1148,6 @@ export interface components {
        * @description User experience
        */
       experience?: number | null;
-      allergy?: components["schemas"]["UserAllergy"] | null;
       /** Allownonverify */
       allowNonVerify?: boolean | null;
       /**
@@ -1242,6 +1249,194 @@ export interface components {
       /** Verifycode */
       verifyCode?: string | null;
       /**
+       * Istemporary
+       * @default false
+       */
+      isTemporary?: boolean;
+      /**
+       * Totalpayment
+       * @description Total payment amount
+       */
+      totalPayment?: number | null;
+      /**
+       * Totalpaymentcurrency
+       * @description Payment currency
+       */
+      totalPaymentCurrency?: string | null;
+      /**
+       * Publicviewallowed
+       * @description client only, allow clients to view profile?
+       * @example false
+       */
+      publicViewAllowed?: boolean | null;
+      /** @description Profile picture completion status */
+      profileCompletion?: components["schemas"]["ProfileFilling"] | null;
+      /**
+       * Sbaccesstoken
+       * @description Access token for sendbird registration
+       */
+      sbAccessToken?: string | null;
+      /**
+       * Boosted
+       * @default false
+       */
+      boosted?: boolean;
+    };
+    /** UserProfileOut */
+    UserProfileOut: {
+      /** @description User allergy */
+      allergy?: components["schemas"]["UserAllergy"] | null;
+      /**
+       * Id
+       * Format: uuid
+       */
+      id: string;
+      /**
+       * Displayname
+       * @description User display name
+       * @example Smith
+       */
+      displayName?: string | null;
+      /** Firstname */
+      firstName: string;
+      /** Lastname */
+      lastName: string;
+      /** Avatarurl */
+      avatarUrl?: string | null;
+      type: components["schemas"]["UserType"];
+      /**
+       * Isdeleted
+       * @default false
+       */
+      isDeleted?: boolean;
+      /** Rating */
+      rating?: number | null;
+      /**
+       * Reviewscount
+       * @description Number of reviews
+       * @default 0
+       */
+      reviewsCount?: number | null;
+      /** Sessionscount */
+      sessionsCount?: number | null;
+      /**
+       * Registrationdate
+       * @description User registration date
+       */
+      registrationDate?: string | null;
+      /** Verified */
+      verified?: boolean | null;
+      /**
+       * Experience
+       * @description User experience
+       */
+      experience?: number | null;
+      /** Allownonverify */
+      allowNonVerify?: boolean | null;
+      /**
+       * @description User gender
+       * @example male
+       */
+      gender?: components["schemas"]["UserGender"] | null;
+      /**
+       * Avatartype
+       * @description Avatar type of banner picture
+       */
+      avatarType?: string | null;
+      /** Avatarimageurl */
+      avatarImageUrl?: string | null;
+      /** Mediatype */
+      mediaType?: string | null;
+      /** Mediaurl */
+      mediaUrl?: string | null;
+      /** Mediapreviewurl */
+      mediaPreviewUrl?: string | null;
+      /**
+       * Description
+       * @description About
+       */
+      description?: string | null;
+      /**
+       * Languages
+       * @description Languages
+       */
+      languages: string | {
+        [key: string]: string;
+      } | null;
+      /**
+       * Properties
+       * @description Extra property for user
+       */
+      properties?: components["schemas"]["UserPropOut"][] | null;
+      /**
+       * Phone
+       * @description Phone number in international format
+       * @example +97100000000
+       */
+      phone?: string | null;
+      /**
+       * Whatsapp
+       * @description Whatsapp  number in international format
+       * @example +97100000000
+       */
+      whatsapp?: string | null;
+      /** @description KYC verification */
+      kycStatus?: components["schemas"]["StripeConnectStatus"] | null;
+      /** Chaturl */
+      chatUrl?: string | null;
+      /**
+       * Disabled
+       * @default false
+       */
+      disabled?: boolean;
+      /**
+       * Username
+       * @description Username input
+       */
+      username?: string | null;
+      /**
+       * Email
+       * @description Email format
+       * @example info@stretch.com
+       */
+      email?: string | null;
+      /**
+       * Timezone
+       * @description Default timezone for user
+       * @example Asia/Dubai
+       */
+      timezone?: string | null;
+      /**
+       * Birthdate
+       * @description User Birth date
+       * @example 2000-07-08
+       */
+      birthDate?: string | null;
+      /** @description User balance */
+      balance?: components["schemas"]["BalanceOut"] | null;
+      /**
+       * Verifiedphone
+       * @description Phone verification
+       */
+      verifiedPhone?: boolean | null;
+      /**
+       * Verifiedemail
+       * @description Email verification
+       */
+      verifiedEmail?: boolean | null;
+      /**
+       * Available
+       * @description Availability
+       */
+      available?: boolean | null;
+      /** Verifycode */
+      verifyCode?: string | null;
+      /**
+       * Istemporary
+       * @default false
+       */
+      isTemporary?: boolean;
+      /**
        * Totalpayment
        * @description Total payment amount
        */
@@ -1286,6 +1481,7 @@ export interface components {
     /**
      * UserPromoType
      * @constant
+     * @enum {string}
      */
     UserPromoType: "boosted";
     /** UserPropOut */
@@ -2149,7 +2345,7 @@ export interface operations {
       /** @description Successful Response */
       200: {
         content: {
-          "application/json": components["schemas"]["UserProfileOut"];
+          "application/json": components["schemas"]["UserProfileInfoOut"];
         };
       };
     };
