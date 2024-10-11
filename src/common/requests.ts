@@ -32,7 +32,8 @@ export class StretchBase {
 
   url<T>(uri: string, query: T | null = null) {
     const lurl = new URL(`${this._apiBase}${uri}`, this._apiUrl);
-    if (query != null) lurl.search = new URLSearchParams(query).toString();
+    if (query !== null)
+      lurl.search = new URLSearchParams(query as string).toString();
     return lurl;
   }
 
@@ -206,8 +207,8 @@ export class StretchBase {
     }
 
     if (storageExists) refreshToken = localStorage.getItem("refresh_token");
-    if (refreshToken == null) refreshToken = this.#refreshToken;
-    if (refreshToken == null) {
+    if (refreshToken === null) refreshToken = this.#refreshToken;
+    if (refreshToken === null) {
       console.error("Refresh token not set");
       throw new StretchError(401, "Refresh token error");
     }
@@ -268,14 +269,14 @@ export class StretchBase {
 
   isLogin() {
     try {
-      if (this.#accessToken == null) {
+      if (this.#accessToken === null) {
         this.#accessToken = localStorage.getItem("access_token");
         const accessExpireDate = localStorage.getItem("access_expire_date");
         if (accessExpireDate)
           this.#accessExpireDate = new Date(parseInt(accessExpireDate));
       }
 
-      if (this.#refreshToken == null) {
+      if (this.#refreshToken === null) {
         this.#refreshToken = localStorage.getItem("refresh_token");
         const refreshExpireDate = localStorage.getItem("refresh_expire_date");
         if (refreshExpireDate)
@@ -285,10 +286,7 @@ export class StretchBase {
       console.error(`LocalStorage in current context not exists ${e}`);
     }
 
-    if (this.#accessToken != null) {
-      return true;
-    }
-    return false;
+    return this.#accessToken !== null;
   }
 
   async checkAuth() {
@@ -297,7 +295,7 @@ export class StretchBase {
         const current_date = new Date();
         if (current_date.getTime() > this.#accessExpireDate.getTime()) {
           if (
-            this.#refreshToken != null &&
+            this.#refreshToken !== null &&
             this.#refreshExpireDate &&
             current_date.getTime() < this.#refreshExpireDate.getTime()
           ) {
