@@ -135,7 +135,7 @@ export class StretchAuth extends StretchBase {
     | undefined
   > {
     const basic = btoa(`${this._clientId}:`);
-    if (timezone == null) timezone = "Asia/Dubai";
+    if (timezone === null) timezone = "Asia/Dubai";
     const payload: paths["/api/v1/auth/signup"]["post"]["requestBody"]["content"]["application/json"] =
       { grant_type: "create", timezone, type, phone };
 
