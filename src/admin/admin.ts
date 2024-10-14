@@ -335,7 +335,7 @@ class Admin {
   async postBusiness(
     payload: paths["/api/v1/admin/business"]["post"]["requestBody"]["content"]["application/json"]
   ): Promise<
-    | paths["/api/v1/admin/business"]["post"]["responses"]["200"]["content"]["application/json"]
+    | paths["/api/v1/admin/business"]["post"]["responses"]["201"]["content"]["application/json"]
     | undefined
   > {
     if (await this.auth.checkAuth())
