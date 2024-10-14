@@ -1587,7 +1587,7 @@ export interface components {
       /**
        * Start
        * @description Start date when slot is working
-       * @example 2024-10-10
+       * @example 2024-10-14
        */
       start?: string | null;
       /**
@@ -4818,6 +4818,8 @@ export interface components {
        * Format: uuid
        */
       categoryId: string;
+      /** Categoryname */
+      categoryName: string;
       /** Avatarurl */
       avatarUrl?: string | null;
       /**
@@ -4875,10 +4877,10 @@ export interface components {
        */
       contacts?: components["schemas"]["BusinessContactIn"][];
       /**
-       * Availability
+       * Openhours
        * @default []
        */
-      availability?: components["schemas"]["BusinessAvailabilityOut"][];
+      openHours?: components["schemas"]["BusinessAvailabilityOut"][];
       /**
        * Faqs
        * @default []
@@ -7000,7 +7002,7 @@ export interface operations {
     };
     responses: {
       /** @description Successful Response */
-      200: {
+      201: {
         content: {
           "application/json": components["schemas"]["UserProfileOut"];
         };
