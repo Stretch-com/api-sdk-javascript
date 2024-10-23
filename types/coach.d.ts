@@ -544,6 +544,10 @@ export interface paths {
     /** Coach Analytics Summary */
     get: operations["coach_analytics_summary_api_v1_coach_analytics_summary_get"];
   };
+  "/api/v1/coach/analytics/dashboard": {
+    /** Coach Dashboard */
+    get: operations["coach_dashboard_api_v1_coach_analytics_dashboard_get"];
+  };
   "/api/v1/coach/boost-profile": {
     /** Boost Profile */
     post: operations["boost_profile_api_v1_coach_boost_profile_post"];
@@ -679,6 +683,8 @@ export interface components {
       parking?: components["schemas"]["ParkingType"] | null;
       /** Parkingdescription */
       parkingDescription?: string | null;
+      /** Instructions */
+      instructions?: string | null;
       /**
        * Isdefault
        * @default false
@@ -690,8 +696,6 @@ export interface components {
        * @example Name of address
        */
       name?: string | null;
-      /** Instructions */
-      instructions?: string | null;
       /**
        * Id
        * Format: uuid
@@ -823,6 +827,8 @@ export interface components {
       parking?: components["schemas"]["ParkingType"] | null;
       /** Parkingdescription */
       parkingDescription?: string | null;
+      /** Instructions */
+      instructions?: string | null;
       /** Id */
       id?: string | null;
     };
@@ -946,6 +952,8 @@ export interface components {
       parking?: components["schemas"]["ParkingType"] | null;
       /** Parkingdescription */
       parkingDescription?: string | null;
+      /** Instructions */
+      instructions?: string | null;
       /** Id */
       id?: string | null;
     };
@@ -1280,14 +1288,14 @@ export interface components {
       /**
        * Fromdate
        * @description Get the available time starting from this value
-       * @default 2024-10-10T13:41:28.521224Z
-       * @example 2024-10-11T13:41:28.521232Z
+       * @default 2024-10-17T14:55:00.133918Z
+       * @example 2024-10-18T14:55:00.133926Z
        */
       fromDate?: string;
       /**
        * Todate
-       * @default 2024-11-10T13:41:28.521306Z
-       * @example 2024-11-10T13:41:28.521312Z
+       * @default 2024-11-17T14:55:00.134030Z
+       * @example 2024-11-17T14:55:00.134039Z
        */
       toDate?: string;
     };
@@ -1322,7 +1330,7 @@ export interface components {
       /**
        * Start
        * @description Start date when slot is working
-       * @example 2024-10-10
+       * @example 2024-10-17
        */
       start?: string | null;
       /**
@@ -1405,7 +1413,7 @@ export interface components {
       /**
        * Start
        * @description Start date when slot is working
-       * @example 2024-10-10
+       * @example 2024-10-17
        */
       start?: string | null;
       /**
@@ -1459,7 +1467,7 @@ export interface components {
       title?: string | null;
       /**
        * Start
-       * @example 2024-10-10
+       * @example 2024-10-17
        */
       start?: string | null;
       /**
@@ -2579,6 +2587,22 @@ export interface components {
       /** Expiredate */
       expireDate?: string | null;
     };
+    /** CoachDashboard */
+    CoachDashboard: {
+      /**
+       * Comparefrom
+       * @description Comparison from date
+       */
+      compareFrom?: string | null;
+      /**
+       * Compareto
+       * @description Comparison to date
+       */
+      compareTo?: string | null;
+      dailyAnalytics: components["schemas"]["CoachAnalyticsSummary"];
+      weeklyAnalytics: components["schemas"]["CoachAnalyticsSummary"];
+      monthlyAnalytics: components["schemas"]["CoachAnalyticsSummary"];
+    };
     /** CoachDetails */
     CoachDetails: {
       /** @description User allergy */
@@ -3487,6 +3511,8 @@ export interface components {
       parking?: components["schemas"]["ParkingType"] | null;
       /** Parkingdescription */
       parkingDescription?: string | null;
+      /** Instructions */
+      instructions?: string | null;
       /** Isdefault */
       isDefault?: boolean | null;
     };
@@ -5052,7 +5078,7 @@ export interface components {
        * @description Availability date for create
        * @example [
        *   {
-       *     "date": "2024-10-10T13:41:15.198313",
+       *     "date": "2024-10-17T14:54:46.419469",
        *     "orderDescription": "Order description"
        *   }
        * ]
@@ -5883,7 +5909,7 @@ export interface components {
       /**
        * Slots
        * @description Availability date for create
-       * @example 2024-10-10T13:41:15.437311
+       * @example 2024-10-17T14:54:46.685452
        */
       slots: string | components["schemas"]["SessionBookingIn"][];
       location?: components["schemas"]["AddressSessionOut"] | null;
@@ -8870,6 +8896,17 @@ export interface operations {
       422: {
         content: {
           "application/json": components["schemas"]["HTTPValidationError"];
+        };
+      };
+    };
+  };
+  /** Coach Dashboard */
+  coach_dashboard_api_v1_coach_analytics_dashboard_get: {
+    responses: {
+      /** @description Successful Response */
+      200: {
+        content: {
+          "application/json": components["schemas"]["CoachDashboard"];
         };
       };
     };

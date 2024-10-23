@@ -182,6 +182,10 @@ export interface paths {
     /** Validate User Registration */
     post: operations["validate_user_registration_api_v1_admin_user_validate_post"];
   };
+  "/api/v1/admin/user/{user_id}/recover": {
+    /** Get User Filters */
+    get: operations["get_user_filters_api_v1_admin_user__user_id__recover_get"];
+  };
   "/api/v1/admin/sessions": {
     /** Get Sessions */
     get: operations["get_sessions_api_v1_admin_sessions_get"];
@@ -260,11 +264,11 @@ export interface paths {
     /** Get Refunds Count */
     get: operations["get_refunds_count_api_v1_admin_refunds_count_get"];
   };
-  "/api/v1/admin/refund/{report_id}": {
-    /** Get Report Details */
-    get: operations["get_report_details_api_v1_admin_refund__report_id__get"];
+  "/api/v1/admin/refund/{refund_id}": {
+    /** Get Refund Details */
+    get: operations["get_refund_details_api_v1_admin_refund__refund_id__get"];
     /** Resolve Refund */
-    put: operations["resolve_refund_api_v1_admin_refund__report_id__put"];
+    put: operations["resolve_refund_api_v1_admin_refund__refund_id__put"];
   };
   "/api/v1/admin/reports": {
     /** Get Reports */
@@ -401,6 +405,10 @@ export interface paths {
   "/api/v1/admin/cache/rebuild": {
     /** Rebuild Cache */
     post: operations["rebuild_cache_api_v1_admin_cache_rebuild_post"];
+  };
+  "/api/v1/admin/cache/analytics": {
+    /** Cache Analytics */
+    post: operations["cache_analytics_api_v1_admin_cache_analytics_post"];
   };
   "/api/v1/admin/equipments": {
     /** Get Equipments */
@@ -559,6 +567,8 @@ export interface components {
       parking?: components["schemas"]["ParkingType"] | null;
       /** Parkingdescription */
       parkingDescription?: string | null;
+      /** Instructions */
+      instructions?: string | null;
       /**
        * Isdefault
        * @default false
@@ -570,8 +580,6 @@ export interface components {
        * @example Name of address
        */
       name?: string | null;
-      /** Instructions */
-      instructions?: string | null;
       /**
        * Id
        * Format: uuid
@@ -703,6 +711,8 @@ export interface components {
       parking?: components["schemas"]["ParkingType"] | null;
       /** Parkingdescription */
       parkingDescription?: string | null;
+      /** Instructions */
+      instructions?: string | null;
       /** Id */
       id?: string | null;
     };
@@ -1564,6 +1574,8 @@ export interface components {
       parking?: components["schemas"]["ParkingType"] | null;
       /** Parkingdescription */
       parkingDescription?: string | null;
+      /** Instructions */
+      instructions?: string | null;
       /**
        * Isdefault
        * @default false
@@ -1575,8 +1587,6 @@ export interface components {
        * @example Name of address
        */
       name?: string | null;
-      /** Instructions */
-      instructions?: string | null;
     };
     /** AdminCreateBusinessAvailabilityIn */
     AdminCreateBusinessAvailabilityIn: {
@@ -1587,7 +1597,7 @@ export interface components {
       /**
        * Start
        * @description Start date when slot is working
-       * @example 2024-10-14
+       * @example 2024-10-23
        */
       start?: string | null;
       /**
@@ -2163,7 +2173,7 @@ export interface components {
        * Attachments
        * @default []
        */
-      attachments?: components["schemas"]["MediaFileOut"][];
+      attachments?: components["schemas"]["AttachmentFileOut"][];
       /** Refundamount */
       refundAmount?: number | null;
     };
@@ -3128,7 +3138,13 @@ export interface components {
       app?: components["schemas"]["ApplicationInfo"];
       /** @default {} */
       authentication?: components["schemas"]["AppAuthentication"];
-      /** @default {} */
+      /**
+       * @default {
+       *   "otpExpiryInDays": 30,
+       *   "recoverExpiryInDays": 30,
+       *   "recoveryReminder": true
+       * }
+       */
       settings?: components["schemas"]["AppSettingsOut"];
       /**
        * @default {
@@ -3380,6 +3396,21 @@ export interface components {
       language?: components["schemas"]["UserLanguages"] | null;
       /** Currency */
       currency?: string | null;
+      /**
+       * Otpexpiryindays
+       * @default 30
+       */
+      otpExpiryInDays?: number;
+      /**
+       * Recoverexpiryindays
+       * @default 30
+       */
+      recoverExpiryInDays?: number;
+      /**
+       * Recoveryreminder
+       * @default true
+       */
+      recoveryReminder?: boolean;
     };
     /** ApplicationInfo */
     ApplicationInfo: {
@@ -4110,6 +4141,8 @@ export interface components {
        * @default false
        */
       disabled?: boolean;
+      /** Recoverydeadline */
+      recoveryDeadline?: string | null;
       /**
        * Username
        * @description Username input
@@ -4316,6 +4349,8 @@ export interface components {
        * @default false
        */
       disabled?: boolean;
+      /** Recoverydeadline */
+      recoveryDeadline?: string | null;
       /**
        * Username
        * @description Username input
@@ -5095,6 +5130,8 @@ export interface components {
       parking?: components["schemas"]["ParkingType"] | null;
       /** Parkingdescription */
       parkingDescription?: string | null;
+      /** Instructions */
+      instructions?: string | null;
       /** Isdefault */
       isDefault?: boolean | null;
     };
@@ -5941,6 +5978,8 @@ export interface components {
        * @default false
        */
       disabled?: boolean;
+      /** Recoverydeadline */
+      recoveryDeadline?: string | null;
       /**
        * Username
        * @description Username input
@@ -7218,6 +7257,28 @@ export interface operations {
       };
     };
   };
+  /** Get User Filters */
+  get_user_filters_api_v1_admin_user__user_id__recover_get: {
+    parameters: {
+      path: {
+        user_id: string;
+      };
+    };
+    responses: {
+      /** @description Successful Response */
+      200: {
+        content: {
+          "application/json": components["schemas"]["StretchResponse"];
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        content: {
+          "application/json": components["schemas"]["HTTPValidationError"];
+        };
+      };
+    };
+  };
   /** Get Sessions */
   get_sessions_api_v1_admin_sessions_get: {
     parameters: {
@@ -7758,11 +7819,11 @@ export interface operations {
       };
     };
   };
-  /** Get Report Details */
-  get_report_details_api_v1_admin_refund__report_id__get: {
+  /** Get Refund Details */
+  get_refund_details_api_v1_admin_refund__refund_id__get: {
     parameters: {
       path: {
-        report_id: string;
+        refund_id: string;
       };
     };
     responses: {
@@ -7781,10 +7842,10 @@ export interface operations {
     };
   };
   /** Resolve Refund */
-  resolve_refund_api_v1_admin_refund__report_id__put: {
+  resolve_refund_api_v1_admin_refund__refund_id__put: {
     parameters: {
       path: {
-        report_id: string;
+        refund_id: string;
       };
     };
     requestBody: {
@@ -8562,6 +8623,17 @@ export interface operations {
   };
   /** Rebuild Cache */
   rebuild_cache_api_v1_admin_cache_rebuild_post: {
+    responses: {
+      /** @description Successful Response */
+      200: {
+        content: {
+          "application/json": components["schemas"]["StretchResponse"];
+        };
+      };
+    };
+  };
+  /** Cache Analytics */
+  cache_analytics_api_v1_admin_cache_analytics_post: {
     responses: {
       /** @description Successful Response */
       200: {

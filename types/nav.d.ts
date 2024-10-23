@@ -238,6 +238,8 @@ export interface components {
       parking?: components["schemas"]["ParkingType"] | null;
       /** Parkingdescription */
       parkingDescription?: string | null;
+      /** Instructions */
+      instructions?: string | null;
       /** Isdefault */
       isDefault?: boolean | null;
       /**
@@ -246,8 +248,6 @@ export interface components {
        * @example Name of address
        */
       name?: string | null;
-      /** Instructions */
-      instructions?: string | null;
       /** Id */
       id?: string | null;
     };
@@ -371,6 +371,8 @@ export interface components {
       parking?: components["schemas"]["ParkingType"] | null;
       /** Parkingdescription */
       parkingDescription?: string | null;
+      /** Instructions */
+      instructions?: string | null;
       /**
        * Isdefault
        * @default false
@@ -382,8 +384,6 @@ export interface components {
        * @example Name of address
        */
       name?: string | null;
-      /** Instructions */
-      instructions?: string | null;
     };
     /** AddressOut */
     AddressOut: {
@@ -505,6 +505,8 @@ export interface components {
       parking?: components["schemas"]["ParkingType"] | null;
       /** Parkingdescription */
       parkingDescription?: string | null;
+      /** Instructions */
+      instructions?: string | null;
       /**
        * Isdefault
        * @default false
@@ -516,8 +518,6 @@ export interface components {
        * @example Name of address
        */
       name?: string | null;
-      /** Instructions */
-      instructions?: string | null;
       /**
        * Id
        * Format: uuid
@@ -649,6 +649,8 @@ export interface components {
       parking?: components["schemas"]["ParkingType"] | null;
       /** Parkingdescription */
       parkingDescription?: string | null;
+      /** Instructions */
+      instructions?: string | null;
       /** Isdefault */
       isDefault?: boolean | null;
       /**
@@ -657,8 +659,6 @@ export interface components {
        * @example Name of address
        */
       name?: string | null;
-      /** Instructions */
-      instructions?: string | null;
     };
     /** CoverageOut */
     CoverageOut: {
