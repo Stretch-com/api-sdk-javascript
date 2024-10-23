@@ -661,7 +661,7 @@ class Admin {
   async getRefundDetails(
     reportId: string
   ): Promise<
-    | paths["/api/v1/admin/refund/{report_id}"]["get"]["responses"]["200"]["content"]["application/json"]
+    | paths["/api/v1/admin/refund/{refund_id}"]["get"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
     if (await this.auth.checkAuth())
@@ -670,9 +670,9 @@ class Admin {
 
   async putRefund(
     reportId: string,
-    query: paths["/api/v1/admin/refund/{report_id}"]["put"]["requestBody"]["content"]["application/json"]
+    query: paths["/api/v1/admin/refund/{refund_id}"]["put"]["requestBody"]["content"]["application/json"]
   ): Promise<
-    | paths["/api/v1/admin/refund/{report_id}"]["put"]["responses"]["200"]["content"]["application/json"]
+    | paths["/api/v1/admin/refund/{refund_id}"]["put"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
     if (await this.auth.checkAuth())
