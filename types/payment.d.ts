@@ -818,8 +818,11 @@ export interface components {
        * @default 0
        */
       balance?: number;
-      /** Servicefee */
-      serviceFee: number;
+      /**
+       * Servicefee
+       * @default 0
+       */
+      serviceFee?: number;
       user?: components["schemas"]["UserBaseInfo"] | null;
       /**
        * Sessions
@@ -956,8 +959,6 @@ export interface components {
       type?: components["schemas"]["WalletType"];
       /** Config */
       config?: Record<string, never> | null;
-      /** @default AED */
-      currency?: components["schemas"]["CurrencyCode"];
       card?: components["schemas"]["WalletCardOut"] | null;
       bank?: components["schemas"]["WalletBankOut"] | null;
     };
@@ -1035,8 +1036,6 @@ export interface components {
       /** Name */
       name?: string;
       type?: components["schemas"]["WalletType"];
-      /** @default AED */
-      currency?: components["schemas"]["CurrencyCode"];
       card?: components["schemas"]["WalletPublicCardOut"] | null;
       bank?: components["schemas"]["WalletPublicBankOut"] | null;
     };
