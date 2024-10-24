@@ -1190,6 +1190,8 @@ export interface components {
       revenueChart: components["schemas"]["AdminRevenueChartOut"];
       sessionInfo: components["schemas"]["SessionInfoAnalyticsOut"];
       clients: components["schemas"]["AdminBookedUsersAnalyticsOut"];
+      /** Views */
+      views?: number | null;
       reviews: components["schemas"]["SessionReviewInfoOut"];
     };
     /** AdminCoachClientListCountOut */
@@ -1357,6 +1359,11 @@ export interface components {
        * @default false
        */
       disabled?: boolean;
+      /**
+       * Isdeleted
+       * @default false
+       */
+      isDeleted?: boolean;
       /**
        * Rating
        * @default 0
@@ -1597,7 +1604,7 @@ export interface components {
       /**
        * Start
        * @description Start date when slot is working
-       * @example 2024-10-23
+       * @example 2024-10-24
        */
       start?: string | null;
       /**
@@ -4455,6 +4462,24 @@ export interface components {
       /** Baseid */
       baseId?: string | null;
     };
+    /** ConsumerUpdateIn */
+    ConsumerUpdateIn: {
+      /** Name */
+      name?: string | null;
+      /** Description */
+      description?: string | null;
+      /** Expiresaccess */
+      expiresAccess?: number | null;
+      /** Expiresrefresh */
+      expiresRefresh?: number | null;
+      /** Roles */
+      roles?: string | string[] | null;
+      /** Scopes */
+      scopes?: string | string[] | null;
+      settings?: components["schemas"]["AppConfigIn"] | null;
+      /** Tokentype */
+      tokenType?: string | null;
+    };
     /** CountryFilterItem */
     CountryFilterItem: {
       /** Name */
@@ -6236,6 +6261,7 @@ export interface operations {
         disabled?: boolean | null;
         availability?: boolean | null;
         verified?: boolean | null;
+        isDeleted?: boolean | null;
         page?: number | null;
         limit?: number | null;
         sorting?: components["schemas"]["AdminCoachOrderFields"] | null;
@@ -6264,6 +6290,7 @@ export interface operations {
         disabled?: boolean | null;
         availability?: boolean | null;
         verified?: boolean | null;
+        isDeleted?: boolean | null;
       };
     };
     responses: {
@@ -6647,6 +6674,7 @@ export interface operations {
         disabled?: boolean | null;
         availability?: boolean | null;
         verified?: boolean | null;
+        isDeleted?: boolean | null;
         page?: number | null;
         limit?: number | null;
         sorting?: components["schemas"]["AdminCoachOrderFields"] | null;
@@ -6678,6 +6706,7 @@ export interface operations {
         disabled?: boolean | null;
         availability?: boolean | null;
         verified?: boolean | null;
+        isDeleted?: boolean | null;
       };
       path: {
         client_id: string;
@@ -8097,7 +8126,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/json": components["schemas"]["ConsumerIn"];
+        "application/json": components["schemas"]["ConsumerUpdateIn"];
       };
     };
     responses: {
