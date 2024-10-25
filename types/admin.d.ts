@@ -1604,7 +1604,7 @@ export interface components {
       /**
        * Start
        * @description Start date when slot is working
-       * @example 2024-10-24
+       * @example 2024-10-25
        */
       start?: string | null;
       /**
@@ -6206,7 +6206,7 @@ export interface components {
      * AdminSessionOrderFields
      * @enum {string}
      */
-    stretchcore__models__review__schema__admin_session_review__AdminSessionOrderFields: "rating" | "-rating";
+    stretchcore__models__review__schema__admin_session_review__AdminSessionOrderFields: "rating" | "-rating" | "created_at" | "-created_at";
     /**
      * AdminSessionOrderFields
      * @enum {string}
@@ -6435,6 +6435,7 @@ export interface operations {
         disabled?: boolean | null;
         availability?: boolean | null;
         verified?: boolean | null;
+        isDeleted?: boolean | null;
         sorting?: components["schemas"]["AdminClientOrderFields"] | null;
         page?: number | null;
         limit?: number | null;
@@ -6467,6 +6468,7 @@ export interface operations {
         disabled?: boolean | null;
         availability?: boolean | null;
         verified?: boolean | null;
+        isDeleted?: boolean | null;
         sorting?: components["schemas"]["AdminClientOrderFields"] | null;
       };
       path: {
@@ -6496,6 +6498,7 @@ export interface operations {
         disabled?: boolean | null;
         availability?: boolean | null;
         verified?: boolean | null;
+        isDeleted?: boolean | null;
         sorting?: components["schemas"]["AdminClientOrderFields"] | null;
         page?: number | null;
         limit?: number | null;
@@ -6524,6 +6527,7 @@ export interface operations {
         disabled?: boolean | null;
         availability?: boolean | null;
         verified?: boolean | null;
+        isDeleted?: boolean | null;
         sorting?: components["schemas"]["AdminClientOrderFields"] | null;
       };
     };
@@ -7091,6 +7095,7 @@ export interface operations {
         disabled?: boolean | null;
         availability?: boolean | null;
         verified?: boolean | null;
+        isDeleted?: boolean | null;
         sorting?: components["schemas"]["AdminClientOrderFields"] | null;
         page?: number | null;
         limit?: number | null;
@@ -7122,6 +7127,7 @@ export interface operations {
         disabled?: boolean | null;
         availability?: boolean | null;
         verified?: boolean | null;
+        isDeleted?: boolean | null;
         sorting?: components["schemas"]["AdminClientOrderFields"] | null;
       };
       path: {
@@ -7455,8 +7461,10 @@ export interface operations {
         allTime?: boolean | null;
         coachId?: string | null;
         clientId?: string | null;
+        serviceId?: string | null;
+        sessionId?: string | null;
         state?: components["schemas"]["SessionReviewState"] | null;
-        sorting?: components["schemas"]["stretchcore__models__review__schema__admin_session_review__AdminSessionOrderFields"] | null;
+        sorting?: components["schemas"]["stretchcore__models__review__schema__admin_session_review__AdminSessionOrderFields"];
       };
     };
     responses: {
