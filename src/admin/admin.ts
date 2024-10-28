@@ -499,11 +499,7 @@ class Admin {
     if (await this.auth.checkAuth()) {
       const formData = payloadToFormData(payload);
       if (formData)
-        return await this.auth.put(
-          `/admin/support/feedback`,
-          formData,
-          undefined
-        );
+        return await this.auth.post(`/admin/support/feedback`, formData, null);
     }
   }
 
