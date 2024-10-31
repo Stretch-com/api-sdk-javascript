@@ -84,8 +84,12 @@ export interface paths {
     post: operations["post_create_device_token_api_v1_notification_push_post"];
   };
   "/api/v1/notification/push/test": {
+    /** Post Test Push Notifications2 */
+    post: operations["post_test_push_notifications2_api_v1_notification_push_test_post"];
+  };
+  "/api/v1/notification/push/test2": {
     /** Post Test Push Notifications */
-    post: operations["post_test_push_notifications_api_v1_notification_push_test_post"];
+    post: operations["post_test_push_notifications_api_v1_notification_push_test2_post"];
   };
 }
 
@@ -438,11 +442,35 @@ export interface operations {
       };
     };
   };
-  /** Post Test Push Notifications */
-  post_test_push_notifications_api_v1_notification_push_test_post: {
+  /** Post Test Push Notifications2 */
+  post_test_push_notifications2_api_v1_notification_push_test_post: {
     parameters: {
       query: {
         message: string;
+      };
+    };
+    responses: {
+      /** @description Successful Response */
+      200: {
+        content: {
+          "application/json": unknown;
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        content: {
+          "application/json": components["schemas"]["HTTPValidationError"];
+        };
+      };
+    };
+  };
+  /** Post Test Push Notifications */
+  post_test_push_notifications_api_v1_notification_push_test2_post: {
+    parameters: {
+      query?: {
+        message?: string;
+        key_id?: string;
+        type?: string;
       };
     };
     responses: {
