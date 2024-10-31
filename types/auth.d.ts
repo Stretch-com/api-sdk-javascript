@@ -223,6 +223,10 @@ export interface paths {
     /** Get Application Apple Code */
     post: operations["get_application_apple_code_api_v1_auth_apple__app__post"];
   };
+  "/api/v1/auth/recover": {
+    /** Recover User */
+    post: operations["recover_user_api_v1_auth_recover_post"];
+  };
 }
 
 export type webhooks = Record<string, never>;
@@ -267,7 +271,13 @@ export interface components {
       app?: components["schemas"]["ApplicationInfo"];
       /** @default {} */
       authentication?: components["schemas"]["AppAuthentication"];
-      /** @default {} */
+      /**
+       * @default {
+       *   "otpExpiryInDays": 30,
+       *   "recoverExpiryInDays": 30,
+       *   "recoveryReminder": true
+       * }
+       */
       settings?: components["schemas"]["AppSettingsOut"];
       /**
        * @default {
@@ -463,6 +473,21 @@ export interface components {
       language?: components["schemas"]["UserLanguages"] | null;
       /** Currency */
       currency?: string | null;
+      /**
+       * Otpexpiryindays
+       * @default 30
+       */
+      otpExpiryInDays?: number;
+      /**
+       * Recoverexpiryindays
+       * @default 30
+       */
+      recoverExpiryInDays?: number;
+      /**
+       * Recoveryreminder
+       * @default true
+       */
+      recoveryReminder?: boolean;
     };
     /** ApplicationInfo */
     ApplicationInfo: {
@@ -1206,6 +1231,8 @@ export interface components {
        * @default false
        */
       disabled?: boolean;
+      /** Recoverydeadline */
+      recoveryDeadline?: string | null;
       /**
        * Username
        * @description Username input
@@ -1389,6 +1416,8 @@ export interface components {
        * @default false
        */
       disabled?: boolean;
+      /** Recoverydeadline */
+      recoveryDeadline?: string | null;
       /**
        * Username
        * @description Username input
@@ -2450,6 +2479,17 @@ export interface operations {
       422: {
         content: {
           "application/json": components["schemas"]["HTTPValidationError"];
+        };
+      };
+    };
+  };
+  /** Recover User */
+  recover_user_api_v1_auth_recover_post: {
+    responses: {
+      /** @description Successful Response */
+      200: {
+        content: {
+          "application/json": components["schemas"]["StretchResponse"];
         };
       };
     };
