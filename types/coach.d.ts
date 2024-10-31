@@ -152,6 +152,13 @@ export interface paths {
     /** Session Decline */
     put: operations["session_decline_api_v1_session__session_id__decline_put"];
   };
+  "/api/v1/sessions/cancel": {
+    /**
+     * Cancel Bulk Sessions
+     * @description Cancels the appointment for a given session.
+     */
+    put: operations["cancel_bulk_sessions_api_v1_sessions_cancel_put"];
+  };
   "/api/v1/session/{session_id}/reviews": {
     /**
      * Session Reviews
@@ -581,6 +588,8 @@ export interface components {
        * @example 14
        */
       zoom?: number | null;
+      /** @description accommodation */
+      accommodation?: components["schemas"]["Accommodations"] | null;
       /** @description User allergy */
       allergy?: components["schemas"]["UserAllergy"] | null;
       /**
@@ -653,11 +662,6 @@ export interface components {
        * @description neighborhood
        */
       neighborhood?: string | null;
-      /**
-       * @description accommodation
-       * @example apartment
-       */
-      accommodation?: components["schemas"]["Accommodations"] | null;
       /**
        * Radius
        * @description Radius in meters
@@ -725,6 +729,8 @@ export interface components {
        * @example 14
        */
       zoom?: number | null;
+      /** @description accommodation */
+      accommodation?: components["schemas"]["Accommodations"] | null;
       /** @description User allergy */
       allergy?: components["schemas"]["UserAllergy"] | null;
       /**
@@ -797,11 +803,6 @@ export interface components {
        * @description neighborhood
        */
       neighborhood?: string | null;
-      /**
-       * @description accommodation
-       * @example apartment
-       */
-      accommodation?: components["schemas"]["Accommodations"] | null;
       /**
        * Radius
        * @description Radius in meters
@@ -850,6 +851,8 @@ export interface components {
        * @example 14
        */
       zoom?: number | null;
+      /** @description accommodation */
+      accommodation?: components["schemas"]["Accommodations"] | null;
       /** @description User allergy */
       allergy?: components["schemas"]["UserAllergy"] | null;
       /**
@@ -922,11 +925,6 @@ export interface components {
        * @description neighborhood
        */
       neighborhood?: string | null;
-      /**
-       * @description accommodation
-       * @example apartment
-       */
-      accommodation?: components["schemas"]["Accommodations"] | null;
       /**
        * Radius
        * @description Radius in meters
@@ -997,7 +995,13 @@ export interface components {
       app?: components["schemas"]["ApplicationInfo"];
       /** @default {} */
       authentication?: components["schemas"]["AppAuthentication"];
-      /** @default {} */
+      /**
+       * @default {
+       *   "otpExpiryInDays": 30,
+       *   "recoverExpiryInDays": 30,
+       *   "recoveryReminder": true
+       * }
+       */
       settings?: components["schemas"]["AppSettingsOut"];
       /**
        * @default {
@@ -1193,6 +1197,21 @@ export interface components {
       language?: components["schemas"]["UserLanguages"] | null;
       /** Currency */
       currency?: string | null;
+      /**
+       * Otpexpiryindays
+       * @default 30
+       */
+      otpExpiryInDays?: number;
+      /**
+       * Recoverexpiryindays
+       * @default 30
+       */
+      recoverExpiryInDays?: number;
+      /**
+       * Recoveryreminder
+       * @default true
+       */
+      recoveryReminder?: boolean;
     };
     /** ApplicationInfo */
     ApplicationInfo: {
@@ -1288,14 +1307,14 @@ export interface components {
       /**
        * Fromdate
        * @description Get the available time starting from this value
-       * @default 2024-10-17T14:55:00.133918Z
-       * @example 2024-10-18T14:55:00.133926Z
+       * @default 2024-10-29T13:19:50.579145Z
+       * @example 2024-10-30T13:19:50.579153Z
        */
       fromDate?: string;
       /**
        * Todate
-       * @default 2024-11-17T14:55:00.134030Z
-       * @example 2024-11-17T14:55:00.134039Z
+       * @default 2024-11-29T13:19:50.579245Z
+       * @example 2024-11-29T13:19:50.579252Z
        */
       toDate?: string;
     };
@@ -1330,7 +1349,7 @@ export interface components {
       /**
        * Start
        * @description Start date when slot is working
-       * @example 2024-10-17
+       * @example 2024-10-29
        */
       start?: string | null;
       /**
@@ -1413,7 +1432,7 @@ export interface components {
       /**
        * Start
        * @description Start date when slot is working
-       * @example 2024-10-17
+       * @example 2024-10-29
        */
       start?: string | null;
       /**
@@ -1467,7 +1486,7 @@ export interface components {
       title?: string | null;
       /**
        * Start
-       * @example 2024-10-17
+       * @example 2024-10-29
        */
       start?: string | null;
       /**
@@ -1817,6 +1836,8 @@ export interface components {
        * Format: uuid
        */
       categoryId: string;
+      /** Categoryname */
+      categoryName: string;
       /** Avatarurl */
       avatarUrl?: string | null;
       /**
@@ -1874,10 +1895,10 @@ export interface components {
        */
       contacts?: components["schemas"]["BusinessContactIn"][];
       /**
-       * Availability
+       * Openhours
        * @default []
        */
-      availability?: components["schemas"]["BusinessAvailabilityOut"][];
+      openHours?: components["schemas"]["BusinessAvailabilityOut"][];
       /**
        * Faqs
        * @default []
@@ -2439,6 +2460,8 @@ export interface components {
        * @default false
        */
       disabled?: boolean;
+      /** Recoverydeadline */
+      recoveryDeadline?: string | null;
       /**
        * Username
        * @description Username input
@@ -2485,6 +2508,8 @@ export interface components {
       revenueChart: components["schemas"]["AdminRevenueChartOut"];
       sessionInfo: components["schemas"]["SessionInfoAnalyticsOut"];
       clients: components["schemas"]["BookedUsersAnalyticsOut"];
+      /** Views */
+      views?: number | null;
     };
     /** CoachCertificateCreateIn */
     CoachCertificateCreateIn: {
@@ -2602,6 +2627,8 @@ export interface components {
       dailyAnalytics: components["schemas"]["CoachAnalyticsSummary"];
       weeklyAnalytics: components["schemas"]["CoachAnalyticsSummary"];
       monthlyAnalytics: components["schemas"]["CoachAnalyticsSummary"];
+      /** Totalviews */
+      totalViews?: number | null;
     };
     /** CoachDetails */
     CoachDetails: {
@@ -2710,6 +2737,8 @@ export interface components {
        * @default false
        */
       disabled?: boolean;
+      /** Recoverydeadline */
+      recoveryDeadline?: string | null;
       /**
        * Username
        * @description Username input
@@ -3236,6 +3265,8 @@ export interface components {
        * Format: uuid
        */
       categoryId: string;
+      /** Categoryname */
+      categoryName: string;
       /** Avatarurl */
       avatarUrl?: string | null;
       /**
@@ -3293,10 +3324,10 @@ export interface components {
        */
       contacts?: components["schemas"]["BusinessContactIn"][];
       /**
-       * Availability
+       * Openhours
        * @default []
        */
-      availability?: components["schemas"]["BusinessAvailabilityOut"][];
+      openHours?: components["schemas"]["BusinessAvailabilityOut"][];
       /**
        * Faqs
        * @default []
@@ -3409,6 +3440,8 @@ export interface components {
        * @example 14
        */
       zoom?: number | null;
+      /** @description accommodation */
+      accommodation?: components["schemas"]["Accommodations"] | null;
       /** @description User allergy */
       allergy?: components["schemas"]["UserAllergy"] | null;
       /**
@@ -3482,11 +3515,6 @@ export interface components {
        */
       neighborhood?: string | null;
       /**
-       * @description accommodation
-       * @example apartment
-       */
-      accommodation?: components["schemas"]["Accommodations"] | null;
-      /**
        * Radius
        * @description Radius in meters
        * @example 10000
@@ -3528,6 +3556,8 @@ export interface components {
        * Format: uuid
        */
       categoryId: string;
+      /** Categoryname */
+      categoryName: string;
       /** Avatarurl */
       avatarUrl?: string | null;
       /**
@@ -3585,10 +3615,10 @@ export interface components {
        */
       contacts?: components["schemas"]["BusinessContactIn"][];
       /**
-       * Availability
+       * Openhours
        * @default []
        */
-      availability?: components["schemas"]["BusinessAvailabilityOut"][];
+      openHours?: components["schemas"]["BusinessAvailabilityOut"][];
       /**
        * Faqs
        * @default []
@@ -3732,6 +3762,8 @@ export interface components {
        * @default false
        */
       disabled?: boolean;
+      /** Recoverydeadline */
+      recoveryDeadline?: string | null;
       /**
        * Blockedbyyou
        * @default false
@@ -3876,6 +3908,8 @@ export interface components {
        * @default false
        */
       disabled?: boolean;
+      /** Recoverydeadline */
+      recoveryDeadline?: string | null;
       /**
        * Distance
        * @description Distance
@@ -5078,7 +5112,7 @@ export interface components {
        * @description Availability date for create
        * @example [
        *   {
-       *     "date": "2024-10-17T14:54:46.419469",
+       *     "date": "2024-10-29T13:19:22.198113",
        *     "orderDescription": "Order description"
        *   }
        * ]
@@ -5909,7 +5943,7 @@ export interface components {
       /**
        * Slots
        * @description Availability date for create
-       * @example 2024-10-17T14:54:46.685452
+       * @example 2024-10-29T13:19:23.097317
        */
       slots: string | components["schemas"]["SessionBookingIn"][];
       location?: components["schemas"]["AddressSessionOut"] | null;
@@ -5940,6 +5974,13 @@ export interface components {
        * ]
        */
       paymentMethods?: components["schemas"]["PaymentMethodOut"][];
+    };
+    /** SessionsCancelIn */
+    SessionsCancelIn: {
+      /** Sessionids */
+      sessionIds: string[];
+      /** @default {} */
+      drop?: components["schemas"]["SessionDropIn"];
     };
     /** StretchResponse */
     StretchResponse: {
@@ -6166,6 +6207,8 @@ export interface components {
        * @default false
        */
       disabled?: boolean;
+      /** Recoverydeadline */
+      recoveryDeadline?: string | null;
       /**
        * Username
        * @description Username input
@@ -6936,6 +6979,31 @@ export interface operations {
     requestBody: {
       content: {
         "application/json": components["schemas"]["SessionDropIn"] | null;
+      };
+    };
+    responses: {
+      /** @description Successful Response */
+      200: {
+        content: {
+          "application/json": components["schemas"]["StretchResponse"];
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        content: {
+          "application/json": components["schemas"]["HTTPValidationError"];
+        };
+      };
+    };
+  };
+  /**
+   * Cancel Bulk Sessions
+   * @description Cancels the appointment for a given session.
+   */
+  cancel_bulk_sessions_api_v1_sessions_cancel_put: {
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["SessionsCancelIn"];
       };
     };
     responses: {

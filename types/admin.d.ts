@@ -465,6 +465,8 @@ export interface components {
        * @example 14
        */
       zoom?: number | null;
+      /** @description accommodation */
+      accommodation?: components["schemas"]["Accommodations"] | null;
       /** @description User allergy */
       allergy?: components["schemas"]["UserAllergy"] | null;
       /**
@@ -537,11 +539,6 @@ export interface components {
        * @description neighborhood
        */
       neighborhood?: string | null;
-      /**
-       * @description accommodation
-       * @example apartment
-       */
-      accommodation?: components["schemas"]["Accommodations"] | null;
       /**
        * Radius
        * @description Radius in meters
@@ -609,6 +606,8 @@ export interface components {
        * @example 14
        */
       zoom?: number | null;
+      /** @description accommodation */
+      accommodation?: components["schemas"]["Accommodations"] | null;
       /** @description User allergy */
       allergy?: components["schemas"]["UserAllergy"] | null;
       /**
@@ -681,11 +680,6 @@ export interface components {
        * @description neighborhood
        */
       neighborhood?: string | null;
-      /**
-       * @description accommodation
-       * @example apartment
-       */
-      accommodation?: components["schemas"]["Accommodations"] | null;
       /**
        * Radius
        * @description Radius in meters
@@ -1479,6 +1473,8 @@ export interface components {
        * @example 14
        */
       zoom?: number | null;
+      /** @description accommodation */
+      accommodation?: components["schemas"]["Accommodations"] | null;
       /** @description User allergy */
       allergy?: components["schemas"]["UserAllergy"] | null;
       /**
@@ -1552,11 +1548,6 @@ export interface components {
        */
       neighborhood?: string | null;
       /**
-       * @description accommodation
-       * @example apartment
-       */
-      accommodation?: components["schemas"]["Accommodations"] | null;
-      /**
        * Radius
        * @description Radius in meters
        * @example 10000
@@ -1604,7 +1595,7 @@ export interface components {
       /**
        * Start
        * @description Start date when slot is working
-       * @example 2024-10-25
+       * @example 2024-10-30
        */
       start?: string | null;
       /**
@@ -2068,18 +2059,33 @@ export interface components {
        */
       createdAt: string;
       /** Reason */
-      reason?: string | null;
+      reason: string;
       /** Description */
       description?: string | null;
       /** @default pending */
-      state?: components["schemas"]["ReportState"] | null;
+      state?: components["schemas"]["ReportState"];
+      /** @default session */
+      type?: components["schemas"]["ReportType"];
       client?: components["schemas"]["AdminSessionUserOut"] | null;
       coach?: components["schemas"]["AdminSessionUserOut"] | null;
-      user?: components["schemas"]["AdminSessionUserOut"] | null;
-      /** Subject */
-      subject?: components["schemas"]["AdminSessionUserOut"][] | null;
+      user: components["schemas"]["AdminSessionUserOut"];
+      /**
+       * Subject
+       * @default []
+       */
+      subject?: components["schemas"]["AdminSessionUserOut"][];
+      /**
+       * Chathistory
+       * @default []
+       */
+      chatHistory?: components["schemas"]["SBMessageOut"][];
       service?: components["schemas"]["ServiceOut"] | null;
       session?: components["schemas"]["AdminSessionOut"] | null;
+      /**
+       * Attachments
+       * @default []
+       */
+      attachments?: components["schemas"]["AttachmentFileOut"][];
       resolvedReport?: components["schemas"]["AdminResolvedReportOut"] | null;
       /** @default {} */
       paymentMethod?: components["schemas"]["SessionPaymentMethod"];
@@ -2690,6 +2696,8 @@ export interface components {
       createdAt: string;
       /** Revenue */
       revenue: number;
+      /** Price */
+      price: number;
       /**
        * Currency
        * @default AED
@@ -5053,6 +5061,8 @@ export interface components {
        * @example 14
        */
       zoom?: number | null;
+      /** @description accommodation */
+      accommodation?: components["schemas"]["Accommodations"] | null;
       /** @description User allergy */
       allergy?: components["schemas"]["UserAllergy"] | null;
       /**
@@ -5125,11 +5135,6 @@ export interface components {
        * @description neighborhood
        */
       neighborhood?: string | null;
-      /**
-       * @description accommodation
-       * @example apartment
-       */
-      accommodation?: components["schemas"]["Accommodations"] | null;
       /**
        * Radius
        * @description Radius in meters
@@ -5248,6 +5253,11 @@ export interface components {
      * @enum {string}
      */
     ReportState: "pending" | "approved" | "rejected" | "closed" | "deleted";
+    /**
+     * ReportType
+     * @enum {string}
+     */
+    ReportType: "session" | "refund" | "user_deleted" | "user_blocked" | "payment" | "verification" | "chain" | "private" | "business_claim" | "chat";
     /** RevenueChartDataOut */
     RevenueChartDataOut: {
       /** Revenue */
@@ -5262,6 +5272,43 @@ export interface components {
       currentDate?: string | null;
       /** Year */
       year?: number | null;
+    };
+    /** SBMessageOut */
+    SBMessageOut: {
+      /** Messageid */
+      messageId: number;
+      type: components["schemas"]["SBMessageType"];
+      /** Message */
+      message: string;
+      /**
+       * Createdat
+       * Format: date-time
+       */
+      createdAt: string;
+      /**
+       * Attachments
+       * @default []
+       */
+      attachments?: components["schemas"]["AttachmentFileOut"][];
+      /** Poll */
+      poll?: Record<string, never> | null;
+      user?: components["schemas"]["SBMessageUserOut"] | null;
+    };
+    /**
+     * SBMessageType
+     * @enum {string}
+     */
+    SBMessageType: "admin" | "message" | "file";
+    /** SBMessageUserOut */
+    SBMessageUserOut: {
+      /** Id */
+      id?: string | null;
+      /** Displayname */
+      displayName?: string | null;
+      /** Initials */
+      initials?: string | null;
+      /** Avatarurl */
+      avatarUrl?: string | null;
     };
     /** SearchFilterIn */
     SearchFilterIn: {

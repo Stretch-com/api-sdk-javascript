@@ -342,6 +342,8 @@ export interface components {
        * @default false
        */
       disabled?: boolean;
+      /** Recoverydeadline */
+      recoveryDeadline?: string | null;
       /**
        * Username
        * @description Username input

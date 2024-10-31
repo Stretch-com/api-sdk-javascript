@@ -136,6 +136,8 @@ export interface components {
        * @example 14
        */
       zoom?: number | null;
+      /** @description accommodation */
+      accommodation?: components["schemas"]["Accommodations"] | null;
       /** @description User allergy */
       allergy?: components["schemas"]["UserAllergy"] | null;
       /**
@@ -208,11 +210,6 @@ export interface components {
        * @description neighborhood
        */
       neighborhood?: string | null;
-      /**
-       * @description accommodation
-       * @example apartment
-       */
-      accommodation?: components["schemas"]["Accommodations"] | null;
       /**
        * Radius
        * @description Radius in meters
@@ -269,6 +266,8 @@ export interface components {
        * @example 14
        */
       zoom?: number | null;
+      /** @description accommodation */
+      accommodation?: components["schemas"]["Accommodations"] | null;
       /** @description User allergy */
       allergy?: components["schemas"]["UserAllergy"] | null;
       /**
@@ -341,11 +340,6 @@ export interface components {
        * @description neighborhood
        */
       neighborhood?: string | null;
-      /**
-       * @description accommodation
-       * @example apartment
-       */
-      accommodation?: components["schemas"]["Accommodations"] | null;
       /**
        * Radius
        * @description Radius in meters
@@ -403,6 +397,8 @@ export interface components {
        * @example 14
        */
       zoom?: number | null;
+      /** @description accommodation */
+      accommodation?: components["schemas"]["Accommodations"] | null;
       /** @description User allergy */
       allergy?: components["schemas"]["UserAllergy"] | null;
       /**
@@ -475,11 +471,6 @@ export interface components {
        * @description neighborhood
        */
       neighborhood?: string | null;
-      /**
-       * @description accommodation
-       * @example apartment
-       */
-      accommodation?: components["schemas"]["Accommodations"] | null;
       /**
        * Radius
        * @description Radius in meters
@@ -547,6 +538,8 @@ export interface components {
        * @example 14
        */
       zoom?: number | null;
+      /** @description accommodation */
+      accommodation?: components["schemas"]["Accommodations"] | null;
       /** @description User allergy */
       allergy?: components["schemas"]["UserAllergy"] | null;
       /**
@@ -619,11 +612,6 @@ export interface components {
        * @description neighborhood
        */
       neighborhood?: string | null;
-      /**
-       * @description accommodation
-       * @example apartment
-       */
-      accommodation?: components["schemas"]["Accommodations"] | null;
       /**
        * Radius
        * @description Radius in meters
