@@ -18,17 +18,17 @@ export class StretchAuth extends StretchBase {
 
   async login(
     username: string,
-    password: string
+    password: string,
+    scopes: string[] | null = null
   ): Promise<
     | paths["/api/v1/auth/token"]["post"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
-    const scope = "coach";
     const res = await apiToken(
       this.url("/auth/token"),
       username,
       password,
-      scope,
+      scopes,
       this._clientId
     );
 
