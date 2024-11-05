@@ -749,12 +749,14 @@ class Admin {
   }
 
   // Consumer endpoints
-  async getConsumers(): Promise<
+  async getConsumers(
+    query: paths["/api/v1/admin/config/consumers"]["get"]["parameters"]["query"]
+  ): Promise<
     | paths["/api/v1/admin/config/consumers"]["get"]["responses"]["200"]["content"]["application/json"]
     | undefined
   > {
     if (await this.auth.checkAuth())
-      return await this.auth.get(`/admin/config/consumers`);
+      return await this.auth.get(`/admin/config/consumers`, query);
   }
 
   async postConsumer(
