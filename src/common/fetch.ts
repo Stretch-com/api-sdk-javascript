@@ -102,7 +102,7 @@ export async function apiToken(
   uri: URL,
   username: string,
   password: string,
-  scope = "coach",
+  scopes: string[] | null = null,
   clientId = "2f9445b3-5266-45cd-8a85-d5c3fff69781",
   clientSecret = ""
 ) {
@@ -112,7 +112,7 @@ export async function apiToken(
   data.append("username", username);
   data.append("password", password);
 
-  if (scope) data.append("scope", scope);
+  if (scopes && scopes.length > 0) data.append("scope", scopes.join(" "));
   return await apiFetch(uri, {
     method: "POST",
     body: data,
