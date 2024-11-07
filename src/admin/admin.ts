@@ -447,6 +447,16 @@ class Admin {
       return await this.auth.post(`/admin/user/validate`, payload);
   }
 
+  async postUserRecover(
+    userId: string
+  ): Promise<
+    | paths["/api/v1/admin/user/{user_id}/recover"]["post"]["responses"]["200"]["content"]["application/json"]
+    | undefined
+  > {
+    if (await this.auth.checkAuth())
+      return await this.auth.post(`/admin/user/${userId}/recover`);
+  }
+
   // Sessions endpoints
   async getSessions(
     query: paths["/api/v1/admin/sessions"]["get"]["parameters"]["query"]
