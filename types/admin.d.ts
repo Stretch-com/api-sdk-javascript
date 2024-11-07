@@ -184,7 +184,7 @@ export interface paths {
   };
   "/api/v1/admin/user/{user_id}/recover": {
     /** Get User Filters */
-    get: operations["get_user_filters_api_v1_admin_user__user_id__recover_get"];
+    post: operations["get_user_filters_api_v1_admin_user__user_id__recover_post"];
   };
   "/api/v1/admin/sessions": {
     /** Get Sessions */
@@ -1219,6 +1219,11 @@ export interface components {
       phone?: string | null;
       /** Whatsapp */
       whatsapp?: string | null;
+      /**
+       * Isdeleted
+       * @default false
+       */
+      isDeleted?: boolean;
       address?: components["schemas"]["AddressOut"] | null;
       /**
        * Available
@@ -1236,6 +1241,8 @@ export interface components {
       /** Allownonverify */
       allowNonVerify?: boolean | null;
       kycStatus?: components["schemas"]["StripeConnectStatus"] | null;
+      /** Recoverydeadline */
+      recoveryDeadline?: string | null;
       /** Mediaurl */
       mediaUrl?: string | null;
       /** Mediathumb */
@@ -1380,6 +1387,9 @@ export interface components {
       languages?: {
         [key: string]: string;
       };
+      /** Recoverydeadline */
+      recoveryDeadline?: string | null;
+      kycStatus?: components["schemas"]["StripeConnectStatus"] | null;
     };
     /** AdminCoachUpdateIn */
     AdminCoachUpdateIn: {
@@ -1595,7 +1605,7 @@ export interface components {
       /**
        * Start
        * @description Start date when slot is working
-       * @example 2024-10-31
+       * @example 2024-11-07
        */
       start?: string | null;
       /**
@@ -4862,7 +4872,7 @@ export interface components {
      * PaymentState
      * @enum {string}
      */
-    PaymentState: "awaiting" | "checkout" | "review" | "received" | "canceled" | "failed" | "refund" | "deleted";
+    PaymentState: "awaiting" | "checkout" | "processing" | "received" | "canceled" | "failed" | "refund" | "deleted";
     /** PointBase */
     PointBase: {
       /**
@@ -7342,7 +7352,7 @@ export interface operations {
     };
   };
   /** Get User Filters */
-  get_user_filters_api_v1_admin_user__user_id__recover_get: {
+  get_user_filters_api_v1_admin_user__user_id__recover_post: {
     parameters: {
       path: {
         user_id: string;
