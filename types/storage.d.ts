@@ -952,6 +952,21 @@ export interface components {
       /** Recoverydeadline */
       recoveryDeadline?: string | null;
       /**
+       * Blockedyou
+       * @default false
+       */
+      blockedYou?: boolean;
+      /**
+       * Blockedbyyou
+       * @default false
+       */
+      blockedByYou?: boolean;
+      /**
+       * Reportedbyyou
+       * @default false
+       */
+      reportedByYou?: boolean;
+      /**
        * Username
        * @description Username input
        */

@@ -48,9 +48,13 @@ export interface paths {
     /** Delete Wallet Method */
     delete: operations["delete_wallet_method_api_v1_payment_wallet__wallet_id__delete"];
   };
-  "/api/v1/payment/webhook": {
+  "/api/v1/payment/webhook/stripe": {
     /** Stripe Webhook */
-    post: operations["stripe_webhook_api_v1_payment_webhook_post"];
+    post: operations["stripe_webhook_api_v1_payment_webhook_stripe_post"];
+  };
+  "/api/v1/payment/webhook/heropay": {
+    /** Heropay Webhook */
+    post: operations["heropay_webhook_api_v1_payment_webhook_heropay_post"];
   };
   "/api/v1/payment/kyc/stripe/account": {
     /** Get Stripe Account */
@@ -345,6 +349,21 @@ export interface components {
       /** Recoverydeadline */
       recoveryDeadline?: string | null;
       /**
+       * Blockedyou
+       * @default false
+       */
+      blockedYou?: boolean;
+      /**
+       * Blockedbyyou
+       * @default false
+       */
+      blockedByYou?: boolean;
+      /**
+       * Reportedbyyou
+       * @default false
+       */
+      reportedByYou?: boolean;
+      /**
        * Username
        * @description Username input
        */
@@ -570,7 +589,12 @@ export interface components {
      * PaymentState
      * @enum {string}
      */
-    PaymentState: "awaiting" | "checkout" | "review" | "received" | "canceled" | "failed" | "refund" | "deleted";
+    PaymentState: "awaiting" | "checkout" | "processing" | "received" | "canceled" | "failed" | "refund" | "deleted";
+    /**
+     * PaymentType
+     * @enum {string}
+     */
+    PaymentType: "session" | "boosted";
     /**
      * ServiceAccommodation
      * @enum {string}
@@ -764,6 +788,8 @@ export interface components {
       id: string;
       type: components["schemas"]["stretchcore__models__payment__transaction__TransactionType"];
       direction: components["schemas"]["TransactionDirection"];
+      /** @default session */
+      paymentType?: components["schemas"]["PaymentType"];
       /** @default completed */
       status?: components["schemas"]["TransactionStatus"];
       /** Amount */
@@ -790,6 +816,8 @@ export interface components {
       id: string;
       type: components["schemas"]["stretchcore__models__payment__transaction__TransactionType"];
       direction: components["schemas"]["TransactionDirection"];
+      /** @default session */
+      paymentType?: components["schemas"]["PaymentType"];
       /** @default completed */
       status?: components["schemas"]["TransactionStatus"];
       /** Amount */
@@ -1343,7 +1371,7 @@ export interface operations {
     };
   };
   /** Stripe Webhook */
-  stripe_webhook_api_v1_payment_webhook_post: {
+  stripe_webhook_api_v1_payment_webhook_stripe_post: {
     parameters: {
       header?: {
         "stripe-signature"?: string;
@@ -1360,6 +1388,17 @@ export interface operations {
       422: {
         content: {
           "application/json": components["schemas"]["HTTPValidationError"];
+        };
+      };
+    };
+  };
+  /** Heropay Webhook */
+  heropay_webhook_api_v1_payment_webhook_heropay_post: {
+    responses: {
+      /** @description Successful Response */
+      200: {
+        content: {
+          "application/json": unknown;
         };
       };
     };
