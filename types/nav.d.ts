@@ -5,6 +5,18 @@
 
 
 export interface paths {
+  "/api/v1/nav/tracking": {
+    /** Post Track Data */
+    post: operations["post_track_data_api_v1_nav_tracking_post"];
+  };
+  "/api/v1/nav/tracking/start": {
+    /** Post Start Track Data */
+    post: operations["post_start_track_data_api_v1_nav_tracking_start_post"];
+  };
+  "/api/v1/nav/tracking/{session_id}": {
+    /** Get Tracking Data */
+    get: operations["get_tracking_data_api_v1_nav_tracking__session_id__get"];
+  };
   "/api/v1/nav/geo/countries": {
     /** Get Countries */
     get: operations["get_countries_api_v1_nav_geo_countries_get"];
@@ -763,6 +775,29 @@ export interface components {
        */
       status?: string;
     };
+    /** TrackingIn */
+    TrackingIn: {
+      /**
+       * Lng
+       * @example 55.296249
+       */
+      lng: number;
+      /**
+       * Lat
+       * @example 25.276
+       */
+      lat: number;
+      /** Altitude */
+      altitude?: number | null;
+      /** Direction */
+      direction?: number | null;
+      /** Speed */
+      speed?: number | null;
+      /** Timestamp */
+      timestamp?: string | null;
+      /** Sessionid */
+      sessionId?: string | null;
+    };
     /**
      * UserAllergy
      * @enum {string}
@@ -817,6 +852,72 @@ export type external = Record<string, never>;
 
 export interface operations {
 
+  /** Post Track Data */
+  post_track_data_api_v1_nav_tracking_post: {
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["TrackingIn"];
+      };
+    };
+    responses: {
+      /** @description Successful Response */
+      200: {
+        content: {
+          "application/json": components["schemas"]["TrackingIn"];
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        content: {
+          "application/json": components["schemas"]["HTTPValidationError"];
+        };
+      };
+    };
+  };
+  /** Post Start Track Data */
+  post_start_track_data_api_v1_nav_tracking_start_post: {
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["TrackingIn"];
+      };
+    };
+    responses: {
+      /** @description Successful Response */
+      200: {
+        content: {
+          "application/json": components["schemas"]["TrackingIn"];
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        content: {
+          "application/json": components["schemas"]["HTTPValidationError"];
+        };
+      };
+    };
+  };
+  /** Get Tracking Data */
+  get_tracking_data_api_v1_nav_tracking__session_id__get: {
+    parameters: {
+      path: {
+        session_id: string;
+      };
+    };
+    responses: {
+      /** @description Successful Response */
+      200: {
+        content: {
+          "application/json": unknown;
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        content: {
+          "application/json": components["schemas"]["HTTPValidationError"];
+        };
+      };
+    };
+  };
   /** Get Countries */
   get_countries_api_v1_nav_geo_countries_get: {
     parameters: {

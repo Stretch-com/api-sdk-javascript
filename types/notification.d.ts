@@ -17,6 +17,13 @@ export interface paths {
      */
     put: operations["put_user_readed_notifications_api_v1_notifications_put"];
   };
+  "/api/v1/notifications/delete": {
+    /**
+     * Put User Hidden Notifications
+     * @description Update the status of the notification by changing the status from unread to read for easy filtration.
+     */
+    put: operations["put_user_hidden_notifications_api_v1_notifications_delete_put"];
+  };
   "/api/v1/notification/status": {
     /**
      * Get User Status Notifications
@@ -223,6 +230,31 @@ export interface operations {
    * @description Update the status of the notification by changing the status from unread to read for easy filtration.
    */
   put_user_readed_notifications_api_v1_notifications_put: {
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["NotificationsViewIn"];
+      };
+    };
+    responses: {
+      /** @description Successful Response */
+      200: {
+        content: {
+          "application/json": unknown;
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        content: {
+          "application/json": components["schemas"]["HTTPValidationError"];
+        };
+      };
+    };
+  };
+  /**
+   * Put User Hidden Notifications
+   * @description Update the status of the notification by changing the status from unread to read for easy filtration.
+   */
+  put_user_hidden_notifications_api_v1_notifications_delete_put: {
     requestBody: {
       content: {
         "application/json": components["schemas"]["NotificationsViewIn"];
@@ -471,6 +503,7 @@ export interface operations {
         message?: string;
         key_id?: string;
         type?: string;
+        target_id?: string | null;
       };
     };
     responses: {

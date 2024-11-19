@@ -310,6 +310,10 @@ export interface paths {
     /** Get Client Public */
     get: operations["get_client_public_api_v1_client__client_id__public_get"];
   };
+  "/api/v1/client/{client_id}/report": {
+    /** Report Client Profile */
+    post: operations["report_client_profile_api_v1_client__client_id__report_post"];
+  };
   "/api/v1/marketing-groups": {
     /** List Marketing Groups */
     get: operations["list_marketing_groups_api_v1_marketing_groups_get"];
@@ -445,6 +449,10 @@ export interface paths {
      * returns all information regarding their profile.
      */
     get: operations["get_coach_profile_api_v1_coach__coach_id__profile_get"];
+  };
+  "/api/v1/coach/{coach_id}/report": {
+    /** Report Coach Profile */
+    post: operations["report_coach_profile_api_v1_coach__coach_id__report_post"];
   };
   "/api/v1/coach/availability/calendar": {
     /**
@@ -1307,14 +1315,14 @@ export interface components {
       /**
        * Fromdate
        * @description Get the available time starting from this value
-       * @default 2024-10-29T13:19:50.579145Z
-       * @example 2024-10-30T13:19:50.579153Z
+       * @default 2024-11-15T14:31:43.174036Z
+       * @example 2024-11-16T14:31:43.174057Z
        */
       fromDate?: string;
       /**
        * Todate
-       * @default 2024-11-29T13:19:50.579245Z
-       * @example 2024-11-29T13:19:50.579252Z
+       * @default 2024-12-16T14:31:43.174663Z
+       * @example 2024-12-16T14:31:43.174681Z
        */
       toDate?: string;
     };
@@ -1349,7 +1357,7 @@ export interface components {
       /**
        * Start
        * @description Start date when slot is working
-       * @example 2024-10-29
+       * @example 2024-11-15
        */
       start?: string | null;
       /**
@@ -1432,7 +1440,7 @@ export interface components {
       /**
        * Start
        * @description Start date when slot is working
-       * @example 2024-10-29
+       * @example 2024-11-15
        */
       start?: string | null;
       /**
@@ -1486,7 +1494,7 @@ export interface components {
       title?: string | null;
       /**
        * Start
-       * @example 2024-10-29
+       * @example 2024-11-15
        */
       start?: string | null;
       /**
@@ -1635,8 +1643,15 @@ export interface components {
        */
       message?: string | null;
     };
-    /** BlackListUserListOut */
-    BlackListUserListOut: {
+    /** BlacklistClientOut */
+    BlacklistClientOut: {
+      /**
+       * Type
+       * @default client
+       * @constant
+       * @enum {string}
+       */
+      type?: "client";
       /**
        * Userid
        * Format: uuid
@@ -1664,6 +1679,106 @@ export interface components {
        * @default false
        */
       verified?: boolean;
+    };
+    /** BlacklistCoachOut */
+    BlacklistCoachOut: {
+      position?: components["schemas"]["Point"] | null;
+      /** Distance */
+      distance?: number | null;
+      /** Firstname */
+      firstName?: string | null;
+      /** Lastname */
+      lastName?: string | null;
+      /** Phone */
+      phone?: string | null;
+      /** Whatsapp */
+      whatsapp?: string | null;
+      /** Rating */
+      rating?: number | null;
+      /** Reviewscount */
+      reviewsCount?: number | null;
+      /** Experience */
+      experience?: number | null;
+      /** Avatarurl */
+      avatarUrl?: string | null;
+      /**
+       * Type
+       * @default coach
+       * @constant
+       * @enum {string}
+       */
+      type?: "coach";
+      /** Price */
+      price?: number | null;
+      /** Minprice */
+      minPrice?: number | null;
+      /** Maxprice */
+      maxPrice?: number | null;
+      /** Summary */
+      summary?: string | null;
+      /** Pricecurrency */
+      priceCurrency?: string | null;
+      /** Services */
+      services?: number[] | string | null;
+      /** Mediatype */
+      mediaType?: string | null;
+      /** Mediaurl */
+      mediaUrl?: string | null;
+      /** Mediapreviewurl */
+      mediaPreviewUrl?: string | null;
+      /** Gallery */
+      gallery?: components["schemas"]["MediaFileOut"][] | null;
+      /** Verified */
+      verified?: boolean | null;
+      /** Sessioncount */
+      sessionCount?: number | null;
+      /**
+       * Requiresparking
+       * @description Requires parking
+       */
+      requiresParking?: boolean | null;
+      /** Servicetypes */
+      serviceTypes?: string[] | null;
+      /**
+       * Languages
+       * @description Languages
+       */
+      languages?: {
+        [key: string]: string;
+      } | null;
+      /** Favorite */
+      favorite?: boolean | null;
+      /** Online */
+      online?: boolean | null;
+      /**
+       * Allowbooking
+       * @default true
+       */
+      allowBooking?: boolean;
+      bookingReason?: components["schemas"]["BookingReasonOut"] | null;
+      /** Disabled */
+      disabled?: boolean | null;
+      /**
+       * Blockedyou
+       * @default false
+       */
+      blockedYou?: boolean;
+      /**
+       * Boosted
+       * @description Promoted coach profiles
+       */
+      boosted?: boolean | null;
+      /**
+       * Awardscount
+       * @default 0
+       */
+      awardsCount?: number;
+      /**
+       * Userid
+       * Format: uuid
+       * @description User ID
+       */
+      userId: string;
     };
     /** BookedUsersAnalyticsOut */
     BookedUsersAnalyticsOut: {
@@ -2463,6 +2578,21 @@ export interface components {
       /** Recoverydeadline */
       recoveryDeadline?: string | null;
       /**
+       * Blockedyou
+       * @default false
+       */
+      blockedYou?: boolean;
+      /**
+       * Blockedbyyou
+       * @default false
+       */
+      blockedByYou?: boolean;
+      /**
+       * Reportedbyyou
+       * @default false
+       */
+      reportedByYou?: boolean;
+      /**
        * Username
        * @description Username input
        */
@@ -2627,8 +2757,8 @@ export interface components {
       dailyAnalytics: components["schemas"]["CoachAnalyticsSummary"];
       weeklyAnalytics: components["schemas"]["CoachAnalyticsSummary"];
       monthlyAnalytics: components["schemas"]["CoachAnalyticsSummary"];
-      /** Totalviews */
-      totalViews?: number | null;
+      /** Views */
+      views?: number | null;
     };
     /** CoachDetails */
     CoachDetails: {
@@ -2739,6 +2869,21 @@ export interface components {
       disabled?: boolean;
       /** Recoverydeadline */
       recoveryDeadline?: string | null;
+      /**
+       * Blockedyou
+       * @default false
+       */
+      blockedYou?: boolean;
+      /**
+       * Blockedbyyou
+       * @default false
+       */
+      blockedByYou?: boolean;
+      /**
+       * Reportedbyyou
+       * @default false
+       */
+      reportedByYou?: boolean;
       /**
        * Username
        * @description Username input
@@ -3220,7 +3365,7 @@ export interface components {
      * PaymentState
      * @enum {string}
      */
-    PaymentState: "awaiting" | "checkout" | "review" | "received" | "canceled" | "failed" | "refund" | "deleted";
+    PaymentState: "awaiting" | "checkout" | "processing" | "received" | "canceled" | "failed" | "refund" | "deleted";
     /** Point */
     Point: {
       /**
@@ -3765,10 +3910,20 @@ export interface components {
       /** Recoverydeadline */
       recoveryDeadline?: string | null;
       /**
+       * Blockedyou
+       * @default false
+       */
+      blockedYou?: boolean;
+      /**
        * Blockedbyyou
        * @default false
        */
       blockedByYou?: boolean;
+      /**
+       * Reportedbyyou
+       * @default false
+       */
+      reportedByYou?: boolean;
     };
     /** PublicClientProfileOut */
     PublicClientProfileOut: {
@@ -3911,6 +4066,21 @@ export interface components {
       /** Recoverydeadline */
       recoveryDeadline?: string | null;
       /**
+       * Blockedyou
+       * @default false
+       */
+      blockedYou?: boolean;
+      /**
+       * Blockedbyyou
+       * @default false
+       */
+      blockedByYou?: boolean;
+      /**
+       * Reportedbyyou
+       * @default false
+       */
+      reportedByYou?: boolean;
+      /**
        * Distance
        * @description Distance
        */
@@ -3954,11 +4124,6 @@ export interface components {
        */
       allowBooking?: boolean;
       bookingReason?: components["schemas"]["BookingReasonOut"] | null;
-      /**
-       * Blockedyou
-       * @default false
-       */
-      blockedYou?: boolean;
     };
     /** PublicCoachShortProfileOut */
     PublicCoachShortProfileOut: {
@@ -4024,15 +4189,15 @@ export interface components {
     };
     /** PublicReportOut */
     PublicReportOut: {
+      /** Reason */
+      reason: string;
+      /** Description */
+      description?: string | null;
       /**
        * Id
        * Format: uuid
        */
       id: string;
-      /** Reason */
-      reason: string;
-      /** Description */
-      description?: string | null;
     };
     /** QuestionBusinessOut */
     QuestionBusinessOut: {
@@ -4120,17 +4285,24 @@ export interface components {
        */
       attachmentIds?: string[];
     };
+    /** ReportBaseIn */
+    ReportBaseIn: {
+      /** Reason */
+      reason: string;
+      /** Description */
+      description?: string | null;
+    };
     /** ReportNotificationOut */
     ReportNotificationOut: {
+      /** Reason */
+      reason: string;
+      /** Description */
+      description?: string | null;
       /**
        * Id
        * Format: uuid
        */
       id: string;
-      /** Reason */
-      reason: string;
-      /** Description */
-      description?: string | null;
       /** Sessionid */
       sessionId?: string | null;
       /**
@@ -5112,7 +5284,7 @@ export interface components {
        * @description Availability date for create
        * @example [
        *   {
-       *     "date": "2024-10-29T13:19:22.198113",
+       *     "date": "2024-11-15T14:31:15.448888",
        *     "orderDescription": "Order description"
        *   }
        * ]
@@ -5306,6 +5478,16 @@ export interface components {
       /** Chaturl */
       chatUrl?: string | null;
       report?: components["schemas"]["PublicReportOut"] | null;
+      /**
+       * Blockedyou
+       * @default false
+       */
+      blockedYou?: boolean;
+      /**
+       * Blockedbyyou
+       * @default false
+       */
+      blockedByYou?: boolean;
       /** Reviews */
       reviews?: components["schemas"]["SessionReviewOut"][] | null;
       /**
@@ -5599,6 +5781,16 @@ export interface components {
       /** Chaturl */
       chatUrl?: string | null;
       report?: components["schemas"]["PublicReportOut"] | null;
+      /**
+       * Blockedyou
+       * @default false
+       */
+      blockedYou?: boolean;
+      /**
+       * Blockedbyyou
+       * @default false
+       */
+      blockedByYou?: boolean;
       /** Dategroup */
       dateGroup?: Record<string, never>[] | null;
       /**
@@ -5776,6 +5968,16 @@ export interface components {
       /** Chaturl */
       chatUrl?: string | null;
       report?: components["schemas"]["PublicReportOut"] | null;
+      /**
+       * Blockedyou
+       * @default false
+       */
+      blockedYou?: boolean;
+      /**
+       * Blockedbyyou
+       * @default false
+       */
+      blockedByYou?: boolean;
     };
     /** SessionPaymentMethod */
     SessionPaymentMethod: {
@@ -5891,6 +6093,16 @@ export interface components {
       /** Sessionname */
       sessionName?: string;
       /**
+       * Clientid
+       * Format: uuid
+       */
+      clientId?: string;
+      /**
+       * Coachid
+       * Format: uuid
+       */
+      coachId?: string;
+      /**
        * Threads
        * @default []
        */
@@ -5943,7 +6155,7 @@ export interface components {
       /**
        * Slots
        * @description Availability date for create
-       * @example 2024-10-29T13:19:23.097317
+       * @example 2024-11-15T14:31:16.330858
        */
       slots: string | components["schemas"]["SessionBookingIn"][];
       location?: components["schemas"]["AddressSessionOut"] | null;
@@ -6209,6 +6421,21 @@ export interface components {
       disabled?: boolean;
       /** Recoverydeadline */
       recoveryDeadline?: string | null;
+      /**
+       * Blockedyou
+       * @default false
+       */
+      blockedYou?: boolean;
+      /**
+       * Blockedbyyou
+       * @default false
+       */
+      blockedByYou?: boolean;
+      /**
+       * Reportedbyyou
+       * @default false
+       */
+      reportedByYou?: boolean;
       /**
        * Username
        * @description Username input
@@ -7283,7 +7510,7 @@ export interface operations {
       /** @description Successful Response */
       200: {
         content: {
-          "application/json": components["schemas"]["BlackListUserListOut"][];
+          "application/json": (components["schemas"]["BlacklistClientOut"] | components["schemas"]["BlacklistCoachOut"])[];
         };
       };
     };
@@ -7783,6 +8010,33 @@ export interface operations {
       400: {
         content: {
           "application/json": components["schemas"]["ErrorResponse"];
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        content: {
+          "application/json": components["schemas"]["HTTPValidationError"];
+        };
+      };
+    };
+  };
+  /** Report Client Profile */
+  report_client_profile_api_v1_client__client_id__report_post: {
+    parameters: {
+      path: {
+        client_id: string;
+      };
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["ReportBaseIn"];
+      };
+    };
+    responses: {
+      /** @description Successful Response */
+      200: {
+        content: {
+          "application/json": components["schemas"]["StretchResponse"];
         };
       };
       /** @description Validation Error */
@@ -8480,6 +8734,33 @@ export interface operations {
       200: {
         content: {
           "application/json": components["schemas"]["PublicCoachProfileOut"];
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        content: {
+          "application/json": components["schemas"]["HTTPValidationError"];
+        };
+      };
+    };
+  };
+  /** Report Coach Profile */
+  report_coach_profile_api_v1_coach__coach_id__report_post: {
+    parameters: {
+      path: {
+        coach_id: string;
+      };
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["ReportBaseIn"];
+      };
+    };
+    responses: {
+      /** @description Successful Response */
+      200: {
+        content: {
+          "application/json": components["schemas"]["StretchResponse"];
         };
       };
       /** @description Validation Error */

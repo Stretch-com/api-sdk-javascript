@@ -29,6 +29,10 @@ export interface paths {
     /** Send Message */
     post: operations["send_message_api_v1_chat_sb_message_post"];
   };
+  "/api/v1/chat/sb/message/{message_id}/report": {
+    /** Report Message */
+    post: operations["report_message_api_v1_chat_sb_message__message_id__report_post"];
+  };
   "/api/v1/chat/sb/message/{message_id}": {
     /** Delete Message */
     delete: operations["delete_message_api_v1_chat_sb_message__message_id__delete"];
@@ -49,6 +53,63 @@ export type webhooks = Record<string, never>;
 
 export interface components {
   schemas: {
+    /** FileBase */
+    AttachmentFileOut: {
+      /**
+       * Id
+       * @description UUID of file
+       */
+      id?: string | null;
+      /**
+       * Title
+       * @description The title name of the uploaded file
+       */
+      title?: string | null;
+      /**
+       * Description
+       * @description The description for uploaded file
+       */
+      description?: string | null;
+      /**
+       * Source
+       * @default local
+       */
+      source?: string;
+      /**
+       * Originfilename
+       * @description The original file name given when uploading the file
+       */
+      originFilename?: string | null;
+      /** Filesize */
+      filesize?: number | null;
+      /**
+       * Contenttype
+       * @description File contents in MIME format
+       */
+      contentType?: string | null;
+      /**
+       * Url
+       * @description Direct link to the downloaded file. The file can be recompressed when it is placed in the storage
+       */
+      url?: string | null;
+      /**
+       * Thumb
+       * @description Link to the preview file
+       */
+      thumb?: string | null;
+      /** @description File visibility status in the system: on review, approved or rejected */
+      status?: components["schemas"]["FileStatus"] | null;
+      /**
+       * Duration
+       * @description Duration in seconds
+       */
+      duration?: number | null;
+      /**
+       * Videothumb
+       * @description Link to the preview file
+       */
+      videoThumb?: string | null;
+    };
     /** Body_upload_image_api_v1_chat_channel__channel_id__upload_post */
     Body_upload_image_api_v1_chat_channel__channel_id__upload_post: {
       /**
@@ -102,6 +163,11 @@ export interface components {
       /** Code */
       code: number;
     };
+    /**
+     * FileStatus
+     * @enum {string}
+     */
+    FileStatus: "uploaded" | "processing" | "approved" | "rejected" | "review" | "draft" | "deleted";
     /** HTTPValidationError */
     HTTPValidationError: {
       /** Detail */
@@ -150,8 +216,11 @@ export interface components {
        * Format: date-time
        */
       createdAt: string;
-      /** File */
-      file?: Record<string, never> | null;
+      /**
+       * Attachments
+       * @default []
+       */
+      attachments?: components["schemas"]["AttachmentFileOut"][];
       /** Poll */
       poll?: Record<string, never> | null;
       user?: components["schemas"]["SBMessageUserOut"] | null;
@@ -171,6 +240,29 @@ export interface components {
       initials?: string | null;
       /** Avatarurl */
       avatarUrl?: string | null;
+    };
+    /** SBReportMessageIn */
+    SBReportMessageIn: {
+      /** Chaturl */
+      chatUrl: string;
+      /** Reason */
+      reason: string;
+      /** Description */
+      description?: string | null;
+      /**
+       * Attachmentids
+       * @default []
+       */
+      attachmentIds?: string[];
+    };
+    /** StretchResponse */
+    StretchResponse: {
+      /**
+       * Status
+       * @description Stretch status response
+       * @default success
+       */
+      status?: string;
     };
     /** ValidationError */
     ValidationError: {
@@ -305,6 +397,33 @@ export interface operations {
       };
     };
   };
+  /** Report Message */
+  report_message_api_v1_chat_sb_message__message_id__report_post: {
+    parameters: {
+      path: {
+        message_id: string;
+      };
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["SBReportMessageIn"];
+      };
+    };
+    responses: {
+      /** @description Successful Response */
+      200: {
+        content: {
+          "application/json": components["schemas"]["StretchResponse"];
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        content: {
+          "application/json": components["schemas"]["HTTPValidationError"];
+        };
+      };
+    };
+  };
   /** Delete Message */
   delete_message_api_v1_chat_sb_message__message_id__delete: {
     parameters: {
@@ -319,7 +438,7 @@ export interface operations {
       /** @description Successful Response */
       200: {
         content: {
-          "application/json": unknown;
+          "application/json": components["schemas"]["StretchResponse"];
         };
       };
       /** @description Validation Error */
@@ -374,7 +493,7 @@ export interface operations {
       /** @description Successful Response */
       200: {
         content: {
-          "application/json": unknown;
+          "application/json": components["schemas"]["StretchResponse"];
         };
       };
       /** @description Validation Error */

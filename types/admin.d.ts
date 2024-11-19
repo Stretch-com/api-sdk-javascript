@@ -410,6 +410,10 @@ export interface paths {
     /** Cache Analytics */
     post: operations["cache_analytics_api_v1_admin_cache_analytics_post"];
   };
+  "/api/v1/admin/cache/addresses": {
+    /** Cache Addresses */
+    post: operations["cache_addresses_api_v1_admin_cache_addresses_post"];
+  };
   "/api/v1/admin/equipments": {
     /** Get Equipments */
     get: operations["get_equipments_api_v1_admin_equipments_get"];
@@ -1605,7 +1609,7 @@ export interface components {
       /**
        * Start
        * @description Start date when slot is working
-       * @example 2024-11-07
+       * @example 2024-11-15
        */
       start?: string | null;
       /**
@@ -2554,6 +2558,16 @@ export interface components {
       bookingReason?: components["schemas"]["BookingReasonOut"] | null;
       /** Chaturl */
       chatUrl?: string | null;
+      /**
+       * Blockedyou
+       * @default false
+       */
+      blockedYou?: boolean;
+      /**
+       * Blockedbyyou
+       * @default false
+       */
+      blockedByYou?: boolean;
       /** Reviews */
       reviews?: components["schemas"]["SessionReviewOut"][] | null;
       /**
@@ -4171,6 +4185,21 @@ export interface components {
       /** Recoverydeadline */
       recoveryDeadline?: string | null;
       /**
+       * Blockedyou
+       * @default false
+       */
+      blockedYou?: boolean;
+      /**
+       * Blockedbyyou
+       * @default false
+       */
+      blockedByYou?: boolean;
+      /**
+       * Reportedbyyou
+       * @default false
+       */
+      reportedByYou?: boolean;
+      /**
        * Username
        * @description Username input
        */
@@ -4378,6 +4407,21 @@ export interface components {
       disabled?: boolean;
       /** Recoverydeadline */
       recoveryDeadline?: string | null;
+      /**
+       * Blockedyou
+       * @default false
+       */
+      blockedYou?: boolean;
+      /**
+       * Blockedbyyou
+       * @default false
+       */
+      blockedByYou?: boolean;
+      /**
+       * Reportedbyyou
+       * @default false
+       */
+      reportedByYou?: boolean;
       /**
        * Username
        * @description Username input
@@ -5229,15 +5273,15 @@ export interface components {
     };
     /** ReportOut */
     ReportOut: {
+      /** Reason */
+      reason: string;
+      /** Description */
+      description?: string | null;
       /**
        * Id
        * Format: uuid
        */
       id: string;
-      /** Reason */
-      reason: string;
-      /** Description */
-      description?: string | null;
       /** Sessionid */
       sessionId?: string | null;
       /**
@@ -5269,7 +5313,7 @@ export interface components {
      * ReportType
      * @enum {string}
      */
-    ReportType: "session" | "refund" | "user_deleted" | "user_blocked" | "payment" | "verification" | "chain" | "private" | "business_claim" | "chat";
+    ReportType: "session" | "refund" | "user_deleted" | "user_blocked" | "payment" | "verification" | "chain" | "private" | "business_claim" | "chat" | "client_profile" | "coach_profile";
     /** RevenueChartDataOut */
     RevenueChartDataOut: {
       /** Revenue */
@@ -5797,6 +5841,16 @@ export interface components {
       /** Sessionname */
       sessionName?: string;
       /**
+       * Clientid
+       * Format: uuid
+       */
+      clientId?: string;
+      /**
+       * Coachid
+       * Format: uuid
+       */
+      coachId?: string;
+      /**
        * Threads
        * @default []
        */
@@ -5880,6 +5934,20 @@ export interface components {
       balancePercentage?: number | null;
       /** @default AED */
       currency?: components["schemas"]["CurrencyCode"] | null;
+    };
+    /** UpdateResponse */
+    UpdateResponse: {
+      /**
+       * Status
+       * @description Stretch status response
+       * @default success
+       */
+      status?: string;
+      /**
+       * Updated
+       * @default 0
+       */
+      updated?: number;
     };
     /**
      * UserAllergy
@@ -6064,6 +6132,21 @@ export interface components {
       disabled?: boolean;
       /** Recoverydeadline */
       recoveryDeadline?: string | null;
+      /**
+       * Blockedyou
+       * @default false
+       */
+      blockedYou?: boolean;
+      /**
+       * Blockedbyyou
+       * @default false
+       */
+      blockedByYou?: boolean;
+      /**
+       * Reportedbyyou
+       * @default false
+       */
+      reportedByYou?: boolean;
       /**
        * Username
        * @description Username input
@@ -8735,6 +8818,17 @@ export interface operations {
       200: {
         content: {
           "application/json": components["schemas"]["StretchResponse"];
+        };
+      };
+    };
+  };
+  /** Cache Addresses */
+  cache_addresses_api_v1_admin_cache_addresses_post: {
+    responses: {
+      /** @description Successful Response */
+      200: {
+        content: {
+          "application/json": components["schemas"]["UpdateResponse"];
         };
       };
     };
