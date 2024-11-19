@@ -262,6 +262,7 @@ export class StretchBase {
       localStorage.removeItem("access_expire_date");
       localStorage.removeItem("refresh_token");
       localStorage.removeItem("refresh_expire_date");
+      localStorage.removeItem("token_type");
     } catch (e) {
       console.error(`LocalStorage in current context not exists ${e}`);
     }
