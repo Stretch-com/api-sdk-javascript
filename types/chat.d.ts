@@ -53,6 +53,272 @@ export type webhooks = Record<string, never>;
 
 export interface components {
   schemas: {
+    /**
+     * Accommodations
+     * @enum {string}
+     */
+    Accommodations: "apartment" | "hotel" | "flat" | "house" | "any" | "office" | "other" | "undefined";
+    /** AddressBaseOut */
+    AddressBaseOut: {
+      /**
+       * Lng
+       * @example 55.296249
+       */
+      lng: number;
+      /**
+       * Lat
+       * @example 25.276
+       */
+      lat: number;
+      /**
+       * Zoom
+       * @default 17
+       * @example 14
+       */
+      zoom?: number | null;
+      /** @description accommodation */
+      accommodation?: components["schemas"]["Accommodations"] | null;
+      /** @description User allergy */
+      allergy?: components["schemas"]["UserAllergy"] | null;
+      /**
+       * Address
+       * @description Address
+       * @example 548, floor 5, Cluster G, Tower Al mas, JLT, Dubai, UAE
+       */
+      address?: string | null;
+      /**
+       * Country
+       * @description Country
+       * @example United Arab Emirates
+       */
+      country?: string | null;
+      /**
+       * State
+       * @description state
+       * @example Dubai
+       */
+      state?: string | null;
+      /**
+       * City
+       * @description city
+       * @example Dubai
+       */
+      city?: string | null;
+      /**
+       * Line1
+       * @description line1
+       * @example Jumeirah Lake Towers
+       */
+      line1?: string | null;
+      /**
+       * Line2
+       * @description line2
+       * @example 1068, Tower Meadows 2
+       */
+      line2?: string | null;
+      /**
+       * Zip
+       * @description zip (po box)
+       */
+      zip?: string | null;
+      /**
+       * Building
+       * @description building
+       * @example Tower Meadows 2
+       */
+      building?: string | null;
+      /**
+       * Entrance
+       * @description entrance
+       * @example main
+       */
+      entrance?: string | null;
+      /**
+       * Floor
+       * @description floor
+       * @example 12
+       */
+      floor?: string | null;
+      /**
+       * Apartment
+       * @description apartment
+       * @example 1245
+       */
+      apartment?: string | null;
+      /**
+       * Neighborhood
+       * @description neighborhood
+       */
+      neighborhood?: string | null;
+      /**
+       * Radius
+       * @description Radius in meters
+       * @example 10000
+       */
+      radius?: number | null;
+      /**
+       * @description Location label
+       * @default home
+       * @example home
+       */
+      label?: components["schemas"]["LocationLabel"];
+      /**
+       * Labelother
+       * @description Location label
+       */
+      labelOther?: string | null;
+      /**
+       * Details
+       * @description notes for address
+       */
+      details?: string | null;
+      parking?: components["schemas"]["ParkingType"] | null;
+      /** Parkingdescription */
+      parkingDescription?: string | null;
+      /** Instructions */
+      instructions?: string | null;
+      /** Isdefault */
+      isDefault?: boolean | null;
+      /**
+       * Name
+       * @description name
+       * @example Name of address
+       */
+      name?: string | null;
+      /** Id */
+      id?: string | null;
+    };
+    /** AddressIn */
+    AddressIn: {
+      /**
+       * Lng
+       * @example 55.296249
+       */
+      lng: number;
+      /**
+       * Lat
+       * @example 25.276
+       */
+      lat: number;
+      /**
+       * Zoom
+       * @default 17
+       * @example 14
+       */
+      zoom?: number | null;
+      /** @description accommodation */
+      accommodation?: components["schemas"]["Accommodations"] | null;
+      /** @description User allergy */
+      allergy?: components["schemas"]["UserAllergy"] | null;
+      /**
+       * Address
+       * @description Address
+       * @example 548, floor 5, Cluster G, Tower Al mas, JLT, Dubai, UAE
+       */
+      address?: string | null;
+      /**
+       * Country
+       * @description Country
+       * @example United Arab Emirates
+       */
+      country?: string | null;
+      /**
+       * State
+       * @description state
+       * @example Dubai
+       */
+      state?: string | null;
+      /**
+       * City
+       * @description city
+       * @example Dubai
+       */
+      city?: string | null;
+      /**
+       * Line1
+       * @description line1
+       * @example Jumeirah Lake Towers
+       */
+      line1?: string | null;
+      /**
+       * Line2
+       * @description line2
+       * @example 1068, Tower Meadows 2
+       */
+      line2?: string | null;
+      /**
+       * Zip
+       * @description zip (po box)
+       */
+      zip?: string | null;
+      /**
+       * Building
+       * @description building
+       * @example Tower Meadows 2
+       */
+      building?: string | null;
+      /**
+       * Entrance
+       * @description entrance
+       * @example main
+       */
+      entrance?: string | null;
+      /**
+       * Floor
+       * @description floor
+       * @example 12
+       */
+      floor?: string | null;
+      /**
+       * Apartment
+       * @description apartment
+       * @example 1245
+       */
+      apartment?: string | null;
+      /**
+       * Neighborhood
+       * @description neighborhood
+       */
+      neighborhood?: string | null;
+      /**
+       * Radius
+       * @description Radius in meters
+       * @example 10000
+       */
+      radius?: number | null;
+      /**
+       * @description Location label
+       * @default home
+       * @example home
+       */
+      label?: components["schemas"]["LocationLabel"];
+      /**
+       * Labelother
+       * @description Location label
+       */
+      labelOther?: string | null;
+      /**
+       * Details
+       * @description notes for address
+       */
+      details?: string | null;
+      parking?: components["schemas"]["ParkingType"] | null;
+      /** Parkingdescription */
+      parkingDescription?: string | null;
+      /** Instructions */
+      instructions?: string | null;
+      /**
+       * Isdefault
+       * @default false
+       */
+      isDefault?: boolean | null;
+      /**
+       * Name
+       * @description name
+       * @example Name of address
+       */
+      name?: string | null;
+    };
     /** FileBase */
     AttachmentFileOut: {
       /**
@@ -173,6 +439,16 @@ export interface components {
       /** Detail */
       detail?: components["schemas"]["ValidationError"][];
     };
+    /**
+     * LocationLabel
+     * @enum {string}
+     */
+    LocationLabel: "home" | "work" | "other";
+    /**
+     * ParkingType
+     * @enum {string}
+     */
+    ParkingType: "free" | "paid" | "other";
     /** SBDirectChannelOut */
     SBDirectChannelOut: {
       /** Chaturl */
@@ -202,7 +478,13 @@ export interface components {
       /** Message */
       message: string;
       /** @default message */
-      messageType?: components["schemas"]["SBMessageType"] | null;
+      messageType?: components["schemas"]["SBMessageType"];
+      location?: components["schemas"]["AddressIn"] | null;
+      /**
+       * Attachmentids
+       * @default []
+       */
+      attachmentIds?: string[];
     };
     /** SBMessageOut */
     SBMessageOut: {
@@ -221,15 +503,21 @@ export interface components {
        * @default []
        */
       attachments?: components["schemas"]["AttachmentFileOut"][];
+      location?: components["schemas"]["AddressBaseOut"] | null;
       /** Poll */
       poll?: Record<string, never> | null;
       user?: components["schemas"]["SBMessageUserOut"] | null;
+      /**
+       * Isreported
+       * @default false
+       */
+      isReported?: boolean;
     };
     /**
      * SBMessageType
      * @enum {string}
      */
-    SBMessageType: "admin" | "message" | "file";
+    SBMessageType: "admin" | "message" | "file" | "location";
     /** SBMessageUserOut */
     SBMessageUserOut: {
       /** Id */
@@ -264,6 +552,11 @@ export interface components {
        */
       status?: string;
     };
+    /**
+     * UserAllergy
+     * @enum {string}
+     */
+    UserAllergy: "none" | "cat" | "dog" | "unknown" | "all";
     /** ValidationError */
     ValidationError: {
       /** Location */

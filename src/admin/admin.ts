@@ -457,6 +457,56 @@ class Admin {
       return await this.auth.post(`/admin/user/${userId}/recover`);
   }
 
+  async getRoles(
+    query: paths["/api/v1/admin/user/roles"]["get"]["parameters"]["query"]
+  ): Promise<
+    | paths["/api/v1/admin/user/roles"]["get"]["responses"]["200"]["content"]["application/json"]
+    | undefined
+  > {
+    if (await this.auth.checkAuth())
+      return await this.auth.get(`/admin/user/roles`, query);
+  }
+
+  async getRolesCount(
+    query: paths["/api/v1/admin/user/roles/count"]["get"]["parameters"]["query"]
+  ): Promise<
+    | paths["/api/v1/admin/user/roles/count"]["get"]["responses"]["200"]["content"]["application/json"]
+    | undefined
+  > {
+    if (await this.auth.checkAuth())
+      return await this.auth.get(`/admin/user/roles/count`, query);
+  }
+
+  async postRole(
+    payload: paths["/api/v1/admin/user/role"]["post"]["requestBody"]["content"]["application/json"]
+  ): Promise<
+    | paths["/api/v1/admin/user/role"]["post"]["responses"]["201"]["content"]["application/json"]
+    | undefined
+  > {
+    if (await this.auth.checkAuth())
+      return await this.auth.post(`/admin/user/role`, payload);
+  }
+
+  async postRoleById(
+    userId: string
+  ): Promise<
+    | paths["/api/v1/admin/user/role/{user_id}"]["post"]["responses"]["200"]["content"]["application/json"]
+    | undefined
+  > {
+    if (await this.auth.checkAuth())
+      return await this.auth.post(`/admin/user/role/${userId}`);
+  }
+
+  async deleteRole(
+    userId: string
+  ): Promise<
+    | paths["/api/v1/admin/user/role/{user_id}"]["delete"]["responses"]["200"]["content"]["application/json"]
+    | undefined
+  > {
+    if (await this.auth.checkAuth())
+      return await this.auth.delete(`/admin/user/role/${userId}`);
+  }
+
   // Sessions endpoints
   async getSessions(
     query: paths["/api/v1/admin/sessions"]["get"]["parameters"]["query"]

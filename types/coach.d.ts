@@ -161,10 +161,10 @@ export interface paths {
   };
   "/api/v1/session/{session_id}/reviews": {
     /**
-     * Session Reviews
+     * Get Session Reviews
      * @description Displays all the reviews given for the current session along with the message, created at and rating value.
      */
-    get: operations["session_reviews_api_v1_session__session_id__reviews_get"];
+    get: operations["get_session_reviews_api_v1_session__session_id__reviews_get"];
   };
   "/api/v1/session/{session_id}/review": {
     /**
@@ -564,8 +564,8 @@ export interface paths {
     get: operations["coach_dashboard_api_v1_coach_analytics_dashboard_get"];
   };
   "/api/v1/coach/boost-profile": {
-    /** Boost Profile */
-    post: operations["boost_profile_api_v1_coach_boost_profile_post"];
+    /** Create Boost Profile Payment */
+    post: operations["create_boost_profile_payment_api_v1_coach_boost_profile_post"];
   };
 }
 
@@ -1315,14 +1315,14 @@ export interface components {
       /**
        * Fromdate
        * @description Get the available time starting from this value
-       * @default 2024-11-15T14:31:43.174036Z
-       * @example 2024-11-16T14:31:43.174057Z
+       * @default 2024-11-27T12:01:36.221012Z
+       * @example 2024-11-28T12:01:36.221076Z
        */
       fromDate?: string;
       /**
        * Todate
-       * @default 2024-12-16T14:31:43.174663Z
-       * @example 2024-12-16T14:31:43.174681Z
+       * @default 2024-12-28T12:01:36.221809Z
+       * @example 2024-12-28T12:01:36.221829Z
        */
       toDate?: string;
     };
@@ -1357,7 +1357,7 @@ export interface components {
       /**
        * Start
        * @description Start date when slot is working
-       * @example 2024-11-15
+       * @example 2024-11-27
        */
       start?: string | null;
       /**
@@ -1440,7 +1440,7 @@ export interface components {
       /**
        * Start
        * @description Start date when slot is working
-       * @example 2024-11-15
+       * @example 2024-11-27
        */
       start?: string | null;
       /**
@@ -1494,7 +1494,7 @@ export interface components {
       title?: string | null;
       /**
        * Start
-       * @example 2024-11-15
+       * @example 2024-11-27
        */
       start?: string | null;
       /**
@@ -1649,7 +1649,6 @@ export interface components {
        * Type
        * @default client
        * @constant
-       * @enum {string}
        */
       type?: "client";
       /**
@@ -1705,7 +1704,6 @@ export interface components {
        * Type
        * @default coach
        * @constant
-       * @enum {string}
        */
       type?: "coach";
       /** Price */
@@ -1835,7 +1833,7 @@ export interface components {
      * BookingReasonType
      * @enum {string}
      */
-    BookingReasonType: "client_unverified" | "client_too_far" | "client_blocked" | "coach_unavailable" | "coach_allergic" | "coach_blocked";
+    BookingReasonType: "client_unverified" | "client_too_far" | "client_blocked" | "coach_blocked" | "coach_unavailable" | "coach_allergic" | "coach_banned";
     /** BoostedProfileIn */
     BoostedProfileIn: {
       /**
@@ -2411,7 +2409,6 @@ export interface components {
        * Provider
        * @default heropay
        * @constant
-       * @enum {string}
        */
       provider?: "heropay";
       /** Order Id */
@@ -2431,7 +2428,6 @@ export interface components {
        * Provider
        * @default paypal
        * @constant
-       * @enum {string}
        */
       provider?: "paypal";
       /** Intent */
@@ -2451,7 +2447,6 @@ export interface components {
        * Provider
        * @default stripe
        * @constant
-       * @enum {string}
        */
       provider?: "stripe";
       /** Currency */
@@ -2470,8 +2465,6 @@ export interface components {
     };
     /** ClientDetails */
     ClientDetails: {
-      /** @description User allergy */
-      allergy?: components["schemas"]["UserAllergy"] | null;
       /**
        * Id
        * Format: uuid
@@ -2495,6 +2488,8 @@ export interface components {
        * @default false
        */
       isDeleted?: boolean;
+      /** @description User allergy */
+      allergy?: components["schemas"]["UserAllergy"] | null;
       /** Rating */
       rating?: number | null;
       /**
@@ -2762,8 +2757,6 @@ export interface components {
     };
     /** CoachDetails */
     CoachDetails: {
-      /** @description User allergy */
-      allergy?: components["schemas"]["UserAllergy"] | null;
       /**
        * Id
        * Format: uuid
@@ -2787,6 +2780,8 @@ export interface components {
        * @default false
        */
       isDeleted?: boolean;
+      /** @description User allergy */
+      allergy?: components["schemas"]["UserAllergy"] | null;
       /** Rating */
       rating?: number | null;
       /**
@@ -3802,8 +3797,6 @@ export interface components {
     };
     /** PublicClientBaseInfo */
     PublicClientBaseInfo: {
-      /** @description User allergy */
-      allergy?: components["schemas"]["UserAllergy"] | null;
       /**
        * Id
        * Format: uuid
@@ -3827,6 +3820,8 @@ export interface components {
        * @default false
        */
       isDeleted?: boolean;
+      /** @description User allergy */
+      allergy?: components["schemas"]["UserAllergy"] | null;
       /** Rating */
       rating?: number | null;
       /**
@@ -3957,8 +3952,6 @@ export interface components {
     };
     /** PublicCoachProfileOut */
     PublicCoachProfileOut: {
-      /** @description User allergy */
-      allergy?: components["schemas"]["UserAllergy"] | null;
       /**
        * Id
        * Format: uuid
@@ -3982,6 +3975,8 @@ export interface components {
        * @default false
        */
       isDeleted?: boolean;
+      /** @description User allergy */
+      allergy?: components["schemas"]["UserAllergy"] | null;
       /** Rating */
       rating?: number | null;
       /**
@@ -4162,28 +4157,23 @@ export interface components {
     };
     /** FileBase */
     PublicFileOut: {
-      /** Id */
-      id?: string | null;
       /** Title */
       title?: string | null;
       /** Description */
       description?: string | null;
-      /**
-       * Source
-       * @default local
-       */
-      source?: string;
-      /** Originfilename */
-      originFilename?: string | null;
-      /** Filesize */
-      filesize?: number | null;
       /** Contenttype */
       contentType?: string | null;
+      /** Id */
+      id?: string | null;
       /** Url */
       url?: string | null;
       /** Thumb */
       thumb?: string | null;
       status?: components["schemas"]["FileStatus"] | null;
+      /** Originfilename */
+      originFilename?: string | null;
+      /** Filesize */
+      filesize?: number | null;
       /** Duration */
       duration?: number | null;
     };
@@ -4865,15 +4855,18 @@ export interface components {
     ServiceAccommodation: "indoor" | "outdoor" | "any";
     /** Service */
     ServiceDetailOut: {
-      /** Id */
-      id: string | null;
+      /**
+       * Id
+       * Format: uuid
+       */
+      id: string;
       /**
        * Name
        * @description This is a name of service
        */
       name: string;
       /** Description */
-      description: (string | null) | null;
+      description?: (string | null) | null;
       /**
        * Promo
        * @default false
@@ -4885,7 +4878,7 @@ export interface components {
        */
       price?: number | null;
       /** Service Other Type */
-      serviceOtherType: (string | null) | null;
+      serviceOtherType?: (string | null) | null;
       /**
        * Session Minutes Duration
        * @description Duration session in minutes
@@ -5056,15 +5049,18 @@ export interface components {
     };
     /** Service */
     ServiceOut: {
-      /** Id */
-      id: string | null;
+      /**
+       * Id
+       * Format: uuid
+       */
+      id: string;
       /**
        * Name
        * @description This is a name of service
        */
       name: string;
       /** Description */
-      description: (string | null) | null;
+      description?: (string | null) | null;
       /**
        * Promo
        * @default false
@@ -5076,7 +5072,7 @@ export interface components {
        */
       price?: number | null;
       /** Service Other Type */
-      serviceOtherType: (string | null) | null;
+      serviceOtherType?: (string | null) | null;
       /**
        * Session Minutes Duration
        * @description Duration session in minutes
@@ -5151,7 +5147,7 @@ export interface components {
        */
       name: string;
       /** Description */
-      description: (string | null) | null;
+      description?: (string | null) | null;
     };
     /** ServiceUpdateIn */
     ServiceUpdateIn: {
@@ -5284,7 +5280,7 @@ export interface components {
        * @description Availability date for create
        * @example [
        *   {
-       *     "date": "2024-11-15T14:31:15.448888",
+       *     "date": "2024-11-27T12:01:15.680515",
        *     "orderDescription": "Order description"
        *   }
        * ]
@@ -5409,17 +5405,6 @@ export interface components {
        * @example c546cd53-1516-4290-8a1b-780a1e9816c9
        */
       addressId?: string | null;
-      /**
-       * Clientaddress
-       * @deprecated
-       * @example Digital Asset Business Center, Retail N 5-A - Cluster N
-       */
-      clientAddress?: string | null;
-      /**
-       * @deprecated
-       * @example Jumeirah Lake Towers - Dubai
-       */
-      clientLocation?: components["schemas"]["PointBase"] | null;
       location: components["schemas"]["AddressSessionOut"];
       /**
        * Groupid
@@ -5502,11 +5487,8 @@ export interface components {
       prohibitRecording?: boolean;
       /** @default any */
       accommodation?: components["schemas"]["ServiceAccommodation"];
-      /**
-       * Servicetypes
-       * @default []
-       */
-      serviceTypes?: string[];
+      /** Servicetypes */
+      serviceTypes: string[];
     };
     /** SessionDropIn */
     SessionDropIn: {
@@ -5712,17 +5694,6 @@ export interface components {
        * @example c546cd53-1516-4290-8a1b-780a1e9816c9
        */
       addressId?: string | null;
-      /**
-       * Clientaddress
-       * @deprecated
-       * @example Digital Asset Business Center, Retail N 5-A - Cluster N
-       */
-      clientAddress?: string | null;
-      /**
-       * @deprecated
-       * @example Jumeirah Lake Towers - Dubai
-       */
-      clientLocation?: components["schemas"]["PointBase"] | null;
       location?: components["schemas"]["AddressOut"] | null;
       /**
        * Groupid
@@ -5899,17 +5870,6 @@ export interface components {
        * @example c546cd53-1516-4290-8a1b-780a1e9816c9
        */
       addressId?: string | null;
-      /**
-       * Clientaddress
-       * @deprecated
-       * @example Digital Asset Business Center, Retail N 5-A - Cluster N
-       */
-      clientAddress?: string | null;
-      /**
-       * @deprecated
-       * @example Jumeirah Lake Towers - Dubai
-       */
-      clientLocation?: components["schemas"]["PointBase"] | null;
       location?: components["schemas"]["AddressOut"] | null;
       /**
        * Groupid
@@ -6107,6 +6067,16 @@ export interface components {
        * @default []
        */
       threads?: components["schemas"]["SessionReviewBaseOut"][];
+      /**
+       * Blockedyou
+       * @default false
+       */
+      blockedYou?: boolean;
+      /**
+       * Blockedbyyou
+       * @default false
+       */
+      blockedByYou?: boolean;
     };
     /**
      * SessionReviewState
@@ -6155,7 +6125,7 @@ export interface components {
       /**
        * Slots
        * @description Availability date for create
-       * @example 2024-11-15T14:31:16.330858
+       * @example 2024-11-27T12:01:15.803398
        */
       slots: string | components["schemas"]["SessionBookingIn"][];
       location?: components["schemas"]["AddressSessionOut"] | null;
@@ -6314,8 +6284,6 @@ export interface components {
     };
     /** UserProfileOut */
     UserProfileOut: {
-      /** @description User allergy */
-      allergy?: components["schemas"]["UserAllergy"] | null;
       /**
        * Id
        * Format: uuid
@@ -6339,6 +6307,8 @@ export interface components {
        * @default false
        */
       isDeleted?: boolean;
+      /** @description User allergy */
+      allergy?: components["schemas"]["UserAllergy"] | null;
       /** Rating */
       rating?: number | null;
       /**
@@ -6527,7 +6497,6 @@ export interface components {
     };
     /**
      * UserPromoType
-     * @constant
      * @enum {string}
      */
     UserPromoType: "boosted";
@@ -7249,10 +7218,10 @@ export interface operations {
     };
   };
   /**
-   * Session Reviews
+   * Get Session Reviews
    * @description Displays all the reviews given for the current session along with the message, created at and rating value.
    */
-  session_reviews_api_v1_session__session_id__reviews_get: {
+  get_session_reviews_api_v1_session__session_id__reviews_get: {
     parameters: {
       query?: {
         page?: number | null;
@@ -9260,8 +9229,8 @@ export interface operations {
       };
     };
   };
-  /** Boost Profile */
-  boost_profile_api_v1_coach_boost_profile_post: {
+  /** Create Boost Profile Payment */
+  create_boost_profile_payment_api_v1_coach_boost_profile_post: {
     requestBody: {
       content: {
         "application/json": components["schemas"]["BoostedProfileIn"];
