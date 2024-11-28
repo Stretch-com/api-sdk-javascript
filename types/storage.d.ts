@@ -19,6 +19,12 @@ export interface paths {
   };
   "/api/v1/storage/profile/avatar": {
     /**
+     * Save User Avatar
+     * @deprecated
+     * @description Retrieves original avatar file and stores the original avatar url in user properties
+     */
+    get: operations["save_user_avatar_api_v1_storage_profile_avatar_get"];
+    /**
      * Upload User Avatar
      * @description Upload the image file matching the user's avatar that will display upon reaching their profile page.
      */
@@ -791,8 +797,11 @@ export interface components {
     };
     /** ReportAttachment */
     ReportAttachmentOut: {
-      /** Id */
-      id: string | null;
+      /**
+       * Id
+       * Format: uuid
+       */
+      id: string;
       /** Title */
       title?: string | null;
       /** Description */
@@ -844,8 +853,6 @@ export interface components {
     UserGender: "male" | "female" | "other";
     /** UserProfileOut */
     UserProfileOut: {
-      /** @description User allergy */
-      allergy?: components["schemas"]["UserAllergy"] | null;
       /**
        * Id
        * Format: uuid
@@ -869,6 +876,8 @@ export interface components {
        * @default false
        */
       isDeleted?: boolean;
+      /** @description User allergy */
+      allergy?: components["schemas"]["UserAllergy"] | null;
       /** Rating */
       rating?: number | null;
       /**
@@ -1179,6 +1188,33 @@ export interface operations {
       200: {
         content: {
           "application/json": components["schemas"]["DeleteResponse"];
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        content: {
+          "application/json": components["schemas"]["HTTPValidationError"];
+        };
+      };
+    };
+  };
+  /**
+   * Save User Avatar
+   * @deprecated
+   * @description Retrieves original avatar file and stores the original avatar url in user properties
+   */
+  save_user_avatar_api_v1_storage_profile_avatar_get: {
+    parameters: {
+      query: {
+        userId: string;
+        baseConsumerId: string;
+      };
+    };
+    responses: {
+      /** @description Successful Response */
+      200: {
+        content: {
+          "application/json": components["schemas"]["UserProfileOut"];
         };
       };
       /** @description Validation Error */
