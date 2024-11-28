@@ -2388,6 +2388,11 @@ export interface components {
     /** AdminRolesOut */
     AdminRolesOut: {
       /**
+       * Id
+       * Format: uuid
+       */
+      id: string;
+      /**
        * Firstname
        * @default Anonymous
        */
