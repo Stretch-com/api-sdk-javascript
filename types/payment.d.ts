@@ -159,7 +159,7 @@ export interface components {
      * BookingReasonType
      * @enum {string}
      */
-    BookingReasonType: "client_unverified" | "client_too_far" | "client_blocked" | "coach_unavailable" | "coach_allergic" | "coach_blocked";
+    BookingReasonType: "client_unverified" | "client_too_far" | "client_blocked" | "coach_blocked" | "coach_unavailable" | "coach_allergic" | "coach_banned";
     /**
      * CardPaymentBrandType
      * @enum {string}
@@ -182,7 +182,6 @@ export interface components {
        * Provider
        * @default heropay
        * @constant
-       * @enum {string}
        */
       provider?: "heropay";
       /** Order Id */
@@ -202,7 +201,6 @@ export interface components {
        * Provider
        * @default paypal
        * @constant
-       * @enum {string}
        */
       provider?: "paypal";
       /** Intent */
@@ -222,7 +220,6 @@ export interface components {
        * Provider
        * @default stripe
        * @constant
-       * @enum {string}
        */
       provider?: "stripe";
       /** Currency */
@@ -241,8 +238,6 @@ export interface components {
     };
     /** ClientDetails */
     ClientDetails: {
-      /** @description User allergy */
-      allergy?: components["schemas"]["UserAllergy"] | null;
       /**
        * Id
        * Format: uuid
@@ -266,6 +261,8 @@ export interface components {
        * @default false
        */
       isDeleted?: boolean;
+      /** @description User allergy */
+      allergy?: components["schemas"]["UserAllergy"] | null;
       /** Rating */
       rating?: number | null;
       /**
@@ -602,15 +599,18 @@ export interface components {
     ServiceAccommodation: "indoor" | "outdoor" | "any";
     /** Service */
     ServiceOut: {
-      /** Id */
-      id: string | null;
+      /**
+       * Id
+       * Format: uuid
+       */
+      id: string;
       /**
        * Name
        * @description This is a name of service
        */
       name: string;
       /** Description */
-      description: (string | null) | null;
+      description?: (string | null) | null;
       /**
        * Promo
        * @default false
@@ -622,7 +622,7 @@ export interface components {
        */
       price?: number | null;
       /** Service Other Type */
-      serviceOtherType: (string | null) | null;
+      serviceOtherType?: (string | null) | null;
       /**
        * Session Minutes Duration
        * @description Duration session in minutes
@@ -982,8 +982,11 @@ export interface components {
     };
     /** Wallet */
     WalletInfoOut: {
-      /** Id */
-      id: string | null;
+      /**
+       * Id
+       * Format: uuid
+       */
+      id: string;
       /** Name */
       name?: string;
       type?: components["schemas"]["WalletType"];
@@ -1076,8 +1079,11 @@ export interface components {
     WalletType: "card" | "bank_account" | "paypal" | "crypto";
     /** Withdrawal */
     WithdrawalOut: {
-      /** Id */
-      id: string | null;
+      /**
+       * Id
+       * Format: uuid
+       */
+      id: string;
       /** Amount */
       amount: number;
       /**

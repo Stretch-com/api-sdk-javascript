@@ -186,6 +186,24 @@ export interface paths {
     /** Get User Filters */
     post: operations["get_user_filters_api_v1_admin_user__user_id__recover_post"];
   };
+  "/api/v1/admin/user/roles": {
+    /** Get Support Roles */
+    get: operations["get_support_roles_api_v1_admin_user_roles_get"];
+  };
+  "/api/v1/admin/user/roles/count": {
+    /** Get Support Roles Count */
+    get: operations["get_support_roles_count_api_v1_admin_user_roles_count_get"];
+  };
+  "/api/v1/admin/user/role": {
+    /** Send User Invitation */
+    post: operations["send_user_invitation_api_v1_admin_user_role_post"];
+  };
+  "/api/v1/admin/user/role/{user_id}": {
+    /** Resend User Invitation */
+    post: operations["resend_user_invitation_api_v1_admin_user_role__user_id__post"];
+    /** Revoke User Access */
+    delete: operations["revoke_user_access_api_v1_admin_user_role__user_id__delete"];
+  };
   "/api/v1/admin/sessions": {
     /** Get Sessions */
     get: operations["get_sessions_api_v1_admin_sessions_get"];
@@ -451,6 +469,136 @@ export interface components {
      * @enum {string}
      */
     Accommodations: "apartment" | "hotel" | "flat" | "house" | "any" | "office" | "other" | "undefined";
+    /** AddressBaseOut */
+    AddressBaseOut: {
+      /**
+       * Lng
+       * @example 55.296249
+       */
+      lng: number;
+      /**
+       * Lat
+       * @example 25.276
+       */
+      lat: number;
+      /**
+       * Zoom
+       * @default 17
+       * @example 14
+       */
+      zoom?: number | null;
+      /** @description accommodation */
+      accommodation?: components["schemas"]["Accommodations"] | null;
+      /** @description User allergy */
+      allergy?: components["schemas"]["UserAllergy"] | null;
+      /**
+       * Address
+       * @description Address
+       * @example 548, floor 5, Cluster G, Tower Al mas, JLT, Dubai, UAE
+       */
+      address?: string | null;
+      /**
+       * Country
+       * @description Country
+       * @example United Arab Emirates
+       */
+      country?: string | null;
+      /**
+       * State
+       * @description state
+       * @example Dubai
+       */
+      state?: string | null;
+      /**
+       * City
+       * @description city
+       * @example Dubai
+       */
+      city?: string | null;
+      /**
+       * Line1
+       * @description line1
+       * @example Jumeirah Lake Towers
+       */
+      line1?: string | null;
+      /**
+       * Line2
+       * @description line2
+       * @example 1068, Tower Meadows 2
+       */
+      line2?: string | null;
+      /**
+       * Zip
+       * @description zip (po box)
+       */
+      zip?: string | null;
+      /**
+       * Building
+       * @description building
+       * @example Tower Meadows 2
+       */
+      building?: string | null;
+      /**
+       * Entrance
+       * @description entrance
+       * @example main
+       */
+      entrance?: string | null;
+      /**
+       * Floor
+       * @description floor
+       * @example 12
+       */
+      floor?: string | null;
+      /**
+       * Apartment
+       * @description apartment
+       * @example 1245
+       */
+      apartment?: string | null;
+      /**
+       * Neighborhood
+       * @description neighborhood
+       */
+      neighborhood?: string | null;
+      /**
+       * Radius
+       * @description Radius in meters
+       * @example 10000
+       */
+      radius?: number | null;
+      /**
+       * @description Location label
+       * @default home
+       * @example home
+       */
+      label?: components["schemas"]["LocationLabel"];
+      /**
+       * Labelother
+       * @description Location label
+       */
+      labelOther?: string | null;
+      /**
+       * Details
+       * @description notes for address
+       */
+      details?: string | null;
+      parking?: components["schemas"]["ParkingType"] | null;
+      /** Parkingdescription */
+      parkingDescription?: string | null;
+      /** Instructions */
+      instructions?: string | null;
+      /** Isdefault */
+      isDefault?: boolean | null;
+      /**
+       * Name
+       * @description name
+       * @example Name of address
+       */
+      name?: string | null;
+      /** Id */
+      id?: string | null;
+    };
     /** AddressOut */
     AddressOut: {
       /**
@@ -1609,7 +1757,7 @@ export interface components {
       /**
        * Start
        * @description Start date when slot is working
-       * @example 2024-11-15
+       * @example 2024-11-27
        */
       start?: string | null;
       /**
@@ -1917,13 +2065,37 @@ export interface components {
      * @enum {string}
      */
     AdminEquipmentUserStatus: "all" | "created_by_admin" | "created_by_coach";
+    /** AdminInviteIn */
+    AdminInviteIn: {
+      /** Firstname */
+      firstName: string;
+      /** Lastname */
+      lastName: string;
+      type: components["schemas"]["UserType"];
+      /**
+       * Email
+       * Format: email
+       * @description Email format
+       */
+      email: string;
+      /**
+       * Phone
+       * @description Phone number in international format
+       */
+      phone: string;
+      /**
+       * Consumerid
+       * @description Consumer of web admin app
+       */
+      consumerId?: string | null;
+    };
     /** AdminMarketingGroupOut */
     AdminMarketingGroupOut: {
       /** Title */
       title: string;
       /** Description */
       description?: string | null;
-      coachRules?: components["schemas"]["SearchFilterIn"] | null;
+      coachRules?: components["schemas"]["SearchFilterIn-Output"] | null;
       businessRules?: components["schemas"]["BusinessSearchFilterIn"] | null;
       /**
        * Id
@@ -2213,6 +2385,38 @@ export interface components {
       /** Data */
       data: components["schemas"]["RevenueChartDataOut"][];
     };
+    /** AdminRolesOut */
+    AdminRolesOut: {
+      /**
+       * Id
+       * Format: uuid
+       */
+      id: string;
+      /**
+       * Firstname
+       * @default Anonymous
+       */
+      firstName?: string;
+      /**
+       * Lastname
+       * @default User
+       */
+      lastName?: string;
+      type: components["schemas"]["UserType"];
+      /**
+       * Createdat
+       * Format: date-time
+       */
+      createdAt: string;
+      /** Isregistered */
+      isRegistered: boolean;
+      /** Email */
+      email?: string | null;
+      /** Phone */
+      phone?: string | null;
+      /** Avatarurl */
+      avatarUrl?: string | null;
+    };
     /** AdminSessionOut */
     AdminSessionOut: {
       /**
@@ -2490,17 +2694,6 @@ export interface components {
        * @example c546cd53-1516-4290-8a1b-780a1e9816c9
        */
       addressId?: string | null;
-      /**
-       * Clientaddress
-       * @deprecated
-       * @example Digital Asset Business Center, Retail N 5-A - Cluster N
-       */
-      clientAddress?: string | null;
-      /**
-       * @deprecated
-       * @example Jumeirah Lake Towers - Dubai
-       */
-      clientLocation?: components["schemas"]["PointBase"] | null;
       location: components["schemas"]["AddressSessionOut"];
       /**
        * Groupid
@@ -2582,11 +2775,8 @@ export interface components {
       prohibitRecording?: boolean;
       /** @default any */
       accommodation?: components["schemas"]["ServiceAccommodation"];
-      /**
-       * Servicetypes
-       * @default []
-       */
-      serviceTypes?: string[];
+      /** Servicetypes */
+      serviceTypes: string[];
       /**
        * Reports
        * @default []
@@ -3161,7 +3351,7 @@ export interface components {
     AppConfigIn: {
       app?: components["schemas"]["ApplicationInfo"] | null;
       authentication?: components["schemas"]["AppAuthentication"] | null;
-      settings?: components["schemas"]["AppSettingsOut"] | null;
+      settings?: components["schemas"]["AppSettingsOut-Input"] | null;
       links?: components["schemas"]["AppLinks"] | null;
       contacts?: components["schemas"]["AppContacts"] | null;
       dictionaries?: components["schemas"]["AppDictionaries-Input"] | null;
@@ -3186,7 +3376,7 @@ export interface components {
        *   "recoveryReminder": true
        * }
        */
-      settings?: components["schemas"]["AppSettingsOut"];
+      settings?: components["schemas"]["AppSettingsOut-Output"];
       /**
        * @default {
        *   "privacyPolicy": "https://stretch.com/privacy-policy/"
@@ -3280,7 +3470,7 @@ export interface components {
        * Languages
        * @default []
        */
-      languages?: components["schemas"]["UserLanguages"][] | null;
+      languages?: components["schemas"]["UserLanguages-Input"][] | null;
       /**
        * Currencies
        * @default []
@@ -3336,7 +3526,7 @@ export interface components {
        * Languages
        * @default []
        */
-      languages?: components["schemas"]["UserLanguages"][] | null;
+      languages?: components["schemas"]["UserLanguages-Output"][] | null;
       /**
        * Currencies
        * @default []
@@ -3431,10 +3621,33 @@ export interface components {
       marketingPage?: string | null;
     };
     /** AppSettingsOut */
-    AppSettingsOut: {
+    "AppSettingsOut-Input": {
       /** Country */
       country?: string | null;
-      language?: components["schemas"]["UserLanguages"] | null;
+      language?: components["schemas"]["UserLanguages-Input"] | null;
+      /** Currency */
+      currency?: string | null;
+      /**
+       * Otpexpiryindays
+       * @default 30
+       */
+      otpExpiryInDays?: number;
+      /**
+       * Recoverexpiryindays
+       * @default 30
+       */
+      recoverExpiryInDays?: number;
+      /**
+       * Recoveryreminder
+       * @default true
+       */
+      recoveryReminder?: boolean;
+    };
+    /** AppSettingsOut */
+    "AppSettingsOut-Output": {
+      /** Country */
+      country?: string | null;
+      language?: components["schemas"]["UserLanguages-Output"] | null;
       /** Currency */
       currency?: string | null;
       /**
@@ -3727,7 +3940,7 @@ export interface components {
      * BookingReasonType
      * @enum {string}
      */
-    BookingReasonType: "client_unverified" | "client_too_far" | "client_blocked" | "coach_unavailable" | "coach_allergic" | "coach_blocked";
+    BookingReasonType: "client_unverified" | "client_too_far" | "client_blocked" | "coach_blocked" | "coach_unavailable" | "coach_allergic" | "coach_banned";
     /** BusinessAvailabilityOut */
     BusinessAvailabilityOut: {
       /** Title */
@@ -4077,8 +4290,6 @@ export interface components {
     };
     /** ClientDetails */
     ClientDetails: {
-      /** @description User allergy */
-      allergy?: components["schemas"]["UserAllergy"] | null;
       /**
        * Id
        * Format: uuid
@@ -4102,6 +4313,8 @@ export interface components {
        * @default false
        */
       isDeleted?: boolean;
+      /** @description User allergy */
+      allergy?: components["schemas"]["UserAllergy"] | null;
       /** Rating */
       rating?: number | null;
       /**
@@ -4300,8 +4513,6 @@ export interface components {
     };
     /** CoachDetails */
     CoachDetails: {
-      /** @description User allergy */
-      allergy?: components["schemas"]["UserAllergy"] | null;
       /**
        * Id
        * Format: uuid
@@ -4325,6 +4536,8 @@ export interface components {
        * @default false
        */
       isDeleted?: boolean;
+      /** @description User allergy */
+      allergy?: components["schemas"]["UserAllergy"] | null;
       /** Rating */
       rating?: number | null;
       /**
@@ -4553,10 +4766,7 @@ export interface components {
       /** Cities */
       cities: components["schemas"]["BusinessFilterValueOut"][];
     };
-    /**
-     * CurrencyCode
-     * @enum {string}
-     */
+    /** @enum {unknown} */
     CurrencyCode: "AED" | "AFN" | "ALL" | "AMD" | "ANG" | "AOA" | "ARS" | "AUD" | "AWG" | "AZN" | "BAM" | "BBD" | "BDT" | "BGN" | "BHD" | "BIF" | "BMD" | "BND" | "BOB" | "BRL" | "BSD" | "BTC" | "BTN" | "BTS" | "BWP" | "BYN" | "BZD" | "CAD" | "CDF" | "CHF" | "CLF" | "CLP" | "CNH" | "CNY" | "COP" | "CRC" | "CUC" | "CUP" | "CVE" | "CZK" | "DASH" | "DJF" | "DKK" | "DOGE" | "DOP" | "DZD" | "EGP" | "ERN" | "ETB" | "ETH" | "EUR" | "FJD" | "FKP" | "GBP" | "GEL" | "GGP" | "GHS" | "GIP" | "GMD" | "GNF" | "GTQ" | "GYD" | "HKD" | "HNL" | "HRK" | "HTG" | "HUF" | "IDR" | "ILS" | "IMP" | "INR" | "IQD" | "IRR" | "ISK" | "JEP" | "JMD" | "JOD" | "JPY" | "KES" | "KGS" | "KHR" | "KMF" | "KPW" | "KRW" | "KWD" | "KYD" | "KZT" | "LAK" | "LBP" | "LD" | "LKR" | "LRD" | "LSL" | "LTC" | "LYD" | "MAD" | "MDL" | "MGA" | "MKD" | "MMK" | "MNT" | "MOP" | "MRU" | "MUR" | "MVR" | "MWK" | "MXN" | "MYR" | "MZN" | "NAD" | "NGN" | "NIO" | "NOK" | "NPR" | "NXT" | "NZD" | "OMR" | "PAB" | "PEN" | "PGK" | "PHP" | "PKR" | "PLN" | "PYG" | "QAR" | "RON" | "RSD" | "RUB" | "RWF" | "SAR" | "SBD" | "SCR" | "SDG" | "SEK" | "SGD" | "SHP" | "SLL" | "SOS" | "SRD" | "SSP" | "STD" | "STN" | "STR" | "SVC" | "SYP" | "SZL" | "THB" | "TJS" | "TMT" | "TND" | "TOP" | "TRY" | "TTD" | "TWD" | "TZS" | "UAH" | "UGX" | "USD" | "UYU" | "UZS" | "VEF_BLKMKT" | "VEF_DICOM" | "VEF_DIPRO" | "VES" | "VND" | "VUV" | "WST" | "XAF" | "XAG" | "XAU" | "XCD" | "XDR" | "XMR" | "XOF" | "XPD" | "XPF" | "XPT" | "XRP" | "YER" | "ZAR" | "ZMW" | "ZWL";
     /**
      * DataFrameFileType
@@ -4756,7 +4966,7 @@ export interface components {
       title: string;
       /** Description */
       description?: string | null;
-      coachRules?: components["schemas"]["SearchFilterIn"] | null;
+      coachRules?: components["schemas"]["SearchFilterIn-Input"] | null;
       businessRules?: components["schemas"]["BusinessSearchFilterIn"] | null;
       /**
        * Categoryid
@@ -4775,7 +4985,7 @@ export interface components {
       title?: string | null;
       /** Description */
       description?: string | null;
-      coachRules?: components["schemas"]["SearchFilterIn"] | null;
+      coachRules?: components["schemas"]["SearchFilterIn-Input"] | null;
       businessRules?: components["schemas"]["BusinessSearchFilterIn"] | null;
       /** Categoryid */
       categoryId?: string | null;
@@ -4917,19 +5127,6 @@ export interface components {
      * @enum {string}
      */
     PaymentState: "awaiting" | "checkout" | "processing" | "received" | "canceled" | "failed" | "refund" | "deleted";
-    /** PointBase */
-    PointBase: {
-      /**
-       * Lng
-       * @example 55.296249
-       */
-      lng: number;
-      /**
-       * Lat
-       * @example 25.276
-       */
-      lat: number;
-    };
     /** PrivateBusinessProfileOut */
     PrivateBusinessProfileOut: {
       /**
@@ -5329,6 +5526,16 @@ export interface components {
       /** Year */
       year?: number | null;
     };
+    /**
+     * RolesOrderByFields
+     * @enum {string}
+     */
+    RolesOrderByFields: "name" | "-name" | "type" | "-type" | "created_at" | "-created_at" | "email" | "-email" | "is_registered" | "-is_registered";
+    /**
+     * RolesStatus
+     * @enum {string}
+     */
+    RolesStatus: "joined" | "pending";
     /** SBMessageOut */
     SBMessageOut: {
       /** Messageid */
@@ -5346,15 +5553,21 @@ export interface components {
        * @default []
        */
       attachments?: components["schemas"]["AttachmentFileOut"][];
+      location?: components["schemas"]["AddressBaseOut"] | null;
       /** Poll */
       poll?: Record<string, never> | null;
       user?: components["schemas"]["SBMessageUserOut"] | null;
+      /**
+       * Isreported
+       * @default false
+       */
+      isReported?: boolean;
     };
     /**
      * SBMessageType
      * @enum {string}
      */
-    SBMessageType: "admin" | "message" | "file";
+    SBMessageType: "admin" | "message" | "file" | "location";
     /** SBMessageUserOut */
     SBMessageUserOut: {
       /** Id */
@@ -5367,7 +5580,7 @@ export interface components {
       avatarUrl?: string | null;
     };
     /** SearchFilterIn */
-    SearchFilterIn: {
+    "SearchFilterIn-Input": {
       /**
        * Page
        * @example 0
@@ -5388,7 +5601,72 @@ export interface components {
        * Languages
        * @description List of all possible languages
        */
-      languages?: components["schemas"]["UserLanguages"][] | null;
+      languages?: components["schemas"]["UserLanguages-Input"][] | null;
+      price?: components["schemas"]["SearchFilterPriceIn"] | null;
+      session?: components["schemas"]["SearchFilterSessionIn"] | null;
+      /**
+       * Days
+       * @description List of all possible days in current location
+       */
+      days?: components["schemas"]["UserDays"][] | null;
+      /**
+       * Time
+       * @description List of all possible time in current location
+       */
+      time?: string[] | null;
+      /**
+       * Services
+       * @description List of all possible service types
+       */
+      services?: string[] | null;
+      /**
+       * Onlybookable
+       * @default true
+       */
+      onlyBookable?: boolean;
+      direction?: components["schemas"]["SearchOrderDirection"] | null;
+      order?: components["schemas"]["SearchOrder"] | null;
+      /** Marketingid */
+      marketingId?: string | null;
+      /** Addressid */
+      addressId?: string | null;
+      /** Categoryid */
+      categoryId?: string | null;
+      /** Lng */
+      lng?: number | null;
+      /** Lat */
+      lat?: number | null;
+      /** Radius */
+      radius?: number | null;
+      /**
+       * Text
+       * @description open text entry, currently used for name searching
+       */
+      text?: string | null;
+    };
+    /** SearchFilterIn */
+    "SearchFilterIn-Output": {
+      /**
+       * Page
+       * @example 0
+       */
+      page?: number | null;
+      /**
+       * Limit
+       * @example 20
+       */
+      limit?: number | null;
+      type?: components["schemas"]["UserCoachType"] | null;
+      /**
+       * Gender
+       * @description Gender or none
+       */
+      gender?: components["schemas"]["UserGender"] | components["schemas"]["UserGender"][] | null;
+      /**
+       * Languages
+       * @description List of all possible languages
+       */
+      languages?: components["schemas"]["UserLanguages-Output"][] | null;
       price?: components["schemas"]["SearchFilterPriceIn"] | null;
       session?: components["schemas"]["SearchFilterSessionIn"] | null;
       /**
@@ -5462,15 +5740,18 @@ export interface components {
     ServiceAccommodation: "indoor" | "outdoor" | "any";
     /** Service */
     ServiceDetailOut: {
-      /** Id */
-      id: string | null;
+      /**
+       * Id
+       * Format: uuid
+       */
+      id: string;
       /**
        * Name
        * @description This is a name of service
        */
       name: string;
       /** Description */
-      description: (string | null) | null;
+      description?: (string | null) | null;
       /**
        * Promo
        * @default false
@@ -5482,7 +5763,7 @@ export interface components {
        */
       price?: number | null;
       /** Service Other Type */
-      serviceOtherType: (string | null) | null;
+      serviceOtherType?: (string | null) | null;
       /**
        * Session Minutes Duration
        * @description Duration session in minutes
@@ -5549,15 +5830,18 @@ export interface components {
     };
     /** Service */
     ServiceOut: {
-      /** Id */
-      id: string | null;
+      /**
+       * Id
+       * Format: uuid
+       */
+      id: string;
       /**
        * Name
        * @description This is a name of service
        */
       name: string;
       /** Description */
-      description: (string | null) | null;
+      description?: (string | null) | null;
       /**
        * Promo
        * @default false
@@ -5569,7 +5853,7 @@ export interface components {
        */
       price?: number | null;
       /** Service Other Type */
-      serviceOtherType: (string | null) | null;
+      serviceOtherType?: (string | null) | null;
       /**
        * Session Minutes Duration
        * @description Duration session in minutes
@@ -5651,7 +5935,7 @@ export interface components {
        */
       name: string;
       /** Description */
-      description: (string | null) | null;
+      description?: (string | null) | null;
     };
     /** SessionCancellationDetails */
     SessionCancellationDetails: {
@@ -5855,6 +6139,16 @@ export interface components {
        * @default []
        */
       threads?: components["schemas"]["SessionReviewBaseOut"][];
+      /**
+       * Blockedyou
+       * @default false
+       */
+      blockedYou?: boolean;
+      /**
+       * Blockedbyyou
+       * @default false
+       */
+      blockedByYou?: boolean;
     };
     /**
      * SessionReviewState
@@ -6022,11 +6316,11 @@ export interface components {
      * UserLanguages
      * @enum {string}
      */
-    UserLanguages: "ab" | "aa" | "af" | "ak" | "sq" | "am" | "ar" | "an" | "hy" | "as" | "av" | "ae" | "ay" | "az" | "bm" | "ba" | "eu" | "be" | "bn" | "bh" | "bi" | "bs" | "br" | "bg" | "my" | "ca" | "ch" | "ce" | "ny" | "zh" | "cv" | "kw" | "co" | "cr" | "hr" | "cs" | "da" | "dv" | "nl" | "dz" | "en" | "eo" | "et" | "ee" | "fo" | "fj" | "fi" | "fr" | "ff" | "gl" | "ka" | "de" | "el" | "gn" | "gu" | "ht" | "ha" | "he" | "hz" | "hi" | "ho" | "hu" | "ia" | "id" | "ie" | "ga" | "ig" | "ik" | "io" | "is" | "it" | "iu" | "ja" | "jv" | "kl" | "kn" | "kr" | "ks" | "kk" | "km" | "ki" | "rw" | "ky" | "kv" | "kg" | "ko" | "ku" | "kj" | "la" | "lb" | "lg" | "li" | "ln" | "lo" | "lt" | "lu" | "lv" | "gv" | "mk" | "mg" | "ms" | "ml" | "mt" | "mi" | "mr" | "mh" | "mn" | "na" | "nv" | "nd" | "ne" | "ng" | "nb" | "nn" | "no" | "ii" | "nr" | "oc" | "oj" | "cu" | "om" | "or" | "os" | "pa" | "pi" | "fa" | "pl" | "ps" | "pt" | "qu" | "rm" | "rn" | "ro" | "ru" | "sa" | "sc" | "sd" | "se" | "sm" | "sg" | "sr" | "gd" | "sn" | "si" | "sk" | "sl" | "so" | "st" | "es" | "su" | "sw" | "ss" | "sv" | "ta" | "te" | "tg" | "th" | "ti" | "bo" | "tk" | "tl" | "tn" | "to" | "tr" | "ts" | "tt" | "tw" | "ty" | "ug" | "uk" | "ur" | "uz" | "ve" | "vi" | "vo" | "wa" | "cy" | "wo" | "fy" | "xh" | "yi" | "yo" | "za" | "zu";
+    "UserLanguages-Input": "ab" | "aa" | "af" | "ak" | "sq" | "am" | "ar" | "an" | "hy" | "as" | "av" | "ae" | "ay" | "az" | "bm" | "ba" | "eu" | "be" | "bn" | "bh" | "bi" | "bs" | "br" | "bg" | "my" | "ca" | "ch" | "ce" | "ny" | "zh" | "cv" | "kw" | "co" | "cr" | "hr" | "cs" | "da" | "dv" | "nl" | "dz" | "en" | "eo" | "et" | "ee" | "fo" | "fj" | "fi" | "fr" | "ff" | "gl" | "ka" | "de" | "el" | "gn" | "gu" | "ht" | "ha" | "he" | "hz" | "hi" | "ho" | "hu" | "ia" | "id" | "ie" | "ga" | "ig" | "ik" | "io" | "is" | "it" | "iu" | "ja" | "jv" | "kl" | "kn" | "kr" | "ks" | "kk" | "km" | "ki" | "rw" | "ky" | "kv" | "kg" | "ko" | "ku" | "kj" | "la" | "lb" | "lg" | "li" | "ln" | "lo" | "lt" | "lu" | "lv" | "gv" | "mk" | "mg" | "ms" | "ml" | "mt" | "mi" | "mr" | "mh" | "mn" | "na" | "nv" | "nd" | "ne" | "ng" | "nb" | "nn" | "no" | "ii" | "nr" | "oc" | "oj" | "cu" | "om" | "or" | "os" | "pa" | "pi" | "fa" | "pl" | "ps" | "pt" | "qu" | "rm" | "rn" | "ro" | "ru" | "sa" | "sc" | "sd" | "se" | "sm" | "sg" | "sr" | "gd" | "sn" | "si" | "sk" | "sl" | "so" | "st" | "es" | "su" | "sw" | "ss" | "sv" | "ta" | "te" | "tg" | "th" | "ti" | "bo" | "tk" | "tl" | "tn" | "to" | "tr" | "ts" | "tt" | "tw" | "ty" | "ug" | "uk" | "ur" | "uz" | "ve" | "vi" | "vo" | "wa" | "cy" | "wo" | "fy" | "xh" | "yi" | "yo" | "za" | "zu";
+    /** @enum {unknown} */
+    "UserLanguages-Output": "ab" | "aa" | "af" | "ak" | "sq" | "am" | "ar" | "an" | "hy" | "as" | "av" | "ae" | "ay" | "az" | "bm" | "ba" | "eu" | "be" | "bn" | "bh" | "bi" | "bs" | "br" | "bg" | "my" | "ca" | "ch" | "ce" | "ny" | "zh" | "cv" | "kw" | "co" | "cr" | "hr" | "cs" | "da" | "dv" | "nl" | "dz" | "en" | "eo" | "et" | "ee" | "fo" | "fj" | "fi" | "fr" | "ff" | "gl" | "ka" | "de" | "el" | "gn" | "gu" | "ht" | "ha" | "he" | "hz" | "hi" | "ho" | "hu" | "ia" | "id" | "ie" | "ga" | "ig" | "ik" | "io" | "is" | "it" | "iu" | "ja" | "jv" | "kl" | "kn" | "kr" | "ks" | "kk" | "km" | "ki" | "rw" | "ky" | "kv" | "kg" | "ko" | "ku" | "kj" | "la" | "lb" | "lg" | "li" | "ln" | "lo" | "lt" | "lu" | "lv" | "gv" | "mk" | "mg" | "ms" | "ml" | "mt" | "mi" | "mr" | "mh" | "mn" | "na" | "nv" | "nd" | "ne" | "ng" | "nb" | "nn" | "no" | "ii" | "nr" | "oc" | "oj" | "cu" | "om" | "or" | "os" | "pa" | "pi" | "fa" | "pl" | "ps" | "pt" | "qu" | "rm" | "rn" | "ro" | "ru" | "sa" | "sc" | "sd" | "se" | "sm" | "sg" | "sr" | "gd" | "sn" | "si" | "sk" | "sl" | "so" | "st" | "es" | "su" | "sw" | "ss" | "sv" | "ta" | "te" | "tg" | "th" | "ti" | "bo" | "tk" | "tl" | "tn" | "to" | "tr" | "ts" | "tt" | "tw" | "ty" | "ug" | "uk" | "ur" | "uz" | "ve" | "vi" | "vo" | "wa" | "cy" | "wo" | "fy" | "xh" | "yi" | "yo" | "za" | "zu";
     /** UserProfileOut */
     UserProfileOut: {
-      /** @description User allergy */
-      allergy?: components["schemas"]["UserAllergy"] | null;
       /**
        * Id
        * Format: uuid
@@ -6050,6 +6344,8 @@ export interface components {
        * @default false
        */
       isDeleted?: boolean;
+      /** @description User allergy */
+      allergy?: components["schemas"]["UserAllergy"] | null;
       /** Rating */
       rating?: number | null;
       /**
@@ -6238,7 +6534,6 @@ export interface components {
     };
     /**
      * UserPromoType
-     * @constant
      * @enum {string}
      */
     UserPromoType: "boosted";
@@ -7436,6 +7731,125 @@ export interface operations {
   };
   /** Get User Filters */
   get_user_filters_api_v1_admin_user__user_id__recover_post: {
+    parameters: {
+      path: {
+        user_id: string;
+      };
+    };
+    responses: {
+      /** @description Successful Response */
+      200: {
+        content: {
+          "application/json": components["schemas"]["StretchResponse"];
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        content: {
+          "application/json": components["schemas"]["HTTPValidationError"];
+        };
+      };
+    };
+  };
+  /** Get Support Roles */
+  get_support_roles_api_v1_admin_user_roles_get: {
+    parameters: {
+      query?: {
+        page?: number | null;
+        limit?: number | null;
+        search?: string | null;
+        type?: components["schemas"]["UserType"] | null;
+        createdAt?: string | null;
+        status?: components["schemas"]["RolesStatus"] | null;
+        sorting?: components["schemas"]["RolesOrderByFields"];
+      };
+    };
+    responses: {
+      /** @description Successful Response */
+      200: {
+        content: {
+          "application/json": components["schemas"]["AdminRolesOut"][];
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        content: {
+          "application/json": components["schemas"]["HTTPValidationError"];
+        };
+      };
+    };
+  };
+  /** Get Support Roles Count */
+  get_support_roles_count_api_v1_admin_user_roles_count_get: {
+    parameters: {
+      query?: {
+        search?: string | null;
+        type?: components["schemas"]["UserType"] | null;
+        createdAt?: string | null;
+        status?: components["schemas"]["RolesStatus"] | null;
+      };
+    };
+    responses: {
+      /** @description Successful Response */
+      200: {
+        content: {
+          "application/json": components["schemas"]["AdminTotalCountOut"];
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        content: {
+          "application/json": components["schemas"]["HTTPValidationError"];
+        };
+      };
+    };
+  };
+  /** Send User Invitation */
+  send_user_invitation_api_v1_admin_user_role_post: {
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["AdminInviteIn"];
+      };
+    };
+    responses: {
+      /** @description Successful Response */
+      201: {
+        content: {
+          "application/json": components["schemas"]["StretchResponse"];
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        content: {
+          "application/json": components["schemas"]["HTTPValidationError"];
+        };
+      };
+    };
+  };
+  /** Resend User Invitation */
+  resend_user_invitation_api_v1_admin_user_role__user_id__post: {
+    parameters: {
+      path: {
+        user_id: string;
+      };
+    };
+    responses: {
+      /** @description Successful Response */
+      200: {
+        content: {
+          "application/json": components["schemas"]["StretchResponse"];
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        content: {
+          "application/json": components["schemas"]["HTTPValidationError"];
+        };
+      };
+    };
+  };
+  /** Revoke User Access */
+  revoke_user_access_api_v1_admin_user_role__user_id__delete: {
     parameters: {
       path: {
         user_id: string;
