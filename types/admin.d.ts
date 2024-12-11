@@ -2834,8 +2834,9 @@ export interface components {
       paymentType?: components["schemas"]["PaymentType"];
       /** @default {} */
       paymentMethod?: components["schemas"]["SessionPaymentMethod"];
-      coach?: components["schemas"]["AdminSessionUserOut"] | null;
-      client?: components["schemas"]["AdminSessionUserOut"] | null;
+      coach: components["schemas"]["AdminSessionUserOut"];
+      client: components["schemas"]["AdminSessionUserOut"];
+      user: components["schemas"]["AdminSessionUserOut"];
       session?: components["schemas"]["AdminSessionOut"] | null;
       service?: components["schemas"]["ServiceOut"] | null;
       /**
