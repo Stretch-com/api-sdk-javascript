@@ -2804,22 +2804,9 @@ export interface components {
        * Format: uuid
        */
       id: string;
-      status?: components["schemas"]["TransactionStatus"] | null;
-      /** Amount */
-      amount: number;
-      /** Servicefee */
-      serviceFee: number;
-      /** Price */
-      price: number;
-      /** Balance */
-      balance: number;
-      /**
-       * Currency
-       * @default AED
-       */
-      currency?: string;
-      /** @default {} */
-      paymentMethod?: components["schemas"]["SessionPaymentMethod"];
+      direction: components["schemas"]["TransactionDirection"];
+      type: components["schemas"]["TransactionType"];
+      status: components["schemas"]["TransactionStatus"];
       /**
        * Createdat
        * Format: date-time
@@ -2830,6 +2817,21 @@ export interface components {
        * Format: date-time
        */
       modifiedAt: string;
+      /** Amount */
+      amount: number;
+      /** Servicefee */
+      serviceFee: number;
+      /** Price */
+      price: number;
+      /** Endingbalance */
+      endingBalance: number;
+      /**
+       * Currency
+       * @default AED
+       */
+      currency?: string;
+      /** @default {} */
+      paymentMethod?: components["schemas"]["SessionPaymentMethod"];
       /** @default session */
       paymentType?: components["schemas"]["PaymentType"];
       coach?: components["schemas"]["AdminSessionUserOut"] | null;
