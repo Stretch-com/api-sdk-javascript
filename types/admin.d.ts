@@ -1542,6 +1542,11 @@ export interface components {
       /** Recoverydeadline */
       recoveryDeadline?: string | null;
       kycStatus?: components["schemas"]["StripeConnectStatus"] | null;
+      /**
+       * Isprofilecompleted
+       * @default true
+       */
+      isProfileCompleted?: boolean;
     };
     /** AdminCoachUpdateIn */
     AdminCoachUpdateIn: {
@@ -1757,7 +1762,7 @@ export interface components {
       /**
        * Start
        * @description Start date when slot is working
-       * @example 2024-11-27
+       * @example 2024-12-11
        */
       start?: string | null;
       /**
@@ -2095,7 +2100,7 @@ export interface components {
       title: string;
       /** Description */
       description?: string | null;
-      coachRules?: components["schemas"]["SearchFilterIn-Output"] | null;
+      coachRules?: components["schemas"]["SearchFilterIn"] | null;
       businessRules?: components["schemas"]["BusinessSearchFilterIn"] | null;
       /**
        * Id
@@ -2392,6 +2397,14 @@ export interface components {
        * Format: uuid
        */
       id: string;
+      type: components["schemas"]["UserType"];
+      /**
+       * Createdat
+       * Format: date-time
+       */
+      createdAt: string;
+      /** Isregistered */
+      isRegistered: boolean;
       /**
        * Firstname
        * @default Anonymous
@@ -2402,14 +2415,6 @@ export interface components {
        * @default User
        */
       lastName?: string;
-      type: components["schemas"]["UserType"];
-      /**
-       * Createdat
-       * Format: date-time
-       */
-      createdAt: string;
-      /** Isregistered */
-      isRegistered: boolean;
       /** Email */
       email?: string | null;
       /** Phone */
@@ -2775,8 +2780,11 @@ export interface components {
       prohibitRecording?: boolean;
       /** @default any */
       accommodation?: components["schemas"]["ServiceAccommodation"];
-      /** Servicetypes */
-      serviceTypes: string[];
+      /**
+       * Servicetypes
+       * @default []
+       */
+      serviceTypes?: string[];
       /**
        * Reports
        * @default []
@@ -2796,23 +2804,45 @@ export interface components {
        * Format: uuid
        */
       id: string;
-      status?: components["schemas"]["PaymentState"] | null;
-      /** Revenue */
-      revenue?: number | null;
-      /** Currency */
-      currency?: string | null;
+      direction: components["schemas"]["TransactionDirection"];
+      type: components["schemas"]["TransactionType"];
+      status: components["schemas"]["TransactionStatus"];
+      /**
+       * Createdat
+       * Format: date-time
+       */
+      createdAt: string;
+      /**
+       * Modifiedat
+       * Format: date-time
+       */
+      modifiedAt: string;
+      /** Amount */
+      amount: number;
+      /** Servicefee */
+      serviceFee: number;
+      /** Price */
+      price: number;
+      /** Endingbalance */
+      endingBalance: number;
+      /**
+       * Currency
+       * @default AED
+       */
+      currency?: string;
       /** @default {} */
       paymentMethod?: components["schemas"]["SessionPaymentMethod"];
-      /** Createdat */
-      createdAt?: string | null;
-      /** Modifiedat */
-      modifiedAt?: string | null;
+      /** @default session */
+      paymentType?: components["schemas"]["PaymentType"];
       coach?: components["schemas"]["AdminSessionUserOut"] | null;
       client?: components["schemas"]["AdminSessionUserOut"] | null;
       session?: components["schemas"]["AdminSessionOut"] | null;
       service?: components["schemas"]["ServiceOut"] | null;
-      /** Report */
-      report?: components["schemas"]["AdminResolvedReportOut"][] | null;
+      /**
+       * Report
+       * @default []
+       */
+      report?: components["schemas"]["AdminResolvedReportOut"][];
     };
     /**
      * AdminTransactionOrderFields
@@ -2827,45 +2857,20 @@ export interface components {
        */
       total?: number | null;
       /**
-       * Awaiting
+       * Completed
        * @default 0
        */
-      awaiting?: number | null;
+      completed?: number | null;
       /**
-       * Checkout
+       * Pending
        * @default 0
        */
-      checkout?: number | null;
-      /**
-       * Review
-       * @default 0
-       */
-      review?: number | null;
-      /**
-       * Received
-       * @default 0
-       */
-      received?: number | null;
+      pending?: number | null;
       /**
        * Canceled
        * @default 0
        */
       canceled?: number | null;
-      /**
-       * Failed
-       * @default 0
-       */
-      failed?: number | null;
-      /**
-       * Refund
-       * @default 0
-       */
-      refund?: number | null;
-      /**
-       * Deleted
-       * @default 0
-       */
-      deleted?: number | null;
     };
     /** AdminTransactionSummaryInfoOut */
     AdminTransactionSummaryInfoOut: {
@@ -2900,32 +2905,37 @@ export interface components {
        * Format: uuid
        */
       id: string;
-      status: components["schemas"]["PaymentState"];
-      coach?: components["schemas"]["AdminSessionUserOut"] | null;
-      client?: components["schemas"]["AdminSessionUserOut"] | null;
-      /** Sessionname */
-      sessionName?: string | null;
+      direction: components["schemas"]["TransactionDirection"];
+      type: components["schemas"]["TransactionType"];
+      status: components["schemas"]["TransactionStatus"];
       /**
        * Createdat
        * Format: date-time
        */
       createdAt: string;
-      /** Revenue */
-      revenue: number;
+      /** Amount */
+      amount: number;
+      /** Servicefee */
+      serviceFee: number;
       /** Price */
       price: number;
-      /**
-       * Currency
-       * @default AED
-       */
-      currency?: string;
       /**
        * Endingbalance
        * @default 0
        */
       endingBalance?: number;
+      /**
+       * Currency
+       * @default AED
+       */
+      currency?: string;
+      /** Sessionname */
+      sessionName?: string | null;
+      /** @default session */
+      paymentType?: components["schemas"]["PaymentType"];
       /** @default {} */
       paymentMethod?: components["schemas"]["SessionPaymentMethod"];
+      user: components["schemas"]["AdminSessionUserOut"];
     };
     /** AdminUserConfigOut */
     AdminUserConfigOut: {
@@ -3351,7 +3361,7 @@ export interface components {
     AppConfigIn: {
       app?: components["schemas"]["ApplicationInfo"] | null;
       authentication?: components["schemas"]["AppAuthentication"] | null;
-      settings?: components["schemas"]["AppSettingsOut-Input"] | null;
+      settings?: components["schemas"]["AppSettingsOut"] | null;
       links?: components["schemas"]["AppLinks"] | null;
       contacts?: components["schemas"]["AppContacts"] | null;
       dictionaries?: components["schemas"]["AppDictionaries-Input"] | null;
@@ -3376,7 +3386,7 @@ export interface components {
        *   "recoveryReminder": true
        * }
        */
-      settings?: components["schemas"]["AppSettingsOut-Output"];
+      settings?: components["schemas"]["AppSettingsOut"];
       /**
        * @default {
        *   "privacyPolicy": "https://stretch.com/privacy-policy/"
@@ -3470,7 +3480,7 @@ export interface components {
        * Languages
        * @default []
        */
-      languages?: components["schemas"]["UserLanguages-Input"][] | null;
+      languages?: components["schemas"]["UserLanguages"][] | null;
       /**
        * Currencies
        * @default []
@@ -3526,7 +3536,7 @@ export interface components {
        * Languages
        * @default []
        */
-      languages?: components["schemas"]["UserLanguages-Output"][] | null;
+      languages?: components["schemas"]["UserLanguages"][] | null;
       /**
        * Currencies
        * @default []
@@ -3621,33 +3631,10 @@ export interface components {
       marketingPage?: string | null;
     };
     /** AppSettingsOut */
-    "AppSettingsOut-Input": {
+    AppSettingsOut: {
       /** Country */
       country?: string | null;
-      language?: components["schemas"]["UserLanguages-Input"] | null;
-      /** Currency */
-      currency?: string | null;
-      /**
-       * Otpexpiryindays
-       * @default 30
-       */
-      otpExpiryInDays?: number;
-      /**
-       * Recoverexpiryindays
-       * @default 30
-       */
-      recoverExpiryInDays?: number;
-      /**
-       * Recoveryreminder
-       * @default true
-       */
-      recoveryReminder?: boolean;
-    };
-    /** AppSettingsOut */
-    "AppSettingsOut-Output": {
-      /** Country */
-      country?: string | null;
-      language?: components["schemas"]["UserLanguages-Output"] | null;
+      language?: components["schemas"]["UserLanguages"] | null;
       /** Currency */
       currency?: string | null;
       /**
@@ -4766,7 +4753,10 @@ export interface components {
       /** Cities */
       cities: components["schemas"]["BusinessFilterValueOut"][];
     };
-    /** @enum {unknown} */
+    /**
+     * CurrencyCode
+     * @enum {string}
+     */
     CurrencyCode: "AED" | "AFN" | "ALL" | "AMD" | "ANG" | "AOA" | "ARS" | "AUD" | "AWG" | "AZN" | "BAM" | "BBD" | "BDT" | "BGN" | "BHD" | "BIF" | "BMD" | "BND" | "BOB" | "BRL" | "BSD" | "BTC" | "BTN" | "BTS" | "BWP" | "BYN" | "BZD" | "CAD" | "CDF" | "CHF" | "CLF" | "CLP" | "CNH" | "CNY" | "COP" | "CRC" | "CUC" | "CUP" | "CVE" | "CZK" | "DASH" | "DJF" | "DKK" | "DOGE" | "DOP" | "DZD" | "EGP" | "ERN" | "ETB" | "ETH" | "EUR" | "FJD" | "FKP" | "GBP" | "GEL" | "GGP" | "GHS" | "GIP" | "GMD" | "GNF" | "GTQ" | "GYD" | "HKD" | "HNL" | "HRK" | "HTG" | "HUF" | "IDR" | "ILS" | "IMP" | "INR" | "IQD" | "IRR" | "ISK" | "JEP" | "JMD" | "JOD" | "JPY" | "KES" | "KGS" | "KHR" | "KMF" | "KPW" | "KRW" | "KWD" | "KYD" | "KZT" | "LAK" | "LBP" | "LD" | "LKR" | "LRD" | "LSL" | "LTC" | "LYD" | "MAD" | "MDL" | "MGA" | "MKD" | "MMK" | "MNT" | "MOP" | "MRU" | "MUR" | "MVR" | "MWK" | "MXN" | "MYR" | "MZN" | "NAD" | "NGN" | "NIO" | "NOK" | "NPR" | "NXT" | "NZD" | "OMR" | "PAB" | "PEN" | "PGK" | "PHP" | "PKR" | "PLN" | "PYG" | "QAR" | "RON" | "RSD" | "RUB" | "RWF" | "SAR" | "SBD" | "SCR" | "SDG" | "SEK" | "SGD" | "SHP" | "SLL" | "SOS" | "SRD" | "SSP" | "STD" | "STN" | "STR" | "SVC" | "SYP" | "SZL" | "THB" | "TJS" | "TMT" | "TND" | "TOP" | "TRY" | "TTD" | "TWD" | "TZS" | "UAH" | "UGX" | "USD" | "UYU" | "UZS" | "VEF_BLKMKT" | "VEF_DICOM" | "VEF_DIPRO" | "VES" | "VND" | "VUV" | "WST" | "XAF" | "XAG" | "XAU" | "XCD" | "XDR" | "XMR" | "XOF" | "XPD" | "XPF" | "XPT" | "XRP" | "YER" | "ZAR" | "ZMW" | "ZWL";
     /**
      * DataFrameFileType
@@ -4966,7 +4956,7 @@ export interface components {
       title: string;
       /** Description */
       description?: string | null;
-      coachRules?: components["schemas"]["SearchFilterIn-Input"] | null;
+      coachRules?: components["schemas"]["SearchFilterIn"] | null;
       businessRules?: components["schemas"]["BusinessSearchFilterIn"] | null;
       /**
        * Categoryid
@@ -4985,7 +4975,7 @@ export interface components {
       title?: string | null;
       /** Description */
       description?: string | null;
-      coachRules?: components["schemas"]["SearchFilterIn-Input"] | null;
+      coachRules?: components["schemas"]["SearchFilterIn"] | null;
       businessRules?: components["schemas"]["BusinessSearchFilterIn"] | null;
       /** Categoryid */
       categoryId?: string | null;
@@ -5104,29 +5094,39 @@ export interface components {
     PaymentSessionOut: {
       /**
        * Id
+       * Format: uuid
        * @description ID for payment schema
        */
-      id?: string | null;
+      id: string;
       /** Price */
-      price?: number | null;
-      /**
-       * Methodid
-       * Format: uuid
-       */
-      methodId?: string;
+      price: number;
+      /** Discount */
+      discount: number;
+      /** Balance */
+      balance: number;
+      /** Methodid */
+      methodId?: string | null;
       /** Checkout */
       checkout?: Record<string, never> | null;
       paymentMethod?: components["schemas"]["SessionPaymentMethod"] | null;
       /** Expirationat */
       expirationAt?: string | null;
-      /** Createdat */
-      createdAt?: string | null;
+      /**
+       * Createdat
+       * Format: date-time
+       */
+      createdAt: string;
     };
     /**
      * PaymentState
      * @enum {string}
      */
     PaymentState: "awaiting" | "checkout" | "processing" | "received" | "canceled" | "failed" | "refund" | "deleted";
+    /**
+     * PaymentType
+     * @enum {string}
+     */
+    PaymentType: "session" | "boosted";
     /** PrivateBusinessProfileOut */
     PrivateBusinessProfileOut: {
       /**
@@ -5549,6 +5549,11 @@ export interface components {
        */
       createdAt: string;
       /**
+       * Customtype
+       * @default text
+       */
+      customType?: string;
+      /**
        * Attachments
        * @default []
        */
@@ -5580,7 +5585,7 @@ export interface components {
       avatarUrl?: string | null;
     };
     /** SearchFilterIn */
-    "SearchFilterIn-Input": {
+    SearchFilterIn: {
       /**
        * Page
        * @example 0
@@ -5601,72 +5606,7 @@ export interface components {
        * Languages
        * @description List of all possible languages
        */
-      languages?: components["schemas"]["UserLanguages-Input"][] | null;
-      price?: components["schemas"]["SearchFilterPriceIn"] | null;
-      session?: components["schemas"]["SearchFilterSessionIn"] | null;
-      /**
-       * Days
-       * @description List of all possible days in current location
-       */
-      days?: components["schemas"]["UserDays"][] | null;
-      /**
-       * Time
-       * @description List of all possible time in current location
-       */
-      time?: string[] | null;
-      /**
-       * Services
-       * @description List of all possible service types
-       */
-      services?: string[] | null;
-      /**
-       * Onlybookable
-       * @default true
-       */
-      onlyBookable?: boolean;
-      direction?: components["schemas"]["SearchOrderDirection"] | null;
-      order?: components["schemas"]["SearchOrder"] | null;
-      /** Marketingid */
-      marketingId?: string | null;
-      /** Addressid */
-      addressId?: string | null;
-      /** Categoryid */
-      categoryId?: string | null;
-      /** Lng */
-      lng?: number | null;
-      /** Lat */
-      lat?: number | null;
-      /** Radius */
-      radius?: number | null;
-      /**
-       * Text
-       * @description open text entry, currently used for name searching
-       */
-      text?: string | null;
-    };
-    /** SearchFilterIn */
-    "SearchFilterIn-Output": {
-      /**
-       * Page
-       * @example 0
-       */
-      page?: number | null;
-      /**
-       * Limit
-       * @example 20
-       */
-      limit?: number | null;
-      type?: components["schemas"]["UserCoachType"] | null;
-      /**
-       * Gender
-       * @description Gender or none
-       */
-      gender?: components["schemas"]["UserGender"] | components["schemas"]["UserGender"][] | null;
-      /**
-       * Languages
-       * @description List of all possible languages
-       */
-      languages?: components["schemas"]["UserLanguages-Output"][] | null;
+      languages?: components["schemas"]["UserLanguages"][] | null;
       price?: components["schemas"]["SearchFilterPriceIn"] | null;
       session?: components["schemas"]["SearchFilterSessionIn"] | null;
       /**
@@ -5814,6 +5754,7 @@ export interface components {
       properties?: components["schemas"]["UserPropOut"][] | null;
       /** Coachid */
       coachId?: string | null;
+      user?: components["schemas"]["PublicCoachShortProfileOut"] | null;
       /**
        * Allowbooking
        * @description User allowed to book with this coach on this service
@@ -5824,7 +5765,6 @@ export interface components {
       equipmentTitles?: string[] | null;
       /** @default review */
       status?: components["schemas"]["FileStatus"];
-      user?: components["schemas"]["PublicCoachShortProfileOut"] | null;
       /** Equipments */
       equipments?: components["schemas"]["EquipmentOut"][] | null;
     };
@@ -5904,6 +5844,7 @@ export interface components {
       properties?: components["schemas"]["UserPropOut"][] | null;
       /** Coachid */
       coachId?: string | null;
+      coach?: components["schemas"]["UserBaseInfo"] | null;
       /**
        * Allowbooking
        * @description User allowed to book with this coach on this service
@@ -6229,6 +6170,21 @@ export interface components {
       /** @default AED */
       currency?: components["schemas"]["CurrencyCode"] | null;
     };
+    /**
+     * TransactionDirection
+     * @enum {string}
+     */
+    TransactionDirection: "income" | "outcome";
+    /**
+     * TransactionStatus
+     * @enum {string}
+     */
+    TransactionStatus: "completed" | "pending" | "canceled";
+    /**
+     * TransactionType
+     * @enum {string}
+     */
+    TransactionType: "payment" | "withdrawal" | "balance";
     /** UpdateResponse */
     UpdateResponse: {
       /**
@@ -6276,6 +6232,32 @@ export interface components {
        */
       avatarUrls?: string[] | null;
     };
+    /** UserBaseInfo */
+    UserBaseInfo: {
+      /**
+       * Id
+       * Format: uuid
+       */
+      id: string;
+      /**
+       * Displayname
+       * @description User display name
+       * @example Smith
+       */
+      displayName?: string | null;
+      /** Firstname */
+      firstName: string;
+      /** Lastname */
+      lastName: string;
+      /** Avatarurl */
+      avatarUrl?: string | null;
+      type: components["schemas"]["UserType"];
+      /**
+       * Isdeleted
+       * @default false
+       */
+      isDeleted?: boolean;
+    };
     /**
      * UserCoachType
      * @enum {string}
@@ -6316,9 +6298,7 @@ export interface components {
      * UserLanguages
      * @enum {string}
      */
-    "UserLanguages-Input": "ab" | "aa" | "af" | "ak" | "sq" | "am" | "ar" | "an" | "hy" | "as" | "av" | "ae" | "ay" | "az" | "bm" | "ba" | "eu" | "be" | "bn" | "bh" | "bi" | "bs" | "br" | "bg" | "my" | "ca" | "ch" | "ce" | "ny" | "zh" | "cv" | "kw" | "co" | "cr" | "hr" | "cs" | "da" | "dv" | "nl" | "dz" | "en" | "eo" | "et" | "ee" | "fo" | "fj" | "fi" | "fr" | "ff" | "gl" | "ka" | "de" | "el" | "gn" | "gu" | "ht" | "ha" | "he" | "hz" | "hi" | "ho" | "hu" | "ia" | "id" | "ie" | "ga" | "ig" | "ik" | "io" | "is" | "it" | "iu" | "ja" | "jv" | "kl" | "kn" | "kr" | "ks" | "kk" | "km" | "ki" | "rw" | "ky" | "kv" | "kg" | "ko" | "ku" | "kj" | "la" | "lb" | "lg" | "li" | "ln" | "lo" | "lt" | "lu" | "lv" | "gv" | "mk" | "mg" | "ms" | "ml" | "mt" | "mi" | "mr" | "mh" | "mn" | "na" | "nv" | "nd" | "ne" | "ng" | "nb" | "nn" | "no" | "ii" | "nr" | "oc" | "oj" | "cu" | "om" | "or" | "os" | "pa" | "pi" | "fa" | "pl" | "ps" | "pt" | "qu" | "rm" | "rn" | "ro" | "ru" | "sa" | "sc" | "sd" | "se" | "sm" | "sg" | "sr" | "gd" | "sn" | "si" | "sk" | "sl" | "so" | "st" | "es" | "su" | "sw" | "ss" | "sv" | "ta" | "te" | "tg" | "th" | "ti" | "bo" | "tk" | "tl" | "tn" | "to" | "tr" | "ts" | "tt" | "tw" | "ty" | "ug" | "uk" | "ur" | "uz" | "ve" | "vi" | "vo" | "wa" | "cy" | "wo" | "fy" | "xh" | "yi" | "yo" | "za" | "zu";
-    /** @enum {unknown} */
-    "UserLanguages-Output": "ab" | "aa" | "af" | "ak" | "sq" | "am" | "ar" | "an" | "hy" | "as" | "av" | "ae" | "ay" | "az" | "bm" | "ba" | "eu" | "be" | "bn" | "bh" | "bi" | "bs" | "br" | "bg" | "my" | "ca" | "ch" | "ce" | "ny" | "zh" | "cv" | "kw" | "co" | "cr" | "hr" | "cs" | "da" | "dv" | "nl" | "dz" | "en" | "eo" | "et" | "ee" | "fo" | "fj" | "fi" | "fr" | "ff" | "gl" | "ka" | "de" | "el" | "gn" | "gu" | "ht" | "ha" | "he" | "hz" | "hi" | "ho" | "hu" | "ia" | "id" | "ie" | "ga" | "ig" | "ik" | "io" | "is" | "it" | "iu" | "ja" | "jv" | "kl" | "kn" | "kr" | "ks" | "kk" | "km" | "ki" | "rw" | "ky" | "kv" | "kg" | "ko" | "ku" | "kj" | "la" | "lb" | "lg" | "li" | "ln" | "lo" | "lt" | "lu" | "lv" | "gv" | "mk" | "mg" | "ms" | "ml" | "mt" | "mi" | "mr" | "mh" | "mn" | "na" | "nv" | "nd" | "ne" | "ng" | "nb" | "nn" | "no" | "ii" | "nr" | "oc" | "oj" | "cu" | "om" | "or" | "os" | "pa" | "pi" | "fa" | "pl" | "ps" | "pt" | "qu" | "rm" | "rn" | "ro" | "ru" | "sa" | "sc" | "sd" | "se" | "sm" | "sg" | "sr" | "gd" | "sn" | "si" | "sk" | "sl" | "so" | "st" | "es" | "su" | "sw" | "ss" | "sv" | "ta" | "te" | "tg" | "th" | "ti" | "bo" | "tk" | "tl" | "tn" | "to" | "tr" | "ts" | "tt" | "tw" | "ty" | "ug" | "uk" | "ur" | "uz" | "ve" | "vi" | "vo" | "wa" | "cy" | "wo" | "fy" | "xh" | "yi" | "yo" | "za" | "zu";
+    UserLanguages: "ab" | "aa" | "af" | "ak" | "sq" | "am" | "ar" | "an" | "hy" | "as" | "av" | "ae" | "ay" | "az" | "bm" | "ba" | "eu" | "be" | "bn" | "bh" | "bi" | "bs" | "br" | "bg" | "my" | "ca" | "ch" | "ce" | "ny" | "zh" | "cv" | "kw" | "co" | "cr" | "hr" | "cs" | "da" | "dv" | "nl" | "dz" | "en" | "eo" | "et" | "ee" | "fo" | "fj" | "fi" | "fr" | "ff" | "gl" | "ka" | "de" | "el" | "gn" | "gu" | "ht" | "ha" | "he" | "hz" | "hi" | "ho" | "hu" | "ia" | "id" | "ie" | "ga" | "ig" | "ik" | "io" | "is" | "it" | "iu" | "ja" | "jv" | "kl" | "kn" | "kr" | "ks" | "kk" | "km" | "ki" | "rw" | "ky" | "kv" | "kg" | "ko" | "ku" | "kj" | "la" | "lb" | "lg" | "li" | "ln" | "lo" | "lt" | "lu" | "lv" | "gv" | "mk" | "mg" | "ms" | "ml" | "mt" | "mi" | "mr" | "mh" | "mn" | "na" | "nv" | "nd" | "ne" | "ng" | "nb" | "nn" | "no" | "ii" | "nr" | "oc" | "oj" | "cu" | "om" | "or" | "os" | "pa" | "pi" | "fa" | "pl" | "ps" | "pt" | "qu" | "rm" | "rn" | "ro" | "ru" | "sa" | "sc" | "sd" | "se" | "sm" | "sg" | "sr" | "gd" | "sn" | "si" | "sk" | "sl" | "so" | "st" | "es" | "su" | "sw" | "ss" | "sv" | "ta" | "te" | "tg" | "th" | "ti" | "bo" | "tk" | "tl" | "tn" | "to" | "tr" | "ts" | "tt" | "tw" | "ty" | "ug" | "uk" | "ur" | "uz" | "ve" | "vi" | "vo" | "wa" | "cy" | "wo" | "fy" | "xh" | "yi" | "yo" | "za" | "zu";
     /** UserProfileOut */
     UserProfileOut: {
       /**
@@ -8124,7 +8104,7 @@ export interface operations {
         fromDate?: string | null;
         toDate?: string | null;
         allTime?: boolean | null;
-        status?: components["schemas"]["PaymentState"] | null;
+        status?: components["schemas"]["TransactionStatus"] | null;
         coachId?: string | null;
         clientId?: string | null;
         sorting?: components["schemas"]["AdminTransactionOrderFields"];
@@ -8153,7 +8133,7 @@ export interface operations {
         fromDate?: string | null;
         toDate?: string | null;
         allTime?: boolean | null;
-        status?: components["schemas"]["PaymentState"] | null;
+        status?: components["schemas"]["TransactionStatus"] | null;
         coachId?: string | null;
         clientId?: string | null;
       };
@@ -8181,7 +8161,7 @@ export interface operations {
         fromDate?: string | null;
         toDate?: string | null;
         allTime?: boolean | null;
-        status?: components["schemas"]["PaymentState"] | null;
+        status?: components["schemas"]["TransactionStatus"] | null;
         coachId?: string | null;
         clientId?: string | null;
       };
@@ -8209,7 +8189,7 @@ export interface operations {
         fromDate?: string | null;
         toDate?: string | null;
         allTime?: boolean | null;
-        status?: components["schemas"]["PaymentState"] | null;
+        status?: components["schemas"]["TransactionStatus"] | null;
         coachId?: string | null;
         clientId?: string | null;
         filetype?: components["schemas"]["DataFrameFileType"];
