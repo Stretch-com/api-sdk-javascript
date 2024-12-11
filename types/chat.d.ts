@@ -499,6 +499,11 @@ export interface components {
        */
       createdAt: string;
       /**
+       * Customtype
+       * @default text
+       */
+      customType?: string;
+      /**
        * Attachments
        * @default []
        */

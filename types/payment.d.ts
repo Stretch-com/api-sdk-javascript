@@ -673,6 +673,7 @@ export interface components {
       properties?: components["schemas"]["UserPropOut"][] | null;
       /** Coachid */
       coachId?: string | null;
+      coach?: components["schemas"]["UserBaseInfo"] | null;
       /**
        * Allowbooking
        * @description User allowed to book with this coach on this service

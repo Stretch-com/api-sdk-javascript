@@ -1315,14 +1315,14 @@ export interface components {
       /**
        * Fromdate
        * @description Get the available time starting from this value
-       * @default 2024-11-27T12:01:36.221012Z
-       * @example 2024-11-28T12:01:36.221076Z
+       * @default 2024-12-10T13:37:33.259034Z
+       * @example 2024-12-11T13:37:33.259044Z
        */
       fromDate?: string;
       /**
        * Todate
-       * @default 2024-12-28T12:01:36.221809Z
-       * @example 2024-12-28T12:01:36.221829Z
+       * @default 2025-01-10T13:37:33.259136Z
+       * @example 2025-01-10T13:37:33.259144Z
        */
       toDate?: string;
     };
@@ -1357,7 +1357,7 @@ export interface components {
       /**
        * Start
        * @description Start date when slot is working
-       * @example 2024-11-27
+       * @example 2024-12-10
        */
       start?: string | null;
       /**
@@ -1440,7 +1440,7 @@ export interface components {
       /**
        * Start
        * @description Start date when slot is working
-       * @example 2024-11-27
+       * @example 2024-12-10
        */
       start?: string | null;
       /**
@@ -1494,7 +1494,7 @@ export interface components {
       title?: string | null;
       /**
        * Start
-       * @example 2024-11-27
+       * @example 2024-12-10
        */
       start?: string | null;
       /**
@@ -3338,23 +3338,28 @@ export interface components {
     PaymentSessionOut: {
       /**
        * Id
+       * Format: uuid
        * @description ID for payment schema
        */
-      id?: string | null;
+      id: string;
       /** Price */
-      price?: number | null;
-      /**
-       * Methodid
-       * Format: uuid
-       */
-      methodId?: string;
+      price: number;
+      /** Discount */
+      discount: number;
+      /** Balance */
+      balance: number;
+      /** Methodid */
+      methodId?: string | null;
       /** Checkout */
       checkout?: Record<string, never> | null;
       paymentMethod?: components["schemas"]["SessionPaymentMethod"] | null;
       /** Expirationat */
       expirationAt?: string | null;
-      /** Createdat */
-      createdAt?: string | null;
+      /**
+       * Createdat
+       * Format: date-time
+       */
+      createdAt: string;
     };
     /**
      * PaymentState
@@ -4929,6 +4934,7 @@ export interface components {
       properties?: components["schemas"]["UserPropOut"][] | null;
       /** Coachid */
       coachId?: string | null;
+      user?: components["schemas"]["PublicCoachShortProfileOut"] | null;
       /**
        * Allowbooking
        * @description User allowed to book with this coach on this service
@@ -4939,7 +4945,6 @@ export interface components {
       equipmentTitles?: string[] | null;
       /** @default review */
       status?: components["schemas"]["FileStatus"];
-      user?: components["schemas"]["PublicCoachShortProfileOut"] | null;
       /** Equipments */
       equipments?: components["schemas"]["EquipmentOut"][] | null;
     };
@@ -5123,6 +5128,7 @@ export interface components {
       properties?: components["schemas"]["UserPropOut"][] | null;
       /** Coachid */
       coachId?: string | null;
+      coach?: components["schemas"]["UserBaseInfo"] | null;
       /**
        * Allowbooking
        * @description User allowed to book with this coach on this service
@@ -5280,7 +5286,7 @@ export interface components {
        * @description Availability date for create
        * @example [
        *   {
-       *     "date": "2024-11-27T12:01:15.680515",
+       *     "date": "2024-12-10T13:37:17.941246",
        *     "orderDescription": "Order description"
        *   }
        * ]
@@ -5487,8 +5493,11 @@ export interface components {
       prohibitRecording?: boolean;
       /** @default any */
       accommodation?: components["schemas"]["ServiceAccommodation"];
-      /** Servicetypes */
-      serviceTypes: string[];
+      /**
+       * Servicetypes
+       * @default []
+       */
+      serviceTypes?: string[];
     };
     /** SessionDropIn */
     SessionDropIn: {
@@ -6125,7 +6134,7 @@ export interface components {
       /**
        * Slots
        * @description Availability date for create
-       * @example 2024-11-27T12:01:15.803398
+       * @example 2024-12-10T13:37:18.187022
        */
       slots: string | components["schemas"]["SessionBookingIn"][];
       location?: components["schemas"]["AddressSessionOut"] | null;
@@ -6223,6 +6232,32 @@ export interface components {
      * @enum {string}
      */
     UserAllergy: "none" | "cat" | "dog" | "unknown" | "all";
+    /** UserBaseInfo */
+    UserBaseInfo: {
+      /**
+       * Id
+       * Format: uuid
+       */
+      id: string;
+      /**
+       * Displayname
+       * @description User display name
+       * @example Smith
+       */
+      displayName?: string | null;
+      /** Firstname */
+      firstName: string;
+      /** Lastname */
+      lastName: string;
+      /** Avatarurl */
+      avatarUrl?: string | null;
+      type: components["schemas"]["UserType"];
+      /**
+       * Isdeleted
+       * @default false
+       */
+      isDeleted?: boolean;
+    };
     /**
      * UserCoachType
      * @enum {string}
@@ -6242,6 +6277,7 @@ export interface components {
        * @default []
        */
       unpaidSessions?: components["schemas"]["SessionOut"][] | null;
+      activeSession?: components["schemas"]["SessionOut"] | null;
       /** @default {} */
       chat?: components["schemas"]["SBChatConfigOut"];
     };
