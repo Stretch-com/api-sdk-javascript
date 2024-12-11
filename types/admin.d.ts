@@ -2830,10 +2830,10 @@ export interface components {
        * @default AED
        */
       currency?: string;
-      /** @default {} */
-      paymentMethod?: components["schemas"]["SessionPaymentMethod"];
       /** @default session */
       paymentType?: components["schemas"]["PaymentType"];
+      /** @default {} */
+      paymentMethod?: components["schemas"]["SessionPaymentMethod"];
       coach?: components["schemas"]["AdminSessionUserOut"] | null;
       client?: components["schemas"]["AdminSessionUserOut"] | null;
       session?: components["schemas"]["AdminSessionOut"] | null;
