@@ -1762,7 +1762,7 @@ export interface components {
       /**
        * Start
        * @description Start date when slot is working
-       * @example 2024-12-11
+       * @example 2024-12-17
        */
       start?: string | null;
       /**
@@ -2592,16 +2592,22 @@ export interface components {
        */
       id: string;
       /** Firstname */
-      firstName?: string | null;
+      firstName: string;
       /** Lastname */
-      lastName?: string | null;
+      lastName: string;
       /** Avatarurl */
       avatarUrl?: string | null;
       /** Email */
       email?: string | null;
       /** Phone */
       phone?: string | null;
-      type?: components["schemas"]["UserType"] | null;
+      /** @default client */
+      type?: components["schemas"]["UserType"];
+      /**
+       * Isbanned
+       * @default false
+       */
+      isBanned?: boolean;
     };
     /** AdminSessionViewOut */
     AdminSessionViewOut: {
@@ -2849,7 +2855,7 @@ export interface components {
      * AdminTransactionOrderFields
      * @enum {string}
      */
-    AdminTransactionOrderFields: "coach_first_name" | "-coach_first_name" | "client_first_name" | "-client_first_name" | "created_at" | "-created_at" | "revenue" | "-revenue" | "status" | "-status";
+    AdminTransactionOrderFields: "type" | "-type" | "created_at" | "-created_at" | "amount" | "-amount" | "status" | "-status";
     /** AdminTransactionSummaryCountOut */
     AdminTransactionSummaryCountOut: {
       /**
@@ -2916,10 +2922,16 @@ export interface components {
       createdAt: string;
       /** Amount */
       amount: number;
-      /** Servicefee */
-      serviceFee: number;
-      /** Price */
-      price: number;
+      /**
+       * Servicefee
+       * @default 0
+       */
+      serviceFee?: number;
+      /**
+       * Price
+       * @default 0
+       */
+      price?: number;
       /**
        * Endingbalance
        * @default 0
@@ -9212,7 +9224,7 @@ export interface operations {
       /** @description Successful Response */
       200: {
         content: {
-          "application/json": components["schemas"]["StretchResponse"];
+          "application/json": components["schemas"]["UpdateResponse"];
         };
       };
     };
