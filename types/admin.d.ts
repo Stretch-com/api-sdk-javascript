@@ -557,11 +557,6 @@ export interface components {
        */
       apartment?: string | null;
       /**
-       * Neighborhood
-       * @description neighborhood
-       */
-      neighborhood?: string | null;
-      /**
        * Radius
        * @description Radius in meters
        * @example 10000
@@ -686,11 +681,6 @@ export interface components {
        * @example 1245
        */
       apartment?: string | null;
-      /**
-       * Neighborhood
-       * @description neighborhood
-       */
-      neighborhood?: string | null;
       /**
        * Radius
        * @description Radius in meters
@@ -827,11 +817,6 @@ export interface components {
        * @example 1245
        */
       apartment?: string | null;
-      /**
-       * Neighborhood
-       * @description neighborhood
-       */
-      neighborhood?: string | null;
       /**
        * Radius
        * @description Radius in meters
@@ -1762,7 +1747,7 @@ export interface components {
       /**
        * Start
        * @description Start date when slot is working
-       * @example 2024-12-17
+       * @example 2024-12-20
        */
       start?: string | null;
       /**
@@ -2592,17 +2577,16 @@ export interface components {
        */
       id: string;
       /** Firstname */
-      firstName: string;
+      firstName?: string | null;
       /** Lastname */
-      lastName: string;
+      lastName?: string | null;
       /** Avatarurl */
       avatarUrl?: string | null;
       /** Email */
       email?: string | null;
       /** Phone */
       phone?: string | null;
-      /** @default client */
-      type?: components["schemas"]["UserType"];
+      type: components["schemas"]["UserType"];
       /**
        * Isbanned
        * @default false
@@ -3026,6 +3010,8 @@ export interface components {
       registeredFrom?: string | null;
       /** Registeredto */
       registeredTo?: string | null;
+      /** Startswith */
+      startsWith?: string | null;
     };
     /** AdminUserDataValidateIn */
     AdminUserDataValidateIn: {
@@ -3224,6 +3210,8 @@ export interface components {
       registeredFrom?: string | null;
       /** Registeredto */
       registeredTo?: string | null;
+      /** Startswith */
+      startsWith?: string | null;
       /** @default -created_at */
       sorting?: components["schemas"]["AdminUserOrderFields"];
     };
@@ -4058,6 +4046,11 @@ export interface components {
        * @default []
        */
       status?: components["schemas"]["BusinessFilterValueOut"][];
+      /**
+       * Startswith
+       * @default []
+       */
+      startsWith?: components["schemas"]["BusinessFilterValueOut"][];
     };
     /**
      * BusinessOrderByFields
@@ -5397,11 +5390,6 @@ export interface components {
        */
       apartment?: string | null;
       /**
-       * Neighborhood
-       * @description neighborhood
-       */
-      neighborhood?: string | null;
-      /**
        * Radius
        * @description Radius in meters
        * @example 10000
@@ -6483,6 +6471,11 @@ export interface components {
        * @default false
        */
       isTemporary?: boolean;
+      /**
+       * Ispublished
+       * @default true
+       */
+      isPublished?: boolean;
       /**
        * Totalpayment
        * @description Total payment amount
