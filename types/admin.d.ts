@@ -1218,6 +1218,11 @@ export interface components {
      * @enum {string}
      */
     AdminClientOrderFields: "created_at" | "-created_at" | "last_name" | "-last_name" | "first_name" | "-first_name" | "email" | "-email" | "sessions_count" | "-sessions_count" | "rating" | "-rating" | "spend" | "-spend";
+    /**
+     * AdminClientStatus
+     * @enum {string}
+     */
+    AdminClientStatus: "active" | "banned";
     /** AdminClientSummaryOut */
     AdminClientSummaryOut: {
       /** @default AED */
@@ -1448,6 +1453,11 @@ export interface components {
      * @enum {string}
      */
     AdminCoachOrderFields: "name" | "-name" | "created_at" | "-created_at" | "certificates_count" | "-certificates_count" | "experience" | "-experience" | "services_count" | "-services_count" | "rating" | "-rating" | "disabled" | "-disabled";
+    /**
+     * AdminCoachStatus
+     * @enum {string}
+     */
+    AdminCoachStatus: "available" | "active" | "banned" | "draft" | "deleted" | "verified";
     /** AdminCoachSummaryViewOut */
     AdminCoachSummaryViewOut: {
       /**
@@ -1747,7 +1757,7 @@ export interface components {
       /**
        * Start
        * @description Start date when slot is working
-       * @example 2024-12-20
+       * @example 2024-12-30
        */
       start?: string | null;
       /**
@@ -5293,15 +5303,21 @@ export interface components {
        * @default false
        */
       services?: boolean;
-      /** Allergy */
-      allergy?: boolean | null;
+      /**
+       * Allergy
+       * @default false
+       */
+      allergy?: boolean;
       /**
        * Certificates
        * @default false
        */
       certificates?: boolean;
-      /** Awards */
-      awards?: boolean | null;
+      /**
+       * Awards
+       * @default false
+       */
+      awards?: boolean;
       /**
        * Percentage
        * @default 0
@@ -6681,10 +6697,7 @@ export interface operations {
     parameters: {
       query?: {
         search?: string | null;
-        disabled?: boolean | null;
-        availability?: boolean | null;
-        verified?: boolean | null;
-        isDeleted?: boolean | null;
+        status?: components["schemas"]["AdminCoachStatus"] | null;
         page?: number | null;
         limit?: number | null;
         sorting?: components["schemas"]["AdminCoachOrderFields"] | null;
@@ -6710,10 +6723,7 @@ export interface operations {
     parameters: {
       query?: {
         search?: string | null;
-        disabled?: boolean | null;
-        availability?: boolean | null;
-        verified?: boolean | null;
-        isDeleted?: boolean | null;
+        status?: components["schemas"]["AdminCoachStatus"] | null;
       };
     };
     responses: {
@@ -6855,13 +6865,10 @@ export interface operations {
     parameters: {
       query?: {
         search?: string | null;
-        disabled?: boolean | null;
-        availability?: boolean | null;
-        verified?: boolean | null;
-        isDeleted?: boolean | null;
-        sorting?: components["schemas"]["AdminClientOrderFields"] | null;
+        status?: components["schemas"]["AdminClientStatus"] | null;
         page?: number | null;
         limit?: number | null;
+        sorting?: components["schemas"]["AdminClientOrderFields"] | null;
         blocked?: boolean | null;
       };
       path: {
@@ -6888,11 +6895,7 @@ export interface operations {
     parameters: {
       query?: {
         search?: string | null;
-        disabled?: boolean | null;
-        availability?: boolean | null;
-        verified?: boolean | null;
-        isDeleted?: boolean | null;
-        sorting?: components["schemas"]["AdminClientOrderFields"] | null;
+        status?: components["schemas"]["AdminClientStatus"] | null;
       };
       path: {
         coach_id: string;
@@ -6918,13 +6921,10 @@ export interface operations {
     parameters: {
       query?: {
         search?: string | null;
-        disabled?: boolean | null;
-        availability?: boolean | null;
-        verified?: boolean | null;
-        isDeleted?: boolean | null;
-        sorting?: components["schemas"]["AdminClientOrderFields"] | null;
+        status?: components["schemas"]["AdminClientStatus"] | null;
         page?: number | null;
         limit?: number | null;
+        sorting?: components["schemas"]["AdminClientOrderFields"] | null;
       };
     };
     responses: {
@@ -6947,11 +6947,7 @@ export interface operations {
     parameters: {
       query?: {
         search?: string | null;
-        disabled?: boolean | null;
-        availability?: boolean | null;
-        verified?: boolean | null;
-        isDeleted?: boolean | null;
-        sorting?: components["schemas"]["AdminClientOrderFields"] | null;
+        status?: components["schemas"]["AdminClientStatus"] | null;
       };
     };
     responses: {
@@ -7098,10 +7094,7 @@ export interface operations {
     parameters: {
       query?: {
         search?: string | null;
-        disabled?: boolean | null;
-        availability?: boolean | null;
-        verified?: boolean | null;
-        isDeleted?: boolean | null;
+        status?: components["schemas"]["AdminCoachStatus"] | null;
         page?: number | null;
         limit?: number | null;
         sorting?: components["schemas"]["AdminCoachOrderFields"] | null;
@@ -7130,10 +7123,7 @@ export interface operations {
     parameters: {
       query?: {
         search?: string | null;
-        disabled?: boolean | null;
-        availability?: boolean | null;
-        verified?: boolean | null;
-        isDeleted?: boolean | null;
+        status?: components["schemas"]["AdminCoachStatus"] | null;
       };
       path: {
         client_id: string;
@@ -7515,13 +7505,10 @@ export interface operations {
     parameters: {
       query?: {
         search?: string | null;
-        disabled?: boolean | null;
-        availability?: boolean | null;
-        verified?: boolean | null;
-        isDeleted?: boolean | null;
-        sorting?: components["schemas"]["AdminClientOrderFields"] | null;
+        status?: components["schemas"]["AdminClientStatus"] | null;
         page?: number | null;
         limit?: number | null;
+        sorting?: components["schemas"]["AdminClientOrderFields"] | null;
       };
       path: {
         user_id: string;
@@ -7547,11 +7534,7 @@ export interface operations {
     parameters: {
       query?: {
         search?: string | null;
-        disabled?: boolean | null;
-        availability?: boolean | null;
-        verified?: boolean | null;
-        isDeleted?: boolean | null;
-        sorting?: components["schemas"]["AdminClientOrderFields"] | null;
+        status?: components["schemas"]["AdminClientStatus"] | null;
       };
       path: {
         user_id: string;
