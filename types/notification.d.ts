@@ -142,6 +142,10 @@ export interface components {
     NotificationPushIn: {
       /** Token */
       token: string;
+      /** Apntoken */
+      apnToken?: string | null;
+      /** Huaweitoken */
+      huaweiToken?: string | null;
     };
     /** NotificationStatus */
     NotificationStatus: {
