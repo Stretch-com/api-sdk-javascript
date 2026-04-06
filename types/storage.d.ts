@@ -840,7 +840,12 @@ export interface components {
      * StripeConnectStatus
      * @enum {string}
      */
-    StripeConnectStatus: "unregistered" | "completed" | "pending" | "unverified";
+    StripeConnectStatus:
+      | "unregistered"
+      | "completed"
+      | "pending"
+      | "unverified"
+      | "action_required";
     /**
      * UserAllergy
      * @enum {string}

@@ -769,12 +769,23 @@ export interface components {
       status?: components["schemas"]["StripeConnectStatus"];
       /** Accountlink */
       accountLink?: string | null;
+      /** Accountid */
+      accountId?: string | null;
+      /** Accountlinkexpiresat */
+      accountLinkExpiresAt?: number | null;
+      /** Accountlinktype */
+      accountLinkType?: "account_onboarding" | "account_update" | null;
     };
     /**
      * StripeConnectStatus
      * @enum {string}
      */
-    StripeConnectStatus: "unregistered" | "completed" | "pending" | "unverified";
+    StripeConnectStatus:
+      | "unregistered"
+      | "completed"
+      | "pending"
+      | "unverified"
+      | "action_required";
     /**
      * TransactionDirection
      * @enum {string}
